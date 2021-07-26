@@ -52,11 +52,61 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 EOF
 
-" remap esc
+
+nmap <Up>    <Nop>
+nmap <Down>  <Nop>
+nmap <Left>  <Nop>
+nmap <Right> <Nop>
+
+map $ <Nop>
+map ^ <Nop>
+map { <Nop>
+map } <Nop>
+
+noremap K     {
+noremap J     }
+noremap H     ^
+noremap L     $
+" Close the current buffer and open previous one in the same pane
+noremap <C-x> :bp<Bar>bd #<Cr>
+
+nnoremap Q @q
+nnoremap Y y$
+
+nmap >> <Nop>
+nmap << <Nop>
+vmap >> <Nop>
+vmap << <Nop>
+
+nnoremap <Tab>   >>
+nnoremap <S-Tab> <<
+vnoremap <Tab>   >><Esc>gv
+vnoremap <S-Tab> <<<Esc>gv
+
+imap <Up>    <Nop>
+imap <Down>  <Nop>
+imap <Left>  <Nop>
+imap <Right> <Nop>
+
+inoremap <C-k> <Up>
+inoremap <C-j> <Down>
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
 inoremap jj <ESC>
+onoremap jj <ESC>
+
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+inoremap < <><Left>
+inoremap ( ()<Left>
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap " ""<Left>
+inoremap ' ''<Left>
+inoremap ` ``<Left>
 
 " use <Tab> as trigger keys
 imap <Tab> <Plug>(completion_smart_tab)
@@ -134,4 +184,40 @@ set wildmenu
 set termguicolors
 set background=dark
 colorscheme solarized8 
+
+" Cursor/movement
+set scrolloff=3
+
+" grep
+set grepprg=rg\ -i\ --vimgrep " use ripgrep
+set grepformat^=%f:%l:%c:%m
+
+" Numbering
+set number relativenumber
+augroup numbertoggle " Toggle 'relativenumber' on insert.
+  autocmd!
+  autocmd InsertEnter,BufLeave,WinLeave,FocusLost * nested
+            \ if &l:number && empty(&buftype) |
+            \ setlocal norelativenumber |
+            \ endif
+  autocmd InsertLeave,BufEnter,WinEnter,FocusGained * nested
+              \ if &l:number && mode() != 'i' && empty(&buftype) |
+              \ setlocal relativenumber |
+              \ endif
+augroup END
+
+" Search
+set ignorecase smartcase " Ignore case when searching, unless a uppercase letter is present.
+noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)| " Center/blink after search.
+
+" Splits
+set splitright splitbelow " Open vertical splits to the right, horizontal below.
+let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
+
+" Whitespace
+set list listchars=tab:→·,nbsp:·,trail:~,extends:»,precedes:« " Show hidden characters.
+set showbreak=>\  " Show a character for wrapped lines.
+let g:indentLine_char = '┊' " Use a small line to show space-based indentation.
+
+
 
