@@ -41,6 +41,7 @@ Plug 'rhysd/vim-clang-format'
 Plug 'dag/vim-fish'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'alvan/vim-closetag'
 
 call plug#end()
 
@@ -52,7 +53,7 @@ end
 
 
 " syntax highlighting
-syntax enable
+syntax on
 
 " Configure LSP
 " https://github.com/neovim/nvim-lspconfig#rust_analyzer
@@ -83,12 +84,14 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  buf_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+  buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 
   -- Forward to other plugins
   require'completion'.on_attach(client)
 end
 
-local servers = { "rust_analyzer" }
+local servers = { "rust_analyzer", "vimls", "bashls" }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -138,6 +141,22 @@ set updatetime=300
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
+" closetag plugin
+let g:closetag_filenames = '*.html,*.xhtml,*.gohtml'
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+let g:closetag_filetypes = 'html,xhtml,gohtml'
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+let g:closetag_emptyTags_caseSensitive = 1
+" Disables auto-close if not in a "valid" region (based on filetype)
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+let g:closetag_shortcut = '>'
+" Add > at current position without closing the current tag, default is ''
+let g:closetag_close_shortcut = '<leader>>'
 " =============================================================================
 " # Editor settings
 " =============================================================================
@@ -146,7 +165,7 @@ filetype plugin indent on
 set autoindent
 set timeoutlen=300 " http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
 set encoding=utf-8
-set scrolloff=2
+set scrolloff=4
 set noshowmode
 set hidden
 set nowrap
@@ -170,7 +189,13 @@ set undofile
 " search down into subfolders
 " provides tab-completion for all file-related tasks
 set wildmenu
-set wildmode=list:longest
+" set wildmode=list:longest
+
+" Use wide tabs
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
+set noexpandtab
 
 " Wrapping options
 set formatoptions=tc " wrap text and comments using textwidth
@@ -198,6 +223,10 @@ nnoremap / /\v
 cnoremap %s/ %sm/
 
 set nospell spelllang=en_us
+
+" Splits
+set splitright splitbelow " Open vertical splits to the right, horizontal below.
+let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
 
 " =============================================================================
 " # GUI settings
@@ -240,8 +269,16 @@ set mouse=a " Enable mouse usage (all modes) in terminals
 set shortmess+=c " don't give |ins-completion-menu| messages.
 
 " Show those damn hidden characters
-" Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
-set listchars=nbsp:¬,extends:»,precedes:«,trail:•
+" Verbose: set listchars=eol:¶,tab:→·,nbsp:·,extends:»,precedes:«,trail:~
+set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
+
+" Whitespace
+set showbreak=>\  " Show a character for wrapped lines.
+let g:indentLine_char = '┊' " Use a small line to show space-based indentation.
+
+" Search
+noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)| " Center/blink after search.
+
 
 " =============================================================================
 " # Keyboard shortcuts
@@ -249,52 +286,75 @@ set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 " ; as :
 nnoremap ; :
 
-" Code navigation shortcuts
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" Disable arrow keys entirely in visual mode
+nnoremap <Up>    <Nop>
+nnoremap <Down>  <Nop>
+nnoremap <Left>  <Nop>
+nnoremap <Right> <Nop>
 
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-" Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" Left and right can switch buffers
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
 
-" Goto previous/next diagnostic warning/error
-nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
+" Move by line
+nnoremap j gj
+nnoremap k gk
 
-" Set updatetime for CursorHold
-" 300ms of no cursor movement to trigger CursorHold
-set updatetime=300
+" Ctrl+j and Ctrl+k as Esc
+" Ctrl-j is a little awkward unfortunately:
+" https://github.com/neovim/neovim/issues/5916
+" So we also map Ctrl+k
+nnoremap <C-j> <Esc>
+inoremap <C-j> <Esc>
+vnoremap <C-j> <Esc>
+snoremap <C-j> <Esc>
+xnoremap <C-j> <Esc>
+cnoremap <C-j> <C-c>
+onoremap <C-j> <Esc>
+lnoremap <C-j> <Esc>
+tnoremap <C-j> <Esc>
 
-nmap <Up>    <Nop>
-nmap <Down>  <Nop>
-nmap <Left>  <Nop>
-nmap <Right> <Nop>
+nnoremap <C-k> <Esc>
+inoremap <C-k> <Esc>
+vnoremap <C-k> <Esc>
+snoremap <C-k> <Esc>
+xnoremap <C-k> <Esc>
+cnoremap <C-k> <C-c>
+onoremap <C-k> <Esc>
+lnoremap <C-k> <Esc>
+tnoremap <C-k> <Esc>
 
-map $ <Nop>
-map ^ <Nop>
-map { <Nop>
-map } <Nop>
+" alow easy esc from terminal mode
+tnoremap <Esc> <C-\><C-n>
 
-noremap K     {
-noremap J     }
-noremap H     ^
-noremap L     $
+" Ctrl+h to stop searching
+vnoremap <C-h> :nohlsearch<cr>
+nnoremap <C-h> :nohlsearch<cr>
+
+" Suspend with Ctrl+f
+inoremap <C-f> :sus<cr>
+vnoremap <C-f> :sus<cr>
+nnoremap <C-f> :sus<cr>
+
+noremap H ^
+noremap L $
+
+" Neat X clipboard integration
+" ,p will paste clipboard into buffer
+" ,c will copy entire buffer into clipboard
+noremap <leader>p :read !xsel --clipboard --output<cr>
+noremap <leader>c :w !xsel -ib<cr><cr>
+
+" Open new file adjacent to current file
+nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 " Close the current buffer and open previous one in the same pane
 noremap <C-x> :bp<Bar>bd #<Cr>
 
 nnoremap Q @q
 nnoremap Y y$
 
+" Indenting
 nmap >> <Nop>
 nmap << <Nop>
 vmap >> <Nop>
@@ -305,52 +365,71 @@ nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 
-imap <Up>    <Nop>
-imap <Down>  <Nop>
-imap <Left>  <Nop>
-imap <Right> <Nop>
-
-" inoremap <C-k> <Up>
-" inoremap <C-j> <Down>
-" inoremap <C-h> <Left>
-" inoremap <C-l> <Right>
-
-inoremap <C-j> <ESC>
-tnoremap <C-j> <ESC>
-vnoremap <C-j> <ESC>
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" inoremap <> <><Left>
-" inoremap () ()<Left>
-" inoremap {} {}<Left>
-" inoremap [] []<Left>
-" inoremap "" ""<Left>
-" inoremap '' ''<Left>
-" inoremap `` ``<Left>
 
 " use <Tab> as trigger keys
 imap <Tab> <Plug>(completion_smart_tab)
 imap <S-Tab> <Plug>(completion_smart_s_tab)
 
+" Enable type inlay hints
+autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
-" alow easy esc from terminal mode
-tnoremap <Esc> <C-\><C-n>
+" Use <TAB> for selections ranges.
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
 
-" Search
-set ignorecase smartcase " Ignore case when searching, unless a uppercase letter is present.
-noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)| " Center/blink after search.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Splits
-set splitright splitbelow " Open vertical splits to the right, horizontal below.
-let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
 
-" Whitespace
-set list listchars=tab:→·,nbsp:·,trail:~,extends:»,precedes:« " Show hidden characters.
-set showbreak=>\  " Show a character for wrapped lines.
-let g:indentLine_char = '┊' " Use a small line to show space-based indentation.
+" <leader>, shows/hides hidden characters
+nnoremap <leader>, :set invlist<cr>
 
+" <leader>q shows stats
+nnoremap <leader>q g<c-g>
 
+" Keymap for replacing up to next _
+noremap <leader>m ct_
+
+" =============================================================================
+" # Autocommands
+" =============================================================================
+
+" Prevent accidental writes to buffers that shouldn't be edited
+" autocmd BufRead *.orig set readonly
+" autocmd BufRead *.pacnew set readonly
+
+" Leave paste mode when leaving insert mode
+autocmd InsertLeave * set nopaste
+
+" Jump to last edit position on opening file
+if has("autocmd")
+  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Follow Rust code style rules
+au Filetype rust source ~/.config/nvim/scripts/spacetab.vim
+au Filetype rust set colorcolumn=100
+
+" Help filetype detection
+autocmd BufRead *.plot set filetype=gnuplot
+autocmd BufRead *.md set filetype=markdown
+autocmd BufRead *.lds set filetype=ld
+autocmd BufRead *.tex set filetype=tex
+autocmd BufRead *.trm set filetype=c
+autocmd BufRead *.xlsx.axlsx set filetype=ruby
+
+" =============================================================================
+" # Footer
+" =============================================================================
+
+" nvim
+if has('nvim')
+	runtime! plugin/python_setup.vim
+endif
 

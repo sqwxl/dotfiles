@@ -6,6 +6,14 @@ set -gx VISUAL /usr/bin/nvim
 set -gx PAGER /usr/bin/most
 
 abbr -ag n nvim
+abbr -ag e nvim
+abbr -ag se sudoedit
+
+abbr -ag d sudo systemctl start docker
+abbr -ag dc sudo docker-compose
+
+abbr -ag m make
+
 abbr -ag g git
 abbr -ag ga 'git add -p'
 abbr -ag gc 'git checkout'
@@ -21,6 +29,7 @@ abbr -ag cfgatty 'nvim ~/.alacritty.yml'
 # config abbr for dotfiles
 abbr -ag config "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
+abbr -ag exa exa --group-directories-first
 if command -v exa > /dev/null
 	abbr -ag l 'exa'
 	abbr -ag ls 'exa'
@@ -32,7 +41,7 @@ else
 	abbr -ag lll 'ls -la'
 end
 
-# Type - to move up to top parent dir which is a repository
+# Type 'd' to move up to top parent dir which is a repository
 function d
 	while test $PWD != "/"
 		if test -d .git
