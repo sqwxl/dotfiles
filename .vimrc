@@ -46,9 +46,9 @@ Plug 'alvan/vim-closetag'
 call plug#end()
 
 if has('nvim')
-    set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-    set inccommand=nosplit
-    noremap <C-q> :confirm qall<CR>
+	set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
+	set inccommand=nosplit
+	noremap <C-q> :confirm qall<CR>
 end
 
 
@@ -60,53 +60,53 @@ syntax on
 lua << END
 local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
-  --Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+--Enable completion triggered by <c-x><c-o>
+buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings.
-  local opts = { noremap=true, silent=true }
+-- Mappings.
+local opts = { noremap=true, silent=true }
 
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  buf_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-  buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
+-- See `:help vim.lsp.*` for documentation on any of the below functions
+buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+buf_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 
-  -- Forward to other plugins
-  require'completion'.on_attach(client)
+-- Forward to other plugins
+require'completion'.on_attach(client)
 end
 
 local servers = { "rust_analyzer", "vimls", "bashls" }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
-  }
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		flags = {
+			debounce_text_changes = 150,
+			}
+		}
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
+vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = true,
+	signs = true,
+	update_in_insert = true,
+	}
 )
 END
 
@@ -149,11 +149,11 @@ let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 let g:closetag_emptyTags_caseSensitive = 1
 " Disables auto-close if not in a "valid" region (based on filetype)
 let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ 'typescriptreact': 'jsxRegion,tsxRegion',
-    \ 'javascriptreact': 'jsxRegion',
-    \ }
+			\ 'typescript.tsx': 'jsxRegion,tsxRegion',
+			\ 'javascript.jsx': 'jsxRegion',
+			\ 'typescriptreact': 'jsxRegion,tsxRegion',
+			\ 'javascriptreact': 'jsxRegion',
+			\ }
 let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
@@ -248,15 +248,15 @@ set laststatus=2
 set relativenumber " Relative line numbers
 set number " Also show current absolute line
 augroup numbertoggle " Toggle 'relativenumber' on insert.
-  autocmd!
-  autocmd InsertEnter,BufLeave,WinLeave,FocusLost * nested
-            \ if &l:number && empty(&buftype) |
-            \ setlocal norelativenumber |
-            \ endif
-  autocmd InsertLeave,BufEnter,WinEnter,FocusGained * nested
-              \ if &l:number && mode() != 'i' && empty(&buftype) |
-              \ setlocal relativenumber |
-              \ endif
+	autocmd!
+	autocmd InsertEnter,BufLeave,WinLeave,FocusLost * nested
+				\ if &l:number && empty(&buftype) |
+				\ setlocal norelativenumber |
+				\ endif
+	autocmd InsertLeave,BufEnter,WinEnter,FocusGained * nested
+				\ if &l:number && mode() != 'i' && empty(&buftype) |
+				\ setlocal relativenumber |
+				\ endif
 augroup END
 
 set diffopt+=iwhite " No whitespace in vimdiff
@@ -336,7 +336,10 @@ inoremap <C-f> :sus<cr>
 vnoremap <C-f> :sus<cr>
 nnoremap <C-f> :sus<cr>
 
+" Move fast
 noremap H ^
+noremap J {
+noremap K }
 noremap L $
 
 " Neat X clipboard integration
@@ -386,6 +389,15 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ on
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <c-^>
 
+" tab controls
+nnoremap <C-Tab> :tablast<cr>
+nnoremap <C-n> :tabnew<cr>
+nnoremap <C-N> :tabclose<cr>
+
+" windows
+nnoremap <C-_> <C-w>n
+nnoremap <C-\> :vnew<cr>
+
 " <leader>, shows/hides hidden characters
 nnoremap <leader>, :set invlist<cr>
 
@@ -408,8 +420,8 @@ autocmd InsertLeave * set nopaste
 
 " Jump to last edit position on opening file
 if has("autocmd")
-  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	" https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+	au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 " Follow Rust code style rules

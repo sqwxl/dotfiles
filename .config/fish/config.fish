@@ -9,7 +9,7 @@ abbr -ag n nvim
 abbr -ag e nvim
 abbr -ag se sudoedit
 
-abbr -ag d sudo systemctl start docker
+abbr -ag ds sudo systemctl start docker
 abbr -ag dc sudo docker-compose
 
 abbr -ag m make
