@@ -338,8 +338,8 @@ nnoremap <C-f> :sus<cr>
 
 " Move fast
 noremap H ^
-noremap J {
-noremap K }
+noremap J }
+noremap K {
 noremap L $
 
 " Neat X clipboard integration
