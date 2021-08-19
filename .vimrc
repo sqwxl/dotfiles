@@ -72,7 +72,7 @@ local opts = { noremap=true, silent=true }
 -- See `:help vim.lsp.*` for documentation on any of the below functions
 buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+buf_set_keymap('n', 'm', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -118,8 +118,11 @@ if executable('rg')
 endif
 
 " Open hotkeys
-map <C-p> :Files<CR>
-nmap <leader>; :Buffers<CR>
+map <C-p> :files<CR>
+nmap <leader>; :buffers<CR>
+
+" Quick save
+nmap <leader>w :w<cr>
 
 " rust
 let g:rustfmt_autosave = 1
@@ -390,9 +393,8 @@ autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ on
 nnoremap <leader><leader> <c-^>
 
 " tab controls
-nnoremap <C-Tab> :tablast<cr>
-nnoremap <C-n> :tabnew<cr>
-nnoremap <C-N> :tabclose<cr>
+nnoremap <c-n> :tabnew<cr>
+nnoremap <c-s-n> :tabclose<cr>
 
 " windows
 nnoremap <C-_> <C-w>n

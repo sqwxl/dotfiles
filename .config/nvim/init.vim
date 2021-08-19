@@ -1,1 +1,1 @@
-/home/nilueps/.vimrc
+.vimrc
