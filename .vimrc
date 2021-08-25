@@ -91,7 +91,13 @@ buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 require'completion'.on_attach(client)
 end
 
-local servers = { "rust_analyzer", "vimls", "bashls" }
+local servers = { 
+	"rust_analyzer",
+	"vimls",
+	"bashls", 
+	"rnix",
+	"pylsp"
+	}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
@@ -345,11 +351,9 @@ noremap J }
 noremap K {
 noremap L $
 
-" Neat X clipboard integration
-" ,p will paste clipboard into buffer
-" ,c will copy entire buffer into clipboard
-noremap <leader>p :read !xsel --clipboard --output<cr>
-noremap <leader>c :w !xsel -ib<cr><cr>
+" X clipboard integration
+noremap <leader>y "+y
+noremap <leader>p "+p
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -394,7 +398,7 @@ nnoremap <leader><leader> <c-^>
 
 " tab controls
 nnoremap <c-n> :tabnew<cr>
-nnoremap <c-s-n> :tabclose<cr>
+nnoremap <c-m> :tabclose<cr>
 
 " windows
 nnoremap <C-_> <C-w>n
