@@ -21,7 +21,7 @@ abbr -ag gm 'git commit -m'
 abbr -ag gl 'git pull'
 abbr -ag gp 'git push'
 
-abbr -ag cfgnvim 'nvim ~/.config/nvim/init.vim'
+abbr -ag cfgvim 'nvim ~/.vimrc'
 abbr -ag cfgfish 'nvim ~/.config/fish/config.fish'
 abbr -ag cfgtmux 'nvim ~/.tmux.conf'
 abbr -ag cfgatty 'nvim ~/.alacritty.yml'
@@ -46,13 +46,5 @@ if command -v rg > /dev/null
 	set -gx FZF_DEFAULT_OPTS -m
 end
 
-# Type 'd' to move up to top parent dir which is a repository
-function d
-	while test $PWD != "/"
-		if test -d .git
-			break
-		end
-		cd ..
-	end
-end
+fish_add_path (go env GOPATH)/bin
 

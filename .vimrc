@@ -91,7 +91,13 @@ buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 require'completion'.on_attach(client)
 end
 
-local servers = { "rust_analyzer", "vimls", "bashls" }
+local servers = { 
+	"rust_analyzer",
+	"vimls",
+	"bashls", 
+	"rnix",
+	"pylsp"
+	}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
 		on_attach = on_attach,
@@ -357,13 +363,10 @@ noremap K {
 noremap L $
 
 " Quick save
-nmap <leader>w :w<cr>
-
-" Neat X clipboard integration
-" ,p will paste clipboard into buffer
-" ,c will copy entire buffer into clipboard
-noremap <leader>p :read !xsel --clipboard --output<cr>
-noremap <leader>c :w !xsel -ib<cr><cr>
+nnoremap <leader>w :w<cr>
+" X clipboard integration
+noremap <leader>y "+y
+noremap <leader>p "+p
 
 " <leader>s for Rg search
 noremap <leader>s :Rg<cr>
@@ -426,7 +429,7 @@ nnoremap <leader><leader> <c-^>
 
 " tab controls
 nnoremap <c-n> :tabnew<cr>
-nnoremap <c-s-n> :tabclose<cr>
+nnoremap <c-m> :tabclose<cr>
 
 " windows
 nnoremap <C-_> <C-w>n
@@ -437,9 +440,6 @@ nnoremap <leader>, :set invlist<cr>
 
 " <leader>q shows stats
 nnoremap <leader>q g<c-g>
-
-" Keymap for replacing up to next _
-noremap <leader>m ct_
 
 " =============================================================================
 " # Autocommands
