@@ -41,6 +41,11 @@ else
 	abbr -ag lll 'ls -la'
 end
 
+if command -v rg > /dev/null
+	set -gx FZF_DEFAULT_COMMAND rg --files
+	set -gx FZF_DEFAULT_OPTS -m
+end
+
 # Type 'd' to move up to top parent dir which is a repository
 function d
 	while test $PWD != "/"

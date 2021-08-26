@@ -22,9 +22,9 @@ Plug 'andymass/vim-matchup'
 Plug 'preservim/nerdtree'
 
 " Fuzzy finder
-" Plug 'airblade/vim-rooter'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Semantic language support
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -113,16 +113,9 @@ END
 let g:lightline = { 'colorscheme': 'solarized', }
 
 if executable('rg')
-	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepprg=rg\ --vimgrep\ --smart-case
 	set grepformat=%f:%l:%c:%m
 endif
-
-" Open hotkeys
-map <C-p> :files<CR>
-nmap <leader>; :buffers<CR>
-
-" Quick save
-nmap <leader>w :w<cr>
 
 " rust
 let g:rustfmt_autosave = 1
@@ -137,7 +130,8 @@ let g:rust_clip_command = 'xclip -selection clipboard'
 " noselect: Do not select, force user to select one from the menu
 set completeopt=menuone,noinsert,noselect
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
+
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
@@ -231,6 +225,23 @@ set nospell spelllang=en_us
 set splitright splitbelow " Open vertical splits to the right, horizontal below.
 let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
 
+" fzf
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+function! s:list_cmd()
+  let base = fnamemodify(expand('%'), ':h:.:S')
+  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+endfunction
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+  \                               'options': '--tiebreak=index'}, <bang>0)
 " =============================================================================
 " # GUI settings
 " =============================================================================
@@ -296,8 +307,8 @@ nnoremap <Left>  <Nop>
 nnoremap <Right> <Nop>
 
 " Left and right can switch buffers
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
+" nnoremap <left> :bp<CR>
+" nnoremap <right> :bn<CR>
 
 " Move by line
 nnoremap j gj
@@ -335,9 +346,9 @@ vnoremap <C-h> :nohlsearch<cr>
 nnoremap <C-h> :nohlsearch<cr>
 
 " Suspend with Ctrl+f
-inoremap <C-f> :sus<cr>
-vnoremap <C-f> :sus<cr>
-nnoremap <C-f> :sus<cr>
+" inoremap <C-f> :sus<cr>
+" vnoremap <C-f> :sus<cr>
+" nnoremap <C-f> :sus<cr>
 
 " Move fast
 noremap H ^
@@ -345,11 +356,32 @@ noremap J }
 noremap K {
 noremap L $
 
+" Quick save
+nmap <leader>w :w<cr>
+
 " Neat X clipboard integration
 " ,p will paste clipboard into buffer
 " ,c will copy entire buffer into clipboard
 noremap <leader>p :read !xsel --clipboard --output<cr>
 noremap <leader>c :w !xsel -ib<cr><cr>
+
+" <leader>s for Rg search
+noremap <leader>s :Rg<cr>
+
+" Open hotkeys
+nnoremap <c-p> :Files<cr>
+nnoremap <leader>; :Buffers<cr>
+" nnoremap <silent> <Leader>b :Buffers<CR>
+" nnoremap <silent> <C-f> :Files<CR>
+" nnoremap <silent> <Leader>f :Rg<CR>
+" nnoremap <silent> <Leader>/ :BLines<CR>
+" nnoremap <silent> <Leader>' :Marks<CR>
+" nnoremap <silent> <Leader>g :Commits<CR>
+" nnoremap <silent> <Leader>H :Helptags<CR>
+" nnoremap <silent> <Leader>hh :History<CR>
+" nnoremap <silent> <Leader>h: :History:<CR>
+" nnoremap <silent> <Leader>h/ :History/<CR>
+
 
 " Open new file adjacent to current file
 nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
