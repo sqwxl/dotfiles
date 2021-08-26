@@ -2,18 +2,17 @@
 set shell=/bin/bash
 let mapleader = "\<Space>"
 
-
 " =============================================================================
 " # PLUGINS
 " =============================================================================
-"
+
 " don't bother imitating vi
 set nocompatible
 
 call plug#begin(stdpath('data') . '/plugged')
 
 " Vim enhancements
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 
 " GUI
 Plug 'itchyny/lightline.vim'
@@ -27,7 +26,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Semantic language support
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
@@ -41,19 +39,10 @@ Plug 'rhysd/vim-clang-format'
 Plug 'dag/vim-fish'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+
 Plug 'alvan/vim-closetag'
 
 call plug#end()
-
-if has('nvim')
-	set guicursor=n-v-c:block-Cursor/lCursor-blinkon0,i-ci:ver25-Cursor/lCursor,r-cr:hor20-Cursor/lCursor
-	set inccommand=nosplit
-	noremap <C-q> :confirm qall<CR>
-end
-
-
-" syntax highlighting
-syntax on
 
 " Configure LSP
 " https://github.com/neovim/nvim-lspconfig#rust_analyzer
@@ -63,7 +52,7 @@ local on_attach = function(client, bufnr)
 local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
---Enable completion triggered by <c-x><c-o>
+--Enable completion triggered by <C-x><C-o>
 buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 -- Mappings.
@@ -96,6 +85,7 @@ local servers = {
 	"vimls",
 	"bashls", 
 	"rnix",
+	"tsserver",
 	"pylsp"
 	}
 for _, lsp in ipairs(servers) do
@@ -116,8 +106,6 @@ vim.lsp.diagnostic.on_publish_diagnostics, {
 )
 END
 
-let g:lightline = { 'colorscheme': 'solarized', }
-
 if executable('rg')
 	set grepprg=rg\ --vimgrep\ --smart-case
 	set grepformat=%f:%l:%c:%m
@@ -129,22 +117,6 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
 
-" Completion
-" Better completion
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
-set completeopt=menuone,noinsert,noselect
-" Better display for messages
-" set cmdheight=2
-
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-
-" Avoid showing extra messages when using completion
-set shortmess+=c
-
-" closetag plugin
 let g:closetag_filenames = '*.html,*.xhtml,*.gohtml'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
 let g:closetag_filetypes = 'html,xhtml,gohtml'
@@ -160,72 +132,67 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
+
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_frontmatter = 1
+
 " =============================================================================
 " # Editor settings
 " =============================================================================
 
+
+" syntax highlighting
+syntax enable
+
 filetype plugin indent on
 set autoindent
+set updatetime=300
 set timeoutlen=300 " http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
 set encoding=utf-8
-set scrolloff=4
-set noshowmode
+set completeopt=menu,noinsert,noselect
+set shortmess+=c
+set inccommand=nosplit
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
+set scrolloff=5
 set hidden
-set nowrap
+set linebreak
+set breakindent
+set showbreak=\ ~~>\  
 set nojoinspaces
-let g:sneak#s_next = 1
-let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_frontmatter = 1
-set printfont=:h10
 set printencoding=utf-8
 set printoptions=paper:letter
 
-" have a fixed column for the diagnostics to appear in
-" this removes the jitter when warnings/errors flow in
 set signcolumn=yes
 
-" Permanent undo history
 set undodir=~/.vimdid
 set undofile
 
-" search down into subfolders
-" provides tab-completion for all file-related tasks
-set wildmenu
-" set wildmode=list:longest
-
 " Use wide tabs
-set shiftwidth=8
-set softtabstop=8
-set tabstop=8
-set noexpandtab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
 
 " Wrapping options
-set formatoptions=tc " wrap text and comments using textwidth
-set formatoptions+=r " continue comments when pressing ENTER in I mode
-set formatoptions+=q " enable formatting of comments with gq
-set formatoptions+=n " detect lists for formatting
-set formatoptions+=b " auto-wrap in insert mode, and do not wrap old long lines
+set formatoptions=tcrnbj " wrap text and comments using textwidth
 
-" Proper search
-set incsearch
 set ignorecase
 set smartcase
 set gdefault
 
-" Search results centered please
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
+" Centered search results
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+" nnoremap <silent> * *zz
+" nnoremap <silent> # #zz
+" nnoremap <silent> g* g*zz
 
 " Very magic by default
 nnoremap ? ?\v
 nnoremap / /\v
 cnoremap %s/ %sm/
 
-set nospell spelllang=en_us
+set spelllang=en_us
 
 " Splits
 set splitright splitbelow " Open vertical splits to the right, horizontal below.
@@ -234,37 +201,35 @@ let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
 " fzf
 let g:fzf_layout = { 'down': '~20%' }
 command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+			\ call fzf#vim#grep(
+			\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+			\   <bang>0 ? fzf#vim#with_preview('up:60%')
+			\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+			\   <bang>0)
 
 function! s:list_cmd()
-  let base = fnamemodify(expand('%'), ':h:.:S')
-  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+	let base = fnamemodify(expand('%'), ':h:.:S')
+	return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
 endfunction
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-  \                               'options': '--tiebreak=index'}, <bang>0)
+			\ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+			\                               'options': '--tiebreak=index'}, <bang>0)
 " =============================================================================
 " # GUI settings
 " =============================================================================
+" set cmdheight=2
 " color
 set termguicolors
 set background=dark
 colorscheme solarized8
+let g:lightline = { 'colorscheme': 'solarized', }
 
 set guioptions-=T " Remove toolbar
 set vb t_vb= " No more beeps
 set backspace=2 " Backspace over newlines
-set nofoldenable
-set ttyfast
-" https://github.com/vim/vim/issues/1735#issuecomment-383353563
 set lazyredraw
 set synmaxcol=500
-set laststatus=2
 set relativenumber " Relative line numbers
 set number " Also show current absolute line
 augroup numbertoggle " Toggle 'relativenumber' on insert.
@@ -286,75 +251,21 @@ set diffopt+=indent-heuristic
 set colorcolumn=80 " and give me a colored column
 set showcmd " Show (partial) command in status line.
 set mouse=a " Enable mouse usage (all modes) in terminals
-set shortmess+=c " don't give |ins-completion-menu| messages.
 
-" Show those damn hidden characters
-" Verbose: set listchars=eol:¶,tab:→·,nbsp:·,extends:»,precedes:«,trail:~
 set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
-
-" Whitespace
-set showbreak=>\  " Show a character for wrapped lines.
 let g:indentLine_char = '┊' " Use a small line to show space-based indentation.
-
-" Search
-noremap <expr> <plug>(slash-after) 'zz'.slash#blink(2, 50)| " Center/blink after search.
 
 
 " =============================================================================
 " # Keyboard shortcuts
 " =============================================================================
-" ; as :
+
 nnoremap ; :
 
-" Disable arrow keys entirely in visual mode
-nnoremap <Up>    <Nop>
-nnoremap <Down>  <Nop>
-nnoremap <Left>  <Nop>
-nnoremap <Right> <Nop>
-
-" Left and right can switch buffers
-" nnoremap <left> :bp<CR>
-" nnoremap <right> :bn<CR>
-
-" Move by line
-nnoremap j gj
-nnoremap k gk
-
-" Ctrl+j and Ctrl+k as Esc
-" Ctrl-j is a little awkward unfortunately:
-" https://github.com/neovim/neovim/issues/5916
-" So we also map Ctrl+k
-nnoremap <C-j> <Esc>
-inoremap <C-j> <Esc>
-vnoremap <C-j> <Esc>
-snoremap <C-j> <Esc>
-xnoremap <C-j> <Esc>
-cnoremap <C-j> <C-c>
-onoremap <C-j> <Esc>
-lnoremap <C-j> <Esc>
-tnoremap <C-j> <Esc>
-
-nnoremap <C-k> <Esc>
-inoremap <C-k> <Esc>
-vnoremap <C-k> <Esc>
-snoremap <C-k> <Esc>
-xnoremap <C-k> <Esc>
-cnoremap <C-k> <C-c>
-onoremap <C-k> <Esc>
-lnoremap <C-k> <Esc>
-tnoremap <C-k> <Esc>
-
-" alow easy esc from terminal mode
-tnoremap <Esc> <C-\><C-n>
-
-" Ctrl+h to stop searching
-vnoremap <C-h> :nohlsearch<cr>
-nnoremap <C-h> :nohlsearch<cr>
-
-" Suspend with Ctrl+f
-" inoremap <C-f> :sus<cr>
-" vnoremap <C-f> :sus<cr>
-" nnoremap <C-f> :sus<cr>
+noremap <Up>    <Nop>
+noremap <Down>  <Nop>
+noremap <Left>  <Nop>
+noremap <Right> <Nop>
 
 " Move fast
 noremap H ^
@@ -362,19 +273,30 @@ noremap J }
 noremap K {
 noremap L $
 
-" Quick save
-nnoremap <leader>w :w<cr>
+" Move by line
+nnoremap j gj
+nnoremap k gk
+
+noremap <C-J> <Esc>
+noremap! <C-J> <Esc>
+lnoremap <C-J> <Esc>
+tnoremap <C-J> <Esc>
+
+tnoremap <Esc> <C-\><C-N>
+
+noremap <C-H> :nohlsearch<CR>
+
+noremap <C-Q> :confirm qall<CR>
+noremap <leader>w :w<CR>
+
 " X clipboard integration
 noremap <leader>y "+y
 noremap <leader>p "+p
 
-" <leader>s for Rg search
-noremap <leader>s :Rg<cr>
-
 " Open hotkeys
-nnoremap <c-p> :Files<cr>
-nnoremap <leader>; :Buffers<cr>
-" nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <C-P> :Files<CR>
+nnoremap <leader>; :Buffers<CR>
+nnoremap <leader>s :Rg<CR>
 " nnoremap <silent> <C-f> :Files<CR>
 " nnoremap <silent> <Leader>f :Rg<CR>
 " nnoremap <silent> <Leader>/ :BLines<CR>
@@ -385,14 +307,8 @@ nnoremap <leader>; :Buffers<cr>
 " nnoremap <silent> <Leader>h: :History:<CR>
 " nnoremap <silent> <Leader>h/ :History/<CR>
 
-
-" Open new file adjacent to current file
-nnoremap <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Close the current buffer and open previous one in the same pane
-noremap <C-x> :bp<Bar>bd #<Cr>
-
 nnoremap Q @q
+
 nnoremap Y y$
 
 " Indenting
@@ -406,10 +322,9 @@ nnoremap <S-Tab> <<
 vnoremap <Tab>   >><Esc>gv
 vnoremap <S-Tab> <<<Esc>gv
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
 " use <Tab> as trigger keys
 imap <Tab> <Plug>(completion_smart_tab)
@@ -418,29 +333,20 @@ imap <S-Tab> <Plug>(completion_smart_s_tab)
 " Enable type inlay hints
 autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
-" Use <TAB> for selections ranges.
-" nmap <silent> <TAB> <Plug>(coc-range-select)
-" xmap <silent> <TAB> <Plug>(coc-range-select)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " <leader><leader> toggles between buffers
-nnoremap <leader><leader> <c-^>
-
-" tab controls
-nnoremap <c-n> :tabnew<cr>
-nnoremap <c-m> :tabclose<cr>
+nnoremap <leader><leader> <C-^>
 
 " windows
 nnoremap <C-_> <C-w>n
-nnoremap <C-\> :vnew<cr>
+nnoremap <C-\> :vnew<CR>
 
-" <leader>, shows/hides hidden characters
-nnoremap <leader>, :set invlist<cr>
+" shows/hides hidden characters
+nnoremap <leader>, :set invlist<CR>
 
-" <leader>q shows stats
-nnoremap <leader>q g<c-g>
+" shows stats
+noremap <leader>i g<C-G>
 
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
 " =============================================================================
 " # Autocommands
 " =============================================================================
