@@ -279,6 +279,7 @@ nnoremap k gk
 
 noremap <C-J> <Esc>
 noremap! <C-J> <Esc>
+inoremap <C-J> <Esc>
 lnoremap <C-J> <Esc>
 tnoremap <C-J> <Esc>
 
@@ -292,6 +293,11 @@ noremap <leader>w :w<CR>
 " X clipboard integration
 noremap <leader>y "+y
 noremap <leader>p "+p
+
+" Change word
+noremap <leader>c ciw
+noremap <leader>d diw
+noremap <leader>v viw
 
 " Open hotkeys
 nnoremap <C-P> :Files<CR>
