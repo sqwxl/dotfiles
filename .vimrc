@@ -15,10 +15,13 @@ call plug#begin(stdpath('data') . '/plugged')
 " Plug 'justinmk/vim-sneak'
 
 " GUI
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 Plug 'preservim/nerdtree'
+Plug 'chriskempson/base16-vim'
 
 " Fuzzy finder
 Plug 'airblade/vim-rooter'
@@ -82,6 +85,7 @@ end
 
 local servers = { 
 	"rust_analyzer",
+	"gopls",
 	"vimls",
 	"bashls", 
 	"rnix",
@@ -215,15 +219,14 @@ endfunction
 command! -bang -nargs=? -complete=dir Files
 			\ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
 			\                               'options': '--tiebreak=index'}, <bang>0)
+"
 " =============================================================================
 " # GUI settings
 " =============================================================================
-" set cmdheight=2
-" color
+
 set termguicolors
-set background=dark
-colorscheme solarized8
-let g:lightline = { 'colorscheme': 'solarized', }
+let g:airline_theme='base16_onedark'
+colorscheme base16-onedark
 
 set guioptions-=T " Remove toolbar
 set vb t_vb= " No more beeps
@@ -325,8 +328,6 @@ vmap << <Nop>
 
 nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
-vnoremap <Tab>   >><Esc>gv
-vnoremap <S-Tab> <<<Esc>gv
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
