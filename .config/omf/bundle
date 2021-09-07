@@ -1,0 +1,4 @@
+package bass
+package z
+theme default
+theme simple-ass-prompt
