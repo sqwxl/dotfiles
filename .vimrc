@@ -38,7 +38,6 @@ Plug 'rhysd/vim-clang-format'
 "Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 
 Plug 'alvan/vim-closetag'
 
@@ -133,10 +132,6 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
-let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_frontmatter = 1
-
 " =============================================================================
 " # Editor settings
 " =============================================================================
@@ -158,7 +153,7 @@ set scrolloff=5
 set hidden
 set linebreak
 set breakindent
-set showbreak=\ ~~>\  
+set showbreak=\\\ 
 set nojoinspaces
 set printencoding=utf-8
 set printoptions=paper:letter
@@ -179,6 +174,10 @@ set formatoptions=tcrnbj " wrap text and comments using textwidth
 set ignorecase
 set smartcase
 set gdefault
+
+" undo breaks before deletes
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 
 " Centered search results
 " nnoremap <silent> n nzz
@@ -291,13 +290,15 @@ noremap <C-Q> :confirm qall<CR>
 noremap <leader>w :w<CR>
 
 " X clipboard integration
-noremap <leader>y "+y
-noremap <leader>p "+p
+set clipboard+=unnamedplus
+" noremap <leader>y "+y
+" noremap <leader>p "+p
 
-" Change word
+" wordwise
 noremap <leader>c ciw
 noremap <leader>d diw
 noremap <leader>v viw
+noremap <leader>y yiw
 
 " Open hotkeys
 nnoremap <C-P> :Files<CR>
