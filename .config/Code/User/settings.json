@@ -94,12 +94,9 @@
   "workbench.tree.renderIndentGuides": "always",
   "workbench.view.alwaysShowHeaderActions": true,
   "workbench.editor.showIcons": true,
-  "workbench.editorAssociations": [
-    {
-      "viewType": "jupyter.notebook.ipynb",
-      "filenamePattern": "*.ipynb"
-    }
-  ],
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
   "breadcrumbs.icons": false,
   "files.simpleDialog.enable": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -114,7 +111,6 @@
   "jupyter.askForKernelRestart": false,
   "jupyter.interactiveWindowMode": "perFile",
   "jupyter.ignoreVscodeTheme": true,
-  "terminal.explorerKind": "external",
   "terminal.external.linuxExec": "alacritty",
   "liveServer.settings.CustomBrowser": "chrome:PrivateMode",
   "liveServer.settings.donotShowInfoMsg": true,
@@ -142,5 +138,9 @@
   "git.autofetch": true,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
-  "explorer.confirmDragAndDrop": false
+  "explorer.confirmDragAndDrop": false,
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  }
 }
