@@ -1,6 +1,7 @@
 package bass
 package foreign-env
 package nvm
+package rustup
 package z
 theme default
 theme simple-ass-prompt

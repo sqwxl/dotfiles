@@ -57,11 +57,20 @@ output * bg /usr/share/backgrounds/default.png fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-
 ### Key bindings
 #
 # Basics:
 #
+	bindsym XF86AudioMute exec \
+		pactl set-sink-mute @DEFAULT_SINK@ toggle
+	bindsym XF86AudioRaiseVolume exec \
+		pactl set-sink-volume @DEFAULT_SINK@ +10%
+	bindsym XF86AudioLowerVolume exec \
+		pactl set-sink-volume @DEFAULT_SINK@ -10%
+	bindsym XF86AudioMicMute exec \
+		pactl set-source-mute @DEFAULT_SOURCE@ toggle
+	bindsym XF86MonBrightnessUp exec light -T 1.4
+	bindsym XF86MonBrightnessDown exec light -T 0.72
     # Start a terminal
     bindsym $mod+Return exec $term
 
@@ -205,13 +214,25 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M %p'; do sleep 1; done
+    status_command while echo "$(date +'%A %F %R') $(expr $(($(cat /sys/class/power_supply/BAT0/capacity) + $(cat /sys/class/power_supply/BAT1/capacity))) / 2)"; do sleep 1; done
 
     colors {
         statusline #ffffff
         background #323232
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+	xkb_options ctrl:nocaps
+}
+
+input "1739:0:Synaptics_TM3075-002" {
+	natural_scroll enabled
+	tap enabled
+}
+input "1133:16468:Logitech_Wireless_Mouse" {
+	natural_scroll enabled
 }
 
 include /etc/sway/config.d/*
