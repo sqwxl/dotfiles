@@ -47,5 +47,8 @@ if command -v rg > /dev/null
 	set -gx FZF_DEFAULT_OPTS -m
 end
 
-fish_add_path (go env GOPATH)/bin
+if command -v go > /dev/null
+	fish_add_path (go env GOPATH)/bin
+end
 
+fish_add_path $HOME/.local/bin
