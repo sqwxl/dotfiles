@@ -9,6 +9,7 @@ abbr -ag n nvim
 abbr -ag e nvim
 abbr -ag se sudoedit
 
+alias docker podman
 abbr -ag dc docker-compose
 
 abbr -ag m make
@@ -20,6 +21,7 @@ abbr -ag gm 'git commit -m'
 abbr -ag gl 'git pull'
 abbr -ag gp 'git push'
 
+abbr -ag cfgi3 'nvim ~/.config/i3/config'
 abbr -ag cfgvim 'nvim ~/.vimrc'
 abbr -ag cfgfish 'nvim ~/.config/fish/config.fish'
 abbr -ag cfgtmux 'nvim ~/.tmux.conf'

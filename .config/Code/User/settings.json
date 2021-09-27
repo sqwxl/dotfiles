@@ -85,7 +85,7 @@
   // },
   // "editor.semanticHighlighting.enabled": false,
   // "explorer.openEditors.visible": 0,
-  "workbench.colorTheme": "GitHub Light",
+  "workbench.colorTheme": "One Dark Pro",
   "workbench.sideBar.location": "left",
   "workbench.activityBar.visible": true,
   "workbench.enableExperiments": false,
@@ -142,5 +142,6 @@
   "terminal.integrated.defaultProfile.linux": "fish",
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
-  }
+  },
+  "go.toolsManagement.autoUpdate": true
 }
