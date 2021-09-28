@@ -12,7 +12,9 @@ set nocompatible
 call plug#begin(stdpath('data') . '/plugged')
 
 " Vim enhancements
-" Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 
 " GUI
 " Plug 'itchyny/lightline.vim'
@@ -136,6 +138,7 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 let g:closetag_close_shortcut = '<leader>>'
 
+let g:sneak#s_next = 1
 " =============================================================================
 " # Editor settings
 " =============================================================================
