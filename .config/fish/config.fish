@@ -9,7 +9,7 @@ abbr -ag n nvim
 abbr -ag e nvim
 abbr -ag se sudoedit
 
-alias docker podman
+# alias docker podman
 abbr -ag dc docker-compose
 
 abbr -ag m make
