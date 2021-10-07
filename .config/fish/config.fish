@@ -52,3 +52,5 @@ if command -v go > /dev/null
 end
 
 fish_add_path $HOME/.local/bin
+
+direnv hook fish | source

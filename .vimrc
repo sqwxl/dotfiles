@@ -89,9 +89,9 @@ local servers = {
 	"gopls",
 	"vimls",
 	"bashls", 
-	"rnix",
 	"tsserver",
-	"pylsp"
+	"pylsp",
+	"rnix",
 	}
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
