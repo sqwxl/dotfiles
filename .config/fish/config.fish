@@ -1,5 +1,6 @@
 # remove default greeting
 set -g fish_greeting
+set -g theme_nerd_fonts yes
 
 set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
@@ -31,11 +32,11 @@ abbr -ag cfgatty 'nvim ~/.alacritty.yml'
 abbr -ag config "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 abbr -ag exa exa --group-directories-first
-if command -v exa > /dev/null
-	abbr -ag l 'exa'
-	abbr -ag ls 'exa'
-	abbr -ag ll 'exa -l'
-	abbr -ag lll 'exa -la'
+if command -v lsd > /dev/null
+	abbr -ag l 'lsd'
+	abbr -ag ls 'lsd'
+	abbr -ag ll 'lsd -l'
+	abbr -ag lll 'lsd -lah'
 else
 	abbr -ag l 'ls'
 	abbr -ag ll 'ls -l'

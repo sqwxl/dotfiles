@@ -21,12 +21,16 @@ Plug 'tpope/vim-sleuth'
 " Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'machakann/vim-highlightedyank'
 Plug 'andymass/vim-matchup'
 Plug 'preservim/nerdtree'
 Plug 'chriskempson/base16-vim'
 
 " Fuzzy finder
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'airblade/vim-rooter'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -228,8 +232,9 @@ command! -bang -nargs=? -complete=dir Files
 " =============================================================================
 
 set termguicolors
-let g:airline_theme='base16_onedark'
-colorscheme base16-onedark
+let g:airline_powerline_fonts=1
+let g:airline_theme='base16_default_dark'
+colorscheme base16-default-dark
 
 set guioptions-=T " Remove toolbar
 set vb t_vb= " No more beeps
@@ -256,6 +261,7 @@ set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
 set colorcolumn=80 " and give me a colored column
 set showcmd " Show (partial) command in status line.
+set noshowmode " We have airline for that
 set mouse=a " Enable mouse usage (all modes) in terminals
 
 set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
@@ -359,6 +365,12 @@ nnoremap <leader>, :set invlist<CR>
 noremap <leader>i g<C-G>
 
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<CR>
+
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 " =============================================================================
 " # Autocommands
 " =============================================================================

@@ -3,5 +3,5 @@ package foreign-env
 package nvm
 package rustup
 package z
+theme bobthefish
 theme default
-theme simple-ass-prompt
