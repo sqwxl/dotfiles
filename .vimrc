@@ -15,6 +15,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-sleuth'
 
 " GUI
 " Plug 'itchyny/lightline.vim'
@@ -95,9 +96,9 @@ local servers = {
 	"gopls",
 	"vimls",
 	"bashls", 
-	"rnix",
 	"tsserver",
-	"pylsp"
+	"pylsp",
+	"rnix",
 	}
 
 for _, lsp in ipairs(servers) do

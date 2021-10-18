@@ -9,7 +9,7 @@ abbr -ag n nvim
 abbr -ag e nvim
 abbr -ag se sudoedit
 
-alias docker podman
+# alias docker podman
 abbr -ag dc docker-compose
 
 abbr -ag m make
@@ -52,3 +52,13 @@ if command -v go > /dev/null
 end
 
 fish_add_path $HOME/.local/bin
+
+set -gx ANDROID_SDK $HOME/Android/Sdk
+set -gx ANDROID_HOME $HOME/Android/Sdk
+
+fish_add_path $ANDROID_HOME/emulator
+fish_add_path $ANDROID_HOME/tools
+fish_add_path $ANDROID_HOME/tools/bin
+fish_add_path $ANDROID_HOME/platform-tools
+
+direnv hook fish | source
