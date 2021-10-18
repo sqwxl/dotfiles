@@ -31,63 +31,129 @@ Plug 'chriskempson/base16-vim'
 Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'airblade/vim-rooter'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 " Semantic language support
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 " Syntactic language support
 Plug 'cespare/vim-toml'
 Plug 'stephpy/vim-yaml'
-Plug 'rust-lang/rust.vim'
-Plug 'rhysd/vim-clang-format'
-"Plug 'fatih/vim-go'
 Plug 'dag/vim-fish'
-Plug 'godlygeek/tabular'
+Plug 'simrat39/rust-tools.nvim'
 
-Plug 'alvan/vim-closetag'
+" Debugging
+Plug 'mfussenegger/nvim-dap'
 
 call plug#end()
 
-" Configure LSP
-" https://github.com/neovim/nvim-lspconfig#rust_analyzer
 lua << END
-local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
-local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+	local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+	local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
---Enable completion triggered by <C-x><C-o>
-buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+	--Enable completion triggered by <C-x><C-o>
+	buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
--- Mappings.
-local opts = { noremap=true, silent=true }
+	-- Mappings.
+	local opts = { noremap=true, silent=true }
 
--- See `:help vim.lsp.*` for documentation on any of the below functions
-buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-buf_set_keymap('n', 'm', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-buf_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
-buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+	buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+	buf_set_keymap('n', 'm', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+	buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+	buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+	buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+	buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+	buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+	buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+	buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+	buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	buf_set_keymap("n", "g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", opts)
+	buf_set_keymap("n", "gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", opts)
 
--- Forward to other plugins
-require'completion'.on_attach(client)
+	require'completion'.on_attach(client)
 end
+
+require('rust-tools').setup({})
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+local cmp = require("cmp")
+
+cmp.setup({
+	snippet = {
+		expand = function(args)
+			require('luasnip').lsp_expand(args.body)
+		end,
+	},
+	mapping = {
+		['<C-p>'] = cmp.mapping.select_prev_item(),
+		['<C-n>'] = cmp.mapping.select_next_item(),
+		['<C-d>'] = cmp.mapping.scroll_docs(-4),
+		['<C-u>'] = cmp.mapping.scroll_docs(4),
+		['<C-Space>'] = cmp.mapping.complete(),
+		['<C-e>'] = cmp.mapping.close(),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		["<Tab>"] = cmp.mapping(function(fallback)
+		  if cmp.visible() then
+			cmp.select_next_item()
+		  elseif luasnip.expand_or_jumpable() then
+			luasnip.expand_or_jump()
+		  elseif has_words_before() then
+			cmp.complete()
+		  else
+			fallback()
+		  end
+		end, { "i", "s" }),
+
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+		  if cmp.visible() then
+			cmp.select_prev_item()
+		  elseif luasnip.jumpable(-1) then
+			luasnip.jump(-1)
+		  else
+			fallback()
+		  end
+		end, { "i", "s" }),
+	},
+	sources = {
+		{ name = 'nvim_lsp' },
+		{ name = 'luasnip' },
+		{ nasme = 'buffer' },
+	},
+})
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = true,
+	signs = true,
+	update_in_insert = true,
+	}
+)
+
+-- Add additional capablities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+local lspconfig = require('lspconfig')
 
 local servers = { 
 	"rust_analyzer",
@@ -98,22 +164,16 @@ local servers = {
 	"pylsp",
 	"rnix",
 	}
+
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup {
+		capabilities = capabilities,
 		on_attach = on_attach,
 		flags = {
 			debounce_text_changes = 150,
 			}
 		}
 end
-
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-vim.lsp.diagnostic.on_publish_diagnostics, {
-	virtual_text = true,
-	signs = true,
-	update_in_insert = true,
-	}
-)
 END
 
 if executable('rg')
@@ -126,22 +186,6 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 0
 let g:rust_clip_command = 'xclip -selection clipboard'
-
-let g:closetag_filenames = '*.html,*.xhtml,*.gohtml'
-let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-let g:closetag_filetypes = 'html,xhtml,gohtml'
-let g:closetag_xhtml_filetypes = 'xhtml,jsx'
-let g:closetag_emptyTags_caseSensitive = 1
-" Disables auto-close if not in a "valid" region (based on filetype)
-let g:closetag_regions = {
-			\ 'typescript.tsx': 'jsxRegion,tsxRegion',
-			\ 'javascript.jsx': 'jsxRegion',
-			\ 'typescriptreact': 'jsxRegion,tsxRegion',
-			\ 'javascriptreact': 'jsxRegion',
-			\ }
-let g:closetag_shortcut = '>'
-" Add > at current position without closing the current tag, default is ''
-let g:closetag_close_shortcut = '<leader>>'
 
 let g:sneak#s_next = 1
 " =============================================================================
@@ -157,7 +201,7 @@ set autoindent
 set updatetime=300
 set timeoutlen=300 " http://stackoverflow.com/questions/2158516/delay-before-o-opens-a-new-line
 set encoding=utf-8
-set completeopt=menu,noinsert,noselect
+set completeopt=menu,menuone,noinsert,noselect
 set shortmess+=c
 set inccommand=nosplit
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
@@ -209,24 +253,6 @@ set spelllang=en_us
 set splitright splitbelow " Open vertical splits to the right, horizontal below.
 let g:obvious_resize_run_tmux = 1 " Enable Tmux resizing integration.
 
-" fzf
-let g:fzf_layout = { 'down': '~20%' }
-command! -bang -nargs=* Rg
-			\ call fzf#vim#grep(
-			\   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-			\   <bang>0 ? fzf#vim#with_preview('up:60%')
-			\           : fzf#vim#with_preview('right:50%:hidden', '?'),
-			\   <bang>0)
-
-function! s:list_cmd()
-	let base = fnamemodify(expand('%'), ':h:.:S')
-	return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
-endfunction
-
-command! -bang -nargs=? -complete=dir Files
-			\ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-			\                               'options': '--tiebreak=index'}, <bang>0)
-"
 " =============================================================================
 " # GUI settings
 " =============================================================================
