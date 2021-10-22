@@ -23,7 +23,7 @@ abbr -ag gl 'git pull'
 abbr -ag gp 'git push'
 
 abbr -ag cfgi3 'nvim ~/.config/i3/config'
-abbr -ag cfgvim 'nvim ~/.vimrc'
+abbr -ag cfgvim 'nvim ~/.config/nvim/init.vim'
 abbr -ag cfgfish 'nvim ~/.config/fish/config.fish'
 abbr -ag cfgtmux 'nvim ~/.tmux.conf'
 abbr -ag cfgatty 'nvim ~/.alacritty.yml'

@@ -1,5 +1,6 @@
 package bass
 package foreign-env
+package neovim
 package nvm
 package rustup
 package z
