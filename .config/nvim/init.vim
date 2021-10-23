@@ -16,6 +16,22 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug 'folke/trouble.nvim'
 
+  " Look & feel
+	Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ryanoasis/vim-devicons'
+    let g:webdevicons_conceal_nerdtree_brackets = 1
+  Plug 'RRethy/nvim-base16'
+  Plug 'folke/lsp-colors.nvim'
+  if !exists('g:started_by_firenvim')
+    Plug 'vim-airline/vim-airline'
+      let g:airline#extensions#tabline#enabled = 1
+      let g:airline#extensions#tmuxline#enabled = 1
+      let g:airline_powerline_fonts = 1
+    Plug 'vim-airline/vim-airline-themes'
+      let g:airline_theme = 'base16_default_dark'
+    Plug 'edkolev/tmuxline.vim'
+  end
+
   " Editing
 	Plug 'tpope/vim-commentary'
 	Plug 'tpope/vim-surround'
@@ -27,24 +43,10 @@ call plug#begin(stdpath('data') . '/plugged')
     let g:neoterm_default_mod = 'vertical'
     let g:neoterm_size = 80
     let g:neoterm_autoinsert = 1
-	Plug 'vim-airline/vim-airline'
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tmuxline#enabled = 0
-    let g:airline_powerline_fonts = 1
-  Plug 'edkolev/tmuxline.vim'
 	Plug 'nvim-lua/plenary.nvim'
 	Plug 'nvim-lua/popup.nvim'
 	Plug 'nvim-telescope/telescope.nvim'
   Plug 'preservim/nerdtree'
-
-  " Look & feel
-	Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'ryanoasis/vim-devicons'
-    let g:webdevicons_conceal_nerdtree_brackets = 1
-  Plug 'RRethy/nvim-base16'
-	Plug 'vim-airline/vim-airline-themes'
-    let g:airline_theme = 'base16_default_dark'
-  Plug 'folke/lsp-colors.nvim'
 
 	" Semantic language support
 	Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -115,6 +117,12 @@ set showbreak=\\\
 set breakindent
 set nojoinspaces
 set backspace=2 " Backspace over newlines
+
+if exists('g:started_by_firenvim')
+  set laststatus=0
+else
+  set laststatus=2
+endif
 
 set cmdheight=1
 set showcmd " Show (partial) command in status line.
@@ -218,11 +226,11 @@ nnoremap k gk
 
 nnoremap Q @q
 
-noremap jk <Esc>
-noremap! jk <Esc>
-inoremap jk <Esc>
-lnoremap jk <Esc>
-tnoremap jk <Esc>
+noremap aj <Esc>
+noremap! aj <Esc>
+inoremap aj <Esc>
+lnoremap aj <Esc>
+tnoremap aj <Esc>
 
 tnoremap <Esc> <C-\><C-n>
 
@@ -283,6 +291,12 @@ lua << EOF
     },
   }
 
+  require'telescope'.setup {
+    defaults = {
+      initial_mode = 'normal'
+      },
+    }
+  
   local lspconfig = require('lspconfig')
   local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end

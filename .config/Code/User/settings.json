@@ -144,5 +144,7 @@
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "go.toolsManagement.autoUpdate": true,
-  "editor.inlineSuggest.enabled": true
+  "editor.inlineSuggest.enabled": true,
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "editor.scrollBeyondLastLine": false
 }
