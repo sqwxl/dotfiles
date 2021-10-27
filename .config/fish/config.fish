@@ -10,16 +10,18 @@ abbr -ag n nvim
 abbr -ag e nvim
 abbr -ag se sudoedit
 
+abbr -ag o xdg-open
+
+abbr -ag c clear
+
 # alias docker podman
 abbr -ag dc docker-compose
 
 abbr -ag m make
 
 abbr -ag g git
-abbr -ag ga 'git add -p'
-abbr -ag gc 'git checkout'
-abbr -ag gm 'git commit -m'
-abbr -ag gl 'git pull'
+abbr -ag gs 'git status'
+abbr -ag gca 'git commit -a'
 abbr -ag gp 'git push'
 
 abbr -ag cfgi3 'nvim ~/.config/i3/config'

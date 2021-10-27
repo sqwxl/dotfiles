@@ -52,6 +52,13 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 	Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/lsp_extensions.nvim'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/nvim-cmp'
+
+  " For vsnip users.
+  Plug 'hrsh7th/cmp-vsnip'
+  Plug 'hrsh7th/vim-vsnip'
 
 	" Syntactic language support
 	Plug 'pangloss/vim-javascript'
@@ -84,7 +91,12 @@ filetype plugin indent on
 " set shell=/bin/bash
 
 set termguicolors
-colorscheme base16-default-dark
+
+if exists('g:started_from_firenvim')
+  colorscheme base16-default-light
+else
+  colorscheme base16-default-dark
+end
 
 syntax enable
 set synmaxcol=500
@@ -199,8 +211,8 @@ autocmd Filetype rust set colorcolumn=100
 nnoremap ; :
 
 " undo breaks before deletes
-inoremap <C-u> <C-g>u<C-u>
-inoremap <C-w> <C-g>u<C-w>
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
 
 " Very magic by default
 nnoremap ? ?\v
@@ -226,13 +238,15 @@ nnoremap k gk
 
 nnoremap Q @q
 
-noremap aj <Esc>
-noremap! aj <Esc>
-inoremap aj <Esc>
-lnoremap aj <Esc>
-tnoremap aj <Esc>
+inoremap fj <Esc>
+inoremap jf <Esc>
 
-tnoremap <Esc> <C-\><C-n>
+nnoremap <C-C> <Esc>
+vnoremap <C-C> <Esc>
+cnoremap <C-C> <Esc>
+tnoremap <C-C> <Esc>
+
+tnoremap <Esc> <C-\><C-N>
 
 noremap <leader>w :w<CR>
 
@@ -247,9 +261,9 @@ noremap <leader>y yiw
 noremap <leader>v viw
 
 " Open hotkeys
-nnoremap <C-q> :Ttoggle<CR>
-inoremap <C-q> <Esc>:Ttoggle<CR>
-tnoremap <C-q> <C-\><C-n>:Ttoggle<CR>
+nnoremap <C-Q> :Ttoggle<CR>
+inoremap <C-Q> <Esc>:Ttoggle<CR>
+tnoremap <C-Q> <C-\><C-n>:Ttoggle<CR>
 
 nnoremap <leader>F :Neoformat prettier<CR>
 
@@ -258,8 +272,8 @@ nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
 
 " <leader><leader> toggles between buffers
@@ -269,7 +283,7 @@ nnoremap <leader><leader> <C-^>
 nnoremap <leader>, :set invlist<CR>
 
 " shows stats
-noremap <leader>i g<C-g>
+noremap <leader>i g<C-G>
 
 " Using Lua functions
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
@@ -326,8 +340,33 @@ lua << EOF
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
     buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-
   end
+
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+    },
+    {
+      { name = 'buffer' },
+    })
+  })
+
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   local servers = { 
     "rust_analyzer",
@@ -342,6 +381,7 @@ lua << EOF
   for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
       on_attach = on_attach,
+      capabilities = capabilities,
       flags = {
         debounce_text_changes = 150,
         }
