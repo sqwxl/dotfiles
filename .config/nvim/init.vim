@@ -5,6 +5,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'justinmk/vim-sneak'
     let g:sneak#s_next = 1
   Plug 'andymass/vim-matchup'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'szw/vim-maximizer'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'tpope/vim-fugitive'
@@ -14,6 +15,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'airblade/vim-rooter'
   Plug 'folke/trouble.nvim'
+  Plug 'mattn/webapi-vim'
 
   " Look & feel
   Plug 'machakann/vim-highlightedyank'
@@ -27,7 +29,7 @@ call plug#begin(stdpath('data') . '/plugged')
     let g:airline#extensions#tmuxline#enabled = 1
     let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline-themes'
-    let g:airline_theme = 'base16_default_dark'
+    let g:airline_theme = 'base16_twilight'
   Plug 'edkolev/tmuxline.vim'
 
   " Tools
@@ -60,10 +62,6 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'dag/vim-fish'
   Plug 'plasticboy/vim-markdown'
   Plug 'rust-lang/rust.vim'
-    let g:rustfmt_autosave = 1
-    let g:rustfmt_emit_files = 1
-    let g:rustfmt_fail_silently = 0
-    let g:rust_clip_command = 'xclip -selection clipboard'
 
 call plug#end()
 
@@ -90,7 +88,7 @@ set completeopt=menu,menuone,noinsert,noselect
 set shortmess+=c
 
 set termguicolors
-colorscheme base16-default-dark
+colorscheme base16-twilight
 
 set number relativenumber numberwidth=1
 set signcolumn=yes
@@ -151,6 +149,12 @@ autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && lin
 autocmd Filetype rust source ~/.config/nvim/scripts/spacetab.vim
 autocmd Filetype rust set colorcolumn=100
 
+let g:rust_recommended_style = 1
+let g:rustfmt_autosave = 1
+let g:rustfmt_emit_files = 1
+let g:rustfmt_fail_silently = 1
+let g:rust_clip_command = 'xclip -selection clipboard'
+let g:rust_keep_autopairs_default = 0
 " ============================================================================
 " # Keyboard shortcuts
 " ============================================================================
@@ -184,7 +188,6 @@ cnoremap %s/ %sm/
 inoremap fj <Esc>
 inoremap jf <Esc>
 inoremap jj <Esc>
-inoremap ff <Esc>
 tnoremap <Esc> <C-\><C-N>
 
 noremap <leader>w :w<CR>
@@ -310,6 +313,7 @@ lua << EOF
     "tsserver",
     "pylsp",
     "rnix",
+    "stylelint_lsp",
     }
 
   for _, lsp in ipairs(servers) do

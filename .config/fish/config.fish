@@ -1,13 +1,18 @@
-# remove default greeting
-set -g fish_greeting
 set -g theme_nerd_fonts yes
+set -g theme_display_date no
+set -g theme_newline_cursor yes
+set -g theme_newline_prompt '> '
+set -g theme_display_nix no
+set -g theme_show_exit_status no
 
 set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
 set -gx PAGER /usr/bin/most
+set -gx MANPAGER '/usr/bin/nvim +Man!'
+
+abbr -ag sdu 'sudo dnf upgrade'
 
 abbr -ag n nvim
-abbr -ag e nvim
 abbr -ag se sudoedit
 
 abbr -ag o xdg-open
