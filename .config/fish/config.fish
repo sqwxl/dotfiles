@@ -4,6 +4,7 @@ set -g theme_newline_cursor yes
 set -g theme_newline_prompt '> '
 set -g theme_display_nix no
 set -g theme_show_exit_status no
+set -g theme_color_scheme dracula
 
 set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim

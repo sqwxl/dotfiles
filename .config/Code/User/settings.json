@@ -50,4 +50,7 @@
   "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
   "editor.scrollBeyondLastLine": false,
   "workbench.colorTheme": "Base16 Twilight Dark",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }

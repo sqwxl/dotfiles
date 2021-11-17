@@ -29,7 +29,6 @@ call plug#begin(stdpath('data') . '/plugged')
     let g:airline#extensions#tmuxline#enabled = 1
     let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline-themes'
-    let g:airline_theme = 'base16_twilight'
   Plug 'edkolev/tmuxline.vim'
 
   " Tools
@@ -37,8 +36,8 @@ call plug#begin(stdpath('data') . '/plugged')
     let g:neoterm_default_mod = 'vertical'
     let g:neoterm_size = 80
     let g:neoterm_autoinsert = 1
-  Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'preservim/nerdtree'
     let g:webdevicons_conceal_nerdtree_brackets = 1
@@ -47,15 +46,16 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/lsp_extensions.nvim'
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/nvim-cmp'
 
-  " For vsnip users.
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-vsnip'
-  Plug 'hrsh7th/vim-vsnip'
 
   " Syntactic language support
+  Plug 'simrat39/rust-tools.nvim'
+  Plug 'hrsh7th/vim-vsnip'
   Plug 'pangloss/vim-javascript'
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
@@ -78,7 +78,7 @@ set undofile undodir=~/.vimdid
 set clipboard+=unnamedplus
 set mouse=a " Enable mouse usage (all modes) in terminals
 
-set updatetime=100
+set updatetime=300
 set timeoutlen=350
 set lazyredraw
 
@@ -88,7 +88,8 @@ set completeopt=menu,menuone,noinsert,noselect
 set shortmess+=c
 
 set termguicolors
-colorscheme base16-twilight
+colorscheme base16-dracula
+let g:airline_theme = 'base16_dracula'
 
 set number relativenumber numberwidth=1
 set signcolumn=yes
@@ -116,7 +117,7 @@ set diffopt+=vertical
 
 set guioptions-=T " Remove toolbar
 set guifont=JetBrainsMono_Nerd_Font_Mono:h10
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
+set guicursor+=a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
 
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
@@ -140,7 +141,7 @@ augroup END
 autocmd InsertLeave * set nopaste
 
 " Enable type inlay hints
-autocmd CursorHold,CursorHoldI *.rs :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI * :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -227,6 +228,23 @@ nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
+" nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> <leader>t <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> <C-K>      <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <leader>wa        <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
+" nnoremap <silent> <leader>wr        <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
+" nnoremap <silent> <leader>wl        <cmd>lua vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+" nnoremap <silent> <leader>r        <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent> <leader>n        <cmd>lua vim.lsp.buf.code_action()<CR>
+" nnoremap <silent> <leader>R        <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> g[        <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent> g]        <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent> <leader>f        <cmd>lua vim.lsp.buf.formatting()<CR>
+" nnoremap <silent> <leader>q        <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+
 " ============================================================================
 " # Lua configs
 " ============================================================================
@@ -250,16 +268,14 @@ lua << EOF
 
   local lspconfig = require'lspconfig'
   local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     --Enable completion triggered by <C-x><C-o>
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-    -- Mappings.
     local opts = { noremap=true, silent=true }
 
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -269,8 +285,8 @@ lua << EOF
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
     buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -292,21 +308,22 @@ lua << EOF
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<CR>'] = cmp.mapping.confirm({ 
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      }),
     },
-    sources = cmp.config.sources({
+    sources = {
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
-    },
-    {
+      { name = 'path' },
       { name = 'buffer' },
-    })
+    },
   })
 
-  local capabilities = require'cmp_nvim_lsp'.update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   local servers = {
-    "rust_analyzer",
     "gopls",
     "vimls",
     "bashls",
@@ -325,5 +342,29 @@ lua << EOF
         }
       }
   end
+
+  -- rust
+  require('rust-tools').setup({
+    tools = {
+      autoSetHints = true,
+      hover_with_actions = true,
+      inlay_hints = {
+        show_parameter_hints = false,
+        parameter_hints_prefix = "",
+        other_hints_prefix = "",
+      },
+    },
+    
+    server = {
+      on_attach = on_attach,
+      settings = {
+        ['rust-analyzer'] = {
+          checkOnSave = {
+            command = 'clippy'
+          },
+        },
+      },
+    }
+  })
 EOF
 
