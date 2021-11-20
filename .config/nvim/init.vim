@@ -141,7 +141,7 @@ augroup END
 autocmd InsertLeave * set nopaste
 
 " Enable type inlay hints
-autocmd CursorHold,CursorHoldI * :lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI * lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -186,9 +186,9 @@ nnoremap ? ?\v
 nnoremap / /\v
 cnoremap %s/ %sm/
 
-inoremap fj <Esc>
-inoremap jf <Esc>
-inoremap jj <Esc>
+noremap! fj <Esc>
+noremap! jf <Esc>
+noremap! jj <Esc>
 tnoremap <Esc> <C-\><C-N>
 
 noremap <leader>w :w<CR>
@@ -208,6 +208,8 @@ noremap <leader>v viw
 nnoremap <C-Q> :Ttoggle<CR>
 inoremap <C-Q> <Esc>:Ttoggle<CR>
 tnoremap <C-Q> <C-\><C-N>:Ttoggle<CR>
+
+noremap <C-W> :bw<CR>
 
 nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
@@ -276,12 +278,12 @@ lua << EOF
 
     local opts = { noremap=true, silent=true }
 
-    buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<space>k', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<C-S-K>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -357,6 +359,7 @@ lua << EOF
     
     server = {
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         ['rust-analyzer'] = {
           checkOnSave = {
