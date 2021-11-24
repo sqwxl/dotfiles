@@ -49,8 +49,9 @@
   "editor.inlineSuggest.enabled": true,
   "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
   "editor.scrollBeyondLastLine": false,
-  "workbench.colorTheme": "Base16 Default Dark",
+  "workbench.colorTheme": "Dracula",
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "redhat.telemetry.enabled": true,
 }
