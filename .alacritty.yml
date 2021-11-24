@@ -8,40 +8,38 @@ window:
   dynamic_padding: true
   decorations: none
 
-# Base16 Default Dark - alacritty color config
-# Chris Kempson (http://chriskempson.com)
 colors:
   # Default colors
   primary:
-    background: '0x181818'
-    foreground: '0xd8d8d8'
+    background: '0x282936'
+    foreground: '0xe9e9f4'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
   cursor:
-    text: '0x181818'
-    cursor: '0xd8d8d8'
+    text: '0x282936'
+    cursor: '0xe9e9f4'
 
   # Normal colors
   normal:
-    black:   '0x181818'
-    red:     '0xab4642'
-    green:   '0xa1b56c'
-    yellow:  '0xf7ca88'
-    blue:    '0x7cafc2'
-    magenta: '0xba8baf'
-    cyan:    '0x86c1b9'
-    white:   '0xd8d8d8'
+    black:   '0x282936'
+    red:     '0xea51b2'
+    green:   '0xebff87'
+    yellow:  '0x00f769'
+    blue:    '0x62d6e8'
+    magenta: '0xb45bcf'
+    cyan:    '0xa1efe4'
+    white:   '0xe9e9f4'
 
   # Bright colors
   bright:
-    black:   '0x585858'
-    red:     '0xdc9656'
-    green:   '0x282828'
-    yellow:  '0x383838'
-    blue:    '0xb8b8b8'
-    magenta: '0xe8e8e8'
-    cyan:    '0xa16946'
-    white:   '0xf8f8f8'
+    black:   '0x626483'
+    red:     '0xb45bcf'
+    green:   '0x3a3c4e'
+    yellow:  '0x4d4f68'
+    blue:    '0x62d6e8'
+    magenta: '0xf1f2f8'
+    cyan:    '0x00f769'
+    white:   '0xf7f7fb'
 
 draw_bold_text_with_bright_colors: false
 

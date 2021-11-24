@@ -1,23 +1,18 @@
 {
   "vsintellicode.modify.editor.suggestSelection": "choseToUpdateConfiguration",
-  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
   "editor.fontSize": 13,
   "editor.lineHeight": 18,
   "editor.fontLigatures": true,
   "editor.tabSize": 2,
-  // "editor.lineNumbers": "off",
   "editor.matchBrackets": "near",
   "editor.hideCursorInOverviewRuler": true,
   "editor.occurrencesHighlight": false,
   "editor.overviewRulerBorder": false,
-  "editor.renderIndentGuides": false,
   "editor.renderLineHighlight": "none",
   "editor.formatOnSave": true,
-  // "editor.rulers": [
-  //   80
-  // ],
   "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 80,
+  "editor.wordWrapColumn": 100,
   "editor.selectionClipboard": false,
   "editor.linkedEditing": true,
   "editor.copyWithSyntaxHighlighting": false,
@@ -25,79 +20,11 @@
   "editor.showFoldingControls": "always",
   "editor.suggestSelection": "first",
   "editor.find.addExtraSpaceOnTop": true,
-  // "editor.tokenColorCustomizations": {
-  //   "comments": "#a0a0a0",
-  //   "functions": "#333333",
-  //   "keywords": "#333333",
-  //   "numbers": "#0462bb",
-  //   "strings": "#d89913",
-  //   "types": "#707070",
-  //   "variables": "#333333",
-  //   "textMateRules": [
-  //     {
-  //       "scope": "constant",
-  //       "settings": {
-  //         "foreground": "#9702aa",
-  //         "fontStyle": "italic"
-  //       }
-  //     },
-  //     {
-  //       "scope": [
-  //         "meta.type",
-  //         "variable.parameter"
-  //       ],
-  //       "settings": {
-  //         "fontStyle": "italic"
-  //       },
-  //     },
-  //     {
-  //       "settings": {
-  //         "foreground": "#333333",
-  //       },
-  //       "scope": [
-  //         "emphasis",
-  //         "entity",
-  //         "entity.name.tag",
-  //         "emphasis",
-  //         "invalid",
-  //         "invalid.illegal",
-  //         "keyword",
-  //         "markup",
-  //         "meta",
-  //         "meta.function.parameters.python",
-  //         "meta.function.python",
-  //         "source.python",
-  //         "storage",
-  //         "support",
-  //         "support.variable",
-  //         "support.class.component",
-  //         "variable",
-  //         "variable.language",
-  //         "variable.other",
-  //         "variable.other.constant",
-  //         "variable.parameter",
-  //         "variable.parameter.function",
-  //         "variable.parameter.function.language.special.self.python",
-  //         "variable.parameter.function.language.python",
-  //       ],
-  //     }
-  //   ]
-  // },
-  // "editor.semanticHighlighting.enabled": false,
-  // "explorer.openEditors.visible": 0,
-  "workbench.colorTheme": "One Dark Pro",
   "workbench.sideBar.location": "left",
   "workbench.activityBar.visible": true,
   "workbench.enableExperiments": false,
-  "workbench.iconTheme": null,
-  // "workbench.tree.indent": 0,
-  "workbench.tree.renderIndentGuides": "always",
   "workbench.view.alwaysShowHeaderActions": true,
   "workbench.editor.showIcons": true,
-  "workbench.editorAssociations": {
-    "*.ipynb": "jupyter.notebook.ipynb"
-  },
-  "breadcrumbs.icons": false,
   "files.simpleDialog.enable": false,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "css.lint.compatibleVendorPrefixes": "warning",
@@ -107,44 +34,23 @@
   "css.lint.universalSelector": "warning",
   "css.lint.zeroUnits": "warning",
   "eslint.lintTask.enable": true,
-  "python.languageServer": "Pylance",
-  "jupyter.askForKernelRestart": false,
-  "jupyter.interactiveWindowMode": "perFile",
-  "jupyter.ignoreVscodeTheme": true,
   "terminal.external.linuxExec": "alacritty",
-  "liveServer.settings.CustomBrowser": "chrome:PrivateMode",
-  "liveServer.settings.donotShowInfoMsg": true,
-  "telemetry.enableTelemetry": false,
-  "telemetry.enableCrashReporter": false,
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.explorerKind": "external",
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
   "explorer.confirmDragAndDrop": false,
-  "terminal.integrated.defaultProfile.linux": "fish",
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
   "go.toolsManagement.autoUpdate": true,
   "editor.inlineSuggest.enabled": true,
   "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-  "editor.scrollBeyondLastLine": false
+  "editor.scrollBeyondLastLine": false,
+  "workbench.colorTheme": "Base16 Default Dark",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }
