@@ -170,7 +170,10 @@ noremap <Up>    <Nop>
 noremap <Down>  <Nop>
 noremap <Left>  <Nop>
 noremap <Right> <Nop>
-
+noremap <C-N> <C-D>
+noremap <C-M> <C-U>
+noremap <C-F> <C-F>
+noremap <C-G> <C-B>
 
 " undo breaks before deletes
 inoremap <C-U> <C-G>u<C-U>
