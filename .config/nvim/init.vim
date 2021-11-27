@@ -26,6 +26,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'folke/lsp-colors.nvim'
   Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
     let g:airline#extensions#tmuxline#enabled = 1
     let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline-themes'
@@ -52,6 +53,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-vsnip'
+  Plug 'lbrayner/vim-rzip'
 
   " Syntactic language support
   Plug 'simrat39/rust-tools.nvim'
@@ -79,7 +81,8 @@ set clipboard+=unnamedplus
 set mouse=a " Enable mouse usage (all modes) in terminals
 
 set updatetime=300
-set timeoutlen=350
+set ttimeoutlen=10
+" set timeoutlen=350
 set lazyredraw
 
 set splitright splitbelow
@@ -118,6 +121,9 @@ set diffopt+=vertical
 set guioptions-=T " Remove toolbar
 set guifont=JetBrainsMono_Nerd_Font_Mono:h10
 set guicursor+=a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
+if has('ide')
+  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+endif
 
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
@@ -176,13 +182,14 @@ noremap <Up>    <Nop>
 noremap <Down>  <Nop>
 noremap <Left>  <Nop>
 noremap <Right> <Nop>
-noremap <M-K> <C-Y>
-noremap <M-J> <C-E>
 noremap <C-N> <C-D>
 noremap <C-M> <C-U>
 noremap <C-U> <C-F>
 noremap <C-I> <C-B>
 noremap <C-E> :noh<CR>
+noremap <M-j> <C-E>
+noremap <M-k> <C-Y>
+inoremap <C-J> <Nop>
 
 " undo breaks before deletes
 inoremap <C-U> <C-G>u<C-U>
@@ -216,7 +223,7 @@ nnoremap <C-Q> :Ttoggle<CR>
 inoremap <C-Q> <Esc>:Ttoggle<CR>
 tnoremap <C-Q> <C-\><C-N>:Ttoggle<CR>
 
-noremap <C-W> :bw<CR>
+noremap <C-X> :bw<CR>
 
 nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
@@ -286,22 +293,22 @@ lua << EOF
     local opts = { noremap=true, silent=true }
 
     buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<space>k', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-S-K>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
     buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
     buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
     buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
     buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
     buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
   end
 
   local cmp = require'cmp'
@@ -336,10 +343,8 @@ lua << EOF
     "gopls",
     "vimls",
     "bashls",
-    "tsserver",
     "pylsp",
     "rnix",
-    "stylelint_lsp",
     }
 
   for _, lsp in ipairs(servers) do
@@ -351,6 +356,14 @@ lua << EOF
         }
       }
   end
+
+  lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+      debounce_text_changes = 150,
+      }
+    }
 
   -- rust
   require('rust-tools').setup({
