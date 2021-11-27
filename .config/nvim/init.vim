@@ -121,6 +121,9 @@ set diffopt+=vertical
 set guioptions-=T " Remove toolbar
 set guifont=JetBrainsMono_Nerd_Font_Mono:h10
 set guicursor+=a:blinkwait200-blinkoff125-blinkon150-Cursor/lCursor
+if has('ide')
+  set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+endif
 
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
@@ -182,6 +185,10 @@ noremap <C-N> <C-D>
 noremap <C-M> <C-U>
 noremap <C-F> <C-F>
 noremap <C-G> <C-B>
+noremap <M-j> <C-E>
+noremap <M-k> <C-Y>
+noremap <C-E> :noh<CR>
+inoremap <C-J> <Nop>
 
 " undo breaks before deletes
 inoremap <C-U> <C-G>u<C-U>
@@ -223,7 +230,7 @@ vnoremap <Tab>   >
 vnoremap <S-Tab> <
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-M>" : "\<S-Tab>"
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <C-^>

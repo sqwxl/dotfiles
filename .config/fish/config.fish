@@ -38,9 +38,11 @@ abbr -ag cfgatty 'nvim ~/.alacritty.yml'
 abbr -ag rmr 'rm -rf'
 
 # config abbr for dotfiles
-abbr -ag config "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+abbr -ag config "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
-alias cat bat
+if command -v bat > /dev/null
+  alias cat bat
+end
 
 abbr -ag exa exa --group-directories-first
 if command -v lsd > /dev/null
