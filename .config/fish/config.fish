@@ -66,6 +66,7 @@ if command -v go > /dev/null
 end
 
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.npm-global/bin
 
 set -gx ANDROID_SDK $HOME/Android/Sdk
 set -gx ANDROID_HOME $HOME/Android/Sdk

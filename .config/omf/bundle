@@ -2,7 +2,6 @@ package bass
 package foreign-env
 package fuck
 package neovim
-package nvm
 package rustup
 package z
 theme bobthefish
