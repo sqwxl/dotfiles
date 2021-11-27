@@ -167,6 +167,7 @@ nnoremap ; :
 nnoremap Y y$
 nnoremap Q @q
 
+" MOVEMENT
 nnoremap j gj
 nnoremap k gk
 noremap H ^
@@ -175,10 +176,13 @@ noremap <Up>    <Nop>
 noremap <Down>  <Nop>
 noremap <Left>  <Nop>
 noremap <Right> <Nop>
+noremap <M-K> <C-Y>
+noremap <M-J> <C-E>
 noremap <C-N> <C-D>
 noremap <C-M> <C-U>
-noremap <C-F> <C-F>
-noremap <C-G> <C-B>
+noremap <C-U> <C-F>
+noremap <C-I> <C-B>
+noremap <C-E> :noh<CR>
 
 " undo breaks before deletes
 inoremap <C-U> <C-G>u<C-U>
@@ -220,7 +224,7 @@ vnoremap <Tab>   >
 vnoremap <S-Tab> <
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-M>" : "\<S-Tab>"
 
 " <leader><leader> toggles between buffers
 nnoremap <leader><leader> <C-^>

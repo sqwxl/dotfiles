@@ -38,29 +38,31 @@ abbr -ag cfgatty 'nvim ~/.alacritty.yml'
 abbr -ag rmr 'rm -rf'
 
 # config abbr for dotfiles
-abbr -ag config "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+abbr -ag config "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
-alias cat bat
+if command -v bat > /dev/null
+  alias cat bat
+end
 
 abbr -ag exa exa --group-directories-first
 if command -v lsd > /dev/null
-	abbr -ag l 'lsd'
-	abbr -ag ls 'lsd'
-	abbr -ag ll 'lsd -l'
-	abbr -ag lll 'lsd -lah'
+  abbr -ag l 'lsd'
+  abbr -ag ls 'lsd'
+  abbr -ag ll 'lsd -l'
+  abbr -ag lll 'lsd -lah'
 else
-	abbr -ag l 'ls'
-	abbr -ag ll 'ls -l'
-	abbr -ag lll 'ls -la'
+  abbr -ag l 'ls'
+  abbr -ag ll 'ls -l'
+  abbr -ag lll 'ls -la'
 end
 
 if command -v rg > /dev/null
-	set -gx FZF_DEFAULT_COMMAND rg --files
-	set -gx FZF_DEFAULT_OPTS -m
+  set -gx FZF_DEFAULT_COMMAND rg --files
+  set -gx FZF_DEFAULT_OPTS -m
 end
 
 if command -v go > /dev/null
-	fish_add_path (go env GOPATH)/bin
+  fish_add_path (go env GOPATH)/bin
 end
 
 fish_add_path $HOME/.local/bin
