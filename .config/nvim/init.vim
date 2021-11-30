@@ -181,12 +181,19 @@ noremap <Up>    <Nop>
 noremap <Down>  <Nop>
 noremap <Left>  <Nop>
 noremap <Right> <Nop>
+
 noremap <C-N> <C-D>
 noremap <C-M> <C-U>
 noremap <C-F> <C-F>
 noremap <C-G> <C-B>
 noremap <M-j> <C-E>
 noremap <M-k> <C-Y>
+
+nnoremap <C-H> <C-W>h
+nnoremap <C-J> <C-W>j
+nnoremap <C-K> <C-W>k
+nnoremap <C-L> <C-W>l
+
 noremap <C-E> :noh<CR>
 inoremap <C-J> <Nop>
 

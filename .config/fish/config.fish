@@ -46,26 +46,27 @@ end
 
 abbr -ag exa exa --group-directories-first
 if command -v lsd > /dev/null
-	abbr -ag l 'lsd'
-	abbr -ag ls 'lsd'
-	abbr -ag ll 'lsd -l'
-	abbr -ag lll 'lsd -lah'
+  abbr -ag l 'lsd'
+  abbr -ag ls 'lsd'
+  abbr -ag ll 'lsd -l'
+  abbr -ag lll 'lsd -lah'
 else
-	abbr -ag l 'ls'
-	abbr -ag ll 'ls -l'
-	abbr -ag lll 'ls -la'
+  abbr -ag l 'ls'
+  abbr -ag ll 'ls -l'
+  abbr -ag lll 'ls -la'
 end
 
 if command -v rg > /dev/null
-	set -gx FZF_DEFAULT_COMMAND rg --files
-	set -gx FZF_DEFAULT_OPTS -m
+  set -gx FZF_DEFAULT_COMMAND rg --files
+  set -gx FZF_DEFAULT_OPTS -m
 end
 
 if command -v go > /dev/null
-	fish_add_path (go env GOPATH)/bin
+  fish_add_path (go env GOPATH)/bin
 end
 
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.npm-global/bin
 
 set -gx ANDROID_SDK $HOME/Android/Sdk
 set -gx ANDROID_HOME $HOME/Android/Sdk

@@ -21,7 +21,6 @@
   "editor.suggestSelection": "first",
   "editor.find.addExtraSpaceOnTop": true,
   "workbench.sideBar.location": "left",
-  "workbench.activityBar.visible": true,
   "workbench.enableExperiments": false,
   "workbench.view.alwaysShowHeaderActions": true,
   "workbench.editor.showIcons": true,
@@ -54,4 +53,34 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "redhat.telemetry.enabled": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "json.schemas": [
+    {
+      "name": "vscode-expo-manifest",
+      "url": "file:///home/nilueps/.config/Code/User/globalStorage/bycedric.vscode-expo/manifest-43.0.0.json",
+      "fileMatch": [
+        "app.json",
+        "app.config.json"
+      ]
+    }
+  ],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.minimap.enabled": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true,
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "javascript.format.semicolons": "insert",
+  "prettier.resolveGlobalModules": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }
