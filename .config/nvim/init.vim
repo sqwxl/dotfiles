@@ -1,12 +1,9 @@
 call plug#begin(stdpath('data') . '/plugged')
   " Enhancements
-  Plug 'editorconfig/editorconfig-vim'
-    let g:EditorConfig_exclude_patterns = ['fugitive://.*']
   Plug 'justinmk/vim-sneak'
     let g:sneak#s_next = 1
   Plug 'andymass/vim-matchup'
   Plug 'jiangmiao/auto-pairs'
-  Plug 'szw/vim-maximizer'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-commentary'
@@ -15,7 +12,6 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'airblade/vim-rooter'
   Plug 'folke/trouble.nvim'
-  Plug 'mattn/webapi-vim'
 
   " Look & feel
   Plug 'machakann/vim-highlightedyank'
@@ -33,10 +29,6 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'edkolev/tmuxline.vim'
 
   " Tools
-  Plug 'kassio/neoterm'
-    let g:neoterm_default_mod = 'vertical'
-    let g:neoterm_size = 80
-    let g:neoterm_autoinsert = 1
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
@@ -48,16 +40,18 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-lua/lsp_extensions.nvim'
 
-  Plug 'hrsh7th/nvim-cmp'
   Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+
   Plug 'hrsh7th/cmp-vsnip'
-  Plug 'lbrayner/vim-rzip'
+  Plug 'hrsh7th/vim-vsnip'
 
   " Syntactic language support
+  Plug 'lbrayner/vim-rzip'
   Plug 'simrat39/rust-tools.nvim'
-  Plug 'hrsh7th/vim-vsnip'
   Plug 'pangloss/vim-javascript'
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
@@ -78,16 +72,15 @@ set noswapfile
 set hidden
 set undofile undodir=~/.vimdid
 set clipboard+=unnamedplus
-set mouse=a " Enable mouse usage (all modes) in terminals
+set mouse=a
 
 set updatetime=300
 set ttimeoutlen=10
-" set timeoutlen=350
 set lazyredraw
 
 set splitright splitbelow
 
-set completeopt=menu,menuone,noinsert,noselect
+set completeopt=menu,menuone,noselect
 set shortmess+=c
 
 set termguicolors
@@ -96,14 +89,14 @@ let g:airline_theme = 'base16_dracula'
 
 set number relativenumber numberwidth=1
 set signcolumn=yes
-set colorcolumn=100 " and give me a colored column
+set colorcolumn=100
 set scrolloff=2
-set noshowmode " We have airline for that
+set noshowmode
 
 set nowrap
-set nolinebreak
+set linebreak
 set breakindent
-let &showbreak = '\ '
+let &showbreak = '﬌ '
 
 set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent smartindent
 set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
@@ -144,10 +137,10 @@ augroup numbertoggle
 augroup END
 
 " Leave paste mode when leaving insert mode
-autocmd InsertLeave * set nopaste
+" autocmd InsertLeave * set nopaste
 
 " Enable type inlay hints
-autocmd CursorHold,CursorHoldI * lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+" autocmd CursorHold,CursorHoldI * lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -173,6 +166,7 @@ nnoremap ; :
 nnoremap Y y$
 nnoremap Q @q
 
+" MOVEMENT
 nnoremap j gj
 nnoremap k gk
 noremap H ^
@@ -184,8 +178,8 @@ noremap <Right> <Nop>
 
 noremap <C-N> <C-D>
 noremap <C-M> <C-U>
-noremap <C-F> <C-F>
-noremap <C-G> <C-B>
+noremap <C-U> <C-F>
+noremap <C-I> <C-B>
 noremap <M-j> <C-E>
 noremap <M-k> <C-Y>
 
@@ -211,19 +205,18 @@ noremap! jf <Esc>
 noremap! jj <Esc>
 tnoremap <Esc> <C-\><C-N>
 
-noremap <leader>w :w<CR>
-noremap <leader>m :MaximizerToggle!<CR>
+noremap <Leader>w :w<CR>
 
 function! ToggleNT()
     NERDTreeToggle
     silent NERDTreeMirror
 endfunction
-  
-noremap <leader>t :call ToggleNT()<CR>
-noremap <leader>c ciw
-noremap <leader>d diw
-noremap <leader>y yiw
-noremap <leader>v viw
+
+noremap <Leader>t :call ToggleNT()<CR>
+noremap <Leader>c ciw
+noremap <Leader>d diw
+noremap <Leader>y yiw
+noremap <Leader>v viw
 
 nnoremap <C-Q> :Ttoggle<CR>
 inoremap <C-Q> <Esc>:Ttoggle<CR>
@@ -235,60 +228,45 @@ nnoremap <Tab>   >>
 nnoremap <S-Tab> <<
 vnoremap <Tab>   >
 vnoremap <S-Tab> <
+
 " Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-M>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-N>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-M>" : "\<S-Tab>"
 
 " <leader><leader> toggles between buffers
-nnoremap <leader><leader> <C-^>
+nnoremap <Leader><Leader> <C-^>
 
 " shows/hides hidden characters
-nnoremap <leader>, :set invlist<CR>
+nnoremap <Leader>, :set invlist<CR>
 
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-
-" nnoremap <silent> <leader>a <cmd>lua vim.lsp.buf.declaration()<CR>
-" nnoremap <silent> <leader>k <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> <leader>t <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> K         <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> <C-K>      <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> gi        <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <leader>wa        <cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
-" nnoremap <silent> <leader>wr        <cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
-" nnoremap <silent> <leader>wl        <cmd>lua vim.print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
-" nnoremap <silent> <leader>r        <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> <leader>n        <cmd>lua vim.lsp.buf.code_action()<CR>
-" nnoremap <silent> <leader>R        <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> g[        <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent> g]        <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <silent> <leader>f        <cmd>lua vim.lsp.buf.formatting()<CR>
-" nnoremap <silent> <leader>q        <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <Leader>ff <Cmd>lua require('telescope.builtin').find_files()<CR>
+nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
+nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
+nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
 " ============================================================================
 " # Lua configs
 " ============================================================================
 
 lua << EOF
-  require'trouble'.setup()
-  require'gitsigns'.setup()
+  require('trouble').setup()
+  require('gitsigns').setup()
 
-  -- Integrate vim-matchup with treesitter
-  require'nvim-treesitter.configs'.setup {
+  require('nvim-treesitter.configs').setup({
     matchup = {
       enable = true,
     },
-  }
+  })
 
-  require'telescope'.setup {
+  require('telescope').setup ({
     defaults = {
       initial_mode = 'normal'
-      },
-    }
+    },
+  })
 
-  local lspconfig = require'lspconfig'
+
+  local lspconfig = require('lspconfig')
+
   local on_attach = function(client, bufnr)
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -298,81 +276,125 @@ lua << EOF
 
     local opts = { noremap=true, silent=true }
 
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', '<space>k', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', '<space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<space>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+    buf_set_keymap('n', '<Space>D', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', '<Space>k', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    buf_set_keymap('n', '<Space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+    buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+    buf_set_keymap('n', '<Space>s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<Space>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<Space>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+    buf_set_keymap('n', '<Space>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+    buf_set_keymap('n', '<Space>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+    buf_set_keymap('n', '<Space>a', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+    buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
+    buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<Space>e', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+    buf_set_keymap('n', '[d', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+    buf_set_keymap('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+    buf_set_keymap('n', '<Space>q', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   end
 
-  local cmp = require'cmp'
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
+
+  local cmp = require('cmp')
 
   cmp.setup({
     snippet = {
       expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
+        vim.fn['vsnip#anonymous'](args.body)
+      end
     },
     mapping = {
-      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.close(),
-      ['<CR>'] = cmp.mapping.confirm({ 
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
+      ['<C-D>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-U>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-E>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
       }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = cmp.mapping(function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        elseif vim.fn["vsnip#available"](1) == 1 then
+          feedkey("<Plug>(vsnip-expand-or-jump)", "")
+        elseif has_words_before() then
+          cmp.complete()
+        else
+          fallback()
+        end
+      end, { 'i', 's' }),
+      ['<S-Tab>'] = cmp.mapping(function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+          feedkey("<Plug>(vsnip-jump-prev)", "")
+        end
+      end, { 'i', 's' }),
     },
-    sources = {
+    sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'vsnip' },
-      { name = 'path' },
+    },{
       { name = 'buffer' },
-    },
+    }),
+  })
+
+  cmp.setup.cmdline('/', {
+    sources = { { name = 'buffer' } },
+  })
+
+  cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' },
+    }, {
+      { name = 'cmdline' },
+    }),
   })
 
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  local servers = {
-    "gopls",
-    "vimls",
-    "bashls",
-    "pylsp",
-    "rnix",
-    }
-
-  for _, lsp in ipairs(servers) do
-    lspconfig[lsp].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-        }
-      }
-  end
-
-  lspconfig.tsserver.setup {
+  lspconfig.gopls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-      }
-    }
+  })
 
-  -- rust
+  lspconfig.vimls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  lspconfig.bashls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  lspconfig.pylsp.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  lspconfig.rnix.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
+  lspconfig.tsserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
   require('rust-tools').setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
     tools = {
       autoSetHints = true,
       hover_with_actions = true,
@@ -382,10 +404,7 @@ lua << EOF
         other_hints_prefix = "",
       },
     },
-    
     server = {
-      on_attach = on_attach,
-      capabilities = capabilities,
       settings = {
         ['rust-analyzer'] = {
           checkOnSave = {
@@ -393,7 +412,7 @@ lua << EOF
           },
         },
       },
-    }
+    },
   })
 EOF
 
