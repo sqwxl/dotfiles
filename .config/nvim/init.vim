@@ -3,7 +3,8 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'justinmk/vim-sneak'
     let g:sneak#s_next = 1
   Plug 'andymass/vim-matchup'
-  Plug 'jiangmiao/auto-pairs'
+  " Plug 'jiangmiao/auto-pairs'
+  Plug 'windwp/nvim-autopairs'
   Plug 'christoomey/vim-tmux-navigator'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-commentary'
@@ -16,7 +17,6 @@ call plug#begin(stdpath('data') . '/plugged')
   " Look & feel
   Plug 'machakann/vim-highlightedyank'
     let g:highlightedyank_highlight_duration = 200
-  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
   Plug 'RRethy/nvim-base16'
   Plug 'folke/lsp-colors.nvim'
@@ -32,8 +32,8 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  Plug 'preservim/nerdtree'
-    let g:webdevicons_conceal_nerdtree_brackets = 1
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'kyazdani42/nvim-tree.lua'
 
   " Semantic language support
   Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
@@ -140,7 +140,7 @@ augroup END
 " autocmd InsertLeave * set nopaste
 
 " Enable type inlay hints
-" autocmd CursorHold,CursorHoldI * lua require'lsp_extensions'.inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI * :lua require('lsp_extensions').inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -155,6 +155,9 @@ let g:rustfmt_emit_files = 1
 let g:rustfmt_fail_silently = 1
 let g:rust_clip_command = 'xclip -selection clipboard'
 let g:rust_keep_autopairs_default = 0
+
+" lua syntax highlighting inside .vim
+let g:vimsyn_embed = 'l'
 " ============================================================================
 " # Keyboard shortcuts
 " ============================================================================
@@ -184,6 +187,8 @@ noremap <M-k> <C-Y>
 noremap <C-E> :noh<CR>
 inoremap <C-J> <Nop>
 
+nnoremap <S-J> <Nop>
+
 " undo breaks before deletes
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
@@ -200,12 +205,9 @@ tnoremap <Esc> <C-\><C-N>
 
 noremap <Leader>w :w<CR>
 
-function! ToggleNT()
-    NERDTreeToggle
-    silent NERDTreeMirror
-endfunction
-
-noremap <Leader>t :call ToggleNT()<CR>
+nnoremap <Leader>t :NvimTreeToggle<CR>
+nnoremap <Leader>r :NvimTreeRefresh<CR>
+nnoremap <Leader>n :NvimTreeFindFile<CR>
 noremap <Leader>c ciw
 noremap <Leader>d diw
 noremap <Leader>y yiw
@@ -237,6 +239,7 @@ nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
+command! Scratch lua require('tools').makeScratch()
 " ============================================================================
 " # Lua configs
 " ============================================================================
@@ -246,17 +249,25 @@ lua << EOF
   require('gitsigns').setup()
 
   require('nvim-treesitter.configs').setup({
-    matchup = {
+    ensure_installed = "maintained",
+    highlight = {
       enable = true,
     },
+    matchup = {
+      enable = true,
+    }
   })
 
-  require('telescope').setup ({
+  require('telescope').setup({
     defaults = {
       initial_mode = 'normal'
     },
   })
 
+  require('nvim-tree').setup()
+  require('nvim-autopairs').setup({
+    check_ts = true,
+  })
 
   local lspconfig = require('lspconfig')
 
@@ -298,6 +309,9 @@ lua << EOF
   end
 
   local cmp = require('cmp')
+
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
   cmp.setup({
     snippet = {
