@@ -5,7 +5,6 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'andymass/vim-matchup'
   " Plug 'jiangmiao/auto-pairs'
   Plug 'windwp/nvim-autopairs'
-  Plug 'christoomey/vim-tmux-navigator'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-surround'
@@ -23,10 +22,8 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-    let g:airline#extensions#tmuxline#enabled = 1
     let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'edkolev/tmuxline.vim'
 
   " Tools
   Plug 'nvim-lua/popup.nvim'
@@ -251,6 +248,8 @@ command! Scratch lua require('tools').makeScratch()
 " # Lua configs
 " ============================================================================
 
+
+
 lua << EOF
   require('trouble').setup()
   require('gitsigns').setup()
@@ -258,7 +257,7 @@ lua << EOF
   require('nvim-treesitter.configs').setup({
     ensure_installed = "maintained",
     highlight = {
-      enable = true,
+      enable = false,
     },
     matchup = {
       enable = true,
@@ -419,13 +418,8 @@ lua << EOF
       },
     },
     server = {
-      settings = {
-        ['rust-analyzer'] = {
-          checkOnSave = {
-            command = 'clippy'
-          },
-        },
-      },
+      on_attach = on_attach,
+      capabilities = capabilities,
     },
   })
 EOF

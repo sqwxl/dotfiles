@@ -4,14 +4,12 @@
   "editor.fontSize": 13,
   "editor.lineHeight": 18,
   "editor.fontLigatures": true,
-  "editor.tabSize": 2,
   "editor.matchBrackets": "near",
   "editor.hideCursorInOverviewRuler": true,
   "editor.occurrencesHighlight": false,
   "editor.overviewRulerBorder": false,
   "editor.renderLineHighlight": "none",
   "editor.formatOnSave": true,
-  "editor.wordWrap": "wordWrapColumn",
   "editor.wordWrapColumn": 100,
   "editor.selectionClipboard": false,
   "editor.linkedEditing": true,
@@ -33,7 +31,7 @@
   "css.lint.universalSelector": "warning",
   "css.lint.zeroUnits": "warning",
   "eslint.lintTask.enable": true,
-  "terminal.external.linuxExec": "alacritty",
+  "terminal.external.linuxExec": "kitty",
   "terminal.integrated.defaultProfile.linux": "fish",
   "terminal.explorerKind": "external",
   "git.enableSmartCommit": true,
@@ -75,7 +73,6 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.alwaysShowStatus": true,
-  "eslint.format.enable": true,
   "eslint.packageManager": "yarn",
   "npm.packageManager": "yarn",
   "javascript.format.semicolons": "insert",
@@ -83,4 +80,5 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "workbench.tree.indent": 12
 }
