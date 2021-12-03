@@ -142,17 +142,6 @@ autocmd CursorHold,CursorHoldI * :lua require('lsp_extensions').inlay_hints{ onl
 " Jump to last edit position on opening file
 autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Follow Rust code style rules
-autocmd Filetype rust source ~/.config/nvim/scripts/spacetab.vim
-autocmd Filetype rust set colorcolumn=100
-
-let g:rust_recommended_style = 1
-let g:rustfmt_autosave = 1
-let g:rustfmt_emit_files = 1
-let g:rustfmt_fail_silently = 1
-let g:rust_clip_command = 'xclip -selection clipboard'
-let g:rust_keep_autopairs_default = 0
-
 " lua syntax highlighting inside .vim
 let g:vimsyn_embed = 'l'
 " ============================================================================
@@ -210,12 +199,6 @@ tnoremap <Esc> <C-\><C-N>
 noremap <Leader>w :w<CR>
 
 nnoremap <Leader>t :NvimTreeToggle<CR>
-nnoremap <Leader>r :NvimTreeRefresh<CR>
-nnoremap <Leader>n :NvimTreeFindFile<CR>
-noremap <Leader>c ciw
-noremap <Leader>d diw
-noremap <Leader>y yiw
-noremap <Leader>v viw
 
 nnoremap <C-Q> :Ttoggle<CR>
 inoremap <C-Q> <Esc>:Ttoggle<CR>
@@ -291,7 +274,7 @@ lua << EOF
     buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
     buf_set_keymap('n', '<Space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<Space>s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    buf_set_keymap('n', '<space>s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
     buf_set_keymap('n', '<Space>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<Space>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     buf_set_keymap('n', '<Space>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -406,21 +389,10 @@ lua << EOF
   })
 
   require('rust-tools').setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    tools = {
-      autoSetHints = true,
-      hover_with_actions = true,
-      inlay_hints = {
-        show_parameter_hints = false,
-        parameter_hints_prefix = "",
-        other_hints_prefix = "",
-      },
-    },
     server = {
       on_attach = on_attach,
       capabilities = capabilities,
-    },
+    }
   })
 EOF
 
