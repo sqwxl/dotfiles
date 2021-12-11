@@ -17,8 +17,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'machakann/vim-highlightedyank'
     let g:highlightedyank_highlight_duration = 200
   Plug 'ryanoasis/vim-devicons'
-  Plug 'morhetz/gruvbox'
-  " Plug 'RRethy/nvim-base16'
+  Plug 'RRethy/nvim-base16'
   Plug 'folke/lsp-colors.nvim'
   Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
@@ -82,8 +81,8 @@ set completeopt=menu,menuone,noselect
 set shortmess+=c
 
 set termguicolors
-autocmd vimenter * ++nested colorscheme gruvbox
-let g:airline_theme = 'base16_gruvbox_dark_medium'
+colorscheme base16-dracula
+let g:airline_theme = 'base16_dracula'
 
 set number relativenumber numberwidth=1
 set signcolumn=yes
@@ -389,16 +388,15 @@ lua << EOF
     capabilities = capabilities,
   })
 
-  lspconfig.html.setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-
   require('rust-tools').setup({
     server = {
       on_attach = on_attach,
       capabilities = capabilities,
+<<<<<<< HEAD
+    },
+=======
     }
+>>>>>>> 76622c9 (bloobloo)
   })
 EOF
 
