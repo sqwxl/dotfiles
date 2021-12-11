@@ -388,6 +388,11 @@ lua << EOF
     capabilities = capabilities,
   })
 
+  lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
+
   require('rust-tools').setup({
     server = {
       on_attach = on_attach,
