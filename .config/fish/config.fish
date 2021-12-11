@@ -4,7 +4,9 @@ set -g theme_newline_cursor yes
 set -g theme_newline_prompt '> '
 set -g theme_display_nix no
 set -g theme_show_exit_status no
-set -g theme_color_scheme dracula
+set -g theme_color_scheme gruvbox
+
+theme_gruvbox dark medium
 
 set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
@@ -77,3 +79,14 @@ fish_add_path $ANDROID_HOME/tools/bin
 fish_add_path $ANDROID_HOME/platform-tools
 
 direnv hook fish | source
+
+# Emulates vim's cursor shape behavior
+# Set the normal and visual mode cursors to a block
+set fish_cursor_default block
+# Set the insert mode cursor to a line
+set fish_cursor_insert line
+# Set the replace mode cursor to an underscore
+set fish_cursor_replace_one underscore
+# The following variable can be used to configure cursor shape in
+# visual mode, but due to fish_cursor_default, is redundant here
+set fish_cursor_visual block

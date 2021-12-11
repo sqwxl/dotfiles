@@ -17,8 +17,9 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'machakann/vim-highlightedyank'
     let g:highlightedyank_highlight_duration = 200
   Plug 'ryanoasis/vim-devicons'
+  Plug 'morhetz/gruvbox'
   Plug 'RRethy/nvim-base16'
-  Plug 'folke/lsp-colors.nvim'
+  " Plug 'folke/lsp-colors.nvim'
   Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
@@ -81,8 +82,8 @@ set completeopt=menu,menuone,noselect
 set shortmess+=c
 
 set termguicolors
-colorscheme base16-dracula
-let g:airline_theme = 'base16_dracula'
+autocmd vimenter * ++nested colorscheme gruvbox
+let g:airline_theme = 'base16_gruvbox_dark_medium'
 
 set number relativenumber numberwidth=1
 set signcolumn=yes
