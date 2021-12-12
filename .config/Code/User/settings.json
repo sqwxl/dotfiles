@@ -46,7 +46,6 @@
   "editor.inlineSuggest.enabled": true,
   "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
   "editor.scrollBeyondLastLine": false,
-  "workbench.colorTheme": "Dracula",
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -80,5 +79,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.tree.indent": 12
+  "workbench.tree.indent": 12,
+  "workbench.colorTheme": "Gruvbox Dark Medium"
 }
