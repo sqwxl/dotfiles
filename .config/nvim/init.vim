@@ -243,6 +243,9 @@ lua << EOF
     highlight = {
       enable = false,
     },
+    indent = {
+      enable = false,
+    },
     matchup = {
       enable = true,
     }
@@ -358,7 +361,12 @@ lua << EOF
   })
 
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+  lspconfig.jsonls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+  })
   lspconfig.gopls.setup({
     on_attach = on_attach,
     capabilities = capabilities,
