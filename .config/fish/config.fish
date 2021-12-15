@@ -6,7 +6,7 @@ set -g theme_display_nix no
 set -g theme_show_exit_status no
 set -g theme_color_scheme gruvbox
 
-theme_gruvbox dark medium
+# theme_gruvbox dark medium
 
 set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
@@ -78,7 +78,7 @@ fish_add_path $ANDROID_HOME/tools
 fish_add_path $ANDROID_HOME/tools/bin
 fish_add_path $ANDROID_HOME/platform-tools
 
-direnv hook fish | source
+# direnv hook fish | source
 
 # Emulates vim's cursor shape behavior
 # Set the normal and visual mode cursors to a block
