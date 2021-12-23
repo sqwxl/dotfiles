@@ -11,26 +11,25 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'tpope/vim-repeat'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'airblade/vim-rooter'
-  Plug 'folke/trouble.nvim'
+  " Plug 'folke/trouble.nvim'
 
   " Look & feel
   Plug 'machakann/vim-highlightedyank'
     let g:highlightedyank_highlight_duration = 200
-  Plug 'ryanoasis/vim-devicons'
   Plug 'morhetz/gruvbox'
-  " Plug 'RRethy/nvim-base16'
   Plug 'folke/lsp-colors.nvim'
   Plug 'vim-airline/vim-airline'
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
     let g:airline_powerline_fonts = 1
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'kyazdani42/nvim-web-devicons'
 
   " Tools
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  Plug 'kyazdani42/nvim-web-devicons'
   Plug 'kyazdani42/nvim-tree.lua'
 
   " Semantic language support
@@ -141,10 +140,14 @@ augroup END
 autocmd CursorHold,CursorHoldI * :lua require('lsp_extensions').inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
-autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " lua syntax highlighting inside .vim
 let g:vimsyn_embed = 'l'
+
+let g:rustfmt_autosave = 1
+
+autocmd BufWritePre <buffer> :EslintFixAll
 " ============================================================================
 " # Keyboard shortcuts
 " ============================================================================
@@ -165,13 +168,6 @@ noremap <Up>    <Nop>
 noremap <Down>  <Nop>
 noremap <Left>  <Nop>
 noremap <Right> <Nop>
-
-noremap <C-N> <C-D>
-noremap <C-M> <C-U>
-noremap <C-U> <C-F>
-noremap <C-I> <C-B>
-noremap <M-j> <C-E>
-noremap <M-k> <C-Y>
 
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
@@ -227,15 +223,12 @@ nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
-command! Scratch lua require('tools').makeScratch()
 " ============================================================================
 " # Lua configs
 " ============================================================================
 
-
-
 lua << EOF
-  require('trouble').setup()
+  -- require('trouble').setup()
   require('gitsigns').setup()
 
   require('nvim-treesitter.configs').setup({
@@ -310,7 +303,7 @@ lua << EOF
     snippet = {
       expand = function(args)
         vim.fn['vsnip#anonymous'](args.body)
-      end
+      end,
     },
     mapping = {
       ['<C-D>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -362,6 +355,10 @@ lua << EOF
 
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  lspconfig.eslint.setup({
+    capabilities = capabilities,
+  })
 
   lspconfig.jsonls.setup({
     on_attach = on_attach,
