@@ -167,6 +167,13 @@ nnoremap k gk
 noremap H ^
 noremap L $
 
+" noremap <C-N> <C-D>
+" noremap <C-M> <C-U>
+" noremap <C-U> <C-F>
+" noremap <C-I> <C-B>
+" noremap <M-j> <C-E>
+" noremap <M-k> <C-Y>
+
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
@@ -197,9 +204,7 @@ noremap <Leader>w :w<CR>
 
 nnoremap <Leader>t :NvimTreeToggle<CR>
 
-nnoremap <C-Q> :Ttoggle<CR>
-inoremap <C-Q> <Esc>:Ttoggle<CR>
-tnoremap <C-Q> <C-\><C-N>:Ttoggle<CR>
+nnoremap <C-Q> :confirm quitall<CR>
 
 noremap <C-X> :bw<CR>
 
@@ -223,9 +228,9 @@ nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
-nnoremap ?? <Cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap K <Cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap ?? <Cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <Leader>k <Cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <Leader>d <Cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap K <Cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <Space>p <cmd>lua vim.lsp.buf.type_definition()<CR>
 nnoremap gi <Cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <Space>s <Cmd>lua vim.lsp.buf.signature_help()<CR>

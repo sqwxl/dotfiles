@@ -1,3 +1,2 @@
-. "$HOME/.cargo/env"
-
 export PATH=~/.npm-global/bin:$PATH
+. "$HOME/.cargo/env"
