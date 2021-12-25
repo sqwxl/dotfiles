@@ -6,12 +6,14 @@ call plug#begin(stdpath('data') . '/plugged')
   " Plug 'jiangmiao/auto-pairs'
   Plug 'windwp/nvim-autopairs'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-commentary'
+  " Plug 'tpope/vim-commentary'
+  Plug 'numToStr/Comment.nvim'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-repeat'
   Plug 'lewis6991/gitsigns.nvim'
-  Plug 'airblade/vim-rooter'
+  " Plug 'airblade/vim-rooter'
   " Plug 'folke/trouble.nvim'
+  Plug 'github/copilot.vim'
 
   " Look & feel
   Plug 'machakann/vim-highlightedyank'
@@ -42,19 +44,18 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
-
   Plug 'hrsh7th/cmp-vsnip'
   Plug 'hrsh7th/vim-vsnip'
 
   " Syntactic language support
   Plug 'lbrayner/vim-rzip'
-  Plug 'simrat39/rust-tools.nvim'
   Plug 'pangloss/vim-javascript'
   Plug 'cespare/vim-toml'
   Plug 'stephpy/vim-yaml'
   Plug 'dag/vim-fish'
   Plug 'plasticboy/vim-markdown'
-  Plug 'rust-lang/rust.vim'
+  " Plug 'rust-lang/rust.vim'
+  Plug 'simrat39/rust-tools.nvim'
 
 call plug#end()
 
@@ -147,7 +148,8 @@ let g:vimsyn_embed = 'l'
 
 let g:rustfmt_autosave = 1
 
-autocmd BufWritePre <buffer> :EslintFixAll
+autocmd BufWritePre *.[jt]s,*[jt]sx :EslintFixAll
+
 " ============================================================================
 " # Keyboard shortcuts
 " ============================================================================
@@ -164,19 +166,17 @@ nnoremap j gj
 nnoremap k gk
 noremap H ^
 noremap L $
-noremap <Up>    <Nop>
-noremap <Down>  <Nop>
-noremap <Left>  <Nop>
-noremap <Right> <Nop>
 
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
-noremap <C-E> :noh<CR>
-inoremap <C-J> <Nop>
+noremap <C-H> :noh<CR>
 
+inoremap <C-J> <Nop>
+" imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
 nnoremap <S-J> <Nop>
 
 " undo breaks before deletes
@@ -223,6 +223,24 @@ nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
+nnoremap ?? <Cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap K <Cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap ?? <Cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <Space>p <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap gi <Cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <Space>s <Cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <Space>wa <Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
+nnoremap <Space>wr <Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
+nnoremap <Space>wl <Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
+nnoremap <Space>r <Cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <Space>a <Cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap gr <Cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <Space>f <Cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <Space>e <Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap [d <Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap ]d <Cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <Space>q <Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+
 " ============================================================================
 " # Lua configs
 " ============================================================================
@@ -232,7 +250,30 @@ lua << EOF
   require('gitsigns').setup()
 
   require('nvim-treesitter.configs').setup({
-    ensure_installed = "",
+    ensure_installed = { 
+      "bash",
+      "css",
+      "dockerfile",
+      "fish",
+      "glsl",
+      "go",
+      "html",
+      "javascript",
+      "json",
+      "lua",
+      "make",
+      "markdown",
+      "nix",
+      "pug",
+      "python",
+      "rust",
+      "scss",
+      "svelte",
+      "tsx",
+      "typescript",
+      "vim",
+      "yaml",
+    },
     highlight = {
       enable = false,
     },
@@ -254,36 +295,9 @@ lua << EOF
   require('nvim-autopairs').setup({
     check_ts = true,
   })
+  require('Comment').setup()
 
   local lspconfig = require('lspconfig')
-
-  local on_attach = function(client, bufnr)
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-
-    --Enable completion triggered by <C-x><C-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    local opts = { noremap=true, silent=true }
-
-    buf_set_keymap('n', '<Space>D', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', '<Space>k', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', '<Space>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<space>s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<Space>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<Space>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<Space>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<Space>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<Space>a', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<Space>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-    buf_set_keymap('n', '<Space>e', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<Space>q', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  end
 
   local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -295,9 +309,6 @@ lua << EOF
   end
 
   local cmp = require('cmp')
-
-  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
   cmp.setup({
     snippet = {
@@ -314,7 +325,7 @@ lua << EOF
         c = cmp.mapping.close(),
       }),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.mapping(function(fallback)
+      ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         elseif vim.fn["vsnip#available"](1) == 1 then
@@ -324,14 +335,14 @@ lua << EOF
         else
           fallback()
         end
-      end, { 'i', 's' }),
-      ['<S-Tab>'] = cmp.mapping(function()
+      end, { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function()
         if cmp.visible() then
           cmp.select_prev_item()
         elseif vim.fn["vsnip#jumpable"](-1) == 1 then
           feedkey("<Plug>(vsnip-jump-prev)", "")
         end
-      end, { 'i', 's' }),
+      end, { "i", "s" }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
@@ -341,9 +352,7 @@ lua << EOF
     }),
   })
 
-  cmp.setup.cmdline('/', {
-    sources = { { name = 'buffer' } },
-  })
+  cmp.setup.cmdline('/', { sources = { { name = 'buffer' } } })
 
   cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
@@ -353,6 +362,10 @@ lua << EOF
     }),
   })
 
+  local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
+  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -361,49 +374,56 @@ lua << EOF
   })
 
   lspconfig.jsonls.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
   lspconfig.gopls.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.vimls.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.bashls.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.pylsp.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.rnix.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.tsserver.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   lspconfig.html.setup({
-    on_attach = on_attach,
     capabilities = capabilities,
   })
 
   require('rust-tools').setup({
+    tools = {
+      autoSetHints = true,
+      hover_with_actions = true,
+      inlay_hints = {
+        show_parameter_hints = false,
+        parameter_hints_prefix = "",
+        other_hints_prefix = "",
+      },
+    },
     server = {
-      on_attach = on_attach,
       capabilities = capabilities,
-    }
+      settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = {
+            command = "clippy"
+          },
+        },
+      },
+    },
   })
 EOF
 
