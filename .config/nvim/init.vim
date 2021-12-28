@@ -5,6 +5,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'andymass/vim-matchup'
   " Plug 'jiangmiao/auto-pairs'
   Plug 'windwp/nvim-autopairs'
+  Plug 'windwp/nvim-ts-autotag'
   Plug 'tpope/vim-fugitive'
   " Plug 'tpope/vim-commentary'
   Plug 'numToStr/Comment.nvim'
@@ -138,7 +139,7 @@ augroup END
 " autocmd InsertLeave * set nopaste
 
 " Enable type inlay hints
-autocmd CursorHold,CursorHoldI * :lua require('lsp_extensions').inlay_hints{ only_current_line = true }
+autocmd CursorHold,CursorHoldI * lua require('lsp_extensions').inlay_hints{ only_current_line = true }
 
 " Jump to last edit position on opening file
 " autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -179,7 +180,7 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
-noremap <C-H> :noh<CR>
+noremap <Leader>h :noh<CR>
 
 inoremap <C-J> <Nop>
 " imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
@@ -228,20 +229,22 @@ nnoremap <Leader>fg <Cmd>lua require('telescope.builtin').live_grep()<CR>
 nnoremap <Leader>fb <Cmd>lua require('telescope.builtin').buffers()<CR>
 nnoremap <Leader>fh <Cmd>lua require('telescope.builtin').help_tags()<CR>
 
+nnoremap K <Cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap J <Cmd>lua vim.lsp.buf.code_action()<CR>
+
 nnoremap <Leader>k <Cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <Leader>d <Cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap K <Cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <Space>p <cmd>lua vim.lsp.buf.type_definition()<CR>
+
 nnoremap gi <Cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <Space>s <Cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <Space>wa <Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>
 nnoremap <Space>wr <Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>
 nnoremap <Space>wl <Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>
 nnoremap <Space>r <Cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <Space>a <Cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap gr <Cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <Space>f <Cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <Space>e <Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap E <Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap [d <Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap ]d <Cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 nnoremap <Space>q <Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
@@ -280,12 +283,15 @@ lua << EOF
       "yaml",
     },
     highlight = {
-      enable = false,
+      enable = true,
     },
     indent = {
-      enable = false,
+      enable = true,
     },
     matchup = {
+      enable = true,
+    },
+    autotag = {
       enable = true,
     }
   })
@@ -297,9 +303,6 @@ lua << EOF
   })
 
   require('nvim-tree').setup()
-  require('nvim-autopairs').setup({
-    check_ts = true,
-  })
   require('Comment').setup()
 
   local lspconfig = require('lspconfig')
@@ -367,46 +370,55 @@ lua << EOF
     }),
   })
 
+  require('nvim-autopairs').setup({
+    check_ts = true,
+  })
   local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-
-  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+  cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done())
 
   local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  lspconfig.eslint.setup({
-    capabilities = capabilities,
-  })
+  local servers = { 
+    "eslint",
+    "jsonls",
+    "cssls",
+    "vimls",
+    "gopls",
+    "bashls",
+    "pylsp",
+    "rnix",
+    "tsserver",
+    "html",
+  }
+  for _, server in ipairs(servers) do
+    lspconfig[server].setup({
+      capabilities = capabilities,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    })
+  end
+  
+  local runtime_path = vim.split(package.path, ';')
+  table.insert(runtime_path, "lua/?.lua")
+  table.insert(runtime_path, "lua/?/init.lua")
 
-  lspconfig.jsonls.setup({
-    capabilities = capabilities,
-  })
-  lspconfig.gopls.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.vimls.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.bashls.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.pylsp.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.rnix.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.tsserver.setup({
-    capabilities = capabilities,
-  })
-
-  lspconfig.html.setup({
-    capabilities = capabilities,
+  lspconfig.sumneko_lua.setup({
+    settings = {
+      Lua = {
+        runtime = {
+          version = 'LuaJIT',
+          path = runtime_path,
+        },
+        diagnostics = { 
+          globals = {'vim'},
+        },
+        workspace = {
+          library = vim.api.nvim_get_runtime_file("", true),
+        },
+      },
+    },
   })
 
   require('rust-tools').setup({
