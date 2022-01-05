@@ -21,7 +21,7 @@ abbr -ag gp 'git push'
 
 abbr -ag cfgi3 'nvim ~/.config/i3/config'
 abbr -ag cfgsway 'nvim ~/.config/sway/config'
-abbr -ag cfgvim 'nvim ~/.config/nvim/init.vim'
+abbr -ag cfgvim 'nvim ~/.config/nvim/init.lua'
 abbr -ag cfgfish 'nvim ~/.config/fish/config.fish'
 abbr -ag cfgtmux 'nvim ~/.tmux.conf'
 # abbr -ag cfgterm 'nvim ~/.alacritty.yml'

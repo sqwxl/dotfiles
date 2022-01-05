@@ -36,8 +36,10 @@ set $menu wofi --gtk-dark --insensitive --show run | xargs swaymsg exec --
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 output * background $dark solid_color
 
-input "type:keyboard" {
-  xkb_options ctrl:nocaps
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_layout "us,ca"
+  xkb_variant ",multi"
+  xkb_options "ctrl:nocaps,grp:win_space_toggle"
 }
 
 input "1739:0:Synaptics_TM3075-002" {
@@ -52,14 +54,14 @@ input "1133:16468:Logitech_Wireless_Mouse" {
 }
 
 # class                 border backgr. text indicator child_border
-client.focused          $dark_green $dark_green $dark $green $dark_green
+client.focused          $lightest $light $dark $lighter $light
 client.focused_inactive $dark $dark $light $dark $dark
 client.unfocused        $dark $dark $light $dark $dark
 client.urgent           $red $red $lighter $red $red
 client.background       $darker
 
 titlebar_border_thickness 1
-titlebar_padding 2 1
+titlebar_padding 6 1
 default_border pixel 1
 hide_edge_borders --i3 smart_no_gaps
 
@@ -70,17 +72,20 @@ bar {
     position top
     height 20
 
-    status_command while echo "$(date +'%A %F %R') $(expr $(($(cat /sys/class/power_supply/BAT0/capacity) + $(cat /sys/class/power_supply/BAT1/capacity))) / 2)"; do sleep 1; done
+    status_command ~/.config/sway/status.sh
     colors {
         background $dark
         statusline $light
         separator $light
 
-        focused_workspace $dark_green $dark_green $dark
+        focused_workspace $lightest $light $dark
         urgent_workspace $red $red $white
         inactive_workspace $dark $dark $light
     }
 }
+
+for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+assign [app_id="org.keepassxc.KeePassXC"] 10
 
 exec gammastep
 
