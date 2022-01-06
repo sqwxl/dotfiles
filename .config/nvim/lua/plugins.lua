@@ -18,6 +18,7 @@ require 'packer'.startup(function()
   use 'wbthomason/packer.nvim' -- Package manager
 
   -- Enhancements
+  use 'lbrayner/vim-rzip'
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'tpope/vim-surround'
@@ -77,6 +78,9 @@ require 'packer'.startup(function()
         tabline = {
           lualine_a = {
             'buffers'
+          },
+          lualine_z = {
+              'tabs'
           }
         },
         sections = {
@@ -146,6 +150,8 @@ require 'packer'.startup(function()
   use 'simrat39/rust-tools.nvim'
 
 end)
+
+vim.cmd 'source /home/nilueps/.config/nvim/vimscripts/rzip.vim'
 
 require 'config.telescope'
 require 'config.treesitter'
