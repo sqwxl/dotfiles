@@ -1,6 +1,6 @@
 {
   "vsintellicode.modify.editor.suggestSelection": "choseToUpdateConfiguration",
-  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "editor.fontFamily": "JetBrains Mono",
   "editor.fontSize": 13,
   "editor.lineHeight": 18,
   "editor.fontLigatures": true,
