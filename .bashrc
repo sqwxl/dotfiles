@@ -47,3 +47,5 @@ alias vi=nvim
 alias vim=nvim
 
 . "$HOME/.cargo/env"
+
+alias luamake=/home/nilueps/tmp/lua-language-server/3rd/luamake/luamake

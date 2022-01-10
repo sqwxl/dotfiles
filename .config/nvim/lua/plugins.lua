@@ -197,4 +197,3 @@ require "packer".startup {
 }
 --
 -- vim.cmd 'source /home/nilueps/.config/nvim/vimscript/rzip.vim'
--- require 'config.autopairs'
