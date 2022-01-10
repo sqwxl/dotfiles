@@ -51,30 +51,16 @@ require'packer'.startup(function()
         end
     }
 
-<<<<<<< HEAD
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
-    config = function()
-      require 'lualine'.setup {
-        tabline = {
-          lualine_a = {
-            'buffers'
-          },
-          lualine_z = {
-              'tabs'
-          }
-        },
-        sections = {
-          lualine_c = {
-              'filename',
-              path = 1,
-            },
-          lualine_x = {'filetype'}
-        },
-        inactive_sections = {lualine_x = {}},
-        extensions = {'quickfix', 'toggleterm', 'nvim-tree'}
-        }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = function()
+            require'lualine'.setup {
+                tabline = {lualine_a = {'buffers'}, lualine_z = {'tabs'}},
+                sections = {lualine_c = {{'filename', path = 1}}, lualine_x = {'filetype'}},
+                inactive_sections = {lualine_x = {}},
+                extensions = {'quickfix', 'toggleterm', 'nvim-tree'}
+            }
         end
     }
 
@@ -129,7 +115,7 @@ require'packer'.startup(function()
 
 end)
 
-vim.cmd 'source /home/nilueps/.config/nvim/vimscripts/rzip.vim'
+-- vim.cmd 'source /home/nilueps/.config/nvim/vimscripts/rzip.vim'
 
 require 'config.telescope'
 require 'config.treesitter'
