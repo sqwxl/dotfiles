@@ -80,5 +80,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "workbench.tree.indent": 12,
-  "workbench.colorTheme": "Gruvbox Dark Medium"
+  "workbench.colorTheme": "Gruvbox Dark Medium",
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
