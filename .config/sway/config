@@ -55,8 +55,8 @@ input "1133:16468:Logitech_Wireless_Mouse" {
 
 # class                 border backgr. text indicator child_border
 client.focused          $lightest $light $dark $lighter $light
-client.focused_inactive $dark $dark $light $dark $dark
-client.unfocused        $dark $dark $light $dark $dark
+client.focused_inactive $light $dark $light $dark $dark
+client.unfocused        $light $dark $light $dark $dark
 client.urgent           $red $red $lighter $red $red
 client.background       $darker
 
