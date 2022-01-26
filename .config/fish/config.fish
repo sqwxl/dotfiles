@@ -31,6 +31,7 @@ abbr -ag rmr 'rm -rf'
 
 # config abbr for dotfiles
 abbr -ag cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+abbr -ag myip "curl -4 icanhazip.com"
 
 if command -v bat > /dev/null
   alias cat bat

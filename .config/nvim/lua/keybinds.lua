@@ -8,9 +8,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Remap Esc
-map('i', 'fj', '<Esc>', noremap)
 map('i', 'jf', '<Esc>', noremap)
-map('c', 'fj', '<Esc>', noremap)
 map('c', 'jf', '<Esc>', noremap)
 map('t', '<Esc>', '<C-\\><C-N>', noremap)
 
@@ -68,7 +66,7 @@ map('n', '<C-X>', ':bwipeout<CR>', noremap_silent)
 
 -- Write/quit
 map('n', '<leader>w', ':w<CR>', noremap)
-map('n', '<C-Q>', ':confirm quitall<CR>', noremap)
+-- map('n', '<C-Q>', ':confirm quitall<CR>', noremap)
 map('n', '<C-,>', ':tabnew<CR> :e ~/.config/nvim/init.lua<CR>', noremap)
 
 map('n', '<leader>t', ':NvimTreeToggle<CR>', noremap)
@@ -85,22 +83,25 @@ map('n', '<leader>so', [[<cmd>lua require('telescope.builtin').tags{ only_curren
 map('n', '<leader>?', [[<cmd>lua require('telescope.builtin').oldfiles()<CR>]], noremap_silent)
 
 -- LSP
+map('i', '<F2>', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+map('n', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+map('v', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+
 map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', noremap_silent)
 map('n', 'J', '<cmd>lua vim.lsp.buf.code_action()<CR>', noremap_silent)
-map('n', '<leader>k', '<Cmd>lua vim.lsp.buf.declaration()<CR>', noremap_silent)
-map('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', noremap_silent)
-map('n', '<leader>d', '<Cmd>lua vim.lsp.buf.definition()<CR>', noremap_silent)
+map('n', '<leader>k', '<cmd>lua vim.lsp.buf.declaration()<CR>', noremap_silent)
+map('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', noremap_silent)
+map('n', '<leader>d', '<cmd>lua vim.lsp.buf.definition()<CR>', noremap_silent)
 map('n', '<leader>p', '<cmd>lua vim.lsp.buf.type_definition()<CR>', noremap_silent)
-map('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', noremap_silent)
-map('n', '<leader>s', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', noremap_silent)
-map('n', '<leader>wa', '<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', noremap_silent)
-map('n', '<leader>wr', '<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', noremap_silent)
-map('n', '<leader>wl', '<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', noremap_silent)
-map('n', '<leader>r', '<Cmd>lua vim.lsp.buf.rename()<CR>', noremap_silent)
-map('n', '<leader>f', '<Cmd>lua vim.lsp.buf.formatting()<CR>', noremap_silent)
-map('n', 'E', '<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', noremap_silent)
-map('n', '[d', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', noremap_silent)
-map('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', noremap_silent)
-map('n', '<leader>q', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', noremap_silent)
+map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', noremap_silent)
+map('n', '<leader>s', '<cmd>lua vim.lsp.buf.signature_help()<CR>', noremap_silent)
+map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', noremap_silent)
+map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', noremap_silent)
+map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', noremap_silent)
+map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', noremap_silent)
+map('n', 'E', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', noremap_silent)
+map('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', noremap_silent)
+map('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', noremap_silent)
+map('n', '<leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', noremap_silent)
 
 map('n', '<leader>c', ':source ~/.config/nvim/init.lua<CR>', noremap)
