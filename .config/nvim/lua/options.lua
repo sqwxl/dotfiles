@@ -1,13 +1,12 @@
-vim.cmd("filetype plugin indent on")
-vim.cmd("syntax enable")
-
 local o = vim.opt
 
+o.shortmess:append "I"
 o.swapfile = false
 o.hidden = true
 o.undofile = true
 
-o.clipboard = 'unnamedplus'
+o.inccommand = "nosplit"
+o.clipboard = "unnamedplus"
 
 o.mouse = 'a'
 
@@ -24,22 +23,26 @@ o.shortmess:append('c')
 -- Color
 o.termguicolors = true
 vim.cmd("autocmd vimenter * ++nested colorscheme gruvbox")
+o.cursorline = true
 
 -- Number column
+o.signcolumn = 'auto'
 o.number = true
 o.relativenumber = true
 o.numberwidth = 1
-o.scrolloff = 5
+o.scrolloff = 10
 
-o.signcolumn = 'auto'
+o.laststatus = 0
 
+o.showcmd = true
 o.showmode = false
 
 -- Wrapping
+o.title = true
 o.wrap = false
 o.linebreak = true
 o.breakindent = true
-o.showbreak = '﬌ '
+o.showbreak = [[﬌ ]]
 
 -- Indentation
 local indent = 2
@@ -48,15 +51,17 @@ o.tabstop = indent
 o.softtabstop = indent
 o.expandtab = true
 o.autoindent = true
-o.smartindent = true
+o.smartindent = false
 o.listchars = 'tab:→·,nbsp:·,extends:»,precedes:«,trail:~'
 
 -- Search
+o.hlsearch = true
+o.incsearch = true
 o.ignorecase = true
 o.smartcase = true
 o.gdefault = true
 
-o.backspace = 'indent,eol,start'
+o.backspace = [[indent,eol,start]]
 
 o.diffopt:append('vertical')
 

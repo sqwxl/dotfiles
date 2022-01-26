@@ -29,12 +29,16 @@ require'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = 'gnn',
-      node_incremental = 'grn',
+      init_selection = "<enter>",
+      node_incremental = "<enter>",
       scope_incremental = 'grc',
       node_decremental = 'grm',
     },
   },
+  -- node_movement = {
+  --   enable = true,
+  --   highlight_current_node = true,
+  -- },
   indent = {
     enable = true,
   },
