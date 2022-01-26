@@ -1,20 +1,13 @@
 {
   "vsintellicode.modify.editor.suggestSelection": "choseToUpdateConfiguration",
   "editor.fontFamily": "JetBrains Mono",
-  "editor.fontSize": 13,
-  "editor.lineHeight": 18,
+  "editor.fontSize": 11,
   "editor.fontLigatures": true,
-  "editor.matchBrackets": "near",
-  "editor.hideCursorInOverviewRuler": true,
-  "editor.occurrencesHighlight": false,
-  "editor.overviewRulerBorder": false,
-  "editor.renderLineHighlight": "none",
+  "editor.renderLineHighlight": "gutter",
   "editor.formatOnSave": true,
   "editor.wordWrapColumn": 100,
-  "editor.selectionClipboard": false,
   "editor.linkedEditing": true,
   "editor.copyWithSyntaxHighlighting": false,
-  "editor.mouseWheelZoom": true,
   "editor.showFoldingControls": "always",
   "editor.suggestSelection": "first",
   "editor.find.addExtraSpaceOnTop": true,
@@ -33,7 +26,6 @@
   "eslint.lintTask.enable": true,
   "terminal.external.linuxExec": "kitty",
   "terminal.integrated.defaultProfile.linux": "fish",
-  "terminal.explorerKind": "external",
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "gitlens.currentLine.enabled": false,
@@ -44,7 +36,6 @@
   },
   "go.toolsManagement.autoUpdate": true,
   "editor.inlineSuggest.enabled": true,
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
   "editor.scrollBeyondLastLine": false,
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -57,10 +48,7 @@
     {
       "name": "vscode-expo-manifest",
       "url": "file:///home/nilueps/.config/Code/User/globalStorage/bycedric.vscode-expo/manifest-43.0.0.json",
-      "fileMatch": [
-        "app.json",
-        "app.config.json"
-      ]
+      "fileMatch": ["app.json", "app.config.json"]
     }
   ],
   "[typescriptreact]": {
@@ -83,5 +71,20 @@
   "workbench.colorTheme": "Gruvbox Dark Medium",
   "[javascriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+  "vscode-neovim.mouseSelectionStartVisualMode": true,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.lineHeight": 1.5,
+  "debug.console.fontSize": 10,
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.allowChords": false,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.lineHeight": 1.2,
+  "terminal.integrated.sendKeybindingsToShell": true,
+  "workbench.activityBar.visible": false,
+  "editor.tabSize": 2,
+  "editor.lineNumbers": "relative"
 }
