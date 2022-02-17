@@ -7,7 +7,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function()
     require "lsp_signature".on_attach()
-    vim.cmd [[autocmd ColorScheme * :lua require('vim.lsp.diagnostic')._define_default_signs_and_highlights()]]
+    vim.cmd [[autocmd ColorScheme * :lua require('vim.diagnostic')._define_default_signs_and_highlights()]]
 end
 
 lspconfig.rust_analyzer.setup { on_attach = on_attach, capabilities = capabilities }
@@ -20,6 +20,7 @@ local luadev = require "lua-dev".setup {
 }
 
 lspconfig.sumneko_lua.setup(luadev)
+
 local servers = {"eslint", "jsonls", "cssls", "vimls", "gopls", "bashls", "pylsp", "rnix", "tsserver", "html"}
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
@@ -29,12 +30,12 @@ for _, server in ipairs(servers) do
   })
 end
 
-lspconfig.efm.setup {
-    init_options = {documentFormatting = true},
-    filetypes = {"lua"},
-    settings = {
-        rootMarkers = {".git/"},
-        languages = {lua = {{formatCommand = "lua-format -i --column-limit=120", formatStdin = true}}}
-    }
-}
+-- lspconfig.efm.setup {
+--     init_options = {documentFormatting = true},
+--     filetypes = {"lua"},
+--     settings = {
+--         rootMarkers = {".git/"},
+--         languages = {lua = {{formatCommand = "lua-format -i --column-limit=120", formatStdin = true}}}
+--     }
+-- }
 
