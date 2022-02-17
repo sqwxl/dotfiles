@@ -38,7 +38,6 @@ o.showcmd = true
 o.showmode = false
 
 -- Wrapping
-o.title = true
 o.wrap = false
 o.linebreak = true
 o.breakindent = true
