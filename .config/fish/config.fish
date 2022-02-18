@@ -14,9 +14,10 @@ abbr -ag dc docker-compose
 
 abbr -ag g git
 abbr -ag ga 'git add'
+abbr -ag gaa 'git add .'
 abbr -ag gs 'git status'
-abbr -ag gsw 'git switch'
 abbr -ag gca 'git commit -a'
+abbr -ag gcam 'git commit -a -m'
 abbr -ag gp 'git push'
 
 abbr -ag cfgi3 'nvim ~/.config/i3/config'
@@ -71,3 +72,4 @@ fish_add_path $HOME/.cargo/bin
 
 # direnv hook fish | source
 
+zoxide init fish | source
