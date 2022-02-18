@@ -169,8 +169,7 @@ local function init()
         branch = 'master',
         requires = { {'nvim-lua/plenary.nvim'} },
       }
-    },
-    config = function() require "config.lsp" end
+    }
   }
 
   -- CMP
