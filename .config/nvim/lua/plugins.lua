@@ -178,17 +178,19 @@ local function init()
     'hrsh7th/nvim-cmp',
     after = "gruvbox",
     requires = {
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'hrsh7th/cmp-cmdline'},
-      {'hrsh7th/cmp-vsnip'},
-      {'hrsh7th/vim-vsnip'},
+      'L3MON4D3/LuaSnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      {'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      {'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+      {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+      { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
     },
-    config = function ()
-      require "config.cmp"
-    end
+    config = [[require "config.cmp"]],
+    event = 'InsertEnter *',
   }
+
   use {
     'simrat39/rust-tools.nvim',
     requires = {'nvim-lua/plenary.nvim'},
@@ -203,12 +205,6 @@ local plugins = setmetatable({}, {
   end,
 })
 
-return plugins
--- require "packer".startup {
---   modules,
---   config = {
---     compile_path = vim.fn.stdpath "config" .. "/lua/packer_compiled.lua",
---   }
--- }
---
 -- vim.cmd 'source /home/nilueps/.config/nvim/vimscript/rzip.vim'
+
+return plugins
