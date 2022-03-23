@@ -129,7 +129,7 @@ exec gammastep
 # exec xsettingsd
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --width=$(swaymsg -t get_outputs | jq '.[0].current_mode.width') --height=11 --border=0 --padding=0 --background-color=#00000000 --bar-color=#EBDBB2FF --anchor=bottom --margin=-4
+exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --width=$(swaymsg -t get_outputs | jq '.[0].current_mode.width') --height=11 --border=0 --padding=0 --background-color=#1D2021FF --bar-color=#EBDBB2FF --anchor=bottom --margin=-4
 exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
 
 include /etc/sway/config.d/*
