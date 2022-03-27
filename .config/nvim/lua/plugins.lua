@@ -74,6 +74,8 @@ local function init()
     end
   }
 
+  use 'folke/lua-dev.nvim'
+
   -- Look
   use {'morhetz/gruvbox'}
   use {'folke/lsp-colors.nvim'}
@@ -137,25 +139,40 @@ local function init()
 
   -- Telescope
   use {
-    'nvim-telescope/telescope.nvim',
-    requires = {'nvim-lua/plenary.nvim', 'nvim-lua/popup.nvim'},
-    config = function()
-      require "config.telescope"
-    end,
+    {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-lua/popup.nvim',
+        'telescope-frecency.nvim',
+        'telescope-fzf-native.nvim',
+      },
+      setup = [[require "config.telescope_setup"]],
+      config = [[require "config.telescope"]],
+      cmd = 'Telescope',
+      module = 'telescope'
+    },
+    {
+      'nvim-telescope/telescope-frecency.nvim',
+      after = 'telescope.nvim',
+      requires = 'tami5/sqlite.lua'
+    },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'make',
+    },
+    {
+      'nvim-telescope/telescope-ui-select.nvim'
+    }
   }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
-  use {'nvim-telescope/telescope-ui-select.nvim'}
 
   -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
-    run = ":TSUpdate",
     requires = {
       {'nvim-treesitter/nvim-treesitter-textobjects'},
     },
-    config = function()
-      require 'config.treesitter'
-    end,
+    run = ":TSUpdate",
   }
 
   -- LSP
@@ -163,7 +180,6 @@ local function init()
     'neovim/nvim-lspconfig',
     requires = {
       {'ray-x/lsp_signature.nvim'},
-      {'folke/lua-dev.nvim'},
       {
         'filipdutescu/renamer.nvim',
         branch = 'master',
@@ -185,6 +201,7 @@ local function init()
       {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
       {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
     },
     config = [[require "config.cmp"]],
     event = 'InsertEnter *',
