@@ -102,7 +102,7 @@ local function init()
             return opts.ordinal
           end,
           tab_size = 18,
-          show_buffer_close_icons = true,
+          show_buffer_close_icons = false,
           show_close_icon = false,
           separator_style = "thin",
           enforce_regular_tabs = true,

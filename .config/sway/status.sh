@@ -63,7 +63,7 @@ power_status() {
       urgent=true
     fi
   elif [[ $bl -ge 99 ]]; then
-    symbol=🗲
+    symbol=
   elif [[ $bl -ge 90 ]]; then
     symbol=
   elif [[ $bl -ge 80 ]]; then
@@ -117,12 +117,29 @@ keyboard_status() {
   fi
 }
 
+volume_status() {
+  local volume=$(amixer sget Master | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1)
+  local muted=$(amixer sget Master | sed -En 's/.*(off)/\1/p' | wc -l)
+
+  if [[ $muted -gt 0 ]]; then
+    obj 婢
+  elif [[ $volume -ge 66 ]]; then
+    obj 墳
+  elif [[ $volume -ge 33 ]]; then
+    obj 奔
+  else
+    obj 奄
+  fi
+}
+
 read_metrics() {
-  ipc "$(time_status)" \
+    ipc \
     "$(keyboard_status)" \
-    "$(power_status)" \
+    "$(bluetooth_status)" \
+    "$(volume_status)" \
     "$(network_status)" \
-    "$(bluetooth_status)"
+    "$(power_status)" \
+    "$(time_status)" 
 }
 
 printf '{"version": 1}\n'
