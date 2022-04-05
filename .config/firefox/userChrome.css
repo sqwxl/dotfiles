@@ -1,0 +1,7 @@
+:root {
+  --tab-min-height: 10px;
+}
+
+#nav-bar {
+  visibility: collapse;
+}
