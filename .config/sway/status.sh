@@ -78,7 +78,7 @@ power_status() {
     symbol=
   fi
 
-  obj "$status $symbol" $urgent
+  obj "$symbol $status" $urgent
 }
 
 bluetooth_status() {
