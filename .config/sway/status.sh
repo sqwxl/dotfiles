@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-set -o errexit
-set -o pipefail
+set -euo pipefail
 
 obj() {
   printf "{"
@@ -9,7 +8,9 @@ obj() {
   printf '"full_text": "%s",' "$1"
 
   # $2 is a boolean for urgent
-  "$2" && printf '"urgent": true, "color": "#FF0000",'
+  if [[ -n "${2-}" ]]; then
+    $2 && printf '"urgent": true, "color": "#FF0000",'
+  fi
   printf '"separator": false,'
   printf "},"
 }
@@ -90,6 +91,10 @@ bluetooth_status() {
   fi
 }
 
+wifi_signal_quality() {
+  awk 'NR==3 { print int($3*10/7) }' /proc/net/wireless
+}
+
 network_status() {
   local is_wifi="$(networkctl status wlan0 | rg -i 'online state: online')"
   local is_wired="$(networkctl status enp0s25 | rg -i 'online state: online')"
@@ -97,7 +102,8 @@ network_status() {
   if [[ $is_wired ]]; then
     obj 
   elif [[ $is_wifi ]]; then
-    obj 
+    local wifi_qual="$(wifi_signal_quality)%%"
+    obj " $wifi_qual"
   else
     obj 
   fi
@@ -107,14 +113,25 @@ time_status() {
   obj "$(date +"%A %F %R")"
 }
 
-keyboard_status() {
-  local full_layout=$(swaymsg -t get_inputs | jq -r '.[] | select(.identifier == "1:1:AT_Translated_Set_2_keyboard") | .xkb_active_layout_name')
+active_layout_index() {
+  swaymsg -t get_inputs | jq '.[] | select(.identifier=="1:1:AT_Translated_Set_2_keyboard") | .xkb_active_layout_index'
+}
 
-  if [[ $full_layout == "English (US)" ]]; then
-    obj EN
-  elif [[ $full_layout == "Canadian (intl., 1st part)" ]]; then
-    obj FR
-  fi
+keyboard_status() {
+  local active=$(active_layout_index)
+
+  # index set in config file
+  case $active in
+    0)
+      obj US
+      ;;
+    1)
+      obj CA
+      ;;
+    2)
+      obj DV
+      ;;
+  esac
 }
 
 volume_status() {
