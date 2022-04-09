@@ -14,7 +14,7 @@
 
 .tab-background {
   box-shadow: none !important;
-  border-right: 1px solid grey !important;
+  /*border-right: 1px solid grey !important;*/
 }
 
 .tab-text {
@@ -29,6 +29,3 @@
   display: none;
 }
 
-#nav-bar {
-
-}
