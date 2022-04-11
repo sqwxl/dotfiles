@@ -60,7 +60,7 @@ bar {
         separator $light
 
         focused_workspace $lightest $lightest $darker
-        urgent_workspace $white $red $lightest
+        urgent_workspace $dark_red $dark_red $darker
         inactive_workspace $darker $darker $grey
     }
 }
@@ -70,7 +70,7 @@ bar {
 client.focused          $lightest $lightest   $darker   $lighter      $light
 client.focused_inactive $darker   $darker     $grey     $dark         $dark
 client.unfocused        $darker   $darker     $grey     $dark         $dark
-client.urgent           $yellow   $red        $lighter  $red          $red
+client.urgent           $dark_red   $dark_red   $darker  $dark_red     $dark_red
 
 floating_modifier $mod normal
 
@@ -110,6 +110,7 @@ assign [class="vlc"] $play
 assign [class="Steam"] $game
 assign [class="steam"] $game
 assign [app_id="com.github.wwmm.easyeffects"] $sett
+assign [app_id="pavucontrol"] $sett
 assign [app_id="org.keepassxc.KeePassXC"] $pass
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 
