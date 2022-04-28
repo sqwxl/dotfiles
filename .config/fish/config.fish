@@ -31,14 +31,14 @@ abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
 abbr -ag rmr 'rm -rf'
 
 # config abbr for dotfiles
-abbr -ag cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 abbr -ag myip "curl -4 icanhazip.com"
 
-if command -v bat > /dev/null
+if type -q bat
   alias cat bat
 end
 
-if command -v lsd > /dev/null
+if type -q lsd
   abbr -ag l 'lsd'
   abbr -ag ls 'lsd'
   abbr -ag ll 'lsd -l'
@@ -49,18 +49,29 @@ else
   abbr -ag lll 'ls -la'
 end
 
-if command -v rg > /dev/null
+if type -q rg
   set -gx FZF_DEFAULT_COMMAND rg --files
   set -gx FZF_DEFAULT_OPTS -m
 end
 
-if command -v go > /dev/null
+if type -q go
   fish_add_path (go env GOPATH)/bin
 end
 
 fish_add_path $HOME/.local/bin
-fish_add_path $HOME/.npm-global/bin
+
+if type -q node
+  fish_add_path $HOME/.npm-global/bin
+end
+
+if type -q rustup
 fish_add_path $HOME/.cargo/bin
+end
+
+# if not type -q fisher
+#   curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
+#   fisher update
+# end
 
 # set -gx ANDROID_SDK $HOME/Android/Sdk
 # set -gx ANDROID_HOME $HOME/Android/Sdk
@@ -72,4 +83,10 @@ fish_add_path $HOME/.cargo/bin
 
 # direnv hook fish | source
 
-zoxide init fish | source
+if type -q zoxide
+  zoxide init fish | source
+end
+
+# Generated for envman. Do not edit.
+test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
+
