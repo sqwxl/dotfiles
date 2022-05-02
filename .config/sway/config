@@ -12,7 +12,6 @@ set $yellow         #fabd2f
 set $blue           #83a598
 set $purple         #d3869b
 set $aqua           #8ec07c
-
 set $darker         #1d2021
 set $dark           #282828
 set $grey           #928374
@@ -35,35 +34,40 @@ input "1739:0:Synaptics_TM3075-002" {
   dwt enable
   natural_scroll enabled
   accel_profile adaptive
+  pointer_accel -0.1
 }
 
+input "2:10:TPPS/2_IBM_TrackPoint" {
+  scroll_factor 0.3
+  pointer_accel -0.2
+}
 input "1133:16468:Logitech_Wireless_Mouse" {
   natural_scroll enabled
 }
 
 font monospace 9
-titlebar_border_thickness 1
-titlebar_padding 6 1
-default_border pixel 1
-hide_edge_borders --i3 smart_no_gaps
 
 bar {
+    status_command ~/.config/sway/status.sh
+
     position bottom
     height 20
     strip_workspace_numbers yes
 
-    status_command ~/.config/sway/status.sh
-
     colors {
         background $darker
         statusline $lightest
-        separator $light
-
         focused_workspace $lightest $lightest $darker
-        urgent_workspace $dark_red $dark_red $darker
         inactive_workspace $darker $darker $grey
+        urgent_workspace $dark_red $dark_red $darker
+        separator $light
     }
 }
+
+titlebar_border_thickness 1
+titlebar_padding 6 1
+default_border pixel 2
+hide_edge_borders --i3 smart_no_gaps
 
                       # border    background  text      indicator     child_border
                       # ----------------------------------------------------------
@@ -196,7 +200,7 @@ bindsym {
 
 # exec xsettingsd
 
-exec gammastep
+exec gammastep-indicator
 
 set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
 exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --width=$(swaymsg -t get_outputs | jq '.[0].current_mode.width') --height=11 --border=0 --padding=0 --anchor=bottom --margin=0 --background-color=#1D20218F --bar-color=#EBDBB28F
