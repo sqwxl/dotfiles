@@ -1,4 +1,9 @@
 local packer = nil
+local fn = vim.fn
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+end
 
 local function init()
   if packer == nil then
@@ -9,23 +14,23 @@ local function init()
   local use = packer.use
   packer.reset()
 
-  use {'wbthomason/packer.nvim'}
+  use { 'wbthomason/packer.nvim' }
   -- Speedup
-  use {'lewis6991/impatient.nvim'}
-  use {'nathom/filetype.nvim'}
+  use { 'lewis6991/impatient.nvim' }
+  use { 'nathom/filetype.nvim' }
 
   -- Enhancements
-  use {'lbrayner/vim-rzip', disable = true}
-  use {'tpope/vim-surround', event = "InsertEnter"}
-  use {'tpope/vim-repeat', envent = "InsertEnter"}
-  use {'andymass/vim-matchup'}
-  use {'ludovicchabant/vim-gutentags', disable = true}
-  use {'numToStr/Comment.nvim', config = function() require'Comment'.setup() end}
+  use { 'lbrayner/vim-rzip', disable = true }
+  use { 'tpope/vim-surround', event = "InsertEnter" }
+  use { 'tpope/vim-repeat', envent = "InsertEnter" }
+  use { 'andymass/vim-matchup' }
+  use { 'ludovicchabant/vim-gutentags', disable = true }
+  use { 'numToStr/Comment.nvim', config = function() require 'Comment'.setup() end }
   use {
     'windwp/nvim-autopairs',
-    config = function() require'nvim-autopairs'.setup {check_ts = true, disable_in_macro = true} end
+    config = function() require 'nvim-autopairs'.setup { check_ts = true, disable_in_macro = true } end
   }
-  use {'windwp/nvim-ts-autotag'}
+  use { 'windwp/nvim-ts-autotag' }
   use {
     'ggandor/lightspeed.nvim',
     after = "gruvbox",
@@ -34,7 +39,7 @@ local function init()
     'akinsho/toggleterm.nvim',
     disable = true,
     config = function()
-      require'toggleterm'.setup {
+      require 'toggleterm'.setup {
         open_mapping = '<A-Space>',
         shade_terminals = false
       }
@@ -46,12 +51,12 @@ local function init()
     keys = "<C-q>",
     ft = "qf",
     config = function()
-      vim.api.nvim_set_keymap("n", "<C-q>", require"utils".toggle_qf, {silent = true})
+      vim.api.nvim_set_keymap("n", "<C-q>", require "utils".toggle_qf, { silent = true })
     end
   }
 
   -- Git
-  use {'tpope/vim-fugitive', cmd = "Git"}
+  use { 'tpope/vim-fugitive', cmd = "Git" }
   -- use {
   --   'TimUntersberger/neogit',
   --   disable = true,
@@ -77,17 +82,17 @@ local function init()
   use 'folke/lua-dev.nvim'
 
   -- Look
-  use {'morhetz/gruvbox'}
-  use {'folke/lsp-colors.nvim'}
+  use { 'morhetz/gruvbox' }
+  use { 'folke/lsp-colors.nvim' }
   use {
     'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
+    requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
-      require'lualine'.setup {
+      require 'lualine'.setup {
         -- tabline = {lualine_a = {'buffers'}, lualine_z = {'tabs'}},
-        sections = {lualine_c = {{'filename', path = 1}}, lualine_x = {'filetype'}},
-        inactive_sections = {lualine_x = {}},
-        extensions = {'quickfix', 'toggleterm', 'nvim-tree'}
+        sections = { lualine_c = { { 'filename', path = 1 } }, lualine_x = { 'filetype' } },
+        inactive_sections = { lualine_x = {} },
+        extensions = { 'quickfix', 'toggleterm', 'nvim-tree' }
       }
     end
   }
@@ -114,9 +119,9 @@ local function init()
     'lukas-reineke/indent-blankline.nvim',
     config = function()
       vim.g.indent_blankline_show_current_context = true
-      require'indent_blankline'.setup {
-        filetype_exclude = {'help', 'packer'},
-        buftype_exclude = {'terminal', 'nofile'},
+      require 'indent_blankline'.setup {
+        filetype_exclude = { 'help', 'packer' },
+        buftype_exclude = { 'terminal', 'nofile' },
         show_trailing_blankline_indent = false
       }
     end
@@ -125,14 +130,18 @@ local function init()
   -- Tools
   use {
     'kyazdani42/nvim-tree.lua',
-    requires = {'kyazdani42/nvim-web-devicons'},
+    requires = { 'kyazdani42/nvim-web-devicons' },
     config = function()
-      vim.g.nvim_tree_indent_markers = 1
       vim.g.nvim_tree_highlight_opened_files = 1
-      require'nvim-tree'.setup {
+      require 'nvim-tree'.setup {
         hijack_cursor = true,
-        diagnostics = {enable = true},
-        view = {signcolumn = "yes"}
+        diagnostics = { enable = true },
+        view = { signcolumn = "yes" },
+        renderer = {
+          indent_markers = {
+            enable = true
+          }
+        }
       }
     end
   }
@@ -142,35 +151,38 @@ local function init()
     {
       'nvim-telescope/telescope.nvim',
       requires = {
-        'nvim-lua/plenary.nvim',
         'nvim-lua/popup.nvim',
+        'nvim-lua/plenary.nvim',
         'telescope-frecency.nvim',
         'telescope-fzf-native.nvim',
       },
-      setup = [[require "config.telescope_setup"]],
-      config = [[require "config.telescope"]],
+      wants = {
+        'popup.nvim',
+        'plenary.nvim',
+        'telescope-frecency.nvim',
+        'telescope-fzf-native.nvim',
+      },
+      setup = function() require 'config.telescope_setup' end,
+      config = function() require 'config.telescope' end,
       cmd = 'Telescope',
-      module = 'telescope'
+      module = 'telescope',
     },
     {
       'nvim-telescope/telescope-frecency.nvim',
       after = 'telescope.nvim',
-      requires = 'tami5/sqlite.lua'
+      requires = 'tami5/sqlite.lua',
     },
     {
       'nvim-telescope/telescope-fzf-native.nvim',
       run = 'make',
     },
-    {
-      'nvim-telescope/telescope-ui-select.nvim'
-    }
   }
 
   -- Treesitter
   use {
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      {'nvim-treesitter/nvim-treesitter-textobjects'},
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
     },
     run = ":TSUpdate",
   }
@@ -179,11 +191,11 @@ local function init()
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      {'ray-x/lsp_signature.nvim'},
+      { 'ray-x/lsp_signature.nvim' },
       {
         'filipdutescu/renamer.nvim',
         branch = 'master',
-        requires = { {'nvim-lua/plenary.nvim'} },
+        requires = { { 'nvim-lua/plenary.nvim' } },
       }
     }
   }
@@ -196,22 +208,26 @@ local function init()
       'L3MON4D3/LuaSnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
-      {'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-      {'hrsh7th/cmp-path', after = 'nvim-cmp' },
-      {'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-      {'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+      { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
       { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
       { 'hrsh7th/cmp-nvim-lsp-document-symbol', after = 'nvim-cmp' },
     },
-    config = [[require "config.cmp"]],
+    config = function() require "config.cmp" end,
     event = 'InsertEnter *',
   }
 
   use {
     'simrat39/rust-tools.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function() require "rust-tools".setup() end
   }
+
+  if packer_bootstrap then
+    require('packer').sync()
+  end
 end
 
 local plugins = setmetatable({}, {
