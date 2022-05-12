@@ -8,6 +8,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Remap Esc
+map('i', 'hh', '<Esc>', noremap)
+map('c', 'hh', '<Esc>', noremap)
 map('i', 'jf', '<Esc>', noremap)
 map('c', 'jf', '<Esc>', noremap)
 map('t', '<Esc>', '<C-\\><C-N>', noremap)
@@ -65,7 +67,7 @@ map('n', '<leader>p', ':bprevious<CR>', noremap_silent)
 map('n', '<C-X>', ':bwipeout<CR>', noremap_silent)
 
 -- Write/quit
-map('n', '<leader>w', ':w<CR>', noremap)
+map('n', '<C-s>', ':w<CR>', noremap)
 -- map('n', '<C-Q>', ':confirm quitall<CR>', noremap)
 map('n', '<C-,>', ':tabnew<CR> :e ~/.config/nvim/init.lua<CR>', noremap)
 

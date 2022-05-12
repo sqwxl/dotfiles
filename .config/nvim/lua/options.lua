@@ -23,6 +23,7 @@ o.shortmess:append('c')
 -- Color
 o.termguicolors = true
 vim.cmd("autocmd vimenter * ++nested colorscheme gruvbox")
+-- vim.cmd("colorscheme gruvbox")
 o.cursorline = true
 
 -- Number column

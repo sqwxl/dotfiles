@@ -2,9 +2,8 @@ set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
 set -gx MANPAGER '/usr/bin/nvim +Man!'
 
-abbr -ag sdu 'sudo dnf upgrade'
-
 abbr -ag n nvim
+abbr -ag s sudo
 abbr -ag se sudoedit
 
 abbr -ag o xdg-open
@@ -20,18 +19,17 @@ abbr -ag gca 'git commit -a'
 abbr -ag gcam 'git commit -a -m'
 abbr -ag gp 'git push'
 
-abbr -ag cfgi3 'nvim ~/.config/i3/config'
+alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+
 abbr -ag cfgsway 'nvim ~/.config/sway/config'
 abbr -ag cfgvim 'nvim ~/.config/nvim/init.lua'
 abbr -ag cfgfish 'nvim ~/.config/fish/config.fish'
-abbr -ag cfgtmux 'nvim ~/.tmux.conf'
+#abbr -ag cfgtmux 'nvim ~/.tmux.conf'
 # abbr -ag cfgterm 'nvim ~/.alacritty.yml'
 abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
 
 abbr -ag rmr 'rm -rf'
 
-# config abbr for dotfiles
-alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 abbr -ag myip "curl -4 icanhazip.com"
 
 if type -q bat
@@ -54,8 +52,8 @@ if type -q rg
   set -gx FZF_DEFAULT_OPTS -m
 end
 
-if type -q go
-  fish_add_path (go env GOPATH)/bin
+if test -d /usr/local/go
+  fish_add_path /usr/local/go/bin
 end
 
 fish_add_path $HOME/.local/bin

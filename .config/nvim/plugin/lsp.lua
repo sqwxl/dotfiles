@@ -23,8 +23,8 @@ local function on_attach(client)
     map(0, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', noremap_silent)
     map(0, 'n', '<leader>q', '<cmd>lua vim.diagnostic.set_loclist()<CR>', noremap_silent)
 
-    if client.resolved_capabilities.document_formatting then
-      map(0, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', noremap_silent)
+    if client.server_capabilities.documentFormattingProvider then
+      map(0, 'n', '<M-F>', '<cmd>lua vim.lsp.buf.format()<cr>', noremap_silent)
     end
 
 end
@@ -41,7 +41,17 @@ local servers = {
   },
   gopls = {},
   bashls = {},
-  pylsp = {},
+  pylsp = {
+    settings = {
+      pylsp = {
+        plugins = {
+          black = {
+            enabled = true
+          }
+        }
+      }
+    }
+  },
   rnix = {},
   html = { cmd = { 'vscode-html-language-server', '--stdio' }},
   sumneko_lua = {
