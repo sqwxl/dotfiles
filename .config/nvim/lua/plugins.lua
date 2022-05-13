@@ -2,7 +2,7 @@ local packer = nil
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+  Packer_Bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 local function init()
@@ -21,8 +21,8 @@ local function init()
 
   -- Enhancements
   use { 'lbrayner/vim-rzip', disable = true }
-  use { 'tpope/vim-surround', event = "InsertEnter" }
-  use { 'tpope/vim-repeat', envent = "InsertEnter" }
+  use { 'tpope/vim-surround' }
+  use { 'tpope/vim-repeat' }
   use { 'andymass/vim-matchup' }
   use { 'ludovicchabant/vim-gutentags', disable = true }
   use { 'numToStr/Comment.nvim', config = function() require 'Comment'.setup() end }
@@ -37,10 +37,9 @@ local function init()
   }
   use {
     'akinsho/toggleterm.nvim',
-    disable = true,
     config = function()
       require 'toggleterm'.setup {
-        open_mapping = '<A-Space>',
+        open_mapping = '<C-$>',
         shade_terminals = false
       }
     end
@@ -48,10 +47,10 @@ local function init()
   use {
     'kevinhwang91/nvim-bqf',
     disable = true,
-    keys = "<C-q>",
+    keys = "<C-;>",
     ft = "qf",
     config = function()
-      vim.api.nvim_set_keymap("n", "<C-q>", require "utils".toggle_qf, { silent = true })
+      vim.api.nvim_set_keymap("n", "<C-;>", require "utils".toggle_qf, { silent = true })
     end
   }
 
@@ -86,13 +85,12 @@ local function init()
   use { 'folke/lsp-colors.nvim' }
   use {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
     config = function()
       require 'lualine'.setup {
-        -- tabline = {lualine_a = {'buffers'}, lualine_z = {'tabs'}},
+        options = { theme = 'gruvbox', globalstatus = true },
         sections = { lualine_c = { { 'filename', path = 1 } }, lualine_x = { 'filetype' } },
-        inactive_sections = { lualine_x = {} },
-        extensions = { 'quickfix', 'toggleterm', 'nvim-tree' }
+        extensions = { 'quickfix', 'toggleterm', 'nvim-tree', 'fugitive' }
       }
     end
   }
@@ -195,6 +193,7 @@ local function init()
       {
         'filipdutescu/renamer.nvim',
         branch = 'master',
+        config = function() require 'renamer'.setup() end,
         requires = { { 'nvim-lua/plenary.nvim' } },
       }
     }
@@ -225,7 +224,7 @@ local function init()
     config = function() require "rust-tools".setup() end
   }
 
-  if packer_bootstrap then
+  if Packer_Bootstrap then
     require('packer').sync()
   end
 end
