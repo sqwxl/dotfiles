@@ -1,6 +1,6 @@
 local map = vim.api.nvim_set_keymap
-local noremap = {noremap = true}
-local noremap_silent = {noremap = true, silent = true}
+local noremap = { noremap = true }
+local noremap_silent = { noremap = true, silent = true }
 
 -- Remap space as leader key
 map('', '<Space>', '<Nop>', noremap_silent)
@@ -15,8 +15,8 @@ map('c', 'jf', '<Esc>', noremap)
 map('t', '<Esc>', '<C-\\><C-N>', noremap)
 
 -- Remap for dealing with word wrap
-map('n', 'k', "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
-map('n', 'j', "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
+map('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+map('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Undo breaks before deletes
 map('i', '<C-U>', '<C-G>u<C-U>', noremap)
@@ -71,13 +71,16 @@ map('n', '<C-s>', ':w<CR>', noremap)
 -- map('n', '<C-Q>', ':confirm quitall<CR>', noremap)
 map('n', '<C-,>', ':tabnew<CR> :e ~/.config/nvim/init.lua<CR>', noremap)
 
-map('n', '<leader>t', ':NvimTreeToggle<CR>', noremap)
 
 
 -- LSP
-map('i', '<F2>', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
-map('n', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
-map('v', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+if not vim.g.vscode then
+  map('n', '<leader>t', ':NvimTreeToggle<CR>', noremap)
+
+  map('i', '<F2>', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+  map('n', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+  map('v', '<leader>r', '<cmd>lua require("renamer").rename()<CR>', noremap_silent)
+end
 
 
 map('n', '<leader>c', ':source ~/.config/nvim/init.lua<CR>', noremap)

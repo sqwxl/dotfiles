@@ -63,7 +63,11 @@ if type -q node
 end
 
 if type -q rustup
-fish_add_path $HOME/.cargo/bin
+  fish_add_path $HOME/.cargo/bin
+end
+
+if type -q fdfind
+  alias fd fdfind
 end
 
 # if not type -q fisher

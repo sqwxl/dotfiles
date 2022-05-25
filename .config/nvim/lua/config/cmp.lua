@@ -107,8 +107,8 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp_signature_help' },
+    { name = 'nvim_lsp_document_symbol' },
     { name = 'nvim_lsp' },
-    -- { name = 'orgmode' },
     { name = 'luasnip' },
     { name = 'nvim_lua' },
     { name = 'path' },

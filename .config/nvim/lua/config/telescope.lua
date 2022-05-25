@@ -1,4 +1,4 @@
-local telescope = require "telescope"
+local telescope = require("telescope")
 
 telescope.setup {
   defaults = {
@@ -7,18 +7,13 @@ telescope.setup {
     scroll_strategy = "cycle",
   },
   extensions = {
-    frecency = {},
-    fzf = {
-      fuzzy = true,
-      override_generic_sorter = true,
-      override_file_sorter = true,
-    },
+    fzf = {},
   },
   pickers = {
-    lsp_references = { theme = 'dropdown' },
-    lsp_code_actions = { theme = 'dropdown' },
-    lsp_definitions = { theme = 'dropdown' },
-    lsp_implementations = { theme = 'dropdown' },
+    lsp_references = { theme = "dropdown" },
+    lsp_code_actions = { theme = "dropdown" },
+    lsp_definitions = { theme = "dropdown" },
+    lsp_implementations = { theme = "dropdown" },
     buffers = {
       sort_lastused = true,
       previewer = false,
@@ -32,5 +27,3 @@ telescope.setup {
   },
 }
 
-telescope.load_extension "frecency"
-telescope.load_extension "fzf"

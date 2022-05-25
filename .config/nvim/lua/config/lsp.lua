@@ -3,10 +3,9 @@ local lspconfig = require 'lspconfig'
 local noremap_silent = { noremap = true, silent = true }
 local map = vim.api.nvim_buf_set_keymap
 
-require "lsp_signature".setup { bind = true, handler_opts = { border = 'single' } }
+
 local function on_attach(client)
     vim.cmd [[autocmd ColorScheme * :lua require('vim.diagnostic')._define_default_signs_and_highlights()]]
-    require "lsp_signature".on_attach { bind = true, handler_opts = { border = 'single' } }
     map(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', noremap_silent)
     map(0, 'n', 'J', '<cmd>lua vim.lsp.buf.code_action()<CR>', noremap_silent)
     map(0, 'n', '<leader>k', '<cmd>lua vim.lsp.buf.declaration()<CR>', noremap_silent)

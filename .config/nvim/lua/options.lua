@@ -22,9 +22,10 @@ o.shortmess:append('c')
 
 -- Color
 o.termguicolors = true
-vim.cmd("autocmd vimenter * ++nested colorscheme gruvbox")
--- vim.cmd("colorscheme gruvbox")
+o.background = "dark"
+vim.cmd([[colorscheme gruvbox]])
 o.cursorline = true
+vim.cmd([[syntax off]])
 
 -- Number column
 o.signcolumn = 'auto'
