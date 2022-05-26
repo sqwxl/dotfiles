@@ -7,7 +7,6 @@ telescope.setup {
     scroll_strategy = "cycle",
   },
   extensions = {
-    frecency = {},
     fzf = {
       fuzzy = true,
       override_generic_sorter = true,
@@ -32,5 +31,4 @@ telescope.setup {
   },
 }
 
-telescope.load_extension "frecency"
 telescope.load_extension "fzf"

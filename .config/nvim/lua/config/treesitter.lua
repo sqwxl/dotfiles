@@ -25,7 +25,7 @@ require'nvim-treesitter.configs'.setup {
     "yaml",
   },
   highlight = {
-    enable = true,
+    enable = false,
     use_languagetree = true,
   },
   incremental_selection = {

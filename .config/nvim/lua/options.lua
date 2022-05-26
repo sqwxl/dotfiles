@@ -21,9 +21,11 @@ o.completeopt = 'menu,menuone,noselect'
 o.shortmess:append('c')
 
 -- Color
+vim.cmd([[syntax off]])
 o.termguicolors = true
-vim.cmd("autocmd vimenter * ++nested colorscheme gruvbox")
 o.cursorline = true
+o.background = 'dark'
+vim.cmd([[colorscheme gruvbox]])
 
 -- Number column
 o.signcolumn = 'auto'

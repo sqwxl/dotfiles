@@ -1,30 +1,26 @@
-local packer = nil
 local fn = vim.fn
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
   Packer_Bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
-local function init()
-  if packer == nil then
-    packer = require "packer"
-    packer.init { disable_commands = true }
-  end
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
 
-  local use = packer.use
-  packer.reset()
-
+return require("packer").startup(function(use)
   use { 'wbthomason/packer.nvim' }
   -- Speedup
   use { 'lewis6991/impatient.nvim' }
-  use { 'nathom/filetype.nvim' }
 
   -- Enhancements
   use { 'lbrayner/vim-rzip', disable = true }
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-repeat' }
   use { 'andymass/vim-matchup' }
-  use { 'ludovicchabant/vim-gutentags', disable = true }
   use { 'numToStr/Comment.nvim', config = function() require 'Comment'.setup() end }
   use {
     'windwp/nvim-autopairs',
@@ -32,11 +28,14 @@ local function init()
   }
   use { 'windwp/nvim-ts-autotag' }
   use {
-    'ggandor/lightspeed.nvim',
-    after = "gruvbox",
+    'ggandor/leap.nvim',
+    config = function ()
+      require("leap").set_default_keymaps()
+     end
   }
   use {
     'akinsho/toggleterm.nvim',
+    disable = true,
     config = function()
       require 'toggleterm'.setup {
         open_mapping = '<C-$>',
@@ -55,7 +54,7 @@ local function init()
   }
 
   -- Git
-  use { 'tpope/vim-fugitive', cmd = "Git" }
+  use { 'tpope/vim-fugitive' }
   -- use {
   --   'TimUntersberger/neogit',
   --   disable = true,
@@ -81,7 +80,7 @@ local function init()
   use 'folke/lua-dev.nvim'
 
   -- Look
-  use { 'morhetz/gruvbox' }
+  use { 'ellisonleao/gruvbox.nvim' }
   use { 'folke/lsp-colors.nvim' }
   use {
     'nvim-lualine/lualine.nvim',
@@ -94,10 +93,21 @@ local function init()
       }
     end
   }
-
+  use {
+    'kdheepak/tabline.nvim',
+    config = function()
+      require'tabline'.setup {
+      }
+      vim.cmd[[
+        set guioptions-=e " Use showtabline in gui vim
+        set sessionoptions+=tabpages,globals " store tabpages and globals in session
+      ]]
+    end,
+    requires = { { 'hoob3rt/lualine.nvim', opt=true }, {'kyazdani42/nvim-web-devicons', opt = true} }
+  }
   use {
     "akinsho/bufferline.nvim",
-    after = "gruvbox",
+    disable = true,
     config = function()
       require("bufferline").setup {
         options = {
@@ -115,6 +125,7 @@ local function init()
   }
   use {
     'lukas-reineke/indent-blankline.nvim',
+    disable = true,
     config = function()
       vim.g.indent_blankline_show_current_context = true
       require 'indent_blankline'.setup {
@@ -122,6 +133,7 @@ local function init()
         buftype_exclude = { 'terminal', 'nofile' },
         show_trailing_blankline_indent = false
       }
+      require("config.indentline")
     end
   }
 
@@ -149,26 +161,17 @@ local function init()
     {
       'nvim-telescope/telescope.nvim',
       requires = {
-        'nvim-lua/popup.nvim',
         'nvim-lua/plenary.nvim',
-        'telescope-frecency.nvim',
         'telescope-fzf-native.nvim',
       },
       wants = {
-        'popup.nvim',
         'plenary.nvim',
-        'telescope-frecency.nvim',
         'telescope-fzf-native.nvim',
       },
       setup = function() require 'config.telescope_setup' end,
       config = function() require 'config.telescope' end,
       cmd = 'Telescope',
       module = 'telescope',
-    },
-    {
-      'nvim-telescope/telescope-frecency.nvim',
-      after = 'telescope.nvim',
-      requires = 'tami5/sqlite.lua',
     },
     {
       'nvim-telescope/telescope-fzf-native.nvim',
@@ -182,6 +185,9 @@ local function init()
     requires = {
       { 'nvim-treesitter/nvim-treesitter-textobjects' },
     },
+    config = function ()
+            require("config.treesitter")
+    end,
     run = ":TSUpdate",
   }
 
@@ -189,20 +195,19 @@ local function init()
   use {
     'neovim/nvim-lspconfig',
     requires = {
-      { 'ray-x/lsp_signature.nvim' },
       {
         'filipdutescu/renamer.nvim',
         branch = 'master',
         config = function() require 'renamer'.setup() end,
         requires = { { 'nvim-lua/plenary.nvim' } },
       }
-    }
+    },
+    config = function() require("config.lsp") end
   }
 
   -- CMP
   use {
     'hrsh7th/nvim-cmp',
-    after = "gruvbox",
     requires = {
       'L3MON4D3/LuaSnip',
       'hrsh7th/cmp-nvim-lsp',
@@ -227,15 +232,4 @@ local function init()
   if Packer_Bootstrap then
     require('packer').sync()
   end
-end
-
-local plugins = setmetatable({}, {
-  __index = function(_, key)
-    init()
-    return packer[key]
-  end,
-})
-
--- vim.cmd 'source /home/nilueps/.config/nvim/vimscript/rzip.vim'
-
-return plugins
+end)

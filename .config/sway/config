@@ -25,7 +25,7 @@ output * bg ~/Downloads/tardi.jpg fill
 
 input "1:1:AT_Translated_Set_2_keyboard" {
   xkb_layout "us,ca,us"
-  xkb_variant ",multi,dvp"
+  xkb_variant "dvp,multi,"
   xkb_options "ctrl:nocaps,grp:win_space_toggle"
 }
 
@@ -119,28 +119,27 @@ assign [app_id="org.keepassxc.KeePassXC"] $pass
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 
 bindsym {
-  $mod+1 workspace $web
-  $mod+2 workspace $code
-  $mod+3 workspace $comm
-  $mod+4 workspace $play
-  $mod+5 workspace $game
-  $mod+6 workspace 6
-  $mod+7 workspace 7
-  $mod+8 workspace $stat
-  $mod+9 workspace $sett
-  $mod+0 workspace $pass
+  $mod+ampersand    workspace $web
+  $mod+bracketleft  workspace $code
+  $mod+braceleft    workspace $comm
+  $mod+braceright   workspace $play
+  $mod+parenleft    workspace $game
+  $mod+equal        workspace 6
+  $mod+asterisk     workspace 7
+  $mod+parenright   workspace $stat
+  $mod+plus         workspace $sett
+  $mod+bracketright workspace $pass
 
-  $mod+Shift+1 move container to workspace $web
-  $mod+Shift+2 move container to workspace $code
-  $mod+Shift+3 move container to workspace $comm
-  $mod+Shift+4 move container to workspace $play
-  $mod+Shift+5 move container to workspace $game
-  $mod+Shift+6 move container to workspace 6
-  $mod+Shift+7 move container to workspace 7
-  $mod+Shift+8 move container to workspace $stat
-  $mod+Shift+9 move container to workspace $sett
-  $mod+Shift+0 move container to workspace $pass
-  $mod+Shift+s move container to scratchpad
+  $mod+percent  move container to workspace $web
+  $mod+7        move container to workspace $code
+  $mod+5        move container to workspace $comm
+  $mod+3        move container to workspace $play
+  $mod+1        move container to workspace $game
+  $mod+9        move container to workspace 6
+  $mod+0        move container to workspace 7
+  $mod+2        move container to workspace $stat
+  $mod+4        move container to workspace $sett
+  $mod+6        move container to workspace $pass
 
   $mod+Tab workspace back_and_forth
   $mod+Prior workspace prev
@@ -169,7 +168,8 @@ bindsym {
   # $mod+m focus mode_toggle
   $mod+r mode "resize"
 
-  $mod+Minus scratchpad show
+  $mod+8 move container to scratchpad
+  $mod+exclam scratchpad show
   $mod+Shift+Minus move scratchpad
 
   $mod+h focus left

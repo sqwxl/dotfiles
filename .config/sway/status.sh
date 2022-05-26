@@ -123,13 +123,13 @@ keyboard_status() {
   # index set in config file
   case $active in
     0)
-      obj US
+      obj DV
       ;;
     1)
       obj CA
       ;;
     2)
-      obj DV
+      obj US
       ;;
   esac
 }
