@@ -1,4 +1,7 @@
-require 'impatient'
-require "plugins"
-require 'options'
-require 'keybinds'
+if not vim.g.vscode then
+  require('impatient')
+  require('plugins')
+  require('options')
+end
+
+require('keybinds')

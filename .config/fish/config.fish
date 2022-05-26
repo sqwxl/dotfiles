@@ -2,36 +2,33 @@ set -gx EDITOR /usr/bin/nvim
 set -gx VISUAL /usr/bin/nvim
 set -gx MANPAGER '/usr/bin/nvim +Man!'
 
-alias s sudo
-alias g git
-alias n nvim
-
-abbr -ag sdu 'sudo dnf upgrade'
-abbr -ag spu 'sudo pacman -Syu'
-
+abbr -ag n nvim
+abbr -ag s sudo
 abbr -ag se sudoedit
 
 abbr -ag o xdg-open
 
+# alias docker podman
+abbr -ag dc docker-compose
 
+abbr -ag g git
 abbr -ag ga 'git add'
 abbr -ag gaa 'git add .'
-abbr -ag gd 'git diff'
 abbr -ag gs 'git status'
 abbr -ag gc 'git commit'
 abbr -ag gca 'git commit -a'
-abbr -ag gcam 'git commit -am'
-abbr -ag gpu 'git pull'
+abbr -ag gcam 'git commit -a -m'
 abbr -ag gp 'git push'
 abbr -ag gpf 'git push -f'
 abbr -ag grv 'git remote -v'
 
 abbr -ag cfgsway 'cd ~/.config/sway && nvim config'
 abbr -ag cfgvim 'cd ~/.config/nvim && nvim lua/plugins.lua'
-abbr -ag cfgfish 'cd ~/.congig/fish && nvim config.fish'
+abbr -ag cfgfish 'cd ~/.config/fish && nvim config.fish'
 abbr -ag cfgterm 'cd ~/.config/kitty && nvim kitty.conf'
 # abbr -ag cfgtmux 'nvim ~/.tmux.conf'
 # abbr -ag cfgterm 'nvim ~/.alacritty.yml'
+abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
 
 abbr -ag rmr 'rm -rf'
 
@@ -46,6 +43,7 @@ end
 
 if type -q lsd
   abbr -ag l 'lsd'
+  abbr -ag ls 'lsd'
   abbr -ag ll 'lsd -l'
   abbr -ag lll 'lsd -lah'
 else
@@ -70,11 +68,11 @@ if type -q node
 end
 
 if type -q rustup
-fish_add_path $HOME/.cargo/bin
+  fish_add_path $HOME/.cargo/bin
 end
 
-if type -q zoxide
-  zoxide init fish | source
+if type -q fdfind
+  alias fd fdfind
 end
 
 # if not type -q fisher
@@ -91,6 +89,10 @@ end
 # fish_add_path $ANDROID_HOME/platform-tools
 
 # direnv hook fish | source
+
+if type -q zoxide
+  zoxide init fish | source
+end
 
 # Generated for envman. Do not edit.
 test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"

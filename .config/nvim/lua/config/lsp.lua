@@ -3,6 +3,7 @@ local lspconfig = require 'lspconfig'
 local noremap_silent = { noremap = true, silent = true }
 local map = vim.api.nvim_buf_set_keymap
 
+
 local function on_attach(client)
     vim.cmd [[autocmd ColorScheme * :lua require('vim.diagnostic')._define_default_signs_and_highlights()]]
     map(0, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', noremap_silent)
