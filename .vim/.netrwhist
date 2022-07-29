@@ -1,4 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/home/nilu/event-horizon-repos/event-horizon-backend'
+let g:netrw_dirhist_6='/home/nilu'
+let g:netrw_dirhist_5='/home/nilu/event-horizon-repos/event-horizon-backend'
+let g:netrw_dirhist_4='/home/nilu/event-horizon-repos'
+let g:netrw_dirhist_3='/home/nilu'
 let g:netrw_dirhist_2='/home/nilueps'
 let g:netrw_dirhist_1='/home/nilueps/repos/study/minigrep/src'

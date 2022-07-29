@@ -46,6 +46,10 @@ if type -q lsd
   abbr -ag ls 'lsd'
   abbr -ag ll 'lsd -l'
   abbr -ag lll 'lsd -lah'
+else if type -q exa
+  abbr -ag l 'exa'
+  abbr -ag ll 'exa -l'
+  abbr -ag lll 'exa -la'
 else
   abbr -ag l 'ls'
   abbr -ag ll 'ls -l'
@@ -97,3 +101,4 @@ end
 # Generated for envman. Do not edit.
 test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
 
+complete -c cht.sh -xa '(curl -s cht.sh/:list)'
