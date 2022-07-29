@@ -41,15 +41,16 @@ if type -q bat
   alias cat bat
 end
 
-if type -q lsd
-  abbr -ag l 'lsd'
-  abbr -ag ls 'lsd'
-  abbr -ag ll 'lsd -l'
-  abbr -ag lll 'lsd -lah'
-else if type -q exa
+if type -q exa
   abbr -ag l 'exa'
   abbr -ag ll 'exa -l'
   abbr -ag lll 'exa -la'
+  alias ls exa
+else if type -q lsd
+  abbr -ag l 'lsd'
+  abbr -ag ll 'lsd -l'
+  abbr -ag lll 'lsd -lah'
+  alias ls lsd
 else
   abbr -ag l 'ls'
   abbr -ag ll 'ls -l'

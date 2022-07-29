@@ -1,3 +1,21 @@
 [submodule ".vim/pack/default/start/gruvbox"]
 	path = .vim/pack/default/start/gruvbox
 	url = git@github.com:morhetz/gruvbox.git
+[submodule ".vim/pack/plugins/start/fish"]
+	path = .vim/pack/plugins/start/fish
+	url = git@github.com:inkch/vim-fish.git
+[submodule ".vim/pack/plugins/start/ctrlp"]
+	path = .vim/pack/plugins/start/ctrlp
+	url = git@github.com:ctrlpvim/ctrlp.vim.git
+[submodule ".vim/pack/tpope/endwise"]
+	path = .vim/pack/tpope/endwise
+	url = git@github.com:tpope/vim-endwise.git
+[submodule ".vim/pack/tpope/commentary"]
+	path = .vim/pack/tpope/commentary
+	url = git@github.com:tpope/vim-commentary.git
+[submodule ".vim/pack/tpope/repeat"]
+	path = .vim/pack/tpope/repeat
+	url = git@github.com:tpope/vim-repeat.git
+[submodule ".vim/pack/tpope/surround"]
+	path = .vim/pack/tpope/surround
+	url = git@github.com:tpope/vim-surround.git
