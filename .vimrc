@@ -1,6 +1,5 @@
 set nocompatible
 
-set noruler
 
 filetype plugin indent on
 syntax enable
@@ -39,7 +38,7 @@ set hidden
 set clipboard+=unnamedplus
 set mouse=a
 
-set updatetime=300
+set updatetime=250
 set ttimeoutlen=10
 set lazyredraw
 
@@ -55,9 +54,11 @@ let g:netrw_banner = 0
 set diffopt+=internal,algorithm:patience
 
 set number relativenumber numberwidth=1
-set signcolumn=yes
-set colorcolumn=100
-set scrolloff=2
+set signcolumn=auto
+set colorcolumn=80
+set scrolloff=10
+set noruler " use <C-g> instead
+set cursorline " highlight current line
 
 set nowrap
 set linebreak breakindent showbreak=﬌\ 
@@ -65,12 +66,10 @@ set linebreak breakindent showbreak=﬌\
 set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent smartindent
 set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
 
-set ignorecase smartcase
-set gdefault
+" search options
+set hlsearch incsearch ignorecase smartcase gdefault
 
 set backspace=indent,eol,start
-
-set diffopt+=vertical
 
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
@@ -89,3 +88,4 @@ imap <A-j> <Esc>:m .+1<CR>==gi
 imap <A-k> <Esc>:m .-2<CR>==gi
 vmap <A-j> :m '>+1<CR>gv=gv
 vmap <A-k> :m '<-2<CR>gv=gv
+nmap <Leader><Leader> <C-^>
