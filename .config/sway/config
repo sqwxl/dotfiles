@@ -20,8 +20,8 @@ set $lighter        #bdae93
 set $lightest       #ebdbb2
 set $white          #fbf1c7
 
-# output * bg ~/Downloads/tardi.jpg fill
-output * background $dark solid_color
+output * bg ~/Downloads/52210366419_8caa0cfad4_k.jpg fill $dark
+# output * background $dark solid_color
 
 input "1:1:AT_Translated_Set_2_keyboard" {
   xkb_layout "us,ca,us"
