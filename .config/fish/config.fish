@@ -1,6 +1,6 @@
-set -gx EDITOR /usr/bin/nvim
-set -gx VISUAL /usr/bin/nvim
-set -gx MANPAGER '/usr/bin/nvim +Man!'
+set -gx EDITOR vim
+set -gx VISUAL vim
+set -gx MANPAGER "vim -M +MANPAGER -"
 
 abbr -ag n nvim
 abbr -ag s sudo
@@ -22,13 +22,11 @@ abbr -ag gp 'git push'
 abbr -ag gpf 'git push -f'
 abbr -ag grv 'git remote -v'
 
-abbr -ag cfgsway 'cd ~/.config/sway && nvim config'
-abbr -ag cfgvim 'cd ~/.config/nvim && nvim lua/plugins.lua'
-abbr -ag cfgfish 'cd ~/.config/fish && nvim config.fish'
-abbr -ag cfgterm 'cd ~/.config/kitty && nvim kitty.conf'
-# abbr -ag cfgtmux 'nvim ~/.tmux.conf'
-# abbr -ag cfgterm 'nvim ~/.alacritty.yml'
-abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
+abbr -ag cfgsway 'cd ~/.config/sway && vim config'
+abbr -ag cfgvim 'vim ~/.vimrc'
+abbr -ag cfgfish 'cd ~/.config/fish && vim config.fish'
+abbr -ag cfgterm 'cd ~/.config/kitty && vim kitty.conf'
+abbr -ag cfgterm 'vim ~/.config/kitty/kitty.conf'
 
 abbr -ag rmr 'rm -rf'
 

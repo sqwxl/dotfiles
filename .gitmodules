@@ -1,5 +1,5 @@
 [submodule ".vim/pack/default/start/gruvbox"]
-	path = .vim/pack/default/start/gruvbox
+	path = .vim/pack/plugins/start/gruvbox
 	url = git@github.com:morhetz/gruvbox.git
 [submodule ".vim/pack/plugins/start/fish"]
 	path = .vim/pack/plugins/start/fish
@@ -8,14 +8,23 @@
 	path = .vim/pack/plugins/start/ctrlp
 	url = git@github.com:ctrlpvim/ctrlp.vim.git
 [submodule ".vim/pack/tpope/endwise"]
-	path = .vim/pack/tpope/endwise
+	path = .vim/pack/plugins/start/endwise
 	url = git@github.com:tpope/vim-endwise.git
 [submodule ".vim/pack/tpope/commentary"]
-	path = .vim/pack/tpope/commentary
+	path = .vim/pack/plugins/start/commentary
 	url = git@github.com:tpope/vim-commentary.git
 [submodule ".vim/pack/tpope/repeat"]
-	path = .vim/pack/tpope/repeat
+	path = .vim/pack/plugins/start/repeat
 	url = git@github.com:tpope/vim-repeat.git
 [submodule ".vim/pack/tpope/surround"]
-	path = .vim/pack/tpope/surround
+	path = .vim/pack/plugins/start/surround
 	url = git@github.com:tpope/vim-surround.git
+[submodule ".vim/pack/undotree/start"]
+	path = .vim/pack/plugins/start/undotree
+	url = git@github.com:mbbill/undotree.git
+[submodule "/home/nilu/.vim/pack/plugins/start/fugitive"]
+	path = /home/nilu/.vim/pack/plugins/start/fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "/home/nilu/.vim/pack/plugin/rhubarb"]
+	path = /home/nilu/.vim/pack/plugin/rhubarb
+	url = https://github.com/tpope/vim-rhubarb.git
