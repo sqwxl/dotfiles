@@ -1,90 +1,76 @@
 {
-  "vsintellicode.modify.editor.suggestSelection": "choseToUpdateConfiguration",
-  "editor.fontFamily": "JetBrains Mono",
-  "editor.fontSize": 11,
-  "editor.fontLigatures": true,
-  "editor.renderLineHighlight": "gutter",
-  "editor.formatOnSave": true,
-  "editor.wordWrapColumn": 100,
-  "editor.linkedEditing": true,
-  "editor.copyWithSyntaxHighlighting": false,
-  "editor.showFoldingControls": "always",
-  "editor.suggestSelection": "first",
-  "editor.find.addExtraSpaceOnTop": true,
-  "workbench.sideBar.location": "left",
-  "workbench.enableExperiments": false,
-  "workbench.view.alwaysShowHeaderActions": true,
-  "workbench.editor.showIcons": true,
-  "files.simpleDialog.enable": false,
-  "javascript.updateImportsOnFileMove.enabled": "always",
   "css.lint.compatibleVendorPrefixes": "warning",
   "css.lint.duplicateProperties": "warning",
   "css.lint.float": "warning",
   "css.lint.idSelector": "warning",
   "css.lint.universalSelector": "warning",
   "css.lint.zeroUnits": "warning",
+  "debug.console.fontSize": 10,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.find.addExtraSpaceOnTop": true,
+  "editor.fontFamily": "Hack Nerd Font Mono",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 13,
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.lineHeight": 1.2,
+  "editor.lineNumbers": "relative",
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.renderLineHighlight": "all",
+  "editor.scrollBeyondLastLine": false,
+  "editor.showFoldingControls": "always",
+  "editor.suggestSelection": "first",
+  "editor.wordWrapColumn": 100,
+  "eslint.alwaysShowStatus": true,
   "eslint.lintTask.enable": true,
-  "terminal.external.linuxExec": "kitty",
-  "terminal.integrated.defaultProfile.linux": "fish",
-  "git.enableSmartCommit": true,
+  "eslint.packageManager": "yarn",
+  "explorer.confirmDragAndDrop": false,
+  "files.simpleDialog.enable": false,
   "git.autofetch": true,
+  "git.enableSmartCommit": true,
   "gitlens.currentLine.enabled": false,
   "gitlens.hovers.currentLine.over": "line",
-  "explorer.confirmDragAndDrop": false,
-  "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
-  },
   "go.toolsManagement.autoUpdate": true,
-  "editor.inlineSuggest.enabled": true,
-  "editor.scrollBeyondLastLine": false,
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "javascript.format.semicolons": "insert",
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "npm.packageManager": "yarn",
+  "terminal.external.linuxExec": "kitty",
+  "terminal.integrated.allowChords": false,
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.defaultProfile.linux": "fish",
+  "terminal.integrated.sendKeybindingsToShell": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorTheme": "Gruvbox Dark Medium",
+  "workbench.editor.showIcons": true,
+  "workbench.enableExperiments": false,
+  "workbench.sideBar.location": "right",
+  "workbench.view.alwaysShowHeaderActions": true,
   "redhat.telemetry.enabled": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "json.schemas": [
-    {
-      "name": "vscode-expo-manifest",
-      "url": "file:///home/nilueps/.config/Code/User/globalStorage/bycedric.vscode-expo/manifest-43.0.0.json",
-      "fileMatch": ["app.json", "app.config.json"]
-    }
-  ],
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
   },
-  "editor.minimap.enabled": false,
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "eslint.alwaysShowStatus": true,
-  "eslint.packageManager": "yarn",
-  "npm.packageManager": "yarn",
-  "javascript.format.semicolons": "insert",
-  "prettier.resolveGlobalModules": true,
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "workbench.tree.indent": 12,
-  "workbench.colorTheme": "Gruvbox Dark Medium",
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": false,
+    "markdown": false
   },
-  "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-  "vscode-neovim.mouseSelectionStartVisualMode": true,
-  "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "git.confirmSync": false,
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
   },
-  "editor.lineHeight": 1.5,
-  "debug.console.fontSize": 10,
-  "terminal.integrated.fontSize": 12,
-  "terminal.integrated.allowChords": false,
-  "terminal.integrated.copyOnSelection": true,
-  "terminal.integrated.lineHeight": 1.2,
-  "terminal.integrated.sendKeybindingsToShell": true,
-  "workbench.activityBar.visible": false,
-  "editor.tabSize": 2,
-  "editor.lineNumbers": "relative"
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "none",
+  "explorer.fileNesting.enabled": true,
+  "explorer.sortOrder": "type"
 }
