@@ -1,30 +1,30 @@
-[submodule ".vim/pack/default/start/gruvbox"]
+[submodule ".vim/pack/plugins/start/gruvbox"]
 	path = .vim/pack/plugins/start/gruvbox
-	url = git@github.com:morhetz/gruvbox.git
+	url = https://github.com/morhetz/gruvbox.git
 [submodule ".vim/pack/plugins/start/fish"]
 	path = .vim/pack/plugins/start/fish
-	url = git@github.com:inkch/vim-fish.git
-[submodule ".vim/pack/plugins/start/ctrlp"]
+	url = https://github.com/inkch/vim-fish.git
+[submodule ".vim/pack/plugins/start/start/ctrlp"]
 	path = .vim/pack/plugins/start/ctrlp
-	url = git@github.com:ctrlpvim/ctrlp.vim.git
-[submodule ".vim/pack/tpope/endwise"]
+	url = https://github.com/ctrlpvim/ctrlp.vim.git
+[submodule ".vim/pack/plugins/start/endwise"]
 	path = .vim/pack/plugins/start/endwise
-	url = git@github.com:tpope/vim-endwise.git
-[submodule ".vim/pack/tpope/commentary"]
+	url = https://github.com/tpope/vim-endwise.git
+[submodule ".vim/pack/plugins/start/commentary"]
 	path = .vim/pack/plugins/start/commentary
-	url = git@github.com:tpope/vim-commentary.git
-[submodule ".vim/pack/tpope/repeat"]
+	url = https://github.com/tpope/vim-commentary.git
+[submodule ".vim/pack/plugins/start/repeat"]
 	path = .vim/pack/plugins/start/repeat
-	url = git@github.com:tpope/vim-repeat.git
-[submodule ".vim/pack/tpope/surround"]
+	url = https://github.com/tpope/vim-repeat.git
+[submodule ".vim/pack/plugins/start/surround"]
 	path = .vim/pack/plugins/start/surround
-	url = git@github.com:tpope/vim-surround.git
-[submodule ".vim/pack/undotree/start"]
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/pack/plugins/start/undotree"]
 	path = .vim/pack/plugins/start/undotree
-	url = git@github.com:mbbill/undotree.git
-[submodule "/home/nilu/.vim/pack/plugins/start/fugitive"]
-	path = /home/nilu/.vim/pack/plugins/start/fugitive
+	url = https://github.com/mbbill/undotree.git
+[submodule ".vim/pack/plugins/start/fugitive"]
+	path = .vim/pack/plugins/start/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "/home/nilu/.vim/pack/plugin/rhubarb"]
-	path = /home/nilu/.vim/pack/plugin/rhubarb
+[submodule ".vim/pack/plugins/start/rhubarb"]
+	path = .vim/pack/plugins/start/rhubarb
 	url = https://github.com/tpope/vim-rhubarb.git
