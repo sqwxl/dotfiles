@@ -1,6 +1,6 @@
 set -gx EDITOR vim
 set -gx VISUAL vim
-set -gx MANPAGER "vim -M +MANPAGER -"
+set -gx MANPAGER less
 
 abbr -ag n nvim
 abbr -ag s sudo
