@@ -74,7 +74,7 @@ let g:netrw_banner = 0
 " use a more readable diff algo
 set diffopt+=internal,algorithm:patience
 
-set number relativenumber numberwidth=1
+set number numberwidth=1
 set signcolumn=auto
 set colorcolumn=80
 set scrolloff=10
@@ -111,6 +111,7 @@ nmap <C-S> :w<CR>
 nnoremap <C-L> :noh<CR><C-L>
 nmap Y y$
 nmap Q @q
+" nunmap <C-K>
 nmap <A-J> :m .+1<CR>
 nmap <A-K> :m .-2<CR>
 imap <A-J> <Esc>:m .+1<CR>==gi

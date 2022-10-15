@@ -1,0 +1,11 @@
+theme = "gruvbox"
+
+[editor]
+true-color = true
+color-modes = true
+middle-click-paste = false
+cursorline = true
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"

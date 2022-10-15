@@ -12,15 +12,22 @@ abbr -ag o xdg-open
 abbr -ag dc docker-compose
 
 abbr -ag g git
+abbr -ag gs 'git status'
+abbr -ag gw 'git switch'
+abbr -ag gl 'git log --oneline'
+abbr -ag gll 'git log'
+abbr -ag grl 'git reflog'
 abbr -ag ga 'git add'
 abbr -ag gaa 'git add .'
-abbr -ag gs 'git status'
 abbr -ag gc 'git commit'
+abbr -ag gcm 'git commit -m'
 abbr -ag gca 'git commit -a'
 abbr -ag gcam 'git commit -a -m'
 abbr -ag gp 'git push'
+abbr -ag gpu 'git push -u origin'
 abbr -ag gpf 'git push -f'
-abbr -ag grv 'git remote -v'
+abbr -ag gr 'git remote -v'
+abbr -ag gb 'git branch'
 
 abbr -ag cfgsway 'cd ~/.config/sway && vim config'
 abbr -ag cfgvim 'vim ~/.vimrc'
@@ -37,6 +44,10 @@ abbr -ag myip "curl -4 icanhazip.com"
 
 if type -q bat
   alias cat bat
+end
+if type -q batcat
+  alias cat batcat
+  alias bat batcat
 end
 
 if type -q exa
