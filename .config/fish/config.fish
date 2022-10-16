@@ -1,5 +1,5 @@
-set -gx EDITOR vim
-set -gx VISUAL vim
+set -gx EDITOR hx
+set -gx VISUAL hx
 set -gx MANPAGER less
 
 abbr -ag n nvim
