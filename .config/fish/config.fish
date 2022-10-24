@@ -94,14 +94,6 @@ end
 #   fisher update
 # end
 
-# set -gx ANDROID_SDK $HOME/Android/Sdk
-# set -gx ANDROID_HOME $HOME/Android/Sdk
-
-# fish_add_path $ANDROID_HOME/emulator
-# fish_add_path $ANDROID_HOME/tools
-# fish_add_path $ANDROID_HOME/tools/bin
-# fish_add_path $ANDROID_HOME/platform-tools
-
 # direnv hook fish | source
 
 if type -q zoxide
