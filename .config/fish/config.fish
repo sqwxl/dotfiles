@@ -104,3 +104,9 @@ end
 test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
 
 complete -c cht.sh -xa '(curl -s cht.sh/:list)'
+
+starship init fish | source
+
+# bit
+set -gx PATH $PATH "/home/nilu/bin"
+# bit end
