@@ -1,5 +1,5 @@
-set -gx EDITOR hx
-set -gx VISUAL hx
+set -gx EDITOR vim
+set -gx VISUAL vim
 set -gx MANPAGER less
 
 abbr -ag n nvim
@@ -88,13 +88,6 @@ end
 if type -q fdfind
   alias fd fdfind
 end
-
-# if not type -q fisher
-#   curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-#   fisher update
-# end
-
-# direnv hook fish | source
 
 if type -q zoxide
   zoxide init fish | source
