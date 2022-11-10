@@ -75,8 +75,6 @@ if type -q go
   fish_add_path (go env GOPATH)/bin
 end
 
-fish_add_path $HOME/.local/bin
-
 if type -q node
   fish_add_path $HOME/.npm-global/bin
 end

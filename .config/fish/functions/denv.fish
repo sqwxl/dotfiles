@@ -40,6 +40,8 @@ function denv
                         # want to split on the first "=" we encounter. Everything after that, including additional "="
                         # characters, is part of the value.
                         set kv (string split -m 1 = -- $trimmed_line)
+                        # remove single quotes from v
+                        set kv[2] (string replace -r '^\'(.*)\'$' '$1' $kv[2]) 
                         # If -u/--unset has been specified, erase the variable.
                         if set -q _flag_u; and test "$_flag_u" = "-u"
                             set -e $kv[1]
