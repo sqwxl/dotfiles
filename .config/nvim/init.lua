@@ -84,7 +84,13 @@ vim.o.completeopt = "menuone,noinsert,noselect"
 
 vim.opt.shortmess = vim.opt.shortmess + "c"
 
+vim.wo.signcolumn = "yes"
+
 vim.opt.updatetime = 100
+
+vim.g.mapleader = ' '
+
+vim.keymap.set("n", ";", ":", {})
 
 local function on_attach(client, buffer)
 	-- This callback is called when the LSP is atttached/enabled for this buffer
@@ -102,16 +108,13 @@ local function on_attach(client, buffer)
 	vim.keymap.set("n", "<c-.>", vim.lsp.buf.code_action, keymap_opts)
 
 	-- Show diagnostic popup on cursor hover
-	local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-	vim.api.nvim_create_autocmd("CursorHold", {
-	  callback = function()
-	   vim.diagnostic.open_float(nil, { focusable = false })
-	  end,
-	  group = diag_float_grp,
-	})
-	-- have a fixed column for the diagnostics to appear in
-	-- this removes the jitter when warnings/errors flow in
-	vim.wo.signcolumn = "yes"
+	-- local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+	-- vim.api.nvim_create_autocmd("CursorHold", {
+	--   callback = function()
+	--    vim.diagnostic.open_float(nil, { focusable = false })
+	--   end,
+	--   group = diag_float_grp,
+	-- })
 
 	-- Goto previous/next diagnostic warning/error
 	vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
@@ -159,7 +162,6 @@ require("rust-tools").setup(opts)
 -- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
 local cmp = require("cmp")
 cmp.setup({
-  preselect = cmp.PreselectMode.None,
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
@@ -189,3 +191,11 @@ cmp.setup({
     { name = "buffer" },
   },
 })
+
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+
+
