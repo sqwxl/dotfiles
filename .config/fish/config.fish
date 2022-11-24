@@ -13,6 +13,8 @@ abbr -ag dc docker-compose
 
 abbr -ag g git
 abbr -ag gs 'git status'
+abbr -ag gd 'git diff'
+abbr -ag gds 'git diff --staged'
 abbr -ag gw 'git switch'
 abbr -ag gl 'git log --oneline'
 abbr -ag gll 'git log'
@@ -100,3 +102,6 @@ if type -q starship
   starship init fish | source
 end
 
+if type -q direnv
+  direnv hook fish | source
+end
