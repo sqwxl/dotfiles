@@ -15,38 +15,54 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 	-- basics
+  use({"nvim-treesitter/nvim-treesitter",
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  })
 	use("tpope/vim-repeat")
-	use("tpope/vim-commentary")
 	use("tpope/vim-endwise")
-	use("tpope/vim-surround")
 	use("tpope/vim-fugitive")
+  use({
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end
+  })
+	use("tpope/vim-surround")
+	use("ellisonleao/gruvbox.nvim")
 	use({
 		"ggandor/leap.nvim",
-		config = function()
-			require("leap").add_default_mappings()
-		end
+		config = function() require("leap").add_default_mappings() end
+	})
+	use({
+		"numToStr/Comment.nvim",
+		config = function() require("Comment").setup() end
+	})
+	use({
+		"nvim-tree/nvim-tree.lua",
+		requires = { "nvim-tree/nvim-web-devicons" },
+    config = function() require("nvim-tree").setup() end,
 	})
 	
-	use("ellisonleao/gruvbox.nvim")
 
 	use("neovim/nvim-lspconfig")
 
 	use({
 		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup()
-		end
+		config = function() require("fidget").setup() end
 	})
 
 	use("hrsh7th/nvim-cmp")
 	use({
 		-- cmp LSP completion
 		"hrsh7th/cmp-nvim-lsp",
-		-- cmp Snippet completion
+    "hrsh7th/cmp-nvim-lsp-signature-help",
 		"hrsh7th/cmp-vsnip",
-		-- cmp Path completion
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
 		after = { "hrsh7th/nvim-cmp" },
 		requires = { "hrsh7th/nvim-cmp" },
 	})
@@ -58,17 +74,23 @@ require("packer").startup(function(use)
 	use("nvim-lua/popup.nvim")
 	use("nvim-lua/plenary.nvim")
 	use("nvim-telescope/telescope.nvim")
-	use({
-	    "glepnir/lspsaga.nvim",
-	    branch = "main",
-	    config = function()
-		local saga = require("lspsaga")
-
-		saga.init_lsp_saga({
-		    -- your configuration
-		})
-	    end,
-	})
+	-- use({
+	--     "glepnir/lspsaga.nvim",
+	--     branch = "main",
+	--     config = function()
+	-- 	local saga = require("lspsaga")
+	--
+	-- 	saga.init_lsp_saga({
+	-- 	    -- your configuration
+	-- 	})
+	--     end,
+	-- })
+	use {
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {
+      check_ts = true
+    } end
+	}
 end)
 
 -- the first run will install packer and our plugins
@@ -77,54 +99,63 @@ if packer_bootstrap then
   return
 end
 
-vim.o.background = "dark"
+local opt = vim.opt
+
+-- Functionality options
+opt.clipboard = "unnamedplus"
+opt.hlsearch = true
+opt.ignorecase = true
+opt.smartcase = true
+opt.mouse = "a"
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+opt.updatetime = 100
+
+-- Visual options
+opt.termguicolors = true
+opt.background = "dark"
 vim.cmd([[colorscheme gruvbox]])
+opt.completeopt = "menuone,noinsert,noselect"
+opt.wrap = false
+opt.cursorline = true
+opt.number = true
+opt.signcolumn = "auto"
+opt.scrolloff = 10
+opt.shortmess:append "c" 
 
-vim.o.completeopt = "menuone,noinsert,noselect"
+opt.splitbelow = true
 
-vim.opt.shortmess = vim.opt.shortmess + "c"
-
-vim.wo.signcolumn = "yes"
-
-vim.opt.updatetime = 100
+-- Indenting
+opt.autoindent = true
+opt.smartindent = true
+opt.smarttab = true
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.smartindent = true
+opt.tabstop = 2
+opt.softtabstop = 2
 
 vim.g.mapleader = ' '
-
 vim.keymap.set("n", ";", ":", {})
 
 local function on_attach(client, buffer)
 	-- This callback is called when the LSP is atttached/enabled for this buffer
 	local keymap_opts = { buffer = buffer }
-	-- Code navigation and shortcuts
-	vim.keymap.set("n", "<c-]>", vim.lsp.buf.definition, keymap_opts)
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
 	vim.keymap.set("n", "gD", vim.lsp.buf.implementation, keymap_opts)
 	vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
-	vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, keymap_opts)
+	vim.keymap.set("n", "gtd", vim.lsp.buf.type_definition, keymap_opts)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
 	vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, keymap_opts)
 	vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
-	vim.keymap.set("n", "<c-.>", vim.lsp.buf.code_action, keymap_opts)
-
-	-- Show diagnostic popup on cursor hover
-	-- local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-	-- vim.api.nvim_create_autocmd("CursorHold", {
-	--   callback = function()
-	--    vim.diagnostic.open_float(nil, { focusable = false })
-	--   end,
-	--   group = diag_float_grp,
-	-- })
-
-	-- Goto previous/next diagnostic warning/error
+	vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
 	vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
 	vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 end
 
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
 -- See https://github.com/simrat39/rust-tools.nvim#configuration
-local opts = {
+require("rust-tools").setup({
   tools = {
     runnables = {
       use_telescope = true,
@@ -132,14 +163,10 @@ local opts = {
     inlay_hints = {
       auto = true,
       show_parameter_hints = false,
-      parameter_hints_prefix = "",
       other_hints_prefix = "",
     },
   },
 
-  -- all the opts to send to nvim-lspconfig
-  -- these override the defaults set by rust-tools.nvim
-  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     -- on_attach is a callback called when the language server attachs to the buffer
     on_attach = on_attach,
@@ -154,12 +181,25 @@ local opts = {
       },
     },
   },
-}
-
-require("rust-tools").setup(opts)
+})
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.rs",
+	callback = function()
+		vim.lsp.buf.format(nil, 200)
+	end,
+	group = format_sync_grp,
+})
 
 -- Setup Completion
--- See https://github.com/hrsh7th/nvim-cmp#basic-configuration
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local feedkey = function(key, mode)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+end
+
 local cmp = require("cmp")
 cmp.setup({
   snippet = {
@@ -170,27 +210,61 @@ cmp.setup({
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- Add tab support
-    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    ["<Tab>"] = cmp.mapping.select_next_item(),
-    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-d>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm({
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    }),
-  },
+    ["<C-c>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif vim.fn["vsnip#available"](1) == 1 then
+        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+      end
+    end, { "i", "s" }),
 
-  -- Installed sources
+    ["<S-Tab>"] = cmp.mapping(function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+        feedkey("<Plug>(vsnip-jump-prev)", "")
+      end
+    end, { "i", "s" }),
+
+  },
   sources = {
     { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" },
     { name = "vsnip" },
     { name = "path" },
     { name = "buffer" },
   },
 })
+cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+      {name = 'path'}
+    }, {
+    {
+      name = 'cmdline',
+      option = {
+        ignore_cmds = { 'Man', '!' }
+      }
+    }
+  })
+})
+
+vim.keymap.set('n', '<c-z>', ':NvimTreeToggle <CR>', {})
 
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
@@ -198,4 +272,15 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-
+require("nvim-treesitter.configs").setup {
+	ensure_installed = { "bash", "fish", "lua", "python", "rust" },
+  auto_install = true,
+	highlight = { enable = true },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      node_incremental = "<CR>",
+      node_decremental = "<M-CR>"
+    }
+  }
+}
