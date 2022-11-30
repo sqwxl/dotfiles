@@ -83,6 +83,7 @@ end
 
 if type -q rustup
   fish_add_path $HOME/.cargo/bin
+  # alias rust-analyzer 'rustup run stable rust-analyzer'
 end
 
 if type -q fdfind
@@ -104,4 +105,8 @@ end
 
 if type -q direnv
   direnv hook fish | source
+end
+
+if type -q bit
+  fish_add_path $HOME/bin
 end
