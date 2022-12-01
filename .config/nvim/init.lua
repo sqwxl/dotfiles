@@ -122,8 +122,13 @@ opt.number = true
 opt.signcolumn = "auto"
 opt.scrolloff = 10
 opt.shortmess:append "c" 
-
 opt.splitbelow = true
+vim.api.nvim_create_autocmd("TextYankPost", {
+  pattern = "*",
+  callback = function()
+    vim.highlight.on_yank()
+  end
+})
 
 -- Indenting
 opt.autoindent = true
@@ -136,22 +141,36 @@ opt.tabstop = 2
 opt.softtabstop = 2
 
 vim.g.mapleader = ' '
-vim.keymap.set("n", ";", ":", {})
 
-local function on_attach(client, buffer)
-	-- This callback is called when the LSP is atttached/enabled for this buffer
-	local keymap_opts = { buffer = buffer }
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
-	vim.keymap.set("n", "gD", vim.lsp.buf.implementation, keymap_opts)
-	vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
-	vim.keymap.set("n", "gtd", vim.lsp.buf.type_definition, keymap_opts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
-	vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, keymap_opts)
-	vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
-	vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
-	vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
-	vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
+local opts = { noremap=true, silent=true }
+vim.keymap.set("n", ";", ":", opts)
+vim.keymap.set("n", "Q", "@q", ops)
+vim.keymap.set("n", '<leader>h', ":nohl<CR>", opts)
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, bufopts)
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 -- See https://github.com/simrat39/rust-tools.nvim#configuration
