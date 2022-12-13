@@ -43,7 +43,9 @@ require("packer").startup(function(use)
 	use({
 		"nvim-tree/nvim-tree.lua",
 		requires = { "nvim-tree/nvim-web-devicons" },
-    config = function() require("nvim-tree").setup() end,
+    config = function() require("nvim-tree").setup({
+      view = { side = "right" }
+    }) end,
 	})
 	
 
@@ -144,9 +146,10 @@ opt.softtabstop = 2
 vim.g.mapleader = ' '
 
 local opts = { noremap=true, silent=true }
-vim.keymap.set("n", ";", ":", opts)
+vim.keymap.set("n", ";", ":", { noremap=true })
 vim.keymap.set("n", "Q", "@q", ops)
 vim.keymap.set("n", '<leader>h', ":nohl<CR>", opts)
+vim.keymap.set("n", "<M-z>", ":set wrap!<CR>", opts)
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
