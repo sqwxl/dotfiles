@@ -1,5 +1,5 @@
-set -gx EDITOR vim
-set -gx VISUAL vim
+set -gx EDITOR nvim
+set -gx VISUAL nvim
 set -gx MANPAGER less
 
 abbr -ag n nvim
@@ -31,11 +31,11 @@ abbr -ag gpf 'git push -f'
 abbr -ag gr 'git remote -v'
 abbr -ag gb 'git branch'
 
-abbr -ag cfgsway 'cd ~/.config/sway && vim config'
-abbr -ag cfgvim 'vim ~/.vimrc'
-abbr -ag cfgfish 'cd ~/.config/fish && vim config.fish'
-abbr -ag cfgterm 'cd ~/.config/kitty && vim kitty.conf'
-abbr -ag cfgterm 'vim ~/.config/kitty/kitty.conf'
+abbr -ag cfgsway 'cd ~/.config/sway && nvim config'
+abbr -ag cfgvim 'cd ~/.config/nvim && nvim init.lua'
+abbr -ag cfgfish 'cd ~/.config/fish && nvim config.fish'
+abbr -ag cfgterm 'cd ~/.config/kitty && nvim kitty.conf'
+abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
 
 abbr -ag rmr 'rm -rf'
 
@@ -110,3 +110,5 @@ end
 if type -q bit
   fish_add_path $HOME/bin
 end
+
+source "$HOME/.config/fish/functions/__auto_source_venv.fish"
