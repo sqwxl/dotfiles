@@ -33,6 +33,7 @@ require("packer").startup(function(use)
     config = function() require("leap").add_default_mappings() end
   }
 
+  use "github/copilot.vim"
 
   use {
     "nvim-treesitter/nvim-treesitter",
