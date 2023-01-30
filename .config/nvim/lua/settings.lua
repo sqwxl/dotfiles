@@ -1,12 +1,13 @@
 local opt = vim.opt
 
-opt.clipboard = "unnamedplus"
 opt.hlsearch = true
 opt.ignorecase = true
 opt.smartcase = true
 opt.mouse = "a"
-opt.updatetime = 100
+opt.updatetime = 50
 
+opt.undofile = true
+opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 if not vim.g.vscode then
   vim.g.loaded_netrw = 1
@@ -26,6 +27,7 @@ vim.api.nvim_create_autocmd(
 opt.completeopt = "menuone,noinsert,noselect"
 opt.wrap = false
 opt.cursorline = true
+opt.colorcolumn = "80"
 opt.number = true
 opt.signcolumn = "auto"
 opt.scrolloff = 10
@@ -42,4 +44,3 @@ opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
 
-vim.g.mapleader = ' '
