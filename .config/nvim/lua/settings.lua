@@ -10,11 +10,12 @@ opt.undofile = true
 opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
 if not vim.g.vscode then
+  -- disable netrw for nvim-tree
   vim.g.loaded_netrw = 1
   vim.g.loaded_netrwPlugin = 1
+
   opt.termguicolors = true
   opt.background = "dark"
-  vim.cmd([[colorscheme gruvbox]])
 end
 
 vim.api.nvim_create_autocmd(
@@ -31,7 +32,8 @@ opt.colorcolumn = "80"
 opt.number = true
 opt.signcolumn = "auto"
 opt.scrolloff = 10
-opt.shortmess:append "c" 
+opt.shortmess:append "c"
+opt.splitright = true
 opt.splitbelow = true
 
 -- Indenting
@@ -43,4 +45,3 @@ opt.shiftwidth = 2
 opt.smartindent = true
 opt.tabstop = 2
 opt.softtabstop = 2
-

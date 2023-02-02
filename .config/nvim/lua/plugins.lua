@@ -21,11 +21,9 @@ require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   use "tpope/vim-surround"
-
   use "tpope/vim-repeat"
-
   use "tpope/vim-endwise"
-
+  use "tpope/vim-abolish"
   use "tpope/vim-fugitive"
 
   use {
@@ -37,7 +35,7 @@ require("packer").startup(function(use)
     "github/copilot.vim",
     disable = true,
     config = function()
-        vim.g.copilot_no_tab_map = true
+      vim.g.copilot_no_tab_map = true
     end
   }
 
@@ -56,9 +54,8 @@ require("packer").startup(function(use)
     end,
   }
 
-  use { 
-    "ellisonleao/gruvbox.nvim",
-  }
+  use "ellisonleao/gruvbox.nvim"
+
 
   use {
     "numToStr/Comment.nvim",
@@ -66,26 +63,24 @@ require("packer").startup(function(use)
   }
 
   use {
-    "nvim-tree/nvim-tree.lua",
-    requires = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("nvim-tree").setup {
-        view = { side = "right" }
-      } 
-    end,
-  }
-  
-  use {
-    "windwp/nvim-autopairs",
-    config = function() require("nvim-autopairs").setup {
-      check_ts = true
-    } end,
+    'antosha417/nvim-lsp-file-operations',
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "kyazdani42/nvim-tree.lua" },
+    },
+    config = function () require("lsp-file-operations") end,
   }
 
   use {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require "lspconfig"
+    "nvim-tree/nvim-tree.lua",
+    requires = { "nvim-tree/nvim-web-devicons" },
+  }
+
+  use {
+    "windwp/nvim-autopairs",
+    config = function() require("nvim-autopairs").setup {
+        check_ts = true
+      }
     end,
   }
 
@@ -94,96 +89,49 @@ require("packer").startup(function(use)
     config = function() require("fidget").setup() end,
   }
 
-  use { 
-    "hrsh7th/nvim-cmp",
-  }
-
   use {
-    "hrsh7th/vim-vsnip",
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v1.x',
+    requires = {
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
+      { 'hrsh7th/cmp-buffer' },
+      { 'hrsh7th/cmp-path' },
+      { 'saadparwaiz1/cmp_luasnip' },
+      { 'hrsh7th/cmp-nvim-lua' },
+
+      -- Snippets
+      { 'L3MON4D3/LuaSnip' },
+      { 'rafamadriz/friendly-snippets' },
+    }
   }
 
-  use {
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-nvim-lsp-signature-help",
-    "hrsh7th/cmp-vsnip",
-    "hrsh7th/cmp-path",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-cmdline",
-    after = { "hrsh7th/nvim-cmp" },
-    requires = { "hrsh7th/nvim-cmp" },
-  }
+  use "jose-elias-alvarez/null-ls.nvim"
 
-  use {
-    "nvim-lua/popup.nvim",
-  }
 
-  use {
-    "nvim-lua/plenary.nvim",
-  }
+  use "nvim-lua/popup.nvim"
 
-  use { 
-    "nvim-telescope/telescope.nvim",
-  } 
 
-  use {
-    "simrat39/rust-tools.nvim",
-  }
+  use "nvim-lua/plenary.nvim"
+
+
+  use "nvim-telescope/telescope.nvim"
+
+
+  use "simrat39/rust-tools.nvim"
+
+
+  use 'eandrju/cellular-automaton.nvim'
 
   if packer_bootstrap then
     require("packer").sync()
     return
   end
 end)
-
-local on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, bufopts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, bufopts)
-  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>l', function() vim.lsp.buf.format { async = true } end, bufopts)
-end
-
-require("lspconfig")["pyright"].setup { on_attach = on_attach }
-
-require("rust-tools").setup {
-  tools = { 
-    runnables = { use_telescope = true },
-    inlay_hints = {
-      auto = true,
-      show_parameter_hints = false,
-      other_hints_prefix = "" 
-    }
-  }, 
-  server = {
-    on_attach = on_attach,
-    settings = {
-      ["rust-analyzer"] = { 
-        checkOnSave = { command = "clippy" }
-      }
-    }
-  }
-}
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.rs",
-  callback = function()
-    vim.lsp.buf.format(nil, 200)
-  end,
-  group = format_sync_grp,
-})
-
