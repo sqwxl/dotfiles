@@ -68,7 +68,7 @@ require("packer").startup(function(use)
       { "nvim-lua/plenary.nvim" },
       { "kyazdani42/nvim-tree.lua" },
     },
-    config = function () require("lsp-file-operations") end,
+    config = function() require("lsp-file-operations") end,
   }
 
   use {
@@ -111,6 +111,25 @@ require("packer").startup(function(use)
       { 'L3MON4D3/LuaSnip' },
       { 'rafamadriz/friendly-snippets' },
     }
+  }
+
+  -- use 'mfussenegger/nvim-dap'
+  -- use { 'mfussenegger/nvim-dap-python',
+  --   config = function()
+  --     local debugpy_venv = "~/.virtualenvs/debugpy/bin/python"
+  --     local f = io.open(debugpy_venv, "r")
+  --     if f == nil then
+  --       io.close(f)
+  --       error(string.format("debugpy virtualenv not found at %s you have to create it", debugpy_venv))
+  --     end
+  --     require("dap-python").setup(debugpy_venv)
+  --   end
+  -- }
+
+  use {
+    "folke/trouble.nvim",
+    requires = "nvim-tree/nvim-web-devicons",
+    config = function() require("trouble").setup() end
   }
 
   use "jose-elias-alvarez/null-ls.nvim"
