@@ -1,0 +1,14 @@
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "deno", args = ["fmt", "-", "--ext", "tsx"] }
+
+[[language]]
+name = "python"
+auto-format = true
+formatter = { command = "black", args = ["--quiet", "-"]}

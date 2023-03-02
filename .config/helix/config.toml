@@ -6,6 +6,7 @@ color-modes = true
 middle-click-paste = false
 cursorline = true
 auto-format = true
+rulers = [80]
 
 [editor.cursor-shape]
 insert = "bar"
