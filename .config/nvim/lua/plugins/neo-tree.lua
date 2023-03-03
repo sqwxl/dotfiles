@@ -1,4 +1,5 @@
 vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+local colors = require("gruvbox.palette").get_base_colors(vim.o.background, require("gruvbox").config.contrast)
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -6,11 +7,11 @@ return {
     opts = {
       window = {
         position = "right",
-      },
-      mappings = {
-        ["<cr>"] = "open_with_window_picker",
-        ["s"] = "split_with_window_picker",
-        ["v"] = "vsplit_with_window_picker"
+        mappings = {
+          ["<cr>"] = "open_with_window_picker",
+          ["s"] = "split_with_window_picker",
+          ["v"] = "vsplit_with_window_picker"
+        },
       },
       filesystem = {
         hijack_netrw_behavior = "open_current",
@@ -26,7 +27,15 @@ return {
     "s1n7ax/nvim-window-picker",
     version = "v1.x",
     opts = {
-      selection_chars = "hutenosaidyfpg.c,r;l", -- dvorak
+      selection_chars = "HUTENOSAIDYFPG.C,R;L", -- dvorak
+      filter_rules = {
+        bo = {
+          filetype = { "neo-tree", "neo-tree-popup", "notify" },
+          buftype = { "terminal", "quickfix" }
+        }
+      },
+      fg_color = colors.fg0,
+      other_win_hl_color = colors.orange
     }
   }
 }

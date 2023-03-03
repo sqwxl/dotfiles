@@ -37,7 +37,35 @@ return {
   --   end
   -- }
   { "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" }
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      local null_ls = require "null-ls"
+      null_ls.setup({
+        debounce = 150,
+        save_after_format = false,
+        sources = {
+          null_ls.builtins.formatting.black,
+          null_ls.builtins.formatting.isort,
+          null_ls.builtins.diagnostics.mypy
+        },
+        on_attach = function(client, bufnr)
+          require("config.mappings").on_attach(client, bufnr)
+          if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              group = augroup,
+              buffer = bufnr,
+              callback = function()
+                vim.lsp.buf.format({
+                  bufnr = bufnr,
+                })
+              end,
+            })
+          end
+        end,
+      })
+    end
   },
   {
     "folke/neodev.nvim",

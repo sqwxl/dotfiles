@@ -92,7 +92,7 @@ vim.keymap.set("n", "<leader>l", vim.cmd.LspZeroFormat)
 
 vim.keymap.set("n", "<leader>$", function() vim.cmd.CellularAutomaton("make_it_rain") end)
 
-vim.keymap.set("n", "<leader>j", vim.cmd.TSJToggle, noremap_silent) -- fold/unfold table/array
+vim.keymap.set("n", "<leader>J", vim.cmd.TSJToggle, noremap_silent)                -- fold/unfold table/array
 
 vim.keymap.set("n", "gC", ":lua require('neogen').generate()<CR>", noremap_silent) -- annotation comment
 
@@ -103,6 +103,7 @@ vim.keymap.set("n", "<leader>S", vim.cmd.SymbolsOutline, noremap_silent)
 vim.keymap.set("n", "<leader>sR", ":lua require('ssr').open()", noremap_silent) -- structural repace
 
 vim.keymap.set("n", "<leader>z", vim.cmd.ZenMode, noremap_silent)
+vim.keymap.set("n", "<leader>m", vim.cmd.WindowsMaximize, noremap_silent)
 
 -- LSP KEYMAPS
 local on_attach = function(client, bufnr)
@@ -113,7 +114,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, bufopts)
@@ -143,14 +144,14 @@ end
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = {
-  ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-  ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-  ["<C-u>"] = cmp.mapping.scroll_docs( -4),
-  ["<C-d>"] = cmp.mapping.scroll_docs(4),
-  ["<C-Space>"] = cmp.mapping.complete(),
-  ["<C-c>"] = cmp.mapping.close(),
-  ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
-  ["<Tab>"] = cmp.mapping(function(fallback)
+      ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
+      ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-d>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-c>"] = cmp.mapping.close(),
+      ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+      ["<Tab>"] = cmp.mapping(function(fallback)
     if cmp.visible() then
       cmp.select_next_item()
     elseif vim.fn["vsnip#available"](1) == 1 then
@@ -161,10 +162,10 @@ local cmp_mappings = {
       fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
     end
   end, { "i", "s" }),
-  ["<S-Tab>"] = cmp.mapping(function()
+      ["<S-Tab>"] = cmp.mapping(function()
     if cmp.visible() then
       cmp.select_prev_item()
-    elseif vim.fn["vsnip#jumpable"]( -1) == 1 then
+    elseif vim.fn["vsnip#jumpable"](-1) == 1 then
       feedkey("<Plug>(vsnip-jump-prev)", "")
     end
   end, { "i", "s" }),

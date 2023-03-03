@@ -1,3 +1,6 @@
 return {
-  { "eandrju/cellular-automaton.nvim" },
+  {
+    "eandrju/cellular-automaton.nvim",
+    lazy = true,
+  },
 }

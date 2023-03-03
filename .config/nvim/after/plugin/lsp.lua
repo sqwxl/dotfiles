@@ -80,6 +80,12 @@ cmp.event:on("menu_closed", function()
   vim.b.copilot_suggestion_hidden = false
 end)
 
+-- insert `(` after select function or method item
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on("confirm_done",
+  cmp_autopairs.on_confirm_done()
+)
+
 vim.diagnostic.config({
   virtual_text = true
 })

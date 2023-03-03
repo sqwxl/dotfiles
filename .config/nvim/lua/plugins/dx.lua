@@ -14,18 +14,21 @@ return {
 
   {
     "folke/trouble.nvim",
+    lazy = true,
     dependencies = "nvim-tree/nvim-web-devicons",
     config = true
   },
 
   {
     "danymat/neogen", -- generate annotations
+    lazy = true,
     opts = { snippet_engine = "luasnip" },
     dependencies = "nvim-treesitter/nvim-treesitter"
   },
 
   {
     "ThePrimeagen/refactoring.nvim",
+    lazy = true,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim"

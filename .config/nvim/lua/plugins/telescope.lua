@@ -1,6 +1,7 @@
 return {
   {
     "nvim-telescope/telescope.nvim",
+    lazy = true,
     version = "*",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
