@@ -6,7 +6,7 @@ lsp.ensure_installed({
   'tsserver',
   'lua_ls',
   'rust_analyzer',
-  'pylsp'
+  'pyright'
 })
 
 -- disable pyright
@@ -21,6 +21,7 @@ lsp.configure("pyright", {
     }
   }
 })
+
 -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 lsp.skip_server_setup("pylsp")
 -- lsp.configure("pylsp", {

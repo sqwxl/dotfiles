@@ -6,10 +6,13 @@ return {
 
   {
     'rmagatti/auto-session',
-    opts = {
-      log_level = "error",
-      auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
-    }
+    config = function()
+      require("auto-session").setup {
+        log_level = "error",
+        auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
+        pre_save_cmds = { function() vim.cmd('Neotree close') end }
+      }
+    end
   },
 
   {
@@ -40,7 +43,6 @@ return {
     "kevinhwang91/nvim-ufo",
     dependencies = "kevinhwang91/promise-async",
     event = "BufReadPost",
-
     init = function()
       -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
       vim.keymap.set("n", "zR", function()

@@ -84,7 +84,7 @@ vim.keymap.set("n", "<A-\\>", ":Neotree reveal=true position=right<CR>", noremap
 
 vim.keymap.set("i", "<C-f>", function() require("copilot.suggestion").accept() end, noremap_silent)
 vim.keymap.set("i", "<A-f>", function() require("copilot.suggestion").accept_word() end, noremap_silent)
-vim.keymap.set("i", "<C-c>", function() require("copilot.suggestion").dismiss() end, noremap_silent)
+-- vim.keymap.set("i", "<C-e>", function() require("copilot.suggestion").dismiss() end, noremap_silent)
 
 vim.keymap.set("n", "<leader>v", vim.cmd.Git)
 
