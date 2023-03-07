@@ -16,4 +16,9 @@ return {
     'folke/which-key.nvim',
     config = true
   },
-}
+
+  {
+    "toppair/peek.nvim",
+    enabled = false, -- doesn't work on windows, tbd gnome
+    build = "deno task --quiet build:fast",
+  }, }

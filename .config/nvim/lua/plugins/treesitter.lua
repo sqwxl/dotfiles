@@ -17,9 +17,9 @@ return {
       require("nvim-treesitter.configs").setup {
         ensure_installed = {
           "bash",
+          "c",
           "css",
           "fish",
-          -- "gitignore",
           "help",
           "html",
           "javascript",
@@ -40,9 +40,9 @@ return {
         auto_install = true,
         highlight = { enable = true }, -- , additional_vim_regex_highlighting = false, },
         -- indent = { enable = true, disable = { "python" } },
-        matchup = { enable = true, },
-        endwise = { enable = true, },
-        autotag = { enable = true, },
+        matchup = { enable = true },
+        endwise = { enable = true },
+        autotag = { enable = true },
         textobjects = {
           select = {
             enable = true,

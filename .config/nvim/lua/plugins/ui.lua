@@ -46,6 +46,7 @@ return {
 
   {
     "petertriho/nvim-scrollbar",
+    enabled = false,
     event = "BufReadPost",
     config = function()
       local scrollbar = require("scrollbar")

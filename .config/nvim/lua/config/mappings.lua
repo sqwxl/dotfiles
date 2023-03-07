@@ -14,120 +14,114 @@ vim.keymap.set("", "}", "{", noremap_silent)
 vim.keymap.set("n", "J", "mzJ`z")
 
 -- quick indent
-vim.keymap.set("n", ">", ">>")
-vim.keymap.set("n", "<", "<<")
+vim.keymap.set("n", ">", ">>", noremap_silent)
+vim.keymap.set("n", "<", "<<", noremap_silent)
 
 -- don't delete to register when pasting or deleting
-vim.keymap.set("x", "<leader>p", [["_dp]], noremap_silent)
-vim.keymap.set("x", "<leader>P", [["_dP]], noremap_silent)
-vim.keymap.set("n", "<leader>d", [["_d]], noremap_silent)
-vim.keymap.set("v", "<leader>d", [["_d]], noremap_silent)
+vim.keymap.set("x", "<Leader>p", [["_dp]], noremap_silent)
+vim.keymap.set("x", "<Leader>P", [["_dP]], noremap_silent)
+vim.keymap.set("n", "<Leader>d", [["_d]], noremap_silent)
+vim.keymap.set("v", "<Leader>d", [["_d]], noremap_silent)
 
 -- yank to clipboard
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<Leader>y", [["+y]])
+vim.keymap.set("n", "<Leader>Y", [["+Y]])
 
 vim.keymap.set("i", "<C-c>", "<Esc>", noremap_silent)
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
+vim.keymap.set("t", "<Esc>", "<C-Bslash><C-n>")
 
 -- replace word under cursor
-vim.keymap.set("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+vim.keymap.set("n", "<Leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("n", "Q", "@q", noremap_silent)
 
 -- switch to last used buffer
-vim.keymap.set("n", "<leader><leader>", ":b#<CR>", noremap_silent)
+vim.keymap.set("n", "<Leader><Leader>", ":b#<CR>", noremap_silent)
 
-vim.keymap.set("n", "<leader>h", ":nohl<CR>", noremap_silent)
+-- vim.keymap.set("n", "<Leader>h", ":nohl<CR>", noremap_silent) -- change mapping if uncomment
 
-vim.keymap.set("n", "<M-z>", ":set wrap!<CR>", noremap_silent)
+vim.keymap.set("n", "<A-z>", ":set wrap!<CR>", noremap_silent)
 
-vim.keymap.set("n", "<leader>j", ":cnext<CR>zz")
-vim.keymap.set("n", "<leader>k", ":cprev<CR>zz")
+vim.keymap.set("n", "<Leader>j", ":cnext<CR>zz")
+vim.keymap.set("n", "<Leader>k", ":cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", ":lnext<CR>zz")
 vim.keymap.set("n", "<C-k>", ":lprev<CR>zz")
 
 -- move around
-vim.keymap.set("t", "<A-h>", "<C-\\><C-N><C-w>h", noremap_silent)
-vim.keymap.set("t", "<A-j>", "<C-\\><C-N><C-w>j", noremap_silent)
-vim.keymap.set("t", "<A-k>", "<C-\\><C-N><C-w>k", noremap_silent)
-vim.keymap.set("t", "<A-l>", "<C-\\><C-N><C-w>l", noremap_silent)
-vim.keymap.set("i", "<A-h>", "<C-\\><C-N><C-w>h", noremap_silent)
-vim.keymap.set("i", "<A-j>", "<C-\\><C-N><C-w>j", noremap_silent)
-vim.keymap.set("i", "<A-k>", "<C-\\><C-N><C-w>k", noremap_silent)
-vim.keymap.set("i", "<A-l>", "<C-\\><C-N><C-w>l", noremap_silent)
+vim.keymap.set("t", "<A-h>", "<C-Bslash><C-N><C-w>h", noremap_silent)
+vim.keymap.set("t", "<A-j>", "<C-Bslash><C-N><C-w>j", noremap_silent)
+vim.keymap.set("t", "<A-k>", "<C-Bslash><C-N><C-w>k", noremap_silent)
+vim.keymap.set("t", "<A-l>", "<C-Bslash><C-N><C-w>l", noremap_silent)
+vim.keymap.set("i", "<A-h>", "<C-Bslash><C-N><C-w>h", noremap_silent)
+vim.keymap.set("i", "<A-j>", "<C-Bslash><C-N><C-w>j", noremap_silent)
+vim.keymap.set("i", "<A-k>", "<C-Bslash><C-N><C-w>k", noremap_silent)
+vim.keymap.set("i", "<A-l>", "<C-Bslash><C-N><C-w>l", noremap_silent)
 vim.keymap.set("n", "<A-h>", "<C-w>h", noremap_silent)
 vim.keymap.set("n", "<A-j>", "<C-w>j", noremap_silent)
 vim.keymap.set("n", "<A-k>", "<C-w>k", noremap_silent)
 vim.keymap.set("n", "<A-l>", "<C-w>l", noremap_silent)
-vim.keymap.set("t", "<left>", "<C-\\><C-N><C-w>h", noremap_silent)
-vim.keymap.set("t", "<down>", "<C-\\><C-N><C-w>j", noremap_silent)
-vim.keymap.set("t", "<up>", "<C-\\><C-N><C-w>k", noremap_silent)
-vim.keymap.set("t", "<right>", "<C-\\><C-N><C-w>l", noremap_silent)
-vim.keymap.set("n", "<left>", "<C-w>h", noremap_silent)
-vim.keymap.set("n", "<down>", "<C-w>j", noremap_silent)
-vim.keymap.set("n", "<up>", "<C-w>k", noremap_silent)
-vim.keymap.set("n", "<right>", "<C-w>l", noremap_silent)
+vim.keymap.set("t", "<Left>", "<C-Bslash><C-N><C-w>h", noremap_silent)
+vim.keymap.set("t", "<Down>", "<C-Bslash><C-N><C-w>j", noremap_silent)
+vim.keymap.set("t", "<Up>", "<C-Bslash><C-N><C-w>k", noremap_silent)
+vim.keymap.set("t", "<Right>", "<C-Bslash><C-N><C-w>l", noremap_silent)
+vim.keymap.set("n", "<Left>", "<C-w>h", noremap_silent)
+vim.keymap.set("n", "<Down>", "<C-w>j", noremap_silent)
+vim.keymap.set("n", "<Up>", "<C-w>k", noremap_silent)
+vim.keymap.set("n", "<Right>", "<C-w>l", noremap_silent)
 
 -- PLUGIN COMMANDS
 local telescope = require('telescope.builtin')
-vim.keymap.set("n", "<leader>f", telescope.find_files, {})
+vim.keymap.set("n", "<Leader>h", function() telescope.find_files({ no_ignore = true }) end, {})
 vim.keymap.set("n", "<C-p>", telescope.git_files, {})
-vim.keymap.set("n", "<leader>g", telescope.live_grep, {})
-vim.keymap.set("n", "<leader>b", telescope.buffers, {})
-vim.keymap.set("n", "<leader>t", telescope.help_tags, {})
-vim.keymap.set("n", "<leader>s", telescope.lsp_document_symbols, {})
+vim.keymap.set("n", "<Leader>g", telescope.live_grep, {})
+vim.keymap.set("n", "<Leader>b", telescope.buffers, {})
+vim.keymap.set("n", "<Leader>t", telescope.help_tags, {})
+vim.keymap.set("n", "<Leader>n", telescope.lsp_document_symbols, {})
 
-vim.keymap.set("n", "\\", ":Neotree toggle=true position=right<CR>", noremap_silent)
-vim.keymap.set("n", "<A-\\>", ":Neotree reveal=true position=right<CR>", noremap_silent)
+vim.keymap.set("n", "<Bslash>", ":Neotree toggle=true position=right<CR>", noremap_silent)
+vim.keymap.set("n", "<A-Bslash>", ":Neotree reveal=true position=right<CR>", noremap_silent)
 
 vim.keymap.set("i", "<C-f>", function() require("copilot.suggestion").accept() end, noremap_silent)
 vim.keymap.set("i", "<A-f>", function() require("copilot.suggestion").accept_word() end, noremap_silent)
 -- vim.keymap.set("i", "<C-e>", function() require("copilot.suggestion").dismiss() end, noremap_silent)
 
-vim.keymap.set("n", "<leader>v", vim.cmd.Git)
-
-vim.keymap.set("n", "<leader>l", vim.cmd.LspZeroFormat)
-
-vim.keymap.set("n", "<leader>$", function() vim.cmd.CellularAutomaton("make_it_rain") end)
-
-vim.keymap.set("n", "<leader>J", vim.cmd.TSJToggle, noremap_silent)                -- fold/unfold table/array
-
+vim.keymap.set("n", "<Leader>v", vim.cmd.Git)
+vim.keymap.set("n", "<Leader>l", vim.cmd.LspZeroFormat)
+vim.keymap.set("n", "<Leader>F", vim.cmd.TSJToggle, noremap_silent)                -- fold/unfold table/array
 vim.keymap.set("n", "gC", ":lua require('neogen').generate()<CR>", noremap_silent) -- annotation comment
+vim.keymap.set("n", "<Leader>S", vim.cmd.SymbolsOutline, noremap_silent)
+vim.keymap.set("v", "<Leader>R", ":lua require('refactoring').select_refactor()<CR>", noremap_silent)
+vim.keymap.set("n", "<Leader>sR", ":lua require('ssr').open()", noremap_silent) -- structural repace
 
-vim.keymap.set("v", "<leader>R", ":lua require('refactoring').select_refactor()<CR>", noremap_silent)
+vim.keymap.set("n", "<Leader>z", vim.cmd.ZenMode, noremap_silent)
+vim.keymap.set("n", "<Leader>m", vim.cmd.WindowsMaximize, noremap_silent)
 
-vim.keymap.set("n", "<leader>S", vim.cmd.SymbolsOutline, noremap_silent)
-
-vim.keymap.set("n", "<leader>sR", ":lua require('ssr').open()", noremap_silent) -- structural repace
-
-vim.keymap.set("n", "<leader>z", vim.cmd.ZenMode, noremap_silent)
-vim.keymap.set("n", "<leader>m", vim.cmd.WindowsMaximize, noremap_silent)
+vim.keymap.set("n", "<Leader>$", function() vim.cmd.CellularAutomaton("make_it_rain") end)
 
 -- LSP KEYMAPS
 local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
   vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>dq', vim.diagnostic.setqflist, bufopts)
+  vim.keymap.set('n', '<Leader>dq', vim.diagnostic.setqflist, bufopts)
   vim.keymap.set('n', 'gl', vim.diagnostic.open_float, bufopts)
   vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
-  -- vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  -- vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  -- vim.keymap.set('n', '<leader>wl', function()
+  -- vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+  -- vim.keymap.set('n', '<Leader>wl', function()
   --   print(vim.inspect(vim.lsp.buf.list_workleader_folders()))
   -- end, bufopts)
-  -- vim.keymap.set('n', '<leader>l', function() vim.lsp.buf.format { async = true } end, bufopts)
+  -- vim.keymap.set('n', '<Leader>l', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 
