@@ -6,6 +6,7 @@ return {
 
   {
     'rmagatti/auto-session',
+    enabled = false,
     config = function()
       require("auto-session").setup {
         log_level = "error",
@@ -41,7 +42,29 @@ return {
 
   {
     "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
+    enabled = false,
+    dependencies = {
+      {
+        "kevinhwang91/promise-async",
+      },
+      {
+        "luukvbaal/statuscol.nvim",
+        config = function()
+          local builtin = require("statuscol.builtin")
+          require("statuscol").setup {
+            segments = {
+              {
+                text = { builtin.foldfunc, " " },
+                condition = { true, builtin.not_empty },
+                click = "v:lua.ScFa"
+              },
+              { text = { "%s" },             click = "v:lua.ScSa" },
+              { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
+            }
+          }
+        end
+      },
+    },
     event = "BufReadPost",
     init = function()
       -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
@@ -52,6 +75,11 @@ return {
         require("ufo").closeAllFolds()
       end)
     end,
+    opts = {
+      provider_selector = function(bufnr, filetype, buftype)
+        return { 'treesitter', 'indent' }
+      end
+    },
   },
 
   {

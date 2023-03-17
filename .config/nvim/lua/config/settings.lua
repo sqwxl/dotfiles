@@ -11,7 +11,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.opt.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localoptions"
 vim.opt.completeopt = "menuone,noinsert,noselect"
 vim.opt.wrap = false
 vim.opt.cursorline = true
@@ -34,6 +34,15 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
+-- folds
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+vim.opt.foldcolumn = "1"
+-- vim.opt.foldlevel = 99
+-- vim.opt.foldlevelstart = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false
+
 vim.api.nvim_create_autocmd(
   "TextYankPost",
   {
@@ -52,4 +61,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.g.mapleader = " "
-

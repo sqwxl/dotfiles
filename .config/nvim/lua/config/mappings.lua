@@ -13,20 +13,20 @@ vim.keymap.set("", "}", "{", noremap_silent)
 -- keep cursor pos when joining lines
 vim.keymap.set("n", "J", "mzJ`z")
 
--- quick indent
-vim.keymap.set("n", ">", ">>", noremap_silent)
-vim.keymap.set("n", "<", "<<", noremap_silent)
+-- move to start and end of line
+vim.keymap.set({"n", "x", "o"}, "H", "^")
+vim.keymap.set({"n", "x", "o"}, "L", "$")
 
 -- don't delete to register when pasting or deleting
 vim.keymap.set("x", "<Leader>p", [["_dp]], noremap_silent)
 vim.keymap.set("x", "<Leader>P", [["_dP]], noremap_silent)
-vim.keymap.set("n", "<Leader>d", [["_d]], noremap_silent)
-vim.keymap.set("v", "<Leader>d", [["_d]], noremap_silent)
+vim.keymap.set({ "n", "v" }, "<Leader>d", [["_d]], noremap_silent)
 
 -- yank to clipboard
 vim.keymap.set({ "n", "v" }, "<Leader>y", [["+y]])
-vim.keymap.set("n", "<Leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<Leader>Y", [["+Y]])
 
+-- Escape from monkey island
 vim.keymap.set("i", "<C-c>", "<Esc>", noremap_silent)
 vim.keymap.set("t", "<Esc>", "<C-Bslash><C-n>")
 
@@ -48,7 +48,12 @@ vim.keymap.set("n", "<Leader>k", ":cprev<CR>zz")
 vim.keymap.set("n", "<C-j>", ":lnext<CR>zz")
 vim.keymap.set("n", "<C-k>", ":lprev<CR>zz")
 
+-- tabs
+vim.keymap.set("n", "<A-n>", ":tabnext<CR>", noremap_silent)
+
 -- move around
+vim.keymap.set("n", "<A-t>", ":tabnew<CR>", noremap_silent)
+vim.keymap.set("n", "<A-p>", ":tabprevious<CR>", noremap_silent)
 vim.keymap.set("t", "<A-h>", "<C-Bslash><C-N><C-w>h", noremap_silent)
 vim.keymap.set("t", "<A-j>", "<C-Bslash><C-N><C-w>j", noremap_silent)
 vim.keymap.set("t", "<A-k>", "<C-Bslash><C-N><C-w>k", noremap_silent)
@@ -87,7 +92,7 @@ vim.keymap.set("i", "<A-f>", function() require("copilot.suggestion").accept_wor
 -- vim.keymap.set("i", "<C-e>", function() require("copilot.suggestion").dismiss() end, noremap_silent)
 
 vim.keymap.set("n", "<Leader>v", vim.cmd.Git)
-vim.keymap.set("n", "<Leader>l", vim.cmd.LspZeroFormat)
+vim.keymap.set("n", "<Leader>l", vim.lsp.buf.format)
 vim.keymap.set("n", "<Leader>F", vim.cmd.TSJToggle, noremap_silent)                -- fold/unfold table/array
 vim.keymap.set("n", "gC", ":lua require('neogen').generate()<CR>", noremap_silent) -- annotation comment
 vim.keymap.set("n", "<Leader>S", vim.cmd.SymbolsOutline, noremap_silent)
@@ -98,6 +103,33 @@ vim.keymap.set("n", "<Leader>z", vim.cmd.ZenMode, noremap_silent)
 vim.keymap.set("n", "<Leader>m", vim.cmd.WindowsMaximize, noremap_silent)
 
 vim.keymap.set("n", "<Leader>$", function() vim.cmd.CellularAutomaton("make_it_rain") end)
+
+
+-- TREESITTER
+local ts_repeat_move = require "nvim-treesitter.textobjects.repeatable_move"
+
+vim.keymap.set("n", "<A-n>", function()
+  local ts_utils = require("nvim-treesitter.ts_utils")
+  local node = ts_utils.get_node_at_cursor()
+  print("hello")
+  print(node:type())
+  ts_utils.goto_node(node:next_sibling(), false, true)
+end, noremap_silent)
+
+-- Repeat movement with ; and ,
+-- ensure ; goes forward and , goes backward regardless of the last direction
+-- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
+
+-- vim way: ; goes to the direction you were moving.
+vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+-- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 
 -- LSP KEYMAPS
 local on_attach = function(client, bufnr)
@@ -114,7 +146,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<Leader>dq', vim.diagnostic.setqflist, bufopts)
   vim.keymap.set('n', 'gl', vim.diagnostic.open_float, bufopts)
-  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "]D", vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
   -- vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   -- vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)

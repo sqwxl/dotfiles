@@ -51,6 +51,7 @@ return {
           null_ls.builtins.formatting.shfmt,
           -- null_ls.builtins.formatting.isort,
           -- null_ls.builtins.diagnostics.mypy
+          null_ls.builtins.formatting.jq,
           null_ls.builtins.formatting.ruff,
           -- null_ls.builtins.diagnostics.ruff,
         },
@@ -72,6 +73,7 @@ return {
   },
   {
     "folke/neodev.nvim",
+    enabled = false,
     config = true
   },
   { "simrat39/rust-tools.nvim" },
