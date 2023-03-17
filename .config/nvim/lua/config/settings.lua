@@ -61,3 +61,8 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.g.mapleader = " "
+
+if vim.g.started_by_firenvim == true then
+  vim.opt.laststatus = 0
+  vim.opt.number = false
+end

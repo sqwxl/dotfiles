@@ -57,24 +57,24 @@ return {
         },
         on_attach = function(client, bufnr)
           require("config.mappings").on_attach(client, bufnr)
-          if client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr })
-              end,
-            })
-          end
+          -- format-on-save
+          -- if client.supports_method("textDocument/formatting") then
+          --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+          --   vim.api.nvim_create_autocmd("BufWritePre", {
+          --     group = augroup,
+          --     buffer = bufnr,
+          --     callback = function()
+          --       vim.lsp.buf.format({ bufnr = bufnr })
+          --     end,
+          --   })
+          -- end
         end,
       })
     end
   },
   {
     "folke/neodev.nvim",
-    enabled = false,
-    config = true
+    opts = { library = { plugins = { "nvim-dap-ui" }, types = true } }
   },
   { "simrat39/rust-tools.nvim" },
 }
