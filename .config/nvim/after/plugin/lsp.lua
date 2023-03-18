@@ -1,7 +1,6 @@
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
-
 lsp.ensure_installed({
   'tsserver',
   'lua_ls',
@@ -61,7 +60,14 @@ lsp.set_preferences({
 local mappings = require("config.mappings")
 
 lsp.setup_nvim_cmp({
-  mappings = lsp.defaults.cmp_mappings(mappings.cmp_mappings)
+  mappings = lsp.defaults.cmp_mappings(mappings.cmp_mappings),
+  sources = {
+    { name = "path"},
+    { name = "nvim_lsp"},
+    {name="buffer", keyword_length=3},
+    {name="luasnip", keyword_length=2},
+    {name="copilot"}
+  }
 })
 
 -- (Optional) Configure lua language server for neovim
@@ -72,14 +78,15 @@ lsp.on_attach(mappings.on_attach)
 
 lsp.setup()
 
--- disabel copilot suggestion when completion menu is opened
 local cmp = require("cmp")
-cmp.event:on("menu_opened", function()
-  vim.b.copilot_suggestion_hidden = true
-end)
-cmp.event:on("menu_closed", function()
-  vim.b.copilot_suggestion_hidden = false
-end)
+
+-- disabel copilot suggestion when completion menu is opened
+-- cmp.event:on("menu_opened", function()
+--   vim.b.copilot_suggestion_hidden = true
+-- end)
+-- cmp.event:on("menu_closed", function()
+--   vim.b.copilot_suggestion_hidden = false
+-- end)
 
 -- insert `(` after select function or method item
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
