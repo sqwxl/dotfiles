@@ -8,9 +8,9 @@ vim.opt.timeoutlen = 100
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 
+-- UI
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
-
 vim.opt.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,localoptions"
 vim.opt.completeopt = "menuone,noinsert,noselect"
 vim.opt.wrap = false
@@ -61,3 +61,12 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 vim.g.mapleader = " "
+
+if vim.g.started_by_firenvim then
+  vim.opt.laststatus = 0
+  vim.opt.number = false
+  vim.opt_local.signcolumn = "no"
+  vim.opt.background = "light"
+  vim.opt_local.cursorline = false
+end
+

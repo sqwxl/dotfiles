@@ -1,14 +1,12 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx MANPAGER less
+set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
 abbr -ag n nvim
 abbr -ag s sudo
 abbr -ag se sudoedit
 
-abbr -ag o xdg-open
-
-# alias docker podman
 abbr -ag dc docker-compose
 
 abbr -ag g git
@@ -31,16 +29,15 @@ abbr -ag gpf 'git push -f'
 abbr -ag gr 'git remote -v'
 abbr -ag gb 'git branch'
 
+abbr -ag rmr 'rm -rf'
+
+alias cfginit "git init --bare $HOME/.dotfiles && git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin && echo .dotfiles >> $HOME/.gitignore"
+alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 abbr -ag cfgsway 'cd ~/.config/sway && nvim config'
 abbr -ag cfgvim 'cd ~/.config/nvim && nvim init.lua'
 abbr -ag cfgfish 'cd ~/.config/fish && nvim config.fish'
 abbr -ag cfgterm 'cd ~/.config/kitty && nvim kitty.conf'
 abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
-
-abbr -ag rmr 'rm -rf'
-
-# config abbr for dotfiles
-alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 abbr -ag myip "curl -4 icanhazip.com"
 

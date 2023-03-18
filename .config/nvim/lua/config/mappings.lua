@@ -1,5 +1,8 @@
 local noremap_silent = { noremap = true, silent = true }
 
+-- Escape from monkey island
+vim.keymap.set("i", "<C-c>", "<Esc>", noremap_silent)
+vim.keymap.set("t", "<Esc>", "<C-Bslash><C-n>")
 vim.keymap.set("n", "<C-s>", ":w<CR>")
 
 -- move lines in visual mode
@@ -25,10 +28,6 @@ vim.keymap.set({ "n", "v" }, "<Leader>d", [["_d]], noremap_silent)
 -- yank to clipboard
 vim.keymap.set({ "n", "v" }, "<Leader>y", [["+y]])
 vim.keymap.set({ "n", "v" }, "<Leader>Y", [["+Y]])
-
--- Escape from monkey island
-vim.keymap.set("i", "<C-c>", "<Esc>", noremap_silent)
-vim.keymap.set("t", "<Esc>", "<C-Bslash><C-n>")
 
 -- replace word under cursor
 vim.keymap.set("n", "<Leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
