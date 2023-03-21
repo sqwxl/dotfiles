@@ -1,6 +1,5 @@
 local noremap_silent = { noremap = true, silent = true }
 
-
 -- GENERAL
 vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("i", "<C-c>", "<Esc>", noremap_silent)
@@ -117,7 +116,7 @@ local on_attach = function(client, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
   vim.keymap.set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'K', ":lua vim.lsp.buf.hover()<CR>", bufopts) -- keep rhs as string (see dap.lua)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
@@ -137,11 +136,30 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<A-F>', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
-vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
-vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
-vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
-vim.keymap.set('n', '<F9>', function() require('dap').toggle_breakpoint() end)
+-- DAP
+vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end)
+vim.keymap.set('n', '<Leader>dC', function() require('dap').terminate() end)
+vim.keymap.set('n', '<Leader>dt', function() require('dap').toggle_breakpoint() end)
+vim.keymap.set('n', '<Leader>dn', function() require('dap').step_over() end)
+vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end)
+vim.keymap.set('n', '<Leader>do', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>du', function() require('dap').up() end)
+vim.keymap.set('n', '<Leader>dd', function() require('dap').down() end)
+-- vim.keymap.set('n', '<Leader>da', function() require('dapui').toggle() end)
+vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
+vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
+  require('dap.ui.widgets').preview()
+end)
+vim.keymap.set('n', '<Leader>df', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.frames)
+end)
+vim.keymap.set('n', '<Leader>ds', function()
+  local widgets = require('dap.ui.widgets')
+  widgets.centered_float(widgets.scopes)
+end)
+
 
 --- CMP KEYMAPS
 local has_words_before = function()
