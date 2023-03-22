@@ -24,13 +24,11 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Indenting
-vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.breakindent = true
 vim.opt.smarttab = true
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
-vim.opt.smartindent = true
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
 
@@ -68,5 +66,13 @@ if vim.g.started_by_firenvim then
   vim.opt_local.signcolumn = "no"
   vim.opt.background = "light"
   vim.opt_local.cursorline = false
-end
 
+  vim.g.firenvim_config = {
+    localSettings = {
+          [".*"] = {
+        selector = "textarea",
+        takeover = "never"
+      }
+    }
+  }
+end

@@ -152,30 +152,26 @@ end
 
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = {
-      ["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
-      ["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
+
+local cmp_mappings = cmp.mapping.preset.insert({
+      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
       ["<C-u>"] = cmp.mapping.scroll_docs(-4),
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.close(),
-      ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
-      ["<Tab>"] = vim.schedule_wrap(
-    function(fallback)
+      ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+      ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-      elseif has_words_before() then
-        cmp.complete()
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
-    end
-  ),
-      ["<S-Tab>"] = cmp.mapping(
-    function(fallback)
+    end,
+    { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
       elseif luasnip.jumpable(-1) then
@@ -184,9 +180,8 @@ local cmp_mappings = {
         fallback()
       end
     end,
-    { "i", "s" }
-  ),
-}
+    { "i", "s" }),
+})
 
 return {
   on_attach = on_attach,
