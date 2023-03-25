@@ -1,3 +1,4 @@
+-- vim.opt.syntax = "off"
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true

@@ -5,7 +5,6 @@ return {
     tag = "v0.1.1",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function(lazy, opts)
-      print(lazy)
       require("telescope").setup(opts)
       require("telescope").load_extension("dap")
     end,

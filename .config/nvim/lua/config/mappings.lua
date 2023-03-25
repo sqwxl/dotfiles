@@ -82,19 +82,23 @@ vim.keymap.set("n", "Q", "@q", noremap_silent)
 vim.keymap.set("n", "<A-a>", vim.cmd.TSJToggle, noremap_silent)
 -- documentation comment
 vim.keymap.set("n", "gC", ":lua require('neogen').generate()<CR>", noremap_silent)
+-- refactoring
 vim.keymap.set("v", "<Leader>o", ":lua require('refactoring').select_refactor()<CR>", noremap_silent)
+vim.keymap.set({ "n", "v" }, "<leader>ri", ":lua require('refactoring').refactor('Inline Variable')<CR>", noremap_silent)
 
 -- UI
 -- toggle wrap
 vim.keymap.set("n", "<A-z>", ":set wrap!<CR>", noremap_silent)
 -- toggle highlight
--- vim.keymap.set("n", "<Leader>h", ":nohl<CR>", noremap_silent) -- change mapping if uncomment
+vim.keymap.set("n", "<Leader>h", ":set hlsearch!<CR>", noremap_silent)
 -- file tree
 vim.keymap.set("n", "<Bslash>", ":Neotree toggle=true position=right<CR>", noremap_silent)
 vim.keymap.set("n", "<A-Bslash>", ":Neotree reveal=true position=right<CR>", noremap_silent)
 -- windows
 vim.keymap.set("n", "<Leader>z", vim.cmd.ZenMode, noremap_silent)
 vim.keymap.set("n", "<Leader>m", vim.cmd.WindowsMaximize, noremap_silent)
+-- toggle quickfix list
+vim.keymap.set("n", "<Leader>q", "empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'", { expr = true, noremap = true })
 
 -- PLUGIN COMMANDS
 -- telescope
@@ -126,7 +130,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-h>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<Leader>dq', vim.diagnostic.setqflist, bufopts)
   vim.keymap.set('n', 'gl', vim.diagnostic.open_float, bufopts)
-  vim.keymap.set("n", "]D", vim.diagnostic.goto_prev, bufopts)
+  vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
   -- vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   -- vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
