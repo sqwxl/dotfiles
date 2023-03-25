@@ -66,7 +66,6 @@ lsp.setup_nvim_cmp({
     { name = "nvim_lsp"},
     {name="buffer", keyword_length=3},
     {name="luasnip", keyword_length=2},
-    {name="copilot"}
   }
 })
 
@@ -81,12 +80,12 @@ lsp.setup()
 local cmp = require("cmp")
 
 -- disabel copilot suggestion when completion menu is opened
--- cmp.event:on("menu_opened", function()
---   vim.b.copilot_suggestion_hidden = true
--- end)
--- cmp.event:on("menu_closed", function()
---   vim.b.copilot_suggestion_hidden = false
--- end)
+cmp.event:on("menu_opened", function()
+  vim.b.copilot_suggestion_hidden = true
+end)
+cmp.event:on("menu_closed", function()
+  vim.b.copilot_suggestion_hidden = false
+end)
 
 -- insert `(` after select function or method item
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

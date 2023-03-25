@@ -36,6 +36,7 @@ return {
   --     require("dap-python").setup(debugpy_venv)
   --   end
   -- }
+
   {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
@@ -72,9 +73,11 @@ return {
       })
     end
   },
+
   {
     "folke/neodev.nvim",
     opts = { library = { plugins = { "nvim-dap-ui" }, types = true } }
   },
+
   { "simrat39/rust-tools.nvim" },
 }
