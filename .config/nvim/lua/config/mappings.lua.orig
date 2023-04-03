@@ -184,19 +184,51 @@ local cmp_mappings = cmp.mapping.preset.insert({
       ["<C-d>"] = cmp.mapping.scroll_docs(4),
       ["<C-Space>"] = cmp.mapping.complete(),
       ["<C-e>"] = cmp.mapping.close(),
+<<<<<<< HEAD
+      ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+      ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+      elseif luasnip.expand_or_jumpable() then
+||||||| parent of bc35914 (hubbah)
+      ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
+      ["<Tab>"] = vim.schedule_wrap(
+    function(fallback)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.expand_or_jumpable() then
+=======
       ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
-      ["<Tab>"] = cmp.mapping(
+      ["<Tab>"] = vim.schedule_wrap(
     function(fallback)
       if luasnip.expand_or_jumpable() then
+>>>>>>> bc35914 (hubbah)
         luasnip.expand_or_jump()
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
+<<<<<<< HEAD
     end,
     { "i", "s" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.jumpable(-1) then
+||||||| parent of bc35914 (hubbah)
+    end
+  ),
+      ["<S-Tab>"] = cmp.mapping(
+    function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      elseif luasnip.jumpable(-1) then
+=======
+    end
+  ),
       ["<S-Tab>"] = cmp.mapping(
     function(fallback)
       if luasnip.jumpable(-1) then
+>>>>>>> bc35914 (hubbah)
         luasnip.jump(-1)
       else
         fallback()

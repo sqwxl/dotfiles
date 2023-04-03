@@ -8,7 +8,6 @@ lsp.ensure_installed({
   'pyright'
 })
 
--- disable pyright
 -- lsp.skip_server_setup("pyright")
 lsp.configure("pyright", {
   settings = {
@@ -62,16 +61,15 @@ local mappings = require("config.mappings")
 lsp.setup_nvim_cmp({
   mappings = lsp.defaults.cmp_mappings(mappings.cmp_mappings),
   sources = {
-    { name = "path"},
-    { name = "nvim_lsp"},
-    {name="buffer", keyword_length=3},
-    {name="luasnip", keyword_length=2},
+    { name = "path" },
+    { name = "nvim_lsp" },
+    { name = "buffer",  keyword_length = 3 },
+    { name = "luasnip", keyword_length = 2 },
   }
 })
 
 -- (Optional) Configure lua language server for neovim
 lsp.nvim_workspace()
-
 
 lsp.on_attach(mappings.on_attach)
 
@@ -79,7 +77,6 @@ lsp.setup()
 
 local cmp = require("cmp")
 
--- disabel copilot suggestion when completion menu is opened
 cmp.event:on("menu_opened", function()
   vim.b.copilot_suggestion_hidden = true
 end)

@@ -2,7 +2,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     lazy = true,
-    tag = "v0.1.1",
+    tag = "0.1.1",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function(lazy, opts)
       require("telescope").setup(opts)
