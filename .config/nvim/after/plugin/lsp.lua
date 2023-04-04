@@ -51,7 +51,6 @@ lsp.configure('lua_ls', {
 
 -- Initialize rust_analyzer with rust-tools
 lsp.skip_server_setup({ "rust_analyzer" })
-require("rust-tools").setup({ server = lsp.build_options("rust_analyzer", {}) })
 
 lsp.set_preferences({
   suggest_lsp_servers = false,
@@ -62,10 +61,10 @@ local mappings = require("config.mappings")
 lsp.setup_nvim_cmp({
   mappings = lsp.defaults.cmp_mappings(mappings.cmp_mappings),
   sources = {
-    { name = "path"},
-    { name = "nvim_lsp"},
-    {name="buffer", keyword_length=3},
-    {name="luasnip", keyword_length=2},
+    { name = "path" },
+    { name = "nvim_lsp" },
+    { name = "buffer",  keyword_length = 3 },
+    { name = "luasnip", keyword_length = 2 },
   }
 })
 
@@ -76,6 +75,26 @@ lsp.nvim_workspace()
 lsp.on_attach(mappings.on_attach)
 
 lsp.setup()
+
+local rust_tools = require("rust-tools")
+rust_tools.setup({
+  server = {
+    settings = {
+      ["rust_analyzer"] = {
+        check = {
+          command = "clippy",
+          extraArgs = { "--all", "--", "-W", "clippy:all" },
+        }
+      }
+    },
+    on_attach = function(client, buffer)
+      mappings.on_attach(client, buffer)
+      vim.keymap.set("n", "<Leader>a", rust_tools.hover_actions.hover_actions, { buffer = buffer })
+      vim.keymap.set("n", "<Leader>ag", rust_tools.code_action_group.code_action_group, { buffer = buffer })
+    end
+  }
+})
+
 
 local cmp = require("cmp")
 
