@@ -21,10 +21,12 @@ return {
 
   {
     'folke/which-key.nvim',
+    enabled = false,
     config = true,
   },
 
   {
+    -- markdown previewer
     "toppair/peek.nvim",
     enabled = false, -- doesn't work on windows, tbd gnome
     build = "deno task --quiet build:fast",
