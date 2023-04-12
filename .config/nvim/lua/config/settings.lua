@@ -4,7 +4,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.mouse = "a"
 vim.opt.updatetime = 50
-vim.opt.timeoutlen = 100
+vim.opt.timeoutlen = 200
 
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
