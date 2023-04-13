@@ -43,8 +43,8 @@ return {
 
   { "lewis6991/gitsigns.nvim", config = true },
 
-  -- auto-resize windows
   {
+    -- auto-resize windows
     "anuvyklack/windows.nvim",
     event = "WinNew",
     dependencies = {
@@ -57,6 +57,10 @@ return {
       -- vim.o.equalalways = false
       require("windows").setup({
         animation = { enable = false, duration = 150 },
+        ignore = {
+          buftype = { "quickfix" },
+          filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "help" }
+        },
       })
     end,
   },

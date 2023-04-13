@@ -4,7 +4,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.mouse = "a"
 vim.opt.updatetime = 50
--- vim.opt.timeoutlen = 200 -- default 1000
+vim.opt.timeoutlen = 500
 
 vim.opt.undofile = true
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
@@ -56,6 +56,16 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false;
     vim.opt_local.signcolumn = "no"
     vim.cmd('startinsert')
+  end
+})
+
+-- move help window to the left side and resize to 80 columns
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*.txt",
+  callback = function()
+    if vim.o.filetype == "help" then
+      vim.cmd([[ wincmd H | vertical resize 80 ]])
+    end
   end
 })
 
