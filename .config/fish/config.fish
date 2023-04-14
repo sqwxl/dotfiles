@@ -1,6 +1,10 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+if type -q bat
+  set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+else if type -q batcat
+  set -gx MANPAGER "sh -c 'col -bx | batcat -l man -p'"
+end
 set -gx MANROFFOPT "-c"
 set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
