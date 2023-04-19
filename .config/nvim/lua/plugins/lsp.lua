@@ -42,7 +42,7 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local null_ls = require("null-ls")
-      local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+      -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
       null_ls.setup({
         debug = false,
         debounce = 150,
@@ -53,8 +53,10 @@ return {
           -- null_ls.builtins.formatting.isort,
           -- null_ls.builtins.diagnostics.mypy
           null_ls.builtins.formatting.jq,
-          null_ls.builtins.formatting.ruff,
-          -- null_ls.builtins.diagnostics.ruff,
+          -- null_ls.builtins.formatting.ruff,
+          -- null_ls.builtins.diagnostics.ruff, --handled by lsp-zero
+          null_ls.builtins.code_actions.eslint,
+          null_ls.builtins.diagnostics.eslint,
         },
         on_attach = function(client, bufnr)
           require("config.mappings").on_attach(client, bufnr)

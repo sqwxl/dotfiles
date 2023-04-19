@@ -5,16 +5,27 @@ lsp.ensure_installed({
   'tsserver',
   'lua_ls',
   'rust_analyzer',
-  'pyright'
+  'pyright',
+  'ruff_lsp'
 })
 
 -- lsp.skip_server_setup("pyright")
 lsp.configure("pyright", {
-  settings = {
-    python = {
-      analysis = {
-        autoImportCompletions = true,
-        useLibraryCodeForTypes = true
+  -- settings = {
+  --   python = {
+  --     analysis = {
+  --       autoImportCompletions = true,
+  --       useLibraryCodeForTypes = true
+  --     }
+  --   }
+  -- }
+})
+
+lsp.configure("ruff_lsp", {
+  init_options = {
+    settings = {
+      args = {
+        "--ignore", "E501" -- ignore line length (gets autoformatted w/ black)
       }
     }
   }
