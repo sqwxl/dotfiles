@@ -81,14 +81,14 @@ rust_tools.setup({
       ["rust_analyzer"] = {
         check = {
           command = "clippy",
-          extraArgs = { "--all", "--", "-W", "clippy:all" },
+          -- extraArgs = { "--workspace", "--", "-W", "clippy::all" },
         }
       }
     },
-    on_attach = function(client, buffer)
-      mappings.on_attach(client, buffer)
-      vim.keymap.set("n", "<Leader>a", rust_tools.hover_actions.hover_actions, { buffer = buffer })
-      vim.keymap.set("n", "<Leader>ag", rust_tools.code_action_group.code_action_group, { buffer = buffer })
+    on_attach = function(client, bufnr)
+      mappings.on_attach(client, bufnr)
+      vim.keymap.set("n", "<Leader>a", rust_tools.code_action_group.code_action_group, { buffer = bufnr })
+      -- vim.keymap.set("n", "<Leader>ag", rust_tools.code_action_group.code_action_group, { buffer = buffer })
     end
   }
 })
