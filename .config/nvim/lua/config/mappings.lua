@@ -87,6 +87,10 @@ set("n", "gC", ":lua require('neogen').generate()<CR>", noremap_silent)
 -- refactoring
 set("v", "<Leader>o", ":lua require('refactoring').select_refactor()<CR>", noremap_silent)
 set({ "n", "v" }, "<leader>ri", ":lua require('refactoring').refactor('Inline Variable')<CR>", noremap_silent)
+-- git
+set("n", "<C-g>", vim.cmd.Git, noremap_silent)
+set("n", "gu", "<cmd>diffget //2<CR>", noremap_silent)
+set("n", "gh", "<cmd>diffget //3<CR>", noremap_silent)
 
 -- UI
 -- toggle wrap
