@@ -122,7 +122,7 @@ set("n", "<Leader>E", vim.cmd.SymbolsOutline, noremap_silent)
 set("n", "<Leader>$", function() vim.cmd.CellularAutomaton("make_it_rain") end)
 
 -- LSP KEYMAPS
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
   set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
