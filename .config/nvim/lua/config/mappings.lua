@@ -104,7 +104,8 @@ set("n", "<A-Bslash>", ":Neotree reveal=true position=right<CR>", noremap_silent
 set("n", "<Leader>z", vim.cmd.ZenMode, noremap_silent)
 set("n", "<Leader>m", vim.cmd.WindowsMaximize, noremap_silent)
 -- toggle quickfix list
-set("n", "<Leader>q", "empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'", { expr = true, noremap = true })
+set("n", "<Leader>q", "empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'",
+{ expr = true, noremap = true })
 
 -- PLUGIN COMMANDS
 -- telescope
@@ -128,6 +129,11 @@ local on_attach = function(_, bufnr)
   set('n', '<Leader>a', vim.lsp.buf.code_action, bufopts)
   set('n', 'K', ":lua vim.lsp.buf.hover()<CR>", bufopts) -- keep rhs as string (see dap.lua)
   set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  -- open definition in vsplit
+  set('n', 'gV', function()
+    vim.cmd("vsplit")
+    vim.lsp.buf.definition()
+  end, bufopts)
   set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   set('n', '<Leader>D', vim.lsp.buf.type_definition, bufopts)
   set('n', '<Leader>r', vim.lsp.buf.rename, bufopts)
@@ -158,7 +164,7 @@ set('n', '<Leader>dd', function() require('dap').down() end)
 -- set('n', '<Leader>da', function() require('dapui').toggle() end)
 set('n', '<Leader>dr', function() require('dap').repl.open() end)
 set('n', '<Leader>dl', function() require('dap').run_last() end)
-set({'n', 'v'}, '<Leader>dp', function()
+set({ 'n', 'v' }, '<Leader>dp', function()
   require('dap.ui.widgets').preview()
 end)
 set('n', '<Leader>df', function()
