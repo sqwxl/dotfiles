@@ -162,18 +162,20 @@ set('n', '<Leader>do', function() require('dap').step_out() end)
 set('n', '<Leader>du', function() require('dap').up() end)
 set('n', '<Leader>dd', function() require('dap').down() end)
 -- set('n', '<Leader>da', function() require('dapui').toggle() end)
-set('n', '<Leader>dr', function() require('dap').repl.open() end)
+set('n', '<Leader>dr', function() require('dap').repl.toggle() end)
 set('n', '<Leader>dl', function() require('dap').run_last() end)
 set({ 'n', 'v' }, '<Leader>dp', function()
   require('dap.ui.widgets').preview()
 end)
 set('n', '<Leader>df', function()
+  -- Frames sidebar
   local widgets = require('dap.ui.widgets')
-  widgets.centered_float(widgets.frames)
+  widgets.sidebar(widgets.frames).open()
 end)
 set('n', '<Leader>ds', function()
+  -- Scopes sidebar
   local widgets = require('dap.ui.widgets')
-  widgets.centered_float(widgets.scopes)
+  widgets.sidebar(widgets.scopes).open()
 end)
 
 
