@@ -59,16 +59,29 @@ return {
         end
       })
 
-      vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'GruvboxRed', linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint' })
+      vim.fn.sign_define('DapBreakpoint', {
+        text = '',
+        texthl = 'GruvboxRed',
+        linehl = 'DapBreakpoint',
+        numhl = 'DapBreakpoint'
+      })
       vim.fn.sign_define('DapBreakpointCondition',
-      { text = '•', texthl = 'GruvboxBlue', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+        { text = '•', texthl = 'GruvboxBlue', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
       vim.fn.sign_define('DapBreakpointRejected',
-      { text = '•', texthl = 'GruvbaxOrange', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-      vim.fn.sign_define('DapStopped', { text = '', texthl = 'GruvboxGreen', linehl = 'DapBreakpoint', numhl =
-      'DapBreakpoint' })
-      vim.fn.sign_define('DapLogPoint', { text = '•', texthl = 'GruvboxYellow', linehl = 'DapBreakpoint',
-        numhl = 'DapBreakpoint' })
+        { text = '•', texthl = 'GruvbaxOrange', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+      vim.fn.sign_define('DapStopped', {
+        text = '',
+        texthl = 'GruvboxGreen',
+        linehl = 'DapBreakpoint',
+        numhl =
+        'DapBreakpoint'
+      })
+      vim.fn.sign_define('DapLogPoint', {
+        text = '•',
+        texthl = 'GruvboxYellow',
+        linehl = 'DapBreakpoint',
+        numhl = 'DapBreakpoint'
+      })
     end
   },
 
@@ -103,9 +116,9 @@ return {
         args = {}
       })
       table.insert(dap.configurations.python, {
+        name = 'FastAPI module',
         type = 'python',
         request = 'launch',
-        name = 'FastAPI module',
         module = 'uvicorn',
         args = {
           'app.main:app',
@@ -118,6 +131,15 @@ return {
         justMyCode = false,
         -- pythonPath = 'python',
         console = 'integratedTerminal',
+      })
+      -- pytest
+      table.insert(dap.configurations.python, {
+        name = "pytest .",
+        type = 'python',
+        request = 'launch',
+        module = 'pytest',
+        args = { '.' },
+        console = 'integratedTerminal'
       })
     end
   }
