@@ -1,6 +1,7 @@
 return {
   {
     'glacambre/firenvim',
+    enabled = false,
     lazy = false,
     build = function()
       require("lazy").load({ plugins = "firenvim", wait = true })
@@ -63,6 +64,13 @@ return {
         },
       })
     end,
+  },
+
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function ()
+      require("colorizer").setup({"*"},{ names = false})
+    end
   },
 
   {
