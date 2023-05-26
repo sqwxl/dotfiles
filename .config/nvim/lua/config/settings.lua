@@ -79,19 +79,19 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 vim.g.mapleader = " "
 
-if vim.g.started_by_firenvim then
-  vim.opt.laststatus = 0
-  vim.opt.number = false
-  vim.opt_local.signcolumn = "no"
-  vim.opt.background = "light"
-  vim.opt_local.cursorline = false
-
-  vim.g.firenvim_config = {
-    localSettings = {
-          [".*"] = {
-        selector = "textarea",
-        takeover = "never"
-      }
-    }
-  }
-end
+-- if vim.g.started_by_firenvim then
+--   vim.opt.laststatus = 0
+--   vim.opt.number = false
+--   vim.opt_local.signcolumn = "no"
+--   vim.opt.background = "light"
+--   vim.opt_local.cursorline = false
+--
+--   vim.g.firenvim_config = {
+--     localSettings = {
+--           [".*"] = {
+--         selector = "textarea",
+--         takeover = "never"
+--       }
+--     }
+--   }
+-- end
