@@ -105,7 +105,7 @@ set("n", "<Leader>z", vim.cmd.ZenMode, noremap_silent)
 set("n", "<Leader>m", vim.cmd.WindowsMaximize, noremap_silent)
 -- toggle quickfix list
 set("n", "<Leader>q", "empty(filter(getwininfo(), 'v:val.quickfix')) ? ':copen<CR>' : ':cclose<CR>'",
-{ expr = true, noremap = true })
+  { expr = true, noremap = true })
 
 -- PLUGIN COMMANDS
 -- telescope
@@ -190,24 +190,22 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 local cmp_mappings = cmp.mapping.preset.insert({
-      ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-d>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.close(),
-      ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
-      ["<Tab>"] = cmp.mapping(
-    function(fallback)
-      if luasnip.expand_or_jumpable() then
+  ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+  ["<C-d>"] = cmp.mapping.scroll_docs(4),
+  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<C-e>"] = cmp.mapping.close(),
+  ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+  ["<Tab>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable_locally() then
         luasnip.expand_or_jump()
       else
         fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
       end
     end,
     { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(
-    function(fallback)
+  ["<S-Tab>"] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
