@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- use insert mode whon entering commit edit
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.git/COMMIT_EDITMSG",
+  pattern = "*COMMIT_EDITMSG",
   callback = function()
     vim.cmd('startinsert')
   end
