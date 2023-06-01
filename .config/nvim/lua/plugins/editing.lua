@@ -2,17 +2,18 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
-  { "tpope/vim-sleuth" }, -- dynamic 'shiftwidth' and 'expandtab' based on file
+  { "tpope/vim-sleuth" },  -- dynamic 'shiftwidth' and 'expandtab' based on file
 
+  -- fold/unfold "tree structures" like arrays and tables
   {
-    "Wansmer/treesj", -- fold/unfold "tree structures" like arrays and tables
+    "Wansmer/treesj",
     cmd = "TSJToggle",
     opts = {
       use_default_keymaps = false,
     }
   },
 
-  { "numToStr/Comment.nvim", config = true },
+  { "numToStr/Comment.nvim",         config = true },
 
   {
     "windwp/nvim-autopairs",
@@ -26,7 +27,8 @@ return {
 
   { "windwp/nvim-ts-autotag" },
 
-  { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
+  -- complete some structures like if -> end, do -> while
+  { "RRethy/nvim-treesitter-endwise" },
 
   {
     "andymass/vim-matchup",
@@ -42,5 +44,14 @@ return {
     config = true,
   },
 
-  { "cshuaimin/ssr.nvim", lazy = true } -- structural find & replace
+  -- structural find & replace
+  { "cshuaimin/ssr.nvim", lazy = true },
+
+  -- indent-aware pasting
+  {
+    "sickill/vim-pasta",
+    config = function()
+      vim.g.pasta_disable_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame" }
+    end,
+  }
 }

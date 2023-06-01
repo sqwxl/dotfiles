@@ -1,4 +1,5 @@
 -- vim.opt.syntax = "off"
+vim.opt.spell = true
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -25,6 +26,7 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Indenting
+vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.breakindent = true
 vim.opt.smarttab = true

@@ -16,6 +16,8 @@ return {
     end
   },
 
+  { 'farmergreg/vim-lastplace' },
+
   {
     "folke/trouble.nvim",
     lazy = true,
