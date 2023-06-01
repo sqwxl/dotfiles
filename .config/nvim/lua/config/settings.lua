@@ -79,6 +79,14 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end
 })
 
+-- use insert mode whon entering commit edit
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*COMMIT_EDITMSG",
+  callback = function()
+    vim.cmd('startinsert')
+  end
+})
+
 vim.g.mapleader = " "
 
 -- if vim.g.started_by_firenvim then
