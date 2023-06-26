@@ -1,0 +1,7 @@
+[user]
+	email = nilueps@gmail.com
+	name = Nicolas Epstein
+[pull]
+	rebase = false
+[push]
+	autoSetupRemote = true

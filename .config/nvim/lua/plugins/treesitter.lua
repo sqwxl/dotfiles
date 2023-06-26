@@ -20,7 +20,7 @@ return {
           "c",
           "css",
           "fish",
-          "help",
+          "vimdoc",
           "html",
           "javascript",
           "jsdoc",
