@@ -1,208 +1,283 @@
+# gruvbox colors
+set $red        #fb4934
+set $orange     #fe8019
+set $yellow     #fabd2f
+set $green      #b8bb26
+set $aqua       #8ec07c
+set $blue       #83a598
+set $purple     #d3869b
+
+set $red_d      #cc241d
+set $orange_d   #d65d0e
+set $yellow_d   #d79921
+set $green_d    #98971a
+set $aqua_d     #689d6a
+set $blue_d     #458588
+set $purple_d   #b16286
+
+set $bg0_h      #1d2021
+set $bg0        #282828
+set $bg0_s      #32302f
+set $bg1        #3c3836
+set $bg2        #504945
+set $bg3        #665c54
+set $bg4        #7c6f64
+set $grey       #928374
+set $fg4        #a89984
+set $fg3        #bdae93
+set $fg2        #d5c4a1
+set $fg1        #ebdbb2
+set $fg0        #fbf1c7
+
+set $fg $fg1
+set $bg $bg0
+
+#                       border      background      text        indicator    child_border
+client.focused          $blue       $blue_d         $fg         $yellow_d    
+client.focused_inactive $bg4        $bg3            $fg2        $blue_d 
+client.unfocused        $bg2        $bg1            $grey       $bg          
+client.urgent           $red        $red_d          $fg         $red        
+
+font FantasqueSansM Nerd Font Propo 11
+
+# titlebar_border_thickness 2
+# titlebar_padding 6 2
+default_border pixel
+default_floating_border normal
+hide_edge_borders --i3 smart
+
+# Logo key. Use Mod1 for Alt.
 set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+# Recommends: foot
+set $term foot
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# Recommends: rofi-wayland
+set $rofi_cmd rofi -terminal '$term'
+# Shows a combined list of the applications with desktop files and
+# executables from PATH.
+# TODO: add window with the next release of rofi-wayland
+set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 
-set $dark_red       #cc241d
-set $dark_green     #98971a
-set $dark_yellow    #d79921
-set $dark_blue      #458588
-set $dark_purple    #b16286
-set $dark_aqua      #689d6a
-set $red            #fb4934
-set $green          #b8bb26
-set $yellow         #fabd2f
-set $blue           #83a598
-set $purple         #d3869b
-set $aqua           #8ec07c
-set $darker         #1d2021
-set $dark           #282828
-set $grey           #928374
-set $light          #a89984
-set $lighter        #bdae93
-set $lightest       #ebdbb2
-set $white          #fbf1c7
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# Requires: desktop-backgrounds-compat, swaybg
+# output * bg /usr/share/backgrounds/default.png fill
+output * bg ~/.wallpaper fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output * bg ~/Downloads/52210366419_8caa0cfad4_k.jpg fill $dark
-# output * background $dark solid_color
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
 
-input "1:1:AT_Translated_Set_2_keyboard" {
-  xkb_layout "us,ca,us"
-  xkb_variant "dvp,multi,"
-  xkb_options "ctrl:nocaps,grp:win_space_toggle"
-}
-
-input "1739:0:Synaptics_TM3075-002" {
-  tap enable
-  dwt enable
-  natural_scroll enabled
-  accel_profile adaptive
-  pointer_accel -0.1
-}
-
-input "2:10:TPPS/2_IBM_TrackPoint" {
-  scroll_factor 0.3
-  pointer_accel -0.2
-}
-input "1133:16468:Logitech_Wireless_Mouse" {
-  natural_scroll enabled
-}
-
-font monospace 9
-
-bar {
-    status_command ~/.config/sway/status.sh
-
-    position bottom
-    height 20
-    strip_workspace_numbers yes
-
-    colors {
-        background $darker
-        statusline $lightest
-        focused_workspace $lightest $lightest $darker
-        inactive_workspace $darker $darker $grey
-        urgent_workspace $dark_red $dark_red $darker
-        separator $light
+### Input configuration
+input {
+    "1:1:AT_Translated_Set_2_keyboard" {
+        xkb_layout us
+        xkb_variant dvp
+        xkb_options ctrl:nocaps
+    }
+    "1267:12693:ELAN0678:00_04F3:3195_Touchpad" {
+        tap enable
+        dwt enable
+        natural_scroll enabled
+        accel_profile adaptive
+        pointer_accel -0.1
+    }
+    "2:10:TPPS/2_Elan_TrackPoint" {
+        scroll_factor 0.3
+        pointer_accel -0.2
     }
 }
 
-titlebar_border_thickness 1
-titlebar_padding 6 1
-default_border pixel 2
-hide_edge_borders --i3 smart_no_gaps
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
 
-                      # border    background  text      indicator     child_border
-                      # ----------------------------------------------------------
-client.focused          $lightest $lightest   $darker   $lighter      $light
-client.focused_inactive $darker   $darker     $grey     $dark         $dark
-client.unfocused        $darker   $darker     $grey     $dark         $dark
-client.urgent           $dark_red   $dark_red   $darker  $dark_red     $dark_red
+    # Kill focused window
+    bindsym $mod+Shift+q kill
 
-floating_modifier $mod normal
+    # Start your launcher
+    bindsym $mod+d exec $menu
 
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+#
+# Workspaces:
+#
+    bindsym $mod+Tab workspace back_and_forth
+    bindsym $mod+Prior workspace prev
+    bindsym $mod+Next workspace next
+
+    # Switch to workspace
+    bindsym $mod+ampersand    workspace number 1
+    bindsym $mod+bracketleft  workspace number 2
+    bindsym $mod+braceleft    workspace number 3
+    bindsym $mod+braceright   workspace number 4
+    bindsym $mod+parenleft    workspace number 5
+    bindsym $mod+equal        workspace number 6
+    bindsym $mod+asterisk     workspace number 7
+    bindsym $mod+parenright   workspace number 8
+    bindsym $mod+plus         workspace number 9
+    bindsym $mod+bracketright workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+percent move container to workspace number 1
+    bindsym $mod+7       move container to workspace number 2
+    bindsym $mod+5       move container to workspace number 3
+    bindsym $mod+3       move container to workspace number 4
+    bindsym $mod+1       move container to workspace number 5
+    bindsym $mod+9       move container to workspace number 6
+    bindsym $mod+0       move container to workspace number 7
+    bindsym $mod+2       move container to workspace number 8
+    bindsym $mod+4       move container to workspace number 9
+    bindsym $mod+6       move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+x splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+n layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+t layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+    bindsym $mod+o focus parent
+
+    # Move the currently focused window
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
 mode "resize" {
-    bindsym {
-      h resize shrink width 10px
-      j resize grow height 10px
-      k resize shrink height 10px
-      l resize grow width 10px
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
 
-      Left resize shrink width 10px
-      Down resize grow height 10px
-      Up resize shrink height 10px
-      Right resize grow width 10px
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
 
-      Return mode "default"
-      Escape mode "default"
-    }
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
-
-set $web 1:爵
-set $code 2:
-set $comm 3:
-set $play 4:
-set $game 5:
-set $stat 8:
-set $sett 9:
-set $pass 10:
-
-assign [app_id="firefoxdeveloperedition"] $web
-assign [app_id="org.qutebrowser.qutebrowser"] $web
-assign [class="discord"] $comm
-assign [class="Signal"] $comm
-assign [app_id="telegramdesktop"] $comm
-assign [app_id="Slack"] $comm
-assign [class="vlc"] $play
-assign [class="Steam"] $game
-assign [class="steam"] $game
-assign [app_id="com.github.wwmm.easyeffects"] $sett
-assign [app_id="pavucontrol"] $sett
-assign [app_id="org.keepassxc.KeePassXC"] $pass
-for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+bindsym $mod+r mode "resize"
 
 bindsym {
-  $mod+ampersand    workspace $web
-  $mod+bracketleft  workspace $code
-  $mod+braceleft    workspace $comm
-  $mod+braceright   workspace $play
-  $mod+parenleft    workspace $game
-  $mod+equal        workspace 6
-  $mod+asterisk     workspace 7
-  $mod+parenright   workspace $stat
-  $mod+plus         workspace $sett
-  $mod+bracketright workspace $pass
-
-  $mod+percent  move container to workspace $web
-  $mod+7        move container to workspace $code
-  $mod+5        move container to workspace $comm
-  $mod+3        move container to workspace $play
-  $mod+1        move container to workspace $game
-  $mod+9        move container to workspace 6
-  $mod+0        move container to workspace 7
-  $mod+2        move container to workspace $stat
-  $mod+4        move container to workspace $sett
-  $mod+6        move container to workspace $pass
-
-  $mod+Tab workspace back_and_forth
-  $mod+Prior workspace prev
-  $mod+Next workspace next
-
-  $mod+Shift+e  exec swaynag -t warning -m 'Saved your work?' -b 'Quit' 'swaymsg exit'
-  $mod+Shift+c  reload
-  $mod+Shift+q  kill
-
-  $mod+Return   exec kitty
-  $mod+i        exec firefox-developer-edition
-  $mod+d        exec wofi --gtk-dark --insensitive --show=run | xargs swaymsg exec --
-  $mod+p        exec grimshot save active
-  $mod+Shift+p  exec grimshot save area
-  $mod+Ctrl+p   exec grimshot save window
-  $mod+b        exec sh -c "if bluetoothctl -- show | rg -i -c 'powered: no'; then bluetoothctl -- power on; else bluetoothctl -- power off; fi"
-
-  $mod+a focus parent
-  $mod+c splith
-  $mod+v splitv
-  $mod+s layout stacking
-  $mod+w layout tabbed
-  $mod+e layout toggle split
-  $mod+f fullscreen
-  $mod+Shift+Space floating toggle
-  # $mod+m focus mode_toggle
-  $mod+r mode "resize"
-
-  $mod+8 move container to scratchpad
-  $mod+exclam scratchpad show
-  $mod+Shift+Minus move scratchpad
-
-  $mod+h focus left
-  $mod+j focus down
-  $mod+k focus up
-  $mod+l focus right
-  $mod+Left focus left
-  $mod+Down focus down
-  $mod+Up focus up
-  $mod+Right focus right
-
-  $mod+Shift+h move left
-  $mod+Shift+j move down
-  $mod+Shift+k move up
-  $mod+Shift+l move right
-  $mod+Shift+Left move left
-  $mod+Shift+Down move down
-  $mod+Shift+Up move up
-  $mod+Shift+Right move right
-
-  XF86AudioRaiseVolume exec amixer sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-  XF86AudioLowerVolume exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
-  XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
-  XF86AudioMicMute exec amixer sset Capture toggle
-  XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
-  XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+    # Capture the currently active output
+    $mod+s       exec grimshot copy output
+    # Capture the currently active window
+    $mod+Shift+w   exec grimshot copy active
+    # Select and capture a custom rectangular area
+    $mod+Shift+s  exec grimshot copy area
 }
-
-# exec xsettingsd
-
-exec gammastep-indicator
-
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --width=$(swaymsg -t get_outputs | jq '.[0].current_mode.width') --height=11 --border=0 --padding=0 --anchor=bottom --margin=0 --background-color=#1D20218F --bar-color=#EBDBB28F
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
-
+# Include configs from 3 locations:
+#  - /usr/share/sway/config.d
+#  - /etc/sway/config.d
+#  - $XDG_CONFIG_HOME/sway/config.d ($HOME/.config/sway/config.d)
+#
+# If multiple directories contain the files with the same name, the later
+# directory takes precedence; `$XDG_CONFIG_HOME/sway/config.d/20-swayidle.conf`
+# will always be loaded instead of `/usr/share/sway/config.d/20-swayidle.conf`
+# or `/etc/sway/config.d/20-swayidle.conf`
+#
+# This mechanism permits overriding our default configuration per-system
+# (/etc) or per-user ($XDG_CONFIG_HOME) basis. Just create the file you
+# want to modify/override in the higher-level directory.
+#
+# For example, to disable the default bar from Fedora configs, you'll need to
+#     $ echo -n > "$HOME/.config/sway/config.d/90-bar.conf"
+#
+# Note the quoting, the $() and the arguments quoting. All the parts are equally
+# important to make the magic work. And if you want to learn the secret behind
+# the trick, it's all in the `wordexp(3)`.
+#
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'

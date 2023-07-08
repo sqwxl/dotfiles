@@ -1,0 +1,209 @@
+set $mod Mod4
+
+set $dark_red       #cc241d
+set $dark_green     #98971a
+set $dark_yellow    #d79921
+set $dark_blue      #458588
+set $dark_purple    #b16286
+set $dark_aqua      #689d6a
+set $red            #fb4934
+set $green          #b8bb26
+set $yellow         #fabd2f
+set $blue           #83a598
+set $purple         #d3869b
+set $aqua           #8ec07c
+set $darker         #1d2021
+set $dark           #282828
+set $grey           #928374
+set $light          #a89984
+set $lighter        #bdae93
+set $lightest       #ebdbb2
+set $white          #fbf1c7
+
+# output * bg ~/Downloads/52210366419_8caa0cfad4_k.jpg fill $dark
+# output * background $dark solid_color
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_layout "us"
+  xkb_variant "dvp"
+  xkb_options "ctrl:nocaps"
+}
+
+input "1267:12693:ELAN0678:00_04F3:3195_Touchpad" {
+  tap enable
+  dwt enable
+  natural_scroll enabled
+  accel_profile adaptive
+  pointer_accel -0.1
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+  scroll_factor 0.3
+  pointer_accel -0.2
+}
+input "1133:16468:Logitech_Wireless_Mouse" {
+  natural_scroll enabled
+}
+
+# font monospace 9
+
+# bar {
+#     status_command ~/.config/sway/status.sh
+#
+#     position bottom
+#     height 20
+#     strip_workspace_numbers yes
+#
+#     colors {
+#         background $darker
+#         statusline $lightest
+#         focused_workspace $lightest $lightest $darker
+#         inactive_workspace $darker $darker $grey
+#         urgent_workspace $dark_red $dark_red $darker
+#         separator $light
+#     }
+# }
+
+# titlebar_border_thickness 1
+# titlebar_padding 6 1
+# default_border pixel 2
+# hide_edge_borders --i3 smart_no_gaps
+
+#                       # border    background  text      indicator     child_border
+#                       # ----------------------------------------------------------
+# client.focused          $lightest $lightest   $darker   $lighter      $light
+# client.focused_inactive $darker   $darker     $grey     $dark         $dark
+# client.unfocused        $darker   $darker     $grey     $dark         $dark
+# client.urgent           $dark_red   $dark_red   $darker  $dark_red     $dark_red
+
+# floating_modifier $mod normal
+
+mode "resize" {
+    bindsym {
+      h resize shrink width 10px
+      j resize grow height 10px
+      k resize shrink height 10px
+      l resize grow width 10px
+
+      Left resize shrink width 10px
+      Down resize grow height 10px
+      Up resize shrink height 10px
+      Right resize grow width 10px
+
+      Return mode "default"
+      Escape mode "default"
+    }
+}
+
+# set $web 1:爵
+# set $code 2:
+# set $comm 3:
+# set $play 4:
+# set $game 5:
+# set $stat 8:
+# set $sett 9:
+# set $pass 10:
+
+# assign [app_id="firefoxdeveloperedition"] $web
+# assign [app_id="org.qutebrowser.qutebrowser"] $web
+# assign [class="discord"] $comm
+# assign [class="Signal"] $comm
+# assign [app_id="telegramdesktop"] $comm
+# assign [app_id="Slack"] $comm
+# assign [class="vlc"] $play
+# assign [class="Steam"] $game
+# assign [class="steam"] $game
+# assign [app_id="com.github.wwmm.easyeffects"] $sett
+# assign [app_id="pavucontrol"] $sett
+# assign [app_id="org.keepassxc.KeePassXC"] $pass
+# for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+
+bindsym {
+  # $mod+ampersand    workspace $web
+  # $mod+bracketleft  workspace $code
+  # $mod+braceleft    workspace $comm
+  # $mod+braceright   workspace $play
+  # $mod+parenleft    workspace $game
+  # $mod+equal        workspace 6
+  # $mod+asterisk     workspace 7
+  # $mod+parenright   workspace $stat
+  # $mod+plus         workspace $sett
+  # $mod+bracketright workspace $pass
+  #
+  # $mod+percent  move container to workspace $web
+  # $mod+7        move container to workspace $code
+  # $mod+5        move container to workspace $comm
+  # $mod+3        move container to workspace $play
+  # $mod+1        move container to workspace $game
+  # $mod+9        move container to workspace 6
+  # $mod+0        move container to workspace 7
+  # $mod+2        move container to workspace $stat
+  # $mod+4        move container to workspace $sett
+  # $mod+6        move container to workspace $pass
+
+  $mod+Tab workspace back_and_forth
+  $mod+Prior workspace prev
+  $mod+Next workspace next
+
+  $mod+Shift+e  exec swaynag -t warning -m 'Saved your work?' -b 'Quit' 'swaymsg exit'
+  $mod+Shift+c  reload
+  $mod+Shift+q  kill
+
+  # $mod+Return   exec kitty
+  # $mod+i        exec firefox-developer-edition
+  # $mod+d        exec wofi --gtk-dark --insensitive --show=run | xargs swaymsg exec --
+  # $mod+p        exec grimshot save active
+  # $mod+Shift+p  exec grimshot save area
+  # $mod+Ctrl+p   exec grimshot save window
+  # $mod+b        exec sh -c "if bluetoothctl -- show | rg -i -c 'powered: no'; then bluetoothctl -- power on; else bluetoothctl -- power off; fi"
+
+  $mod+a focus parent
+  $mod+c splith
+  $mod+v splitv
+  $mod+s layout stacking
+  $mod+w layout tabbed
+  $mod+e layout toggle split
+  $mod+f fullscreen
+  $mod+Shift+Space floating toggle
+  # $mod+m focus mode_toggle
+  $mod+r mode "resize"
+
+  $mod+8 move container to scratchpad
+  $mod+exclam scratchpad show
+  $mod+Shift+Minus move scratchpad
+
+  $mod+h focus left
+  $mod+j focus down
+  $mod+k focus up
+  $mod+l focus right
+  $mod+Left focus left
+  $mod+Down focus down
+  $mod+Up focus up
+  $mod+Right focus right
+
+  $mod+Shift+h move left
+  $mod+Shift+j move down
+  $mod+Shift+k move up
+  $mod+Shift+l move right
+  $mod+Shift+Left move left
+  $mod+Shift+Down move down
+  $mod+Shift+Up move up
+  $mod+Shift+Right move right
+
+#   XF86AudioRaiseVolume exec amixer sset Master 2%+ | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+#   XF86AudioLowerVolume exec amixer sset Master 2%- | sed -En 's/.*\[([0-9]+)%\].*/\1/p' | head -1 > $WOBSOCK
+#   XF86AudioMute exec amixer sset Master toggle | sed -En '/\[on\]/ s/.*\[([0-9]+)%\].*/\1/ p; /\[off\]/ s/.*/0/p' | head -1 > $WOBSOCK
+#   XF86AudioMicMute exec amixer sset Capture toggle
+#   XF86MonBrightnessDown exec brightnessctl set 5%- | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+#   XF86MonBrightnessUp exec brightnessctl set +5% | sed -En 's/.*\(([0-9]+)%\).*/\1/p' > $WOBSOCK
+
+}
+
+# exec xsettingsd
+
+# exec gammastep-indicator
+
+# set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
+# exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob --width=$(swaymsg -t get_outputs | jq '.[0].current_mode.width') --height=11 --border=0 --padding=0 --anchor=bottom --margin=0 --background-color=#1D20218F --bar-color=#EBDBB28F
+# exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+

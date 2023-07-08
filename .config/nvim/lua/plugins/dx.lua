@@ -94,4 +94,8 @@ return {
       },
     },
   },
+
+  {
+    "sheerun/vim-polyglot"
+  }
 }

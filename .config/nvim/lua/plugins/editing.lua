@@ -2,18 +2,20 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
-  { "tpope/vim-sleuth" },  -- dynamic 'shiftwidth' and 'expandtab' based on file
-
-  -- fold/unfold "tree structures" like arrays and tables
   {
-    "Wansmer/treesj",
+    "tpope/vim-sleuth",
+    enabled = false, -- replaced by vim-polyglot
+  }, -- dynamic 'shiftwidth' and 'expandtab' based on file
+
+  {
+    "Wansmer/treesj", -- fold/unfold "tree structures" like arrays and tables
     cmd = "TSJToggle",
     opts = {
       use_default_keymaps = false,
     }
   },
 
-  { "numToStr/Comment.nvim",         config = true },
+  { "numToStr/Comment.nvim", config = true },
 
   {
     "windwp/nvim-autopairs",
@@ -27,8 +29,7 @@ return {
 
   { "windwp/nvim-ts-autotag" },
 
-  -- complete some structures like if -> end, do -> while
-  { "RRethy/nvim-treesitter-endwise" },
+  { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
 
   {
     "andymass/vim-matchup",
