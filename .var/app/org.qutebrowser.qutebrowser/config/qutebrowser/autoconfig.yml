@@ -188,7 +188,7 @@ settings:
   colors.webpage.darkmode.contrast:
     global: 0.0
   colors.webpage.darkmode.enabled:
-    global: true
+    global: false
   content.blocking.method:
     global: both
   content.javascript.can_access_clipboard:

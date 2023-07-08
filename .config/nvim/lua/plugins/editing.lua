@@ -2,7 +2,10 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-repeat" },
   { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
-  { "tpope/vim-sleuth" }, -- dynamic 'shiftwidth' and 'expandtab' based on file
+  {
+    "tpope/vim-sleuth",
+    enabled = false, -- replaced by vim-polyglot
+  }, -- dynamic 'shiftwidth' and 'expandtab' based on file
 
   {
     "Wansmer/treesj", -- fold/unfold "tree structures" like arrays and tables
