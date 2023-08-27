@@ -45,5 +45,14 @@ return {
     config = true,
   },
 
-  { "cshuaimin/ssr.nvim", lazy = true } -- structural find & replace
+  -- structural find & replace
+  { "cshuaimin/ssr.nvim", lazy = true },
+
+  -- indent-aware pasting
+  {
+    "sickill/vim-pasta",
+    config = function()
+      vim.g.pasta_disable_filetypes = { "gitcommit", "gitrebase", "svn", "fugitive", "fugitiveblame" }
+    end,
+  }
 }

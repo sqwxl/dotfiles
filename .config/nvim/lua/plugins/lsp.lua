@@ -5,7 +5,10 @@ return {
     dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
+      {
+        'williamboman/mason.nvim',
+        build = ":MasonUpdate",
+      },
       { 'williamboman/mason-lspconfig.nvim' },
 
       -- Autocompletion
@@ -58,6 +61,8 @@ return {
           null_ls.builtins.code_actions.eslint_d,
           null_ls.builtins.diagnostics.eslint_d,
           null_ls.builtins.formatting.eslint_d,
+          null_ls.builtins.formatting.pint,
+          null_ls.builtins.formatting.blade_formatter,
         },
         on_attach = function(client, bufnr)
           require("config.mappings").on_attach(client, bufnr)
@@ -88,4 +93,6 @@ return {
   },
 
   { "simrat39/rust-tools.nvim" },
+
+  { "jwalton512/vim-blade" }, -- "blade" filetype support
 }
