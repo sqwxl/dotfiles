@@ -99,6 +99,10 @@ input {
         xkb_variant dvp
         xkb_options ctrl:nocaps
     }
+    "7504:24926:Adv360_Pro_Keyboard" {
+        xkb_layout us
+        xkb_variant dvp
+    }
     "1267:12693:ELAN0678:00_04F3:3195_Touchpad" {
         tap enable
         dwt enable
@@ -182,7 +186,7 @@ input {
 
     # Switch the current container between different layout styles
     bindsym $mod+n layout stacking
-    bindsym $mod+w layout tabbed
+    bindsym $mod+m layout tabbed
     bindsym $mod+t layout toggle split
 
     # Make the current focus fullscreen
@@ -251,14 +255,13 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+# Screenshots
 bindsym {
-    # Capture the currently active output
-    $mod+s       exec grimshot copy output
-    # Capture the currently active window
-    $mod+Shift+w   exec grimshot copy active
-    # Select and capture a custom rectangular area
-    $mod+Shift+s  exec grimshot copy area
+    $mod+s          exec grimshot copy output
+    $mod+Shift+w    exec grimshot copy active
+    $mod+Shift+s    exec grimshot copy area
 }
+
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
 #  - /etc/sway/config.d

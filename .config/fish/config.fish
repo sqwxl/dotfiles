@@ -11,6 +11,10 @@ end
 set -gx MANROFFOPT "-c"
 set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
+if test "$TERM" = "foot" -o "$TERM" = "foot-extra"
+  alias ssh "TERM=linux ssh"
+end
+
 abbr -ag n nvim
 abbr -ag s sudo
 abbr -ag se sudoedit
