@@ -75,6 +75,10 @@ if type -q go
 end
 
 if type -q node
+  if not test -d $HOME/.npm-global/bin
+    mkdir -p $HOME/.npm-global/bin
+  end
+  npm config set prefix $HOME/.npm-global
   fish_add_path $HOME/.npm-global/bin
 end
 
@@ -83,9 +87,9 @@ if type -q rustup
   # alias rust-analyzer 'rustup run stable rust-analyzer'
 end
 
-if type -q fdfind
-  alias fd fdfind
-end
+# if type -q fdfind
+#   alias fd fdfind
+# end
 
 if type -q zoxide
   zoxide init fish | source
@@ -97,6 +101,7 @@ end
 complete -c cht.sh -xa '(curl -s cht.sh/:list)'
 
 if type -q starship
+  starship completions fish > ~/.config/fish/completions/starship.fish
   starship init fish | source
 end
 

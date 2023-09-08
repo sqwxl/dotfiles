@@ -1,4 +1,4 @@
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+-- vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -28,7 +28,7 @@ return {
     config = function()
       local colors = require("gruvbox.palette").get_base_colors(vim.o.background, require("gruvbox").config.contrast)
       require("window-picker").setup {
-        selection_chars = "HUTENOSAIDYFPG.C,R;L", -- dvorak
+        selection_chars = "AOEUIDHTNS", -- dvorak home row
         filter_rules = {
           bo = {
             filetype = { "neo-tree", "neo-tree-popup", "notify" },

@@ -96,6 +96,9 @@ return {
   },
 
   {
-    "sheerun/vim-polyglot"
+    "sheerun/vim-polyglot",
+    init = function()
+      vim.g.polyglot_disabled = { "autoindent" }
+    end
   }
 }
