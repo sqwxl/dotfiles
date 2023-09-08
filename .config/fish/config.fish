@@ -22,21 +22,16 @@ abbr -ag se sudoedit
 abbr -ag g git
 abbr -ag gs 'git status'
 abbr -ag gd 'git diff'
-abbr -ag gds 'git diff --staged'
 abbr -ag gb 'git branch'
-abbr -ag gsw 'git switch'
 abbr -ag gl 'git log'
 abbr -ag glo 'git log --oneline'
-abbr -ag glg 'git log --graph'
 abbr -ag gr 'git reflog'
 abbr -ag ga 'git add'
 abbr -ag gaa 'git add .'
 abbr -ag gcm 'git commit -m'
 abbr -ag gcam 'git commit -a -m'
 abbr -ag gcan 'git commit --amend --no-edit'
-abbr -ag gf 'git fetch --all'
-abbr -ag gm 'git merge'
-abbr -ag gpp 'git pull && git push'
+abbr -ag gf 'git fetch'
 abbr -ag gp 'git push'
 abbr -ag gr 'git remote -v'
 
@@ -73,7 +68,10 @@ if type -q rg
 end
 
 if type -q go
-  fish_add_path (go env GOPATH)/bin
+  if test -z "$GOPATH"
+    set -gx GOPATH "$HOME/go"
+    fish_add_path $GOPATH
+  end
 end
 
 if type -q node
