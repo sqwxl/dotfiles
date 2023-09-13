@@ -1,14 +1,22 @@
 return {
+
+  -- disable fancy ui
+  {
+    "rcarriga/nvim-dap-ui",
+    -- enabled = false,
+  },
+
   {
     "mfussenegger/nvim-dap",
     dependencies = {
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = { commented = true }
-      },
-
       "nvim-telescope/telescope-dap.nvim",
       -- "ldelossa/nvim-dap-projects",
+    },
+    keys = {
+      -- DAP
+      { '<Leader>dp', function() require('dap.ui.widgets').preview() end, desc="Preview"},
+      { '<Leader>df', function() require('dap.ui.widgets').sidebar(require("dap.ui.widgets").frames).open() end, desc="Frames" },
+      { '<Leader>ds', function() require('dap.ui.widgets').sidebar(require('dap.ui.widgets').scopes).open() end, desc="Scopes"},
     },
     config = function()
       local dap = require("dap")
@@ -86,61 +94,48 @@ return {
   },
 
   {
-    "rcarriga/nvim-dap-ui",
-    enabled = false,
-    config = true,
-    init = function()
-      local dap, dapui = require("dap"), require("dapui")
-      -- dap.listeners.after.event_initialized["dapui_config"] = function()
-      --   dapui.open()
-      -- end
-      dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close()
-      end
-      dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close()
-      end
-    end,
+    "theHamsta/nvim-dap-virtual-text",
+    opts = { commented = true }
   },
 
-  {
-    "mfussenegger/nvim-dap-python",
-    config = function()
-      require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
-      local dap = require('dap')
-      table.insert(dap.configurations.python, {
-        type = "python",
-        request = "attach",
-        name = "Attach to running process",
-        pid = require('dap.utils').pick_process,
-        args = {}
-      })
-      table.insert(dap.configurations.python, {
-        name = 'FastAPI module',
-        type = 'python',
-        request = 'launch',
-        module = 'uvicorn',
-        args = {
-          'app.main:app',
-          '--use-colors',
-          '--host',
-          '0.0.0.0',
-          '--port',
-          '5000'
-        },
-        justMyCode = false,
-        -- pythonPath = 'python',
-        console = 'integratedTerminal',
-      })
-      -- pytest
-      table.insert(dap.configurations.python, {
-        name = "pytest .",
-        type = 'python',
-        request = 'launch',
-        module = 'pytest',
-        args = { '.' },
-        console = 'integratedTerminal'
-      })
-    end
-  }
+  -- {
+  --   "mfussenegger/nvim-dap-python",
+  --   config = function()
+  --     local path = require("mason-registry").get_package("debugpy"):get_install_path()
+  --     require("dap-python").setup(path .. "/venv/bin/python")
+  --     local dap = require("dap")
+  --     table.insert(dap.configurations.python, {
+  --       type = "python",
+  --       request = "attach",
+  --       name = "Attach to running process",
+  --       pid = require('dap.utils').pick_process,
+  --       args = {}
+  --     })
+  --     table.insert(dap.configurations.python, {
+  --       name = 'FastAPI module',
+  --       type = 'python',
+  --       request = 'launch',
+  --       module = 'uvicorn',
+  --       args = {
+  --         'app.main:app',
+  --         '--use-colors',
+  --         '--host',
+  --         '0.0.0.0',
+  --         '--port',
+  --         '5000'
+  --       },
+  --       justMyCode = false,
+  --       -- pythonPath = 'python',
+  --       console = 'integratedTerminal',
+  --     })
+  --     table.insert(dap.configurations.python, {
+  --       name = "pytest .",
+  --       type = 'python',
+  --       request = 'launch',
+  --       module = 'pytest',
+  --       args = { '.' },
+  --       console = 'integratedTerminal'
+  --     })
+  --   end
+  -- }
 }

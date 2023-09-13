@@ -1,98 +1,143 @@
 return {
+
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
-    dependencies = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      {
-        'williamboman/mason.nvim',
-        build = ":MasonUpdate",
-      },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
-      { 'hrsh7th/cmp-buffer' },
-      { 'hrsh7th/cmp-path' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'hrsh7th/cmp-nvim-lua' },
-
-      -- Snippets
-      { 'L3MON4D3/LuaSnip' },
-      { 'rafamadriz/friendly-snippets' },
-    },
-    config = false
+    "williamboman/mason.nvim",
+    -- opts = {
+    --   ensure_installed ={
+    --     "black",
+    --     "selene",
+    --     'shellcheck',
+    --     'shfmt',
+    --     "stylua",
+    --     "ruff",
+    --     "sourcery",
+    --   }
+    -- }
   },
 
-  -- use 'mfussenegger/nvim-dap'
-  -- use { 'mfussenegger/nvim-dap-python',
-  --   config = function()
-  --     local debugpy_venv = "~/.virtualenvs/debugpy/bin/python"
-  --     local f = io.open(debugpy_venv, "r")
-  --     if f == nil then
-  --       io.close(f)
-  --       error(string.format("debugpy virtualenv not found at %s you have to create it", debugpy_venv))
-  --     end
-  --     require("dap-python").setup(debugpy_venv)
-  --   end
-  -- }
+  {
+    "neovim/nvim-lspconfig",
+    init = function()
+      --   -- disable lsp watcher. Too slow on linux
+      --   local ok, wf = pcall(require, "vim.lsp._watchfiles")
+      --   if ok then
+      --     wf._watchfunc = function()
+      --       return function() end
+      --     end
+      --   end
+      local keys = require("lazyvim.plugins.lsp.keymaps").get()
+
+      keys[#keys + 1] = {
+        "gV",
+        function()
+          vim.cmd("vsplit")
+          vim.lsp.buf.definition()
+        end,
+        { desc = "Open definition in vsplit" },
+      }
+      keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, { desc = "Rename" } }
+      keys[#keys + 1] = {
+        "<A-F>",
+        function()
+          vim.lsp.buf.format({ async = true })
+        end,
+        { desc = "Format document" },
+      }
+    end,
+    opts = {
+      inlay_hints = { enabled = vim.fn.has("nvim-0.10") },
+      diagnostics = { virtual_text = { prefix = "icons" } },
+      servers = {
+        bashls = {},
+        clangd = {},
+        cssls = {},
+        dockerls = {},
+        pyright = {},
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
+              },
+            },
+          },
+        },
+        ruff_lsp = {
+          init_options = {
+            settings = {
+              args = {
+                "--ignore",
+                "E501", -- ignore line length (gets autoformatted w/ black)
+              },
+            },
+          },
+        },
+        tailwindcss = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
+        },
+        tsserver = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
+        },
+      },
+    },
+  },
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local null_ls = require("null-ls")
-      -- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-      null_ls.setup({
+    opts = function(_, opts)
+      local nls = require("null-ls")
+      vim.tbl_deep_extend("force", opts or {}, {
         debug = false,
         debounce = 150,
         save_after_format = false,
         sources = {
-          null_ls.builtins.formatting.black,
-          null_ls.builtins.formatting.shfmt,
-          -- null_ls.builtins.formatting.isort,
-          -- null_ls.builtins.diagnostics.mypy
-          null_ls.builtins.formatting.jq,
-          -- null_ls.builtins.formatting.ruff,
-          -- null_ls.builtins.diagnostics.ruff, --handled by lsp-zero
-          null_ls.builtins.code_actions.eslint_d,
-          null_ls.builtins.diagnostics.eslint_d,
-          null_ls.builtins.formatting.eslint_d,
-          null_ls.builtins.formatting.pint,
-          null_ls.builtins.formatting.blade_formatter,
+          nls.builtins.formatting.black,
+          nls.builtins.formatting.shfmt,
+          -- nls.builtins.formatting.isort,
+          -- nls.builtins.diagnostics.mypy
+          nls.builtins.formatting.jq,
+          nls.builtins.formatting.ruff,
+          nls.builtins.diagnostics.ruff, --handled by lsp-zero
+          nls.builtins.code_actions.eslint_d,
+          nls.builtins.diagnostics.eslint_d,
+          nls.builtins.formatting.eslint_d,
+          nls.builtins.formatting.prettier.with({ filetypes = { "markdown" } }),
+          nls.builtins.diagnostics.markdownlint,
+          nls.builtins.formatting.pint,
+          nls.builtins.formatting.blade_formatter,
         },
-        on_attach = function(client, bufnr)
-          require("config.mappings").on_attach(client, bufnr)
-          -- format-on-save
-          -- if client.supports_method("textDocument/formatting") then
-          --   vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-          --   vim.api.nvim_create_autocmd("BufWritePre", {
-          --     group = augroup,
-          --     buffer = bufnr,
-          --     callback = function()
-          --       vim.lsp.buf.format({ bufnr = bufnr })
-          --     end,
-          --   })
-          -- end
-        end,
       })
-    end
+    end,
   },
+
+  -- {
+  --   "antosha417/nvim-lsp-file-operations",
+  --   dependencies = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-tree.lua" },
+  -- },
 
   {
-    "antosha417/nvim-lsp-file-operations",
-    dependencies = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-tree.lua" },
+    "simrat39/rust-tools.nvim",
+    opts = {
+      tools = {
+        -- nvim >= 0.10 has native inlay hint support
+        inlay_hints = { auto = not vim.fn.has("nvim-0.10") },
+      },
+      server = {
+        settings = {
+          rust_analyzer = {
+            check = {
+              command = "clippy",
+              -- extraArgs = { "--workspace", "--", "-W", "clippy::all" },
+            },
+          },
+        },
+      },
+    },
   },
 
-  {
-    "folke/neodev.nvim",
-    opts = { library = { plugins = { "nvim-dap-ui" }, types = true } }
-  },
-
-  { "simrat39/rust-tools.nvim" },
-
-  { "jwalton512/vim-blade" }, -- "blade" filetype support
+  -- { "jwalton512/vim-blade" }, -- "blade" filetype support
 }
