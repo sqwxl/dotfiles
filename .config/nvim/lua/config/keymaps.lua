@@ -91,3 +91,11 @@ map("n", "<Leader>gl", "<Cmd>diffget //3<CR>", { desc = "Get right hunk (nvimdif
 map("n", "<M-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
 -- toggle highlight
 map("n", "<Leader>uh", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
+-- toggle dark/light
+map("n", "<Leader>ub", function()
+  if vim.o.background == "dark" then
+    vim.o.background = "light"
+  else
+    vim.o.background = "dark"
+  end
+end, { desc = "Toggle dark/light" })

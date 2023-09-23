@@ -22,9 +22,10 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      opts.sources = cmp.config.sources(
-        vim.list_extend(opts.sources, { { name = "nvim_lsp_signature_help" }, { name = "nvim_lua" } })
-      )
+      opts.sources = cmp.config.sources(vim.list_extend(opts.sources, {
+        { name = "nvim_lsp_signature_help" },
+        { name = "nvim_lua" },
+      }))
 
       opts.mapping = vim.tbl_extend("force", opts.mapping, {
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
@@ -52,13 +53,13 @@ return {
           end
         end, { "i", "s" }),
       })
-      -- cmp.event:on("menu_opened", function()
-      --   vim.b.copilot_suggestion_hidden = true
-      -- end)
-      --
-      -- cmp.event:on("menu_closed", function()
-      --   vim.b.copilot_suggestion_hidden = false
-      -- end)
+      cmp.event:on("menu_opened", function()
+        vim.b.copilot_suggestion_hidden = true
+      end)
+
+      cmp.event:on("menu_closed", function()
+        vim.b.copilot_suggestion_hidden = false
+      end)
     end,
   },
 
@@ -192,12 +193,13 @@ return {
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
+    cmd = "Copilot",
+    build = ":Copilot auth",
     opts = {
       panel = {
         keymap = { open = "<A-CR>" },
       },
       suggestion = {
-        enabled = true,
         auto_trigger = true,
         keymap = {
           accept = "<C-f>",
@@ -210,6 +212,7 @@ return {
 
   {
     "zbirenbaum/copilot-cmp",
+    enabled = false,
     opts = {},
   },
 }
