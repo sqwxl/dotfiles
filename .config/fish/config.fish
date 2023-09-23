@@ -1,18 +1,18 @@
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 if type -q bat
-  set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-  alias cat bat
+    set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    alias cat bat
 else if type -q batcat
-  set -gx MANPAGER "sh -c 'col -bx | batcat -l man -p'"
-  alias cat batcat
-  alias bat batcat
+    set -gx MANPAGER "sh -c 'col -bx | batcat -l man -p'"
+    alias cat batcat
+    alias bat batcat
 end
-set -gx MANROFFOPT "-c"
+set -gx MANROFFOPT -c
 set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
-if test "$TERM" = "foot" -o "$TERM" = "foot-extra"
-  alias ssh "TERM=linux ssh"
+if test "$TERM" = foot -o "$TERM" = foot-extra
+    alias ssh "TERM=linux command ssh"
 end
 
 abbr -ag n nvim
@@ -39,52 +39,56 @@ abbr -ag rmr 'rm -rf'
 
 alias cfginit "git init --bare $HOME/.dotfiles && git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin && echo .dotfiles >> $HOME/.gitignore"
 alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-abbr -ag cfgsway 'cd ~/.config/sway && nvim config'
-abbr -ag cfgvim 'cd ~/.config/nvim && nvim init.lua'
-abbr -ag cfgfish 'cd ~/.config/fish && nvim config.fish'
-abbr -ag cfgterm 'nvim ~/.config/kitty/kitty.conf'
+abbr -ag cfgsway "cd ~/.config/sway && $EDITOR config"
+abbr -ag cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
+abbr -ag cfgfish "cd ~/.config/fish && $EDITOR config.fish"
+if test "$TERM" = kitty
+    abbr -ag cfgterm "cd ~/.config/kitty && $EDITOR kitty.conf"
+else if test "$TERM" = foot-extra
+    abbr -ag cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
+end
 
 abbr -ag myip "curl -4 icanhazip.com"
 
 if type -q exa
-  abbr -ag l 'exa'
-  abbr -ag ll 'exa -l'
-  abbr -ag lll 'exa -la'
-  alias ls exa
+    abbr -ag l exa
+    abbr -ag ll 'exa -l'
+    abbr -ag lll 'exa -la'
+    alias ls exa
 else if type -q lsd
-  abbr -ag l 'lsd'
-  abbr -ag ll 'lsd -l'
-  abbr -ag lll 'lsd -lah'
-  alias ls lsd
+    abbr -ag l lsd
+    abbr -ag ll 'lsd -l'
+    abbr -ag lll 'lsd -lah'
+    alias ls lsd
 else
-  abbr -ag l 'ls'
-  abbr -ag ll 'ls -l'
-  abbr -ag lll 'ls -lah'
+    abbr -ag l ls
+    abbr -ag ll 'ls -l'
+    abbr -ag lll 'ls -lah'
 end
 
 if type -q rg
-  set -gx FZF_DEFAULT_COMMAND rg --files
-  set -gx FZF_DEFAULT_OPTS -m
+    set -gx FZF_DEFAULT_COMMAND rg --files
+    set -gx FZF_DEFAULT_OPTS -m
 end
 
 if type -q go
-  if test -z "$GOPATH"
-    set -gx GOPATH "$HOME/go"
-    fish_add_path $GOPATH
-  end
+    if test -z "$GOPATH"
+        set -gx GOPATH "$HOME/go"
+    end
+    fish_add_path $GOPATH/bin/
 end
 
 if type -q node
-  if not test -d $HOME/.npm-global/bin
-    mkdir -p $HOME/.npm-global/bin
-  end
-  npm config set prefix $HOME/.npm-global
-  fish_add_path $HOME/.npm-global/bin
+    if not test -d $HOME/.npm-global/bin
+        mkdir -p $HOME/.npm-global/bin
+    end
+    npm config set prefix $HOME/.npm-global
+    fish_add_path $HOME/.npm-global/bin
 end
 
 if type -q rustup
-  fish_add_path $HOME/.cargo/bin
-  # alias rust-analyzer 'rustup run stable rust-analyzer'
+    fish_add_path $HOME/.cargo/bin
+    # alias rust-analyzer 'rustup run stable rust-analyzer'
 end
 
 # if type -q fdfind
@@ -92,7 +96,7 @@ end
 # end
 
 if type -q zoxide
-  zoxide init fish | source
+    zoxide init fish | source
 end
 
 # Generated for envman. Do not edit.
@@ -101,12 +105,12 @@ end
 complete -c cht.sh -xa '(curl -s cht.sh/:list)'
 
 if type -q starship
-  starship completions fish > ~/.config/fish/completions/starship.fish
-  starship init fish | source
+    starship completions fish >~/.config/fish/completions/starship.fish
+    starship init fish | source
 end
 
 if type -q direnv
-  direnv hook fish | source
+    direnv hook fish | source
 end
 
 source "$HOME/.config/fish/functions/__auto_source_venv.fish"

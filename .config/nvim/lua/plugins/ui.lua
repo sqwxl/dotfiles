@@ -137,7 +137,7 @@ return {
         },
       })
     end,
-    keys = { "<Leader>m", "<Cmd>WindowsMaximize<CR>", desc = "Maximize" },
+    keys = { { "<Leader>wm", "<Cmd>WindowsMaximize<CR>", desc = "Maximize window" } },
   },
 
   -- {

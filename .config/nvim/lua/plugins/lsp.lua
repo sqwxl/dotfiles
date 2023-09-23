@@ -2,17 +2,11 @@ return {
 
   {
     "williamboman/mason.nvim",
-    -- opts = {
-    --   ensure_installed ={
-    --     "black",
-    --     "selene",
-    --     'shellcheck',
-    --     'shfmt',
-    --     "stylua",
-    --     "ruff",
-    --     "sourcery",
-    --   }
-    -- }
+    opts = {
+      ensure_installed = {
+        "shellcheck",
+      },
+    },
   },
 
   {
@@ -35,7 +29,7 @@ return {
         end,
         { desc = "Open definition in vsplit" },
       }
-      keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, { desc = "Rename" } }
+      keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" }
       keys[#keys + 1] = {
         "<A-F>",
         function()
@@ -97,6 +91,8 @@ return {
         sources = {
           nls.builtins.formatting.black,
           nls.builtins.formatting.shfmt,
+          nls.builtins.diagnostics.shellcheck,
+          nls.builtins.code_actions.shellcheck,
           -- nls.builtins.formatting.isort,
           -- nls.builtins.diagnostics.mypy
           nls.builtins.formatting.jq,

@@ -47,7 +47,7 @@ opt.smartindent = true -- insert indents automatically
 opt.breakindent = true -- keep indent when wrapping lines
 opt.expandtab = true -- use spaces instead of tabs
 opt.shiftwidth = 2
-opt.shiftround = true
+opt.shiftround = false
 opt.tabstop = 2
 
 opt.formatoptions = "tcro/qnlj"
