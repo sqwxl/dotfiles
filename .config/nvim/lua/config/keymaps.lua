@@ -12,12 +12,15 @@ map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Save" })
 -- NAVIGATION
 map({ "n", "x", "o" }, "H", "^", { desc = "Move to start of line" })
 map({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
+
 -- follow J-K order for paragraph jump
 map("", "{", "}", { noremap = true })
 map("", "}", "{", { noremap = true })
+
 -- move lines in visual mode
-map("v", "J", "<Cmd>m '>+1<CR>gv=gv", { silent = true })
-map("v", "K", "<Cmd>m '<-2<CR>gv=gv", { silent = true })
+-- map("v", "J", "<Cmd>m '>+1<CR>gv=gv", { silent = true })
+-- map("v", "K", "<Cmd>m '<-2<CR>gv=gv", { silent = true })
+--
 -- keep cursor centered when scrolling
 map("n", "<C-u>", "<C-u>zz", { silent = true })
 map("n", "<C-d>", "<C-d>zz", { silent = true })
@@ -25,10 +28,11 @@ map("n", "<C-d>", "<C-d>zz", { silent = true })
 map("n", "<Leader><Leader>", "<Cmd>e#<CR>", { desc = "Go to last accessed buffer" })
 map("n", "<Leader>xj", "<Cmd>cnext<CR>zz", { desc = "Next quickfix item" })
 map("n", "<Leader>xk", "<Cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
+
 -- tabs
-map("n", "<M-t>", "<Cmd>tabnew<CR>", { silent = true, desc = "New tab" })
-map("n", "<M-p>", "<Cmd>tabprevious<CR>", { silent = true, desc = "Previous tab" })
-map("n", "<M-n>", "<Cmd>tabnext<CR>", { silent = true, desc = "Next tab" })
+map("n", "<A-t>", "<Cmd>tabnew<CR>", { silent = true, desc = "New tab" })
+map("n", "<A-p>", "<Cmd>tabprevious<CR>", { silent = true, desc = "Previous tab" })
+map("n", "<A-n>", "<Cmd>tabnext<CR>", { silent = true, desc = "Next tab" })
 -- fix tab switching
 map("n", "<C-Tab>", function()
   local tabpage = vim.fn.tabpagenr("#")
@@ -38,15 +42,16 @@ map("n", "<C-Tab>", function()
     vim.cmd.tabprevious()
   end
 end, { desc = "Go to last accessed tab" })
+
 -- windows
-map("n", "<M-h>", "<C-w>h")
-map("n", "<M-j>", "<C-w>j")
-map("n", "<M-k>", "<C-w>k")
-map("n", "<M-l>", "<C-w>l")
-map({ "t", "i" }, "<M-h>", "<C-Bslash><C-N><C-w>h")
-map({ "t", "i" }, "<M-j>", "<C-Bslash><C-N><C-w>j")
-map({ "t", "i" }, "<M-k>", "<C-Bslash><C-N><C-w>k")
-map({ "t", "i" }, "<M-l>", "<C-Bslash><C-N><C-w>l")
+map("n", "<A-h>", "<C-w>h")
+map("n", "<A-j>", "<C-w>j")
+map("n", "<A-k>", "<C-w>k")
+map("n", "<A-l>", "<C-w>l")
+map({ "t", "i" }, "<A-h>", "<C-Bslash><C-N><C-w>h")
+map({ "t", "i" }, "<A-j>", "<C-Bslash><C-N><C-w>j")
+map({ "t", "i" }, "<A-k>", "<C-Bslash><C-N><C-w>k")
+map({ "t", "i" }, "<A-l>", "<C-Bslash><C-N><C-w>l")
 map("n", "<Left>", "<C-w>h")
 map("n", "<Down>", "<C-w>j")
 map("n", "<Up>", "<C-w>k")
@@ -88,7 +93,7 @@ map("n", "<Leader>gl", "<Cmd>diffget //3<CR>", { desc = "Get right hunk (nvimdif
 
 -- UI
 -- toggle wrap
-map("n", "<M-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
+map("n", "<A-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
 -- toggle highlight
 map("n", "<Leader>uh", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
 -- toggle dark/light
@@ -99,3 +104,11 @@ map("n", "<Leader>ub", function()
     vim.o.background = "dark"
   end
 end, { desc = "Toggle dark/light" })
+
+-- saner command history (Up/Down consider partial input, now p/n do to!)
+map("c", "<C-p>", "wildmenumode() ? '<C-p>' : '<Up>'", { expr = true, noremap = true })
+map("c", "<C-n>", "wildmenumode() ? '<C-n>' : '<Down>'", { expr = true, noremap = true })
+
+-- add empty lines (can add count)
+map("n", "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>", { desc = "Add empty line(s) above" })
+map("n", "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>", { desc = "Add empty line(s) below" })
