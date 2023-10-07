@@ -23,22 +23,26 @@ return {
   {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
-    version = "1.*",
-    config = function()
-      local colors =
-        require("gruvbox.palette").get_base_colors({}, vim.o.background, require("gruvbox").config.contrast)
-      require("window-picker").setup({
-        selection_chars = "AOEUIDHTNS", -- dvorak home row
-        filter_rules = {
-          bo = {
-            filetype = { "neo-tree", "neo-tree-popup", "notify" },
-            buftype = { "terminal", "quickfix" },
-          },
+    version = "2.*",
+    opts = {
+      selection_chars = "AOEUIDHTNS", -- dvorak home row
+      filter_rules = {
+        bo = {
+          filetype = { "neo-tree", "neo-tree-popup", "notify" },
+          buftype = { "terminal", "quickfix" },
         },
-        fg_color = colors.fg0,
-        other_win_hl_color = colors.blue,
-      })
-    end,
+      },
+      highlights = {
+        statusline = {
+          focused = "WindowPickerStatusLine",
+          unfocused = "WindowPickerStatusLineNC",
+        },
+        winbar = {
+          focused = "WindowPickerWinBar",
+          unfocused = "WindowPickerWinBarNC",
+        },
+      },
+    },
   },
 
   {
