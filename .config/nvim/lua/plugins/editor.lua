@@ -25,7 +25,8 @@ return {
     name = "window-picker",
     version = "1.*",
     config = function()
-      local colors = require("gruvbox.palette").get_base_colors(vim.o.background, require("gruvbox").config.contrast)
+      local colors =
+        require("gruvbox.palette").get_base_colors({}, vim.o.background, require("gruvbox").config.contrast)
       require("window-picker").setup({
         selection_chars = "AOEUIDHTNS", -- dvorak home row
         filter_rules = {
