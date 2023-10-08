@@ -38,8 +38,8 @@ return {
         enable = true,
         keymaps = {
           node_incremental = "<CR>",
-          node_decremental = "<M-CR>"
-        }
+          node_decremental = "<M-CR>",
+        },
       },
     },
   },
@@ -52,4 +52,5 @@ return {
 
   { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
 
+  { "IndianBoy42/tree-sitter-just", config = true },
 }
