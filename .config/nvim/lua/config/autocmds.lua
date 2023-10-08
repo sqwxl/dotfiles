@@ -37,3 +37,17 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     vim.cmd("startinsert")
   end,
 })
+
+-- better cursorline
+vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.cursorline = true
+  end,
+})
+vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.cursorline = false
+  end,
+})

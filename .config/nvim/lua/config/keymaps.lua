@@ -107,10 +107,10 @@ end, { desc = "Toggle dark/light" })
 
 -- saner command history (Up/Down consider partial input, now p/n do to!)
 map("c", "<C-p>", function()
-  return vim.fn.wildmenumode() and "<C-p>" or "<Up>"
+  return vim.fn.wildmenumode() and "<Up>" or "<C-p>"
 end, { expr = true, noremap = true })
 map("c", "<C-u>", function()
-  return vim.fn.wildmenumode() and "<C-u>" or "<Down>"
+  return vim.fn.wildmenumode() and "<Down>" or "<C-u>"
 end, { expr = true, noremap = true })
 
 -- add empty lines (can add count)
