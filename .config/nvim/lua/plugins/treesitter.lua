@@ -29,7 +29,7 @@ return {
       },
       sync_install = false,
       auto_install = true,
-      highlight = { enable = true },
+      highlight = { enable = true, disable = { "htmldjango" } },
       -- indent = { enable = true, disable = { "python" } }, -- indentation for the "=" operator
       matchup = { enable = true },
       endwise = { enable = true },

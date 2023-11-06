@@ -2,7 +2,7 @@
     "height": 32,
     "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad", "custom/media"],
     "modules-center": ["clock"],
-    "modules-right": ["battery", "battery#bat2", "cpu", "memory", "temperature", "tray", "mpd", "idle_inhibitor", "pulseaudio"],
+    "modules-right": ["battery", "battery#bat2", "cpu", "memory", "temperature", "tray", "idle_inhibitor", "pulseaudio"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -101,7 +101,7 @@
         "states": {
             // "good": 95,
             "warning": 30,
-            "critical": 15
+            "critical": 5
         },
         "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% 󰂄",

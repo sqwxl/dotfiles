@@ -5,7 +5,7 @@ return {
       require("gruvbox").setup({
         inverse = true, -- invert background for search, diffs, statuslines and errors
         contrast = "soft", -- can be "hard", "soft" or empty string
-        -- dim_inactive = true,
+        dim_inactive = true,
       })
       -- vim.cmd("colorscheme gruvbox")
     end,

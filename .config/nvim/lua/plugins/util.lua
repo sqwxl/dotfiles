@@ -1,6 +1,7 @@
 return {
   {
     "tpope/vim-fugitive",
+    event = "VimEnter",
     keys = { { "<C-g>", "<Cmd>Git<cr>", desc = "Git menu" } },
   },
 

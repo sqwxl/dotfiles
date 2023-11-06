@@ -12,7 +12,8 @@ cfg config --local status.showUntrackedFiles no
 ```fish
 git clone --bare https://github.com/sqwxl/dotfiles.git $HOME/.dotfiles
 
-echo 'alias cfg "git --git-dir=$HOME/.dotfiles--work-tree=$HOME"' >> $HOME/.config/fish/config.fish
+alias cfg "git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+
 source $HOME/.config/fish/config.fish
 
 cfg checkout

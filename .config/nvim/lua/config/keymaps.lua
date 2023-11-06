@@ -81,7 +81,7 @@ map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
 map({ "n", "v" }, "<Leader>d", [["_d]], { desc = "Delete no yank" })
-map("n", "<Leader>cs", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>", { desc = "Replace word under cursor" })
+map("n", "<Leader>cs", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })

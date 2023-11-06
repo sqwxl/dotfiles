@@ -86,7 +86,7 @@ if type -q node
     fish_add_path $HOME/.npm-global/bin
 end
 
-if type -q rustup
+if type -q cargo
     fish_add_path $HOME/.cargo/bin
     # alias rust-analyzer 'rustup run stable rust-analyzer'
 end
