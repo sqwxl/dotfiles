@@ -50,7 +50,7 @@ return {
             settings = {
               args = {
                 "--ignore",
-                "E501", -- ignore line length (gets autoformatted w/ black)
+                "E501", -- line length
               },
             },
           },
@@ -92,7 +92,8 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = { -- lsp servers are listed above, this is for other tools
+      PATH = "append",
+      ensure_installed = { -- lsp servers are listed above, this is for other linters & formatters
         "djlint",
         "markdownlint",
         "stylua",

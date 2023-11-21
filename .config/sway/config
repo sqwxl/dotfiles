@@ -38,7 +38,7 @@ client.focused_inactive $bg4        $bg3            $fg2        $blue_d
 client.unfocused        $bg2        $bg1            $grey       $bg          
 client.urgent           $red        $red_d          $fg         $red        
 
-font FantasqueSansM Nerd Font Propo 11
+font Inter 12
 
 # titlebar_border_thickness 2
 # titlebar_padding 6 2
