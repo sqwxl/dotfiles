@@ -52,27 +52,6 @@ map({ "t", "i" }, "<A-h>", "<C-Bslash><C-N><C-w>h")
 map({ "t", "i" }, "<A-j>", "<C-Bslash><C-N><C-w>j")
 map({ "t", "i" }, "<A-k>", "<C-Bslash><C-N><C-w>k")
 map({ "t", "i" }, "<A-l>", "<C-Bslash><C-N><C-w>l")
--- map("n", "<Left>", "<C-w>h")
--- map("n", "<Down>", "<C-w>j")
--- map("n", "<Up>", "<C-w>k")
--- map("n", "<Right>", "<C-w>l")
--- map("t", "<Left>", "<C-Bslash><C-N><C-w>h")
--- map("t", "<Down>", "<C-Bslash><C-N><C-w>j")
--- map("t", "<Up>", "<C-Bslash><C-N><C-w>k")
--- map("t", "<Right>", "<C-Bslash><C-N><C-w>l")
--- repeat movement with ,
-local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
--- ensure ; goes forward and , goes backward regardless of the last direction
--- map({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next)
--- map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous)
--- vim way: goes to the direction you were moving.
-map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move)
--- map({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
--- make builtin f, F, t, T also repeatable with ; and ,
-map({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-map({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-map({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-map({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 
 -- EDITING
 -- keep cursor pos when joining lines
@@ -81,7 +60,7 @@ map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
 map({ "n", "v" }, "<Leader>d", [["_d]], { desc = "Delete no yank" })
-map("n", "<Leader>cs", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
+map("n", "<Leader>cR", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })

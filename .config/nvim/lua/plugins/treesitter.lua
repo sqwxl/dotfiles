@@ -44,12 +44,6 @@ return {
     },
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "BufReadPre",
-    config = true,
-  },
-
   { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
 
   { "IndianBoy42/tree-sitter-just", config = true },

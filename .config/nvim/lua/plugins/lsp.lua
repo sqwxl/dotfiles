@@ -35,7 +35,6 @@ return {
       servers = { -- servers included here get automatically installed via mason.nvim
         -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
         bashls = {},
-        cssls = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -123,14 +122,14 @@ return {
         toml = { "taplo" },
         yaml = { "yamlfix" },
         -- css
-        css = { "stylelint" },
-        scss = { "stylelint" },
+        css = { "prettierd" },
+        scss = { "prettierd" },
         sass = { "stylelint" },
         -- templating
-        html = { "prettier", "rustywind" },
+        html = { "prettierd", "rustywind" },
         htmldjango = { "djlint", "rustywind" },
         -- js
-        -- javascript = { "eslint_d" },
+        javascript = { "prettierd" },
         -- javascriptreact = { "eslint_d" },
         -- typescript = { "eslint_d" },
         -- typescriptreact = { "eslint_d" },

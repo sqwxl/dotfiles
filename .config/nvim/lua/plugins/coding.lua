@@ -114,15 +114,14 @@ return {
   { "echasnovski/mini.pairs", enabled = false },
   {
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     opts = {
       check_ts = true,
       enable_check_bracket_line = true,
       ignored_next_char = "[%w%.]",
-      fast_wrap = {}, -- bound to <M-e> by default
+      fast_wrap = {}, -- bound to <A-e> by default
     },
   },
-
-  { "windwp/nvim-ts-autotag" },
 
   {
     "andymass/vim-matchup",
@@ -132,12 +131,12 @@ return {
     end,
   },
 
-  {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { "<Leader>E", "<Cmd>SymbolsOutline<CR>", desc = "Document structure" },
-  },
-
+  -- {
+  --   "simrat39/symbols-outline.nvim",
+  --   cmd = "SymbolsOutline",
+  --   keys = { { "<Leader>T", "<Cmd>SymbolsOutline<CR>", desc = "Document structure" } },
+  -- },
+  --
   -- indent-aware pasting
   {
     "sickill/vim-pasta",
