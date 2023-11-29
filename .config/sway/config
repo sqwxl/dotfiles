@@ -176,6 +176,10 @@ input {
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
 #
+# Theme
+#
+    bindsym $mod+c exec darkman toggle
+#
 # Layout stuff:
 #
     # You can "split" the current object of your focus with
