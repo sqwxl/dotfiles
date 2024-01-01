@@ -35,6 +35,12 @@ return {
       servers = { -- servers included here get automatically installed via mason.nvim
         -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
         bashls = {},
+        html = {
+          filetypes = { "html", "htmldjango" },
+        },
+        htmx = {
+          filetypes = { "html", "htmldjango" },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -145,6 +151,7 @@ return {
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
         htmldjango = { "djlint" },
+        javascript = { "eslint_d" },
       },
     },
     -- opts = {

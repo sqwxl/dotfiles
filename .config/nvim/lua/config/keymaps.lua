@@ -4,7 +4,7 @@ local map = vim.keymap.set
 map("n", "<Leader>k", "<Cmd>WhichKey<CR>", { desc = "Keymaps" })
 
 -- GENERAL
-map("n", ";", ":")
+-- map("n", ";", ":") commented cause conflicts with flash.nvim
 map("i", "<C-c>", "<Esc>")
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Save" })
@@ -60,7 +60,7 @@ map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
 map({ "n", "v" }, "<Leader>d", [["_d]], { desc = "Delete no yank" })
-map("n", "<Leader>cR", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
+map("n", "<Leader>R", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })
