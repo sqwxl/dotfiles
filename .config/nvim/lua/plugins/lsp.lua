@@ -35,6 +35,12 @@ return {
       servers = { -- servers included here get automatically installed via mason.nvim
         -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
         bashls = {},
+        html = {
+          filetypes = { "html", "htmldjango" },
+        },
+        htmx = {
+          filetypes = { "html", "htmldjango" },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -90,10 +96,30 @@ return {
 
   {
     "williamboman/mason.nvim",
+    keys = {
+      {
+        "<leader>gG",
+        function()
+          require("lazyvim.util").terminal.open({ "gitui" }, { esc_esc = false, ctrl_hjkl = false })
+        end,
+        desc = "gitui (cwd)",
+      },
+      {
+        "<leader>gg",
+        function()
+          require("lazyvim.util").terminal.open(
+            { "gitui" },
+            { cwd = require("lazyvim.util").root.get(), esc_esc = false, ctrl_hjkl = false }
+          )
+        end,
+        desc = "gitui (root dir)",
+      },
+    },
     opts = {
       PATH = "append",
       ensure_installed = { -- lsp servers are listed above, this is for other linters & formatters
         "djlint",
+        "gitui",
         "markdownlint",
         "stylua",
         "rustywind",
@@ -145,6 +171,7 @@ return {
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
         htmldjango = { "djlint" },
+        javascript = { "eslint_d" },
       },
     },
     -- opts = {
