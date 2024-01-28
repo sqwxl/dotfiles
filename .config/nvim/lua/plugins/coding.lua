@@ -215,4 +215,9 @@ return {
     enabled = false,
     opts = {},
   },
+
+  {
+    "sourcegraph/sg.nvim",
+    opts = {},
+  },
 }
