@@ -51,6 +51,8 @@ else if test "$TERM" = foot-extra
     abbr -ag cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
 end
 
+abbr connect "nmcli --ask device wifi connect"
+
 abbr -ag myip "curl -4 icanhazip.com"
 
 if type -q exa

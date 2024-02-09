@@ -9,7 +9,7 @@ return {
       -- indent = { enable = true, disable = { "python" } }, -- indentation for the "=" operator
       matchup = { enable = true },
       endwise = { enable = true },
-      autotag = { enable = true, filetypes = { "html", "htmldjango" } },
+      autotag = { enable = true, filetypes = { "html", "htmldjango", "javascriptreact", "typescriptreact" } },
       incremental_selection = {
         enable = true,
         keymaps = {
