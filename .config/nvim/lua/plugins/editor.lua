@@ -10,9 +10,9 @@ return {
           ["v"] = "vsplit_with_window_picker",
         },
       },
-      -- filesystem = {
-      --   hijack_netrw_behavior = "open_current",
-      -- },
+      filesystem = {
+        filtered_items = {},
+      },
     },
     keys = {
       { "<Bslash>", "<Cmd>Neotree toggle=true position=right<CR>", noremap = true, desc = "Toggle Neotree" },

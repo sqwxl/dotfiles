@@ -51,30 +51,23 @@ return {
     "folke/which-key.nvim",
   },
 
-  {
-    "folke/noice.nvim",
-    enabled = false,
-    opts = {
-      lsp = {
-        progress = {
-          enabled = false, -- use fidget.nvim instead
-        },
-      },
-    },
-  },
-
-  {
-    "j-hui/fidget.nvim",
-    tag = "legacy",
-    event = "LspAttach",
-    opts = {},
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   enabled = false,
+  --   opts = {
+  --     lsp = {
+  --       progress = {
+  --         enabled = false, -- use fidget.nvim instead
+  --       },
+  --     },
+  --   },
+  -- },
 
   {
     "nvimdev/dashboard-nvim",
-    opts = function(_, opts)
-      opts.config.header = vim.split(logo, "\n")
-    end,
+    -- opts = function(_, opts)
+    -- opts.config.header = vim.split(logo, "\n")
+    -- end,
   },
 
   -- {
