@@ -140,6 +140,7 @@ return {
         json = { "jq" },
         just = { "just" },
         lua = { "stylua" },
+        cpp = { "clang-format" },
         markdown = { { "prettierd", "prettier" } },
         nix = { "alejandra" },
         php = { "pint" },
@@ -157,8 +158,8 @@ return {
         -- js
         javascript = { "prettierd" },
         -- javascriptreact = { "eslint_d" },
-        -- typescript = { "eslint_d" },
-        -- typescriptreact = { "eslint_d" },
+        typescript = { "prettierd" },
+        typescriptreact = { "prettierd" },
       },
     },
   },
@@ -172,6 +173,8 @@ return {
         sh = { "shellcheck" },
         htmldjango = { "djlint" },
         javascript = { "eslint_d" },
+        typescript = { "eslint_d" },
+        typescriptreact = { "eslint_d" },
       },
     },
     -- opts = {

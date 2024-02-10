@@ -5,11 +5,11 @@ return {
       ensure_installed = { "css", "fish", "rust", "scss" },
       sync_install = false,
       auto_install = true,
-      highlight = { enable = true, disable = { "htmldjango" } },
+      highlight = { enable = true, disable = { "htmldjango" }, additional_vim_regex_highlighting = false },
       -- indent = { enable = true, disable = { "python" } }, -- indentation for the "=" operator
       matchup = { enable = true },
       endwise = { enable = true },
-      autotag = { enable = true, filetypes = { "html", "htmldjango" } },
+      autotag = { enable = true, filetypes = { "html", "htmldjango", "javascriptreact", "typescriptreact" } },
       incremental_selection = {
         enable = true,
         keymaps = {
