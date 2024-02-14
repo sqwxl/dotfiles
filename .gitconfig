@@ -9,3 +9,5 @@
 	defaultBranch = main
 [merge]
 	tool = nvimdiff
+[diff]
+	external = difft
