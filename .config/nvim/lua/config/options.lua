@@ -1,18 +1,23 @@
 vim.g.mapleader = " "
 
+local node_bin = "/usr/bin/node"
+vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
+vim.g.copilot_node_command = node_bin
+vim.cmd("let $PATH = '" .. node_bin .. ":' . $PATH")
+
 local opt = vim.opt
 
-opt.exrc = true       -- enable local .vimrc files
-opt.secure = true     -- disable shell and write commands in local .vimrc files
+opt.exrc = true -- enable local .vimrc files
+opt.secure = true -- disable shell and write commands in local .vimrc files
 
 opt.autowrite = false -- save when switching buffers
 -- opt.syntax = "off"
 opt.spell = true
 opt.hlsearch = false
 opt.ignorecase = true -- ignore case letters when searching
-opt.smartcase = true  -- override ignorecase if search contains uppercase letters
-opt.mouse = "a"       -- enable mouse support
-opt.updatetime = 50   -- swap file update & CursorHold interval
+opt.smartcase = true -- override ignorecase if search contains uppercase letters
+opt.mouse = "a" -- enable mouse support
+opt.updatetime = 50 -- swap file update & CursorHold interval
 opt.timeoutlen = 500
 
 opt.undofile = true
@@ -29,7 +34,7 @@ opt.wrap = false
 opt.cursorline = true
 opt.colorcolumn = "80,110"
 opt.number = true
-opt.pumblend = 0  -- transparency of popup menu (0 = opaque/disabled)
+opt.pumblend = 0 -- transparency of popup menu (0 = opaque/disabled)
 opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
 opt.relativenumber = false
 opt.sessionoptions = { "blank", "buffers", "curdir", "help", "tabpages", "winsize", "winpos", "localoptions" }
@@ -48,7 +53,7 @@ opt.wildmode = "longest:full,full" -- command-line completion mode
 -- opt.autoindent = true -- copy indent from current line when starting a new line
 opt.smartindent = true -- insert indents automatically
 opt.breakindent = true -- keep indent when wrapping lines
-opt.expandtab = true   -- use spaces instead of tabs
+opt.expandtab = true -- use spaces instead of tabs
 opt.shiftwidth = 2
 opt.shiftround = false
 opt.tabstop = 2

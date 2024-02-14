@@ -55,8 +55,23 @@ return {
     end,
   },
 
-  { "echasnovski/mini.surround", enabled = false },
-  { "tpope/vim-surround", lazy = false },
+  -- { "echasnovski/mini.ai", enabled = false },
+  -- { "tpope/vim-surround", lazy = false },
+  {
+    "echasnovski/mini.surround",
+    opts = {
+      mappings = {
+        add = "ys", -- Add surrounding in Normal and Visual modes
+        delete = "ds", -- Delete surrounding
+        replace = "cs", -- Replace surrounding
+        find = "gsf", -- Find surrounding (to the right)
+        find_left = "gsF", -- Find surrounding (to the left)
+        highlight = "gsh", -- Highlight surrounding
+        update_n_lines = "gsn", -- Update `n_lines`
+      },
+    },
+  },
+
   -- {
   --   "kylechui/nvim-surround",
   --   enabled = false,
@@ -207,6 +222,8 @@ return {
 
   {
     "sourcegraph/sg.nvim",
-    opts = {},
+    opts = {
+      node_executable = "/usr/bin/node",
+    },
   },
 }

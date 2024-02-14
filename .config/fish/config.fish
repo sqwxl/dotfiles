@@ -116,6 +116,10 @@ end
 
 source "$HOME/.config/fish/functions/__auto_source_venv.fish"
 
+if type -q fnm
+    fnm env --use-on-cd | source
+end
+
 # fish_default_key_bindings -M insert
 # Then execute the vi-bindings so they take precedence when there's a conflict.
 # Without --no-erase fish_vi_key_bindings will default to
