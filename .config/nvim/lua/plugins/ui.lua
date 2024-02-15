@@ -1,15 +1,3 @@
-local logo = [[
-  ██████   █████   ██  ██  ██░▒██   ██▒ ██▓    
-▒██    ▒ ▒██▓  ██▒▓██░ ██ ░██░▒▒██ ██▒░▓██▒    
-░ ▓██▄   ▒██▒  ██░▒██░ ██ ░██ ░░ ███  ░▒██░    
-  ▒   ██▒░██  █▀ ░░░██ ███░██  ░██ ██▒ ▒██░    
-▒██████▒▒░▒███▒█▄ ░░░▓██░▓██░ ▒██▒ ▒██▒░██████▒
-▒ ▒▓▒ ▒ ░░░ ▒▒░ ▒ ░  ▓░▒  ▒   ▒▒ ░ ░▓ ░░ ▒░▓  ░
-░ ░▒  ░ ░ ░ ▒░  ░    ▒ ░  ░   ░░   ░▒ ░░ ░ ▒  ░
-░  ░  ░     ░   ░         ░    ░    ░    ░ ░   
-      ░      ░         ░       ░    ░      ░  ░
-]]
-logo = string.rep("\n", 8) .. logo .. "\n\n"
 return {
   {
     "rcarriga/nvim-notify",
@@ -51,17 +39,26 @@ return {
     "folke/which-key.nvim",
   },
 
-  -- {
-  --   "folke/noice.nvim",
-  --   enabled = false,
-  --   opts = {
-  --     lsp = {
-  --       progress = {
-  --         enabled = false, -- use fidget.nvim instead
-  --       },
-  --     },
-  --   },
-  -- },
+  {
+    "folke/noice.nvim",
+    opts = {
+      routes = {
+        {
+          view = "cmdline",
+          filter = { event = "msg_showmode" },
+        },
+      },
+      views = {
+        cmdline_popup = {
+          position = "50%",
+          win_options = {
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            winblend = 10,
+          },
+        },
+      },
+    },
+  },
 
   {
     "nvimdev/dashboard-nvim",
