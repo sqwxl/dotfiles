@@ -32,7 +32,7 @@ opt.completeopt = "menu,menuone,noselect"
 opt.list = false -- show whitespace indicators
 opt.wrap = false
 opt.cursorline = true
-opt.colorcolumn = "80,110"
+-- opt.colorcolumn = "80,110"
 opt.number = true
 opt.pumblend = 0 -- transparency of popup menu (0 = opaque/disabled)
 opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)

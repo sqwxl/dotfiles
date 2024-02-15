@@ -154,7 +154,7 @@ return {
       require("windows").setup({
         animation = { enable = false, duration = 150 },
         ignore = {
-          buftype = { "quickfix" },
+          buftype = { "quickfix", "help" },
           filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "help" },
         },
       })

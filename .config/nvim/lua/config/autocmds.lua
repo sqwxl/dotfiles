@@ -25,9 +25,9 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       vim.o.foldcolumn = "0"
       vim.o.colorcolumn = ""
       vim.o.wrap = true
-      local tw = vim.o.tw
+      local tw = vim.o.tw + 1
       if not tw or tw == 0 then
-        tw = 80
+        tw = 81
       end
       vim.cmd.wincmd("H")
       local cmd = string.gsub("vertical resize tw", "tw", tw)
