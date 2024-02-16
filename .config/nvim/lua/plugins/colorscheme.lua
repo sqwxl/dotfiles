@@ -9,17 +9,16 @@ return {
     config = function()
       local colors = require("gruvbox").palette
       require("gruvbox").setup({
-        inverse = true, -- invert background for search, diffs, statuslines and errors
-        contrast = "", -- can be "hard", "soft" or empty string
-        dim_inactive = true,
+        contrast = "hard", -- can be "hard", "soft" or empty string
+        -- dim_inactive = true,
         overrides = {
           -- CursorLine = { bg = colors.dark2 },
-          NormalNC = { bg = "#2c2c2c" },
+          -- NormalNC = { bg = "#2c2c2c" },
           TelescopeNormal = { bg = colors.dark0 },
           NeoTreeDirectoryName = { link = "GruvboxBlueBold" },
           NeoTreeDirectoryIcon = { link = "NeoTreeDirectoryName" },
           -- NeoTreeNormal = { fg = C.text, bg = active_bg },
-          NeoTreeNormalNC = { bg = colors.dark0 },
+          -- NeoTreeNormalNC = { bg = colors.dark0 },
           -- NeoTreeExpander = { fg = colors.light2 },
           -- NeoTreeIndentMarker = { fg = C.overlay0 },
           NeoTreeRootName = { fg = colors.bright_aqua, bold = true, italic = true },

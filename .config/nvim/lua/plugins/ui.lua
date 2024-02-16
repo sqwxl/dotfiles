@@ -152,14 +152,14 @@ return {
       -- vim.o.winminwidth = 5
       -- vim.o.equalalways = false
       require("windows").setup({
-        animation = { enable = false, duration = 150 },
+        animation = { enable = false },
         ignore = {
           buftype = { "quickfix", "help" },
           filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "help" },
         },
       })
     end,
-    keys = { { "<Leader>wm", "<Cmd>WindowsMaximize<CR>", desc = "Maximize window" } },
+    keys = { { "<C-w>m", "<Cmd>WindowsMaximize<CR>", desc = "Maximize window" } },
   },
 
   -- {
