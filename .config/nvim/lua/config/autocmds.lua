@@ -17,7 +17,14 @@ vim.api.nvim_create_autocmd("WinEnter", {
 })
 
 -- move help window to the left side and resize to textwidth
-vim.api.nvim_create_autocmd("BufWinEnter", {
+local resize_to_tw = function()
+  local tw = vim.o.tw
+  if not tw or tw == 0 then
+    tw = 80
+  end
+  vim.cmd(string.gsub("vertical resize tw", "tw", tw))
+end
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*.md", "*.txt" },
   callback = function()
     if vim.o.buftype == "help" then
@@ -25,14 +32,16 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
       vim.o.foldcolumn = "0"
       vim.o.colorcolumn = ""
       vim.o.wrap = true
-      local tw = vim.o.tw
-      if not tw or tw == 0 then
-        tw = 80
-      end
       vim.cmd.wincmd("H")
-      local cmd = string.gsub("vertical resize tw", "tw", tw)
-      print(cmd)
-      vim.cmd(cmd)
+      resize_to_tw()
+    end
+  end,
+})
+vim.api.nvim_create_autocmd("WinEnter", {
+  pattern = { "*.md", "*.txt" },
+  callback = function()
+    if vim.o.buftype == "help" then
+      resize_to_tw()
     end
   end,
 })

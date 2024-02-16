@@ -13,6 +13,14 @@ return {
       filesystem = {
         filtered_items = {},
       },
+      event_handlers = {
+        {
+          event = "file_opened",
+          handler = function(_)
+            require("neo-tree.command").execute({ action = "close" })
+          end,
+        },
+      },
     },
     keys = {
       { "<Bslash>", "<Cmd>Neotree toggle=true position=right<CR>", noremap = true, desc = "Toggle Neotree" },
