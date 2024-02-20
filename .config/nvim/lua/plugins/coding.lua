@@ -235,10 +235,16 @@ return {
       if vim.fn.executable("flatpak") == 1 then
         cmd = "flatpak firefox --new-tab"
       else
+        -- check for running from container
         if vim.fn.executable("flatpak-spawn") == 1 then
           cmd = "flatpak-spawn --host flatpak run org.mozilla.firefox --new-tab"
         else
-          cmd = "firefox --new-tab"
+          -- native
+          if vim.fn.executable("firefox") == 1 then
+            cmd = "firefox --new-tab"
+          else
+            vim.notify("firefox not found", vim.log.levels.WARN)
+          end
         end
       end
       vim.api.nvim_exec2(
