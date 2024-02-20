@@ -15,8 +15,7 @@ return {
       keys[#keys + 1] = {
         "gV",
         function()
-          vim.cmd("vsplit")
-          vim.lsp.buf.definition()
+          require("telescope.builtin").lsp_definitions({ jump_type = "vsplit", reuse_win = true })
         end,
         desc = "Open definition in vsplit",
       }

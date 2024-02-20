@@ -19,8 +19,4 @@ return {
   -- },
 
   -- {
-  --   -- markdown previewer
-  --   "toppair/peek.nvim",
-  --   build = "deno task --quiet build:fast",
-  -- },
 }

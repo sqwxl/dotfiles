@@ -92,6 +92,13 @@ return {
   },
 
   {
+    "folke/flash.nvim",
+    opts = {
+      modes = { search = { enabled = false } }, -- disable using flash for regular search
+    },
+  },
+
+  {
     "RRethy/vim-illuminate",
     enabled = false,
   },
