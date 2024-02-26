@@ -145,6 +145,7 @@ return {
         php = { "pint" },
         python = { "ruff_format" },
         sh = { "shfmt" },
+        sql = { "sqlfmt" },
         toml = { "taplo" },
         yaml = { "yamlfix" },
         -- css
@@ -160,6 +161,9 @@ return {
         typescript = { "prettierd" },
         typescriptreact = { "prettierd" },
       },
+      formatters = {
+        sql_formatter = { prepend_args = { "--language=postgresql" } },
+      },
     },
   },
 
@@ -174,6 +178,10 @@ return {
         javascript = { "eslint_d" },
         typescript = { "eslint_d" },
         typescriptreact = { "eslint_d" },
+        sql = { "sqlfluff" },
+      },
+      linters = {
+        sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
       },
     },
     -- opts = {
