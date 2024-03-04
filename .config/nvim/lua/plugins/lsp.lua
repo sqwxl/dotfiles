@@ -163,6 +163,7 @@ return {
       },
       formatters = {
         sql_formatter = { prepend_args = { "--language=postgresql" } },
+        sqlfmt = { prepend_args = { "-l", "120" } },
       },
     },
   },

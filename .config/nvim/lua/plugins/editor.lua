@@ -14,12 +14,12 @@ return {
         filtered_items = {},
       },
       event_handlers = {
-        {
-          event = "file_opened",
-          handler = function(_)
-            require("neo-tree.command").execute({ action = "close" })
-          end,
-        },
+        -- {
+        --   event = "file_opened",
+        --   handler = function(_)
+        --     require("neo-tree.command").execute({ action = "close" })
+        --   end,
+        -- },
       },
     },
     keys = {

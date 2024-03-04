@@ -59,7 +59,7 @@ map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 -- don't delete to register when pasting or deleting
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
-map({ "n", "v" }, "<Leader>d", [["_d]], { desc = "Delete no yank" })
+map({ "n", "v" }, "<Leader>D", [["_d]], { desc = "Delete no yank" })
 map("n", "<Leader>R", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
