@@ -160,6 +160,7 @@ return {
         -- javascriptreact = { "eslint_d" },
         typescript = { "prettierd" },
         typescriptreact = { "prettierd" },
+        xml = { "xmlformat" },
       },
       formatters = {
         sql_formatter = { prepend_args = { "--language=postgresql" } },
