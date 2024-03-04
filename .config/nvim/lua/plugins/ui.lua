@@ -193,4 +193,9 @@ return {
   --       })
   --     end,
   --   },
+
+  {
+    "lucas-reineke/headlines.nvim",
+    enabled = false,
+  },
 }
