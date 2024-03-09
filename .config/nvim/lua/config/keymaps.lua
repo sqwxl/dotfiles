@@ -53,6 +53,11 @@ map({ "t", "i" }, "<A-j>", "<C-Bslash><C-N><C-w>j")
 map({ "t", "i" }, "<A-k>", "<C-Bslash><C-N><C-w>k")
 map({ "t", "i" }, "<A-l>", "<C-Bslash><C-N><C-w>l")
 
+vim.keymap.del("n", "<C-k>")
+vim.keymap.del("n", "<C-j>")
+vim.keymap.del("n", "<C-h>")
+vim.keymap.del({ "n", "t" }, "<C-l>")
+
 -- EDITING
 -- keep cursor pos when joining lines
 map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })

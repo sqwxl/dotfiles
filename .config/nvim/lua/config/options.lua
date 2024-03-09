@@ -1,9 +1,11 @@
 vim.g.mapleader = " "
 
-local node_bin = "/usr/bin/node"
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
-vim.g.copilot_node_command = node_bin
-vim.cmd("let $PATH = '" .. node_bin .. ":' . $PATH")
+-- local node_bin = vim.fn.exepath("node")
+-- vim.g.copilot_node_command = node_bin
+-- vim.cmd("let $PATH = '" .. node_bin .. ":' . $PATH")
+
+vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 
 if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"

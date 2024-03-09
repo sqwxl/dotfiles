@@ -74,26 +74,6 @@ return {
   },
 
   {
-    "simrat39/rust-tools.nvim",
-    opts = {
-      tools = {
-        -- nvim >= 0.10 has native inlay hint support
-        inlay_hints = { auto = not vim.fn.has("nvim-0.10") },
-      },
-      server = {
-        settings = {
-          rust_analyzer = {
-            check = {
-              command = "clippy",
-              -- extraArgs = { "--workspace", "--", "-W", "clippy::all" },
-            },
-          },
-        },
-      },
-    },
-  },
-
-  {
     "williamboman/mason.nvim",
     keys = {
       {
