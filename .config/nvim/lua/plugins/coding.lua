@@ -196,30 +196,6 @@ return {
   --   end
   -- }
 
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   opts = {
-  --     panel = {
-  --       keymap = { open = "<A-CR>", enabled = false },
-  --     },
-  --     suggestion = {
-  --       enabled = false,
-  --       auto_trigger = true,
-  --       keymap = {
-  --         accept = "<C-f>",
-  --         accept_word = "<A-f>",
-  --         dismiss = "<C-e>",
-  --       },
-  --     },
-  --   },
-  -- },
-
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   enabled = false,
-  --   opts = {},
-  -- },
-
   {
     "sourcegraph/sg.nvim",
     opts = {
