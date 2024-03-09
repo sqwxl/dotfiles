@@ -4,6 +4,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     vim.opt_local.number = false
     vim.opt_local.signcolumn = "no"
+    vim.opt_local.spell = false
     vim.cmd("startinsert")
   end,
 })
@@ -26,12 +27,14 @@ local resize_to_tw = function()
 end
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*.md", "*.txt" },
-  callback = function()
+  callback = function(t)
     if vim.o.buftype == "help" then
       vim.o.signcolumn = "no"
       vim.o.foldcolumn = "0"
       vim.o.colorcolumn = ""
       vim.o.wrap = true
+      vim.opt_local.spell = false
+      vim.diagnostic.disable(t.buf)
       vim.cmd.wincmd("H")
       resize_to_tw()
     end

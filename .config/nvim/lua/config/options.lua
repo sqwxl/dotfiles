@@ -9,6 +9,8 @@ if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"
   vim.g.neovide_floating_blur_amount_x = 2.0
   vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.g.neovide_cursor_animate_in_insert_mode = false
+  vim.g.neovide_cursor_animate_command_line = false
   vim.keymap.set("n", "<C-s>", ":w<CR>") -- Save
   vim.keymap.set("v", "<C-S-c>", '"+y') -- Copy
   vim.keymap.set("n", "<C-S-v>", '"+P') -- Paste normal mode
@@ -38,7 +40,7 @@ opt.secure = true -- disable shell and write commands in local .vimrc files
 
 opt.autowrite = false -- save when switching buffers
 -- opt.syntax = "off"
-opt.spell = true
+opt.spell = false
 opt.hlsearch = false
 opt.ignorecase = true -- ignore case letters when searching
 opt.smartcase = true -- override ignorecase if search contains uppercase letters

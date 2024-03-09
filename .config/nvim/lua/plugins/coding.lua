@@ -223,7 +223,7 @@ return {
   {
     "sourcegraph/sg.nvim",
     opts = {
-      node_executable = "/usr/bin/node",
+      -- node_executable = "/usr/bin/node",
     },
   },
 

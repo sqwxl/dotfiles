@@ -195,7 +195,7 @@ return {
   --   },
 
   {
-    "lucas-reineke/headlines.nvim",
+    "lukas-reineke/headlines.nvim",
     enabled = false,
   },
 }
