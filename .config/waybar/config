@@ -4,6 +4,7 @@
     "modules-center": ["clock"],
     "modules-right": ["battery", "battery#bat2", "cpu", "memory", "temperature", "tray", "idle_inhibitor", "pulseaudio"],
     // Modules configuration
+    //
     // "sway/workspaces": {
     //     "disable-scroll": true,
     //     "all-outputs": true,
@@ -101,7 +102,7 @@
         "states": {
             // "good": 95,
             "warning": 30,
-            "critical": 5
+            "critical": 10
         },
         "format": "{capacity}% {icon}",
         "format-charging": "{capacity}% 󰂄",
@@ -117,7 +118,7 @@
     "network": {
         "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "format": "{ifname} 󰛳",
-        "format-wifi": "{icon}",
+        "format-wifi": "{essid} {icon}",
         "format-ethernet": "󰈀",
         "format-linked": "{ifname} (No IP) 󰛳",
         "format-disconnected": "󰒎",

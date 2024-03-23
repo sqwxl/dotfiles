@@ -17,34 +17,40 @@ vim.api.nvim_create_autocmd("WinEnter", {
   end,
 })
 
--- move help window to the left side and resize to textwidth
-local resize_to_tw = function()
-  local tw = vim.o.tw
-  if not tw or tw == 0 then
+local resize_to_tw = function(buf)
+  local pad = 2 -- a lot of help pages seem to have lines that overflow by 1 or 2 chars over tw
+
+  local tw = vim.api.nvim_buf_get_option(buf, "textwidth") or 80
+
+  if tw == 0 then
     tw = 80
   end
-  vim.cmd(string.gsub("vertical resize tw", "tw", tw))
+
+  vim.api.nvim_win_set_width(vim.api.nvim_get_current_win(), tw + pad)
 end
+
+-- move help window to the left side and resize to textwidth
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   pattern = { "*.md", "*.txt" },
-  callback = function(t)
+  callback = function(ev)
     if vim.o.buftype == "help" then
       vim.o.signcolumn = "no"
       vim.o.foldcolumn = "0"
       vim.o.colorcolumn = ""
       vim.o.wrap = true
       vim.opt_local.spell = false
-      vim.diagnostic.disable(t.buf)
+      vim.diagnostic.disable(ev.buf)
       vim.cmd.wincmd("H")
-      resize_to_tw()
+      resize_to_tw(ev.buf)
     end
   end,
 })
+
 vim.api.nvim_create_autocmd("WinEnter", {
   pattern = { "*.md", "*.txt" },
-  callback = function()
+  callback = function(ev)
     if vim.o.buftype == "help" then
-      resize_to_tw()
+      resize_to_tw(ev.buf)
     end
   end,
 })

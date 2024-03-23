@@ -48,6 +48,10 @@ return {
           -- NeoTreeTabSeparatorInactive = { fg = inactive_bg, bg = inactive_bg },
           -- NeoTreeVertSplit = { fg = C.base, bg = inactive_bg },
           -- NeoTreeStatusLineNC = { fg = C.mantle, bg = C.mantle },
+          WindowPickerStatusLine = { link = "GruvboxBlueBold" },
+          WindowPickerStatusLineNC = { link = "GruvboxAqua" },
+          WindowPickerWinBar = { link = "GruvboxBlueBold" },
+          WindowPickerWinBarNC = { link = "GruvboxAqua" },
         },
       })
     end,

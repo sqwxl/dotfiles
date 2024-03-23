@@ -37,11 +37,12 @@ return {
     name = "window-picker",
     version = "2.*",
     opts = {
+      hint = "floating-big-letter",
       selection_chars = "AOEUIDHTNS", -- dvorak home row
       filter_rules = {
         bo = {
-          filetype = { "neo-tree", "neo-tree-popup", "notify" },
-          buftype = { "terminal", "quickfix" },
+          filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
+          buftype = { "terminal", "quickfix", "help", "trouble" },
         },
       },
       highlights = {

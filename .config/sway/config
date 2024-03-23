@@ -48,6 +48,8 @@ hide_edge_borders --i3 smart
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+set $alt Mod1
+set $ctrl Ctrl
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -122,6 +124,7 @@ input {
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $ctrl+$alt+t exec $term toolbox run fish
 
     # Kill focused window
     bindsym $mod+Shift+q kill

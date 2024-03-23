@@ -20,13 +20,6 @@ return {
         desc = "Open definition in vsplit",
       }
       keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" }
-      keys[#keys + 1] = {
-        "<A-F>",
-        function()
-          vim.lsp.buf.format({ async = true })
-        end,
-        desc = "Format document",
-      }
     end,
     opts = {
       inlay_hints = { enabled = vim.fn.has("nvim-0.10") },
