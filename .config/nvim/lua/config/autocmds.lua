@@ -19,9 +19,9 @@ vim.api.nvim_create_autocmd("WinEnter", {
 
 -- move help window to the left side and resize to textwidth
 local resize_to_tw = function()
-  local tw = vim.o.tw
+  local tw = vim.o.tw + 2
   if not tw or tw == 0 then
-    tw = 80
+    tw = 82
   end
   vim.cmd(string.gsub("vertical resize tw", "tw", tw))
 end
