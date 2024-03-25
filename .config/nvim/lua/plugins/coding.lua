@@ -197,8 +197,19 @@ return {
 
   {
     "sourcegraph/sg.nvim",
+    event = "VeryLazy",
     opts = {
-      -- node_executable = "/usr/bin/node",
+      node_executable = vim.fn.system({ "fnm", "exec", "--using", "20", "which", "node" }):gsub("\n", ""),
+    },
+    keys = {
+      dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+      {
+        "<leader>cy",
+        function()
+          require("sg.cody.commands").toggle()
+        end,
+        desc = "Toggle Cody chat",
+      },
     },
   },
 
