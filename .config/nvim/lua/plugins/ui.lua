@@ -2,7 +2,7 @@ return {
   {
     "rcarriga/nvim-notify",
     opts = {
-      timeout = 5000,
+      timeout = 3000,
       stages = {
         function(state)
           local next_height = state.message.height + 1

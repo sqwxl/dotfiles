@@ -1,12 +1,5 @@
 return {
   {
-    "L3MON4D3/LuaSnip",
-    keys = function()
-      return {}
-    end,
-  },
-
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       { "hrsh7th/cmp-nvim-lua" },
@@ -16,8 +9,14 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      table.insert(opts.sources, {
+      opts.sources = cmp.config.sources({
+        { name = "nvim_lsp" },
         { name = "nvim_lsp_signature_help" },
+        { name = "codeium" },
+        { name = "cody" },
+        { name = "path" },
+      }, {
+        { name = "buffer" },
         { name = "nvim_lua" },
       })
 
