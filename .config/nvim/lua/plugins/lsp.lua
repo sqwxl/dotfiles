@@ -129,10 +129,10 @@ return {
         html = { "prettierd", "rustywind" },
         htmldjango = { "djlint", "rustywind" },
         -- js
-        javascript = { "prettierd" },
+        javascript = { "biome" },
         -- javascriptreact = { "eslint_d" },
-        typescript = { "prettierd" },
-        typescriptreact = { "prettierd" },
+        typescript = { "biome" },
+        typescriptreact = { "biome" },
         xml = { "xmlformat" },
       },
       formatters = {
@@ -150,9 +150,9 @@ return {
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
         htmldjango = { "djlint" },
-        javascript = { "eslint_d" },
-        typescript = { "eslint_d" },
-        typescriptreact = { "eslint_d" },
+        javascript = { "biomejs" },
+        typescript = { "biomejs" },
+        typescriptreact = { "biomejs" },
         sql = { "sqlfluff" },
       },
       linters = {
