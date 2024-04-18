@@ -72,8 +72,10 @@ map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })
 -- macros
 map("n", "Q", "@q")
 -- git
-map("n", "<Leader>gh", "<Cmd>diffget //2<CR>", { desc = "Get left hunk (nvimdiff)" })
-map("n", "<Leader>gl", "<Cmd>diffget //3<CR>", { desc = "Get right hunk (nvimdiff)" })
+map("n", "<Leader>gu", "<Cmd>diffget LOCAL<CR>", { desc = "Get local hunk" })
+map("n", "<Leader>gl", "<Cmd>diffget REMOTE<CR>", { desc = "Get remote hunk" })
+map("n", "<Leader>gU", "<Cmd>%diffget LOCAL<CR>", { desc = "Get local hunk (whole file)" })
+map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get remote hunk (whole file)" })
 
 -- UI
 -- toggle wrap
