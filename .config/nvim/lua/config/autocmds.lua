@@ -56,12 +56,12 @@ vim.api.nvim_create_autocmd("WinEnter", {
 })
 
 -- use insert mode when entering commit edit
-vim.api.nvim_create_autocmd("BufWinEnter", {
+--[[ vim.api.nvim_create_autocmd("BufWinEnter", {
   pattern = "*COMMIT_EDITMSG",
   callback = function()
     vim.cmd("startinsert")
   end,
-})
+}) ]]
 
 -- -- better cursorline
 -- vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {

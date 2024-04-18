@@ -149,6 +149,7 @@ return {
         fish = { "fish" },
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
+        html = { "htmlhint" },
         htmldjango = { "djlint" },
         javascript = { "biomejs" },
         typescript = { "biomejs" },
