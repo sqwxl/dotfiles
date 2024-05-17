@@ -65,7 +65,15 @@ map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
 map({ "n", "v" }, "<Leader>D", [["_d]], { desc = "Delete no yank" })
-map("n", "<Leader>R", ":%s/\\<<C-r><C-w>\\>//gI<Left><Left><Left>", { desc = "Replace word under cursor" })
+
+map("n", "<Leader>R", function()
+  local old = vim.fn.expand("<cword>")
+  vim.ui.input({ prompt = 'Replace "' .. old .. '" with: ', default = old, completion = "buffer" }, function(new)
+    if new ~= nil then
+      vim.cmd("%s/\\<" .. old .. "\\>/" .. new .. "/gI")
+    end
+  end)
+end, { desc = "Replace word under cursor" })
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })

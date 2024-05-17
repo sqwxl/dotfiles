@@ -1,92 +1,65 @@
 return {
-
-  -- disable fancy ui
   {
-    "rcarriga/nvim-dap-ui",
-    -- enabled = false,
+    "mxsdev/nvim-dap-vscode-js",
+    dependencies = {
+      { "mfussenegger/nvim-dap" },
+      {
+        "microsoft/vscode-js-debug",
+        lazy = true,
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+      },
+    },
+    opts = {
+      debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+    },
   },
 
+  -- disable fancy ui
   -- {
-  --   "mfussenegger/nvim-dap",
-  --   keys = {
-  --     -- DAP
-  --     { '<Leader>dp', function() require('dap.ui.widgets').preview() end, desc="Preview"},
-  --     { '<Leader>df', function() require('dap.ui.widgets').sidebar(require("dap.ui.widgets").frames).open() end, desc="Frames" },
-  --     { '<Leader>ds', function() require('dap.ui.widgets').sidebar(require('dap.ui.widgets').scopes).open() end, desc="Scopes"},
-  --   },
-  --   config = function()
-  --     local dap = require("dap")
-  --     -- dap.adapters.python = {
-  --     --   type = "executable",
-  --     --   command = os.getenv('HOME') .. "/.virtualenvs/debugpy/bin/python",
-  --     --   args = { "-m", "debugpy.adapter" },
-  --     -- }
-  --     -- dap.configurations.python = {}
-  --     dap.defaults.fallback.terminal_win_cmd = "vsplit new"
-  --
-  --     -- map K to hover when session is active
-  --     local api = vim.api
-  --     local keymap_restore = {}
-  --     dap.listeners.after['event_initialized']['me'] = function()
-  --       for _, buf in pairs(api.nvim_list_bufs()) do
-  --         local keymaps = api.nvim_buf_get_keymap(buf, 'n')
-  --         for _, keymap in pairs(keymaps) do
-  --           if keymap.lhs == "K" then
-  --             table.insert(keymap_restore, keymap)
-  --             api.nvim_buf_del_keymap(buf, 'n', 'K')
-  --           end
-  --         end
-  --       end
-  --       api.nvim_set_keymap(
-  --         'n', 'K', '<Cmd>lua require("dap.ui.widgets").hover()<CR>', { silent = true })
-  --     end
-  --
-  --     dap.listeners.after['event_terminated']['me'] = function()
-  --       for _, keymap in pairs(keymap_restore) do
-  --         api.nvim_buf_set_keymap(
-  --           keymap.buffer,
-  --           keymap.mode,
-  --           keymap.lhs,
-  --           keymap.rhs,
-  --           { silent = keymap.silent == 1 }
-  --         )
-  --       end
-  --       keymap_restore = {}
-  --     end
-  --
-  --     -- trigger completion automatically in the REPL
-  --     vim.api.nvim_create_autocmd("FileType", {
-  --       pattern = "dap-repl",
-  --       callback = function()
-  --         require("dap.ext.autocompl").attach()
-  --         vim.opt_local.number = false
-  --       end
-  --     })
-  --
-  --     vim.fn.sign_define('DapBreakpoint', {
-  --       text = '',
-  --       texthl = 'GruvboxRed',
-  --       linehl = 'DapBreakpoint',
-  --       numhl = 'DapBreakpoint'
-  --     })
-  --     vim.fn.sign_define('DapBreakpointCondition',
-  --       { text = '•', texthl = 'GruvboxBlue', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-  --     vim.fn.sign_define('DapBreakpointRejected',
-  --       { text = '•', texthl = 'GruvbaxOrange', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-  --     vim.fn.sign_define('DapStopped', {
-  --       text = '',
-  --       texthl = 'GruvboxGreen',
-  --       linehl = 'DapBreakpoint',
-  --       numhl =
-  --       'DapBreakpoint'
-  --     })
-  --     vim.fn.sign_define('DapLogPoint', {
-  --       text = '•',
-  --       texthl = 'GruvboxYellow',
-  --       linehl = 'DapBreakpoint',
-  --       numhl = 'DapBreakpoint'
-  --     })
+  -- "rcarriga/nvim-dap-ui",
+  -- enabled = false,
+  -- },
+
+  -- {
+  -- "mfussenegger/nvim-dap",
+  -- opts = function()
+  --   local dap = require("dap")
+  --   if not dap.adapters["pwa-node"] then
+  --     require("dap").adapters["pwa-node"] = {
+  --       type = "server",
+  --       host = "localhost",
+  --       port = "${port}",
+  --       executable = {
+  --         command = "node",
+  --         args = {
+  --           require("dap-vscode-js").get_package("js-debug-adapter"):get_install_path()
+  --             .. "/js-debug/src/dapDebugServer.js",
+  --           "${port}",
+  --         },
+  --       },
+  --     }
   --   end
+  --   for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+  --     if not dap.configurations[language] then
+  --       dap.configurations[language] = {
+  --         {
+  --           type = "pwa-node",
+  --           request = "launch",
+  --           name = "Launch file",
+  --           program = "${file}",
+  --           cwd = "${workspaceFolder}",
+  --         },
+  --         {
+  --           type = "pwa-node",
+  --           request = "attach",
+  --           name = "Attach",
+  --           processId = require("dap.utils").pick_process,
+  --           cwd = "${workspaceFolder}",
+  --         },
+  --       }
+  --     end
+  --   end
+  -- end,
   -- },
 
   -- {

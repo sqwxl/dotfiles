@@ -43,7 +43,7 @@ opt.secure = true -- disable shell and write commands in local .vimrc files
 
 opt.autowrite = false -- save when switching buffers
 -- opt.syntax = "off"
-opt.spell = false
+opt.spell = true
 opt.hlsearch = false
 opt.ignorecase = true -- ignore case letters when searching
 opt.smartcase = true -- override ignorecase if search contains uppercase letters

@@ -3,6 +3,7 @@ set -g fish_greeting
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
+
 if type -q bat
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
     alias cat bat
@@ -11,6 +12,7 @@ else if type -q batcat
     alias cat batcat
     alias bat batcat
 end
+
 set -gx MANROFFOPT -c
 set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
@@ -55,7 +57,12 @@ abbr connect "nmcli --ask device wifi connect"
 
 abbr -ag myip "curl -4 icanhazip.com"
 
-if type -q exa
+if type -q eza
+    abbr -ag l eza
+    abbr -ag ll 'eza -l'
+    abbr -ag lll 'eza -la'
+    alias ls eza
+else if type -q exa
     abbr -ag l exa
     abbr -ag ll 'exa -l'
     abbr -ag lll 'exa -la'
