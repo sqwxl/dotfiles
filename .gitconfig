@@ -16,3 +16,20 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[alias]
+	sw = switch
+	rbi = rebase -i
+	hardhead = reset --hard HEAD
+	lo = log --oneline
+	co = checkout
+	last = log -1 HEAD
+	rbc = rebase --continue
+	cpc = cherry-pick --continue
+	rba = rebase --abort
+	mt = mergetool
+	loga = log --oneline --graph --all
+	cf = clean --force
+	d = diff
+	ds = diff --staged
+[rerere]
+	autoUpdate = true

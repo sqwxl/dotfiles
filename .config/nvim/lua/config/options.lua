@@ -7,6 +7,7 @@ vim.g.node_host_prog = vim.fn.system({ "npm", "get", "-g", "prefix" }):gsub("\n"
 
 vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_ruff = "ruff"
 
 if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"

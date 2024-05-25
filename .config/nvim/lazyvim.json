@@ -1,9 +1,13 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.util.mini-hipatterns"
+    "lazyvim.plugins.extras.coding.luasnip",
+    "lazyvim.plugins.extras.coding.mini-ai",
+    "lazyvim.plugins.extras.ui.treesitter-context",
+    "lazyvim.plugins.extras.util.mini-hipatterns",
+    "lazyvim.plugins.extras.util.startuptime"
   ],
   "news": {
-    "NEWS.md": "3314"
+    "NEWS.md": "4828"
   },
   "version": 3
 }
