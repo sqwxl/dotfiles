@@ -27,9 +27,10 @@
 	cpc = cherry-pick --continue
 	rba = rebase --abort
 	mt = mergetool
-	loga = log --oneline --graph --all
 	cf = clean --force
 	d = diff
 	ds = diff --staged
+	goa = log --graph --oneline --all
+	br = branch
 [rerere]
 	autoUpdate = true

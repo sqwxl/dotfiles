@@ -120,7 +120,7 @@ return {
         markdown = { { "prettierd", "prettier" } },
         nix = { "alejandra" },
         php = { "pint" },
-        python = { "ruff_format" },
+        -- python = { "ruff_format" },
         sh = { "shfmt" },
         sql = { "sqlfmt" },
         toml = { "taplo" },
