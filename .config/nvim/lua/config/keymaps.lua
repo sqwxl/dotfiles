@@ -89,7 +89,7 @@ map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get remote hunk (wh
 -- toggle wrap
 map("n", "<A-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
 -- toggle highlight
-map("n", "<Leader>uh", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
+-- map("n", "<Leader>uh", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
 -- toggle dark/light
 map("n", "<Leader>ub", function()
   if vim.o.background == "dark" then

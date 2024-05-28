@@ -52,6 +52,8 @@ return {
           WindowPickerStatusLineNC = { link = "GruvboxAqua" },
           WindowPickerWinBar = { link = "GruvboxBlueBold" },
           WindowPickerWinBarNC = { link = "GruvboxAqua" },
+          SpellBad = { fg = colors.bright_red, undercurl = true },
+          SpellRare = { fg = colors.bright_purple, undercurl = true },
         },
       })
     end,

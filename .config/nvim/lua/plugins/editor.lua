@@ -38,7 +38,7 @@ return {
     version = "2.*",
     opts = {
       hint = "floating-big-letter",
-      selection_chars = "AOEUIDHTNS", -- dvorak home row
+      selection_chars = "aoeuidhtnsqjkxbmwvz", -- dvorak home row
       filter_rules = {
         bo = {
           filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },

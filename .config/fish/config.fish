@@ -26,19 +26,25 @@ abbr -ag se sudoedit
 
 abbr -ag g git
 abbr -ag gs 'git status'
+abbr -ag gw 'git switch'
+abbr -ag gwc 'git switch -c'
+abbr -ag ghl 'git stash list'
 abbr -ag gd 'git diff'
+abbr -ag gds 'git diff --staged'
 abbr -ag gb 'git branch'
 abbr -ag gl 'git log'
 abbr -ag glo 'git log --oneline'
-abbr -ag gr 'git reflog'
+abbr -ag glog 'git log --oneline --graph'
+abbr -ag gr 'git rebase'
 abbr -ag ga 'git add'
-abbr -ag gaa 'git add .'
 abbr -ag gcm 'git commit -m'
 abbr -ag gcam 'git commit -a -m'
 abbr -ag gcan 'git commit --amend --no-edit'
 abbr -ag gf 'git fetch'
 abbr -ag gp 'git push'
-abbr -ag gr 'git remote -v'
+abbr -ag gpf 'git push --force'
+abbr -ag gpl 'git pull'
+abbr -ag gcf 'git clean -f'
 
 abbr -ag rmr 'rm -rf'
 

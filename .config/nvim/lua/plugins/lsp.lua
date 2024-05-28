@@ -22,7 +22,6 @@ return {
       keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" }
     end,
     opts = {
-      inlay_hints = { enabled = vim.fn.has("nvim-0.10") },
       diagnostics = { virtual_text = { prefix = "icons" } },
       servers = { -- servers included here get automatically installed via mason.nvim
         -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
@@ -152,7 +151,7 @@ return {
         html = { "htmlhint" },
         htmldjango = { "djlint" },
         javascript = { "biomejs" },
-        typescript = { "biomejs" },
+        typescript = { "biomejs", "codespell" },
         typescriptreact = { "biomejs" },
         sql = { "sqlfluff" },
       },
