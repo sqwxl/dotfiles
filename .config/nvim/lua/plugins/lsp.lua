@@ -22,6 +22,7 @@ return {
       keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" }
     end,
     opts = {
+      inlay_hints = { enabled = false },
       diagnostics = { virtual_text = { prefix = "icons" } },
       servers = { -- servers included here get automatically installed via mason.nvim
         -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
@@ -41,12 +42,16 @@ return {
             },
           },
         },
-        ruff_lsp = {
-          init_options = {
-            settings = {
-              args = {
-                "--ignore",
-                "E501", -- line length
+        basedpyright = {
+          settings = {
+            basedpyright = {
+              disableOrganizeImports = true, -- Using Ruff
+              disableTaggedHints = true, -- Using Ruff
+              analysis = {
+                autoImportCompletions = true,
+                diagnosticSeverityOverrides = {
+                  reportUndefinedVariable = "none",
+                },
               },
             },
           },
@@ -90,11 +95,11 @@ return {
       PATH = "append",
       ensure_installed = { -- lsp servers are listed above, this is for other linters & formatters
         "djlint",
-        "gitui",
         "markdownlint",
         "stylua",
         "rustywind",
         "ruff",
+        "basedpyright",
         "shellcheck",
         "shfmt",
       },
@@ -115,7 +120,6 @@ return {
         markdown = { { "prettierd", "prettier" } },
         nix = { "alejandra" },
         php = { "pint" },
-        python = { "ruff_format" },
         sh = { "shfmt" },
         sql = { "sqlfmt" },
         toml = { "taplo" },
@@ -123,7 +127,6 @@ return {
         -- css
         css = { "prettierd" },
         scss = { "prettierd" },
-        sass = { "stylelint" },
         -- templating
         html = { "prettierd", "rustywind" },
         htmldjango = { "djlint", "rustywind" },
@@ -145,50 +148,26 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
+        css = { "stylelint" },
+        sass = { "stylelint" },
         fish = { "fish" },
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
         html = { "htmlhint" },
         htmldjango = { "djlint" },
         javascript = { "biomejs" },
-        typescript = { "biomejs", "codespell" },
+        typescript = { "biomejs" },
         typescriptreact = { "biomejs" },
         sql = { "sqlfluff" },
+        ["*"] = { "codespell" },
       },
       linters = {
         sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
+        stylelint = {
+          stream = "stderr",
+        },
       },
     },
-    -- opts = {
-    --   linters_by_ft = {
-    --     fish = { "fish" },
-    --     go = { "golangci-lint" },
-    --     html = { "tidy" },
-    --     json = { "jsonlint" },
-    --     -- lua = { "luacheck", "selene" },
-    --     markdown = { "markdownlint" },
-    --     nix = { "nix" },
-    --     php = { "php", "phpcs", "phpstan" },
-    --     python = {
-    --       "bandit",
-    --       -- "ruff",
-    --     },
-    --     sh = { "shfmt", "shellcheck" },
-    --     yaml = { "yamllint" },
-    --     -- css
-    --     css = { "stylelint" },
-    --     scss = { "stylelint" },
-    --     sass = { "stylelint" },
-    --     -- templating
-    --     htmldjango = { "djlint" },
-    --     jinja = { "djlint" },
-    --     -- js
-    --     -- javascript = { "eslint_d" },
-    --     -- javascriptreact = { "eslint_d" },
-    --     -- typescript = { "eslint_d" },
-    --     -- typescriptreact = { "eslint_d" },
-    --   },
-    -- },
   },
 
   -- {

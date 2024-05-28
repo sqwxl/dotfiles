@@ -2,7 +2,6 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
-      ensure_installed = { "css", "fish", "rust", "scss" },
       sync_install = false,
       auto_install = true,
       highlight = {
@@ -27,6 +26,4 @@ return {
   },
 
   { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
-
-  { "IndianBoy42/tree-sitter-just", config = true },
 }
