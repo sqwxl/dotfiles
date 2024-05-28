@@ -55,7 +55,12 @@ abbr connect "nmcli --ask device wifi connect"
 
 abbr -ag myip "curl -4 icanhazip.com"
 
-if type -q exa
+if type -q eza
+    abbr -ag l eza
+    abbr -ag ll 'eza -l'
+    abbr -ag lll 'eza -la'
+    alias ls eza
+else if type -q exa
     abbr -ag l exa
     abbr -ag ll 'exa -l'
     abbr -ag lll 'exa -la'

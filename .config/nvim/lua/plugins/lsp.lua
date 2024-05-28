@@ -120,7 +120,6 @@ return {
         markdown = { { "prettierd", "prettier" } },
         nix = { "alejandra" },
         php = { "pint" },
-        -- python = { "ruff_format" },
         sh = { "shfmt" },
         sql = { "sqlfmt" },
         toml = { "taplo" },
@@ -128,7 +127,6 @@ return {
         -- css
         css = { "prettierd" },
         scss = { "prettierd" },
-        sass = { "stylelint" },
         -- templating
         html = { "prettierd", "rustywind" },
         htmldjango = { "djlint", "rustywind" },
@@ -150,6 +148,8 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
+        css = { "stylelint" },
+        sass = { "stylelint" },
         fish = { "fish" },
         markdown = { "markdownlint" },
         sh = { "shellcheck" },
@@ -159,41 +159,15 @@ return {
         typescript = { "biomejs" },
         typescriptreact = { "biomejs" },
         sql = { "sqlfluff" },
+        ["*"] = { "codespell" },
       },
       linters = {
         sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
+        stylelint = {
+          stream = "stderr",
+        },
       },
     },
-    -- opts = {
-    --   linters_by_ft = {
-    --     fish = { "fish" },
-    --     go = { "golangci-lint" },
-    --     html = { "tidy" },
-    --     json = { "jsonlint" },
-    --     -- lua = { "luacheck", "selene" },
-    --     markdown = { "markdownlint" },
-    --     nix = { "nix" },
-    --     php = { "php", "phpcs", "phpstan" },
-    --     python = {
-    --       "bandit",
-    --       -- "ruff",
-    --     },
-    --     sh = { "shfmt", "shellcheck" },
-    --     yaml = { "yamllint" },
-    --     -- css
-    --     css = { "stylelint" },
-    --     scss = { "stylelint" },
-    --     sass = { "stylelint" },
-    --     -- templating
-    --     htmldjango = { "djlint" },
-    --     jinja = { "djlint" },
-    --     -- js
-    --     -- javascript = { "eslint_d" },
-    --     -- javascriptreact = { "eslint_d" },
-    --     -- typescript = { "eslint_d" },
-    --     -- typescriptreact = { "eslint_d" },
-    --   },
-    -- },
   },
 
   -- {

@@ -32,5 +32,7 @@
 	ds = diff --staged
 	goa = log --graph --oneline --all
 	br = branch
+	rpo = remote prune origin
+	main = checkout main
 [rerere]
 	autoUpdate = true
