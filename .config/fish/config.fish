@@ -1,117 +1,80 @@
-# remove fish greeting
-set -g fish_greeting
-
 set -gx EDITOR nvim
 set -gx VISUAL nvim
-if type -q bat
-    set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-    alias cat bat
-else if type -q batcat
-    set -gx MANPAGER "sh -c 'col -bx | batcat -l man -p'"
-    alias cat batcat
-    alias bat batcat
+
+abbr --add s sudo
+abbr --add g git
+abbr --add n nvim
+abbr --add se sudoedit
+
+abbr --add l ls
+abbr --add ll 'ls -l'
+abbr --add lll 'ls -lah'
+
+abbr --add gr "cd (git rev-parse --show-toplevel 2>/dev/null || $PWD)"
+abbr --add gs 'git status'
+
+alias cfginit "git init --bare $HOME/.dotfiles && git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin && echo .dotfiles >> $HOME/.gitignore"
+alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+abbr --add cfgsway "cd ~/.config/sway && $EDITOR config"
+abbr --add cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
+abbr --add cfgfish "cd ~/.config/fish && $EDITOR config.fish"
+if test "$TERM" = kitty
+    abbr --add cfgterm "cd ~/.config/kitty && $EDITOR kitty.conf"
+else if test "$TERM" = foot-extra
+    abbr --add cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
 end
-set -gx MANROFFOPT -c
-set -g FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
 
 if test "$TERM" = foot -o "$TERM" = foot-extra
     alias ssh "TERM=linux command ssh"
 end
 
-abbr -ag n nvim
-abbr -ag s sudo
-abbr -ag se sudoedit
-
-abbr -ag g git
-abbr -ag gs 'git status'
-abbr -ag gd 'git diff'
-abbr -ag gb 'git branch'
-abbr -ag gl 'git log'
-abbr -ag glo 'git log --oneline'
-abbr -ag gr 'git reflog'
-abbr -ag ga 'git add'
-abbr -ag gaa 'git add .'
-abbr -ag gcm 'git commit -m'
-abbr -ag gcam 'git commit -a -m'
-abbr -ag gcan 'git commit --amend --no-edit'
-abbr -ag gf 'git fetch'
-abbr -ag gp 'git push'
-abbr -ag gr 'git remote -v'
-
-abbr -ag rmr 'rm -rf'
-
-alias cfginit "git init --bare $HOME/.dotfiles && git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin && echo .dotfiles >> $HOME/.gitignore"
-alias cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-abbr -ag cfgsway "cd ~/.config/sway && $EDITOR config"
-abbr -ag cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
-abbr -ag cfgfish "cd ~/.config/fish && $EDITOR config.fish"
-if test "$TERM" = kitty
-    abbr -ag cfgterm "cd ~/.config/kitty && $EDITOR kitty.conf"
-else if test "$TERM" = foot-extra
-    abbr -ag cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
-end
-
-abbr connect "nmcli --ask device wifi connect"
-
-abbr -ag myip "curl -4 icanhazip.com"
-
 if type -q eza
-    abbr -ag l eza
-    abbr -ag ll 'eza -l'
-    abbr -ag lll 'eza -la'
     alias ls eza
 else if type -q exa
-    abbr -ag l exa
-    abbr -ag ll 'exa -l'
-    abbr -ag lll 'exa -la'
     alias ls exa
 else if type -q lsd
-    abbr -ag l lsd
-    abbr -ag ll 'lsd -l'
-    abbr -ag lll 'lsd -lah'
     alias ls lsd
-else
-    abbr -ag l ls
-    abbr -ag ll 'ls -l'
-    abbr -ag lll 'ls -lah'
 end
 
-if type -q rg
-    set -gx FZF_DEFAULT_COMMAND rg --files
-    set -gx FZF_DEFAULT_OPTS -m
+if type -q fzf
+    fzf --fish | source
+end
+
+if type -q fd
+    set -gx FZF_DEFAULT_COMMAND fd --type file
+    set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+end
+
+if type -q bat
+    alias cat bat
+    set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+    set -gx MANROFFOPT -c
+    set -gx BAT_THEME gruvbox-dark
+    set -gx FZF_CTRL_T_OPTS --preview '"bat --color=always --style=numbers --line-range=:500 {}"'
 end
 
 if type -q go
     if test -z "$GOPATH"
         set -gx GOPATH "$HOME/go"
     end
-    fish_add_path $GOPATH/bin/
+    fish_add_path $GOPATH/bin
 end
 
 if type -q node
-    fish_add_path $HOME/.npm-global/bin
+    fish_add_path (npm prefix --global)/bin
 end
 
 if type -q cargo
     fish_add_path $HOME/.cargo/bin
-    # alias rust-analyzer 'rustup run stable rust-analyzer'
 end
-
-# if type -q fdfind
-#   alias fd fdfind
-# end
 
 if type -q zoxide
     zoxide init fish | source
 end
 
-# Generated for envman. Do not edit.
-# test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
-
 complete -c cht.sh -xa '(curl -s cht.sh/:list)'
 
 if type -q starship
-    starship completions fish >~/.config/fish/completions/starship.fish
     starship init fish | source
 end
 
@@ -120,24 +83,3 @@ if type -q direnv
 end
 
 source "$HOME/.config/fish/functions/__auto_source_venv.fish"
-
-if type -q fnm
-    fnm env --use-on-cd | source
-end
-
-# fish_default_key_bindings -M insert
-# Then execute the vi-bindings so they take precedence when there's a conflict.
-# Without --no-erase fish_vi_key_bindings will default to
-# resetting all bindings.
-# The argument specifies the initial mode (insert, "default" or visual).
-# fish_vi_key_bindings --no-erase insert
-
-if type -q brew
-    if test -d (brew --prefix)"/share/fish/completions"
-        set -p fish_complete_path (brew --prefix)/share/fish/completions
-    end
-
-    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-        set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-    end
-end

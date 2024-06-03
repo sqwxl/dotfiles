@@ -13,6 +13,7 @@ function __auto_source_venv --description 'Activate/Deactivate virtualenv on dir
         if type -q deactivate
             deactivate
         end
+        source "$gitdir/.venv/bin/activate.fish"
         # If venv activated but the current (git) dir has no venv.
     else if test -n "$VIRTUAL_ENV" -a ! -d "$gitdir/.venv" && type -q deactivate
         deactivate

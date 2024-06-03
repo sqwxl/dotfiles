@@ -169,41 +169,4 @@ return {
       },
     },
   },
-
-  -- {
-  --   "nvimtools/none-ls.nvim",
-  --   opts = function(_, opts)
-  --     local nls = require("null-ls")
-  --     vim.tbl_deep_extend("force", opts or {}, {
-  --       debug = false,
-  --       debounce = 150,
-  --       save_after_format = false,
-  --       sources = {
-  --         nls.builtins.formatting.black,
-  --         nls.builtins.formatting.shfmt,
-  --         nls.builtins.diagnostics.shellcheck,
-  --         nls.builtins.code_actions.shellcheck,
-  --         -- nls.builtins.formatting.isort,
-  --         -- nls.builtins.diagnostics.mypy
-  --         nls.builtins.formatting.jq,
-  --         nls.builtins.formatting.ruff,
-  --         nls.builtins.diagnostics.ruff, --handled by lsp-zero
-  --         nls.builtins.code_actions.eslint_d,
-  --         nls.builtins.diagnostics.eslint_d,
-  --         nls.builtins.formatting.eslint_d,
-  --         nls.builtins.formatting.prettier.with({ filetypes = { "markdown" } }),
-  --         nls.builtins.diagnostics.markdownlint,
-  --         nls.builtins.formatting.pint,
-  --         nls.builtins.formatting.blade_formatter,
-  --       },
-  --     })
-  --   end,
-  -- },
-
-  -- {
-  --   "antosha417/nvim-lsp-file-operations",
-  --   dependencies = { "nvim-lua/plenary.nvim", "kyazdani42/nvim-tree.lua" },
-  -- },
-
-  -- { "jwalton512/vim-blade" }, -- "blade" filetype support
 }
