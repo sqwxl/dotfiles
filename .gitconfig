@@ -3,6 +3,7 @@
 	name = Nicolas Epstein
 [pull]
 	rebase = false
+	ff = only
 [push]
 	default = upstream
 	autoSetupRemote = true
@@ -19,37 +20,36 @@
 	process = git-lfs filter-process
 	required = true
 [alias]
-	st = status --short --branch
 	a = add
 	aa = add -A
+	br = branch
 	c = commit
-	fixup = commit --fixup
-	squash = commit --squash
 	ca = commit --amend
 	can = commit --amend --no-edit
 	cana = commit --amend --no-edit --all
-	p = push
-	pf = push --force-with-lease
+	co = checkout
+	cp = cherry-pick
+	cpc = cherry-pick --continue
+	d = diff
+	ds = diff --staged
 	f = fetch
-	sw = switch
-	stsh = stash --keep-index
-	staash = stash --include-untracked
-	rbi = rebase --interactive
-	rba = rebase --abort
-	rbc = rebase --continue
+	fixup = commit --fixup
 	last = log -1 HEAD
 	lo = log --oneline
 	lol = log --graph --decorate --pretty=oneline --abbrev-commit
 	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	co = checkout
-	cp = cherry-pick
-	cpc = cherry-pick --continue
 	mt = mergetool
-	cf = clean --force
-	d = diff
-	ds = diff --staged
-	br = branch
+	p = push
+	pf = push --force-with-lease
+	rba = rebase --abort
+	rbc = rebase --continue
+	rbi = rebase --interactive
 	rpo = remote prune origin
+	squash = commit --squash
+	st = status --short --branch
+	staash = stash --include-untracked
+	stsh = stash --keep-index
+	sw = switch
 [rerere]
 	autoUpdate = true
 [transfer]
