@@ -1,58 +1,44 @@
-[user]
-	email = nilueps@gmail.com
-	name = Nicolas Epstein
-[pull]
-	rebase = false
-	ff = only
-[push]
-	default = upstream
-	autoSetupRemote = true
+[alias]
+	fixup = commit --fixup
+	last = log -1 HEAD
+	squash = commit --squash
+	today = log --since=00:00:00 --all --no-merges --oneline --author=nilueps@gmail.com
+[branch]
+	sort = -committerdate
+[commit]
+	verbose = true
+[core]
+	excludesFile = ~/.gitignore
+	pager = delta
+[diff]
+	external = difft
+	algorithm = histogram
+	word
+	colorMoved = default
+[fetch]
+	prune = true
+[help]
+	autoCorrect = prompt
 [init]
 	defaultBranch = main
 [merge]
 	tool = nvimdiff
 	ff = only
-[diff]
-	external = difft
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-[alias]
-	a = add
-	aa = add -A
-	br = branch
-	c = commit
-	ca = commit --amend
-	can = commit --amend --no-edit
-	cana = commit --amend --no-edit --all
-	co = checkout
-	cp = cherry-pick
-	cpc = cherry-pick --continue
-	d = diff
-	ds = diff --staged
-	f = fetch
-	fixup = commit --fixup
-	last = log -1 HEAD
-	lo = log --oneline
-	lol = log --graph --decorate --pretty=oneline --abbrev-commit
-	lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-	mt = mergetool
-	p = push
-	pf = push --force-with-lease
-	rba = rebase --abort
-	rbc = rebase --continue
-	rbi = rebase --interactive
-	rpo = remote prune origin
-	squash = commit --squash
-	st = status --short --branch
-	staash = stash --include-untracked
-	stsh = stash --keep-index
-	sw = switch
+	conflictStyle = zdiff3
+[pull]
+	ff = only
+[push]
+	autoSetupRemote = true
+[rebase]
+	autoSquash = true
+	updateRefs = true
 [rerere]
+	enabled = true
 	autoUpdate = true
 [transfer]
 	fsckObjects = true
-[rebase]
-	autoSquash = true
+[user]
+	email = nilueps@gmail.com
+	name = Nicolas Epstein
+[url "git@github.com:"]
+	insteadOf = "https://github.com/"
