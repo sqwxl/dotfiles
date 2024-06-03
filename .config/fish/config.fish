@@ -6,10 +6,6 @@ abbr --add g git
 abbr --add n nvim
 abbr --add se sudoedit
 
-abbr --add l ls
-abbr --add ll 'ls -l'
-abbr --add lll 'ls -lah'
-
 abbr --add gr "cd (git rev-parse --show-toplevel 2>/dev/null || $PWD)"
 abbr --add gs 'git status'
 
@@ -25,7 +21,7 @@ else if test "$TERM" = foot-extra
 end
 
 if test "$TERM" = foot -o "$TERM" = foot-extra
-    alias ssh "TERM=linux command ssh"
+    abbr --add ssh "TERM=linux command ssh"
 end
 
 if type -q eza
@@ -35,6 +31,10 @@ else if type -q exa
 else if type -q lsd
     alias ls lsd
 end
+
+abbr --add l ls
+abbr --add ll 'ls -l'
+abbr --add lll 'ls -lah'
 
 if type -q fzf
     fzf --fish | source
