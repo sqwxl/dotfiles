@@ -29,3 +29,14 @@ init
 namespaced
 Async
 worktrees
+Normcore
+Reviewers
+dbmate
+PGCERTIFICATE
+PGDATABASE
+PGHOST
+PGPASSWORD
+PGPORT
+PGUSER
+sslmode
+Postgres

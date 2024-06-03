@@ -1,3 +1,10 @@
+-- run cspell everywhere
+vim.api.nvim_create_autocmd("BufWritePost", {
+  callback = function()
+    require("lint").try_lint("cspell")
+  end,
+})
+
 -- change the appearance of terminal window
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",

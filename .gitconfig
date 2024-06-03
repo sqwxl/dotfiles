@@ -34,5 +34,8 @@
 	br = branch
 	rpo = remote prune origin
 	main = checkout main
+	sp = stash pop
+	ss = stash show
+	sl = stash list
 [rerere]
 	autoUpdate = true
