@@ -86,6 +86,15 @@ return {
   },
 
   {
+    "folke/flash.nvim",
+    opts = {
+      jump = {
+        autojump = true,
+      },
+    },
+  },
+
+  {
     "folke/which-key.nvim",
   },
 
