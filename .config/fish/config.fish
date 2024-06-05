@@ -134,6 +134,9 @@ if type -q zoxide
     zoxide init fish | source
 end
 
+alias zz 'cd -'
+
+
 complete -c cht.sh -xa '(curl -s cht.sh/:list)'
 
 if type -q starship
