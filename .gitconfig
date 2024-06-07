@@ -3,6 +3,7 @@
 	last = log -1 HEAD
 	squash = commit --squash
 	today = log --since=00:00:00 --all --no-merges --oneline --author=nilueps@gmail.com
+	co = checkout
 [branch]
 	sort = -committerdate
 [commit]
