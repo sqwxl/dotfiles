@@ -84,7 +84,7 @@ return {
   --   end
   -- },
 
-  { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
+  -- { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
 
   { "tpope/vim-sleuth" }, -- dynamic 'shiftwidth' and 'expandtab' based on file
 
@@ -99,9 +99,7 @@ return {
     },
   },
 
-  { "echasnovski/mini.comment", enabled = false },
-
-  { "numToStr/Comment.nvim", config = true },
+  { "numToStr/Comment.nvim", enabled = false, config = true },
 
   {
     "danymat/neogen", -- generate annotations

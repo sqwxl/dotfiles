@@ -1,20 +1,18 @@
 [alias]
 	fixup = commit --fixup
-	last = log -1 HEAD
-	squash = commit --squash
-	today = log --since=00:00:00 --all --no-merges --oneline --author=nilueps@gmail.com
+	last = log -1 HEAD --ext-diff
+	today = log --since=00:00:00 --all --no-merges --oneline --author=nilueps@gmail.com --ext-diff
 	co = checkout
+	sho = show --ext-diff
 [branch]
 	sort = -committerdate
 [commit]
 	verbose = true
 [core]
 	excludesFile = ~/.gitignore
-	pager = delta
 [diff]
 	external = difft
 	algorithm = histogram
-	word
 	colorMoved = default
 [fetch]
 	prune = true
