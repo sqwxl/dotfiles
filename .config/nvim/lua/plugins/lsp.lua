@@ -121,7 +121,7 @@ return {
         nix = { "alejandra" },
         php = { "pint" },
         sh = { "shfmt" },
-        sql = { "sqlfmt" },
+        sql = { "sqlfluff" },
         toml = { "taplo" },
         yaml = { "yamlfix" },
         -- css
