@@ -106,3 +106,26 @@ augroup BigFileDisable
     autocmd BufWinEnter * if getfsize(expand("%")) > 512 * 1024 | exec DisableSyntaxTreesitter() | endif
 augroup END
 ]])
+
+vim.api.nvim_create_autocmd("BufRead", {
+  desc = "Restore cursor position",
+  pattern = "*",
+  once = true,
+  callback = function(event)
+    local ftignore = { "gitcommit", "gitrebase", "neo-tree" }
+    local bufignore = { "nofile", "quickfix", "help" }
+
+    local line = vim.fn.line([['"]])
+    if line >= 1 and line <= vim.fn.line("$") then
+      local ft = vim.api.nvim_buf_get_option_value("filetype", { buf = event.buf })
+      -- check that ft is not in ftignore
+      if not vim.tbl_contains(ftignore, ft) then
+        -- check that buf is not in bufignore
+        local buftype = vim.api.nvim_buf_get_option_value("buftype", { buf = event.buf })
+        if not vim.tbl_contains(bufignore, buftype) then
+          vim.cmd([[keepjumps normal! g`"]])
+        end
+      end
+    end
+  end,
+})

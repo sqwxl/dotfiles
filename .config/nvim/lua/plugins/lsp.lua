@@ -23,9 +23,11 @@ return {
     end,
     opts = {
       inlay_hints = { enabled = false },
+      -- Enable LSP cursor word highlighting
+      document_highlight = { enabled = false },
+      codelens = { enabled = true },
       diagnostics = { virtual_text = { prefix = "icons" } },
-      servers = { -- servers included here get automatically installed via mason.nvim
-        -- n.b. some servers are set up via lazyvim.plugins.extras.lang.*
+      servers = { -- servers included here get automatically installed by mason
         bashls = {},
         html = {
           filetypes = { "html", "htmldjango" },
@@ -57,11 +59,6 @@ return {
           },
         },
         tailwindcss = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
-        },
-        tsserver = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,

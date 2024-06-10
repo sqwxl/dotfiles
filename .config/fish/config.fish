@@ -6,7 +6,6 @@ abbr -a g git
 abbr -a n nvim
 abbr -a se sudoedit
 
-abbr -a d "cd (git rev-parse --show-toplevel 2>/dev/null || $PWD)"
 abbr -a gC 'git clean --interactive -d'
 abbr -a gS 'git stash'
 abbr -a gSD 'git stash drop'
@@ -38,6 +37,8 @@ abbr -a gd 'git diff'
 abbr -a gds 'git diff --staged'
 abbr -a gdup 'git diff @\{upstream\}'
 abbr -a gf 'git fetch'
+abbr -a gfix 'git commit --fixup'
+abbr -a gls 'git show -p'
 abbr -a gl 'git log --decorate --pretty=oneline --abbrev-commit'
 abbr -a gll 'git log --graph --decorate --pretty=oneline --abbrev-commit'
 abbr -a glll 'git log --graph --decorate --pretty=oneline --abbrev-commit --all'
@@ -68,6 +69,7 @@ abbr -a grv 'git remote -v'
 abbr -a gs 'git status --short --branch'
 abbr -a gsh 'git show'
 abbr -a gsn 'git show --name-only'
+abbr -a gss 'git status'
 abbr -a gsw 'git switch'
 abbr -a gswc 'git switch -c'
 abbr -a gwa 'git worktree add'

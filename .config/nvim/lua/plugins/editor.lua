@@ -11,11 +11,11 @@ return {
         },
       },
       filesystem = {
-        bind_to_cwd = true,
-        cwd_target = {
-          sidebar = "global",
-        },
-        filtered_items = {},
+        -- bind_to_cwd = true,
+        -- cwd_target = {
+        --   sidebar = "global",
+        -- },
+        -- filtered_items = {},
       },
       event_handlers = {
         -- {
@@ -27,8 +27,8 @@ return {
       },
     },
     keys = {
-      { "<Bslash>", "<Cmd>Neotree toggle=true position=right<CR>", noremap = true, desc = "Toggle Neotree" },
-      { "<A-Bslash>", "<Cmd>Neotree reveal=true position=right<CR>", desc = "Reveal in Neotree" },
+      { "<Bslash>", "<Cmd>Neotree toggle=true<CR>", noremap = true, desc = "Toggle Neotree" },
+      { "<A-Bslash>", "<Cmd>Neotree reveal=true<CR>", desc = "Reveal in Neotree" },
     },
   },
 
@@ -96,11 +96,6 @@ return {
 
   {
     "folke/which-key.nvim",
-  },
-
-  {
-    "RRethy/vim-illuminate",
-    enabled = false,
   },
 
   {
