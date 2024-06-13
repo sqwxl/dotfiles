@@ -121,7 +121,7 @@ return {
       animation = { enable = false },
       ignore = {
         buftype = { "quickfix", "help" },
-        filetype = { "NvimTree", "neo-tree", "undotree", "gundo", "help" },
+        filetype = { "aerial", "neo-tree", "undotree", "gundo", "help" },
       },
     },
     keys = { { "<C-w>m", "<Cmd>WindowsMaximize<CR>", desc = "Maximize window" } },

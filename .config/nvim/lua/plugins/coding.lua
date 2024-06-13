@@ -197,9 +197,7 @@ return {
   {
     "sourcegraph/sg.nvim",
     event = "VeryLazy",
-    opts = {
-      -- node_executable = vim.fn.system({ "fnm", "exec", "--using", "20", "which", "node" }):gsub("\n", ""),
-    },
+    opts = { enable_cody = true, accept_tos = true },
     keys = {
       dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
       {

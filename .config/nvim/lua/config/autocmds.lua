@@ -117,11 +117,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
     local line = vim.fn.line([['"]])
     if line >= 1 and line <= vim.fn.line("$") then
-      local ft = vim.api.nvim_buf_get_option_value("filetype", { buf = event.buf })
-      -- check that ft is not in ftignore
+      local ft = vim.api.nvim_get_option_value("filetype", { buf = event.buf })
       if not vim.tbl_contains(ftignore, ft) then
-        -- check that buf is not in bufignore
-        local buftype = vim.api.nvim_buf_get_option_value("buftype", { buf = event.buf })
+        local buftype = vim.api.nvim_get_option_value("buftype", { buf = event.buf })
         if not vim.tbl_contains(bufignore, buftype) then
           vim.cmd([[keepjumps normal! g`"]])
         end

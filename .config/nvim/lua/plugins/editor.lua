@@ -33,6 +33,17 @@ return {
   },
 
   {
+    "stevearc/aerial.nvim",
+    opts = {
+      layout = {
+        placement = "edge",
+        default_direction = "left",
+      },
+      highlight_mode = "none",
+    },
+  },
+
+  {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
     version = "2.*",

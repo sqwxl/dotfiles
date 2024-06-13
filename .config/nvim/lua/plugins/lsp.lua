@@ -1,5 +1,4 @@
 return {
-
   {
     "neovim/nvim-lspconfig",
     init = function()
@@ -23,9 +22,8 @@ return {
     end,
     opts = {
       inlay_hints = { enabled = false },
-      -- Enable LSP cursor word highlighting
-      document_highlight = { enabled = false },
-      codelens = { enabled = true },
+      document_highlight = { enabled = false }, -- Enable LSP cursor word highlighting
+      codelens = { enabled = false },
       diagnostics = { virtual_text = { prefix = "icons" } },
       servers = { -- servers included here get automatically installed by mason
         bashls = {},
@@ -99,69 +97,6 @@ return {
         "basedpyright",
         "shellcheck",
         "shfmt",
-      },
-    },
-  },
-
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      notify_on_error = true,
-      formatters_by_ft = {
-        fish = { "fish_indent" },
-        go = { "gofmt" },
-        json = { "jq" },
-        just = { "just" },
-        lua = { "stylua" },
-        cpp = { "clang-format" },
-        markdown = { { "prettierd", "prettier" } },
-        nix = { "alejandra" },
-        php = { "pint" },
-        sh = { "shfmt" },
-        sql = { "sqlfluff" },
-        toml = { "taplo" },
-        yaml = { "yamlfix" },
-        -- css
-        css = { "prettierd" },
-        scss = { "prettierd" },
-        -- templating
-        html = { "prettierd", "rustywind" },
-        htmldjango = { "djlint", "rustywind" },
-        -- js
-        javascript = { "biome" },
-        -- javascriptreact = { "eslint_d" },
-        typescript = { "biome" },
-        typescriptreact = { "biome" },
-        xml = { "xmlformat" },
-      },
-      formatters = {
-        sql_formatter = { prepend_args = { "--language=postgresql" } },
-        sqlfmt = { prepend_args = { "-l", "120" } },
-      },
-    },
-  },
-
-  {
-    "mfussenegger/nvim-lint",
-    opts = {
-      linters_by_ft = {
-        css = { "stylelint" },
-        sass = { "stylelint" },
-        fish = { "fish" },
-        markdown = { "markdownlint" },
-        sh = { "shellcheck" },
-        html = { "htmlhint" },
-        htmldjango = { "djlint" },
-        javascript = { "biomejs" },
-        typescript = { "biomejs" },
-        typescriptreact = { "biomejs" },
-        sql = { "sqlfluff" },
-      },
-      linters = {
-        sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
-        stylelint = {
-          stream = "stderr",
-        },
       },
     },
   },
