@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.g.maplocalleader = ","
 
 vim.g.node_host_prog = vim.fn.system({ "npm", "get", "-g", "prefix" }):gsub("\n", "") .. "/bin/neovim-node-host"
 -- local node_bin = vim.fn.exepath("node")

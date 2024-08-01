@@ -10,8 +10,13 @@
 	verbose = true
 [core]
 	excludesFile = ~/.gitignore
+	pager = delta
+[delta]
+	navigate = true
+[interactive]
+	diffFilter = delta --color-only
 [diff]
-	external = difft
+	; external = difft
 	algorithm = histogram
 	colorMoved = default
 [fetch]
@@ -23,7 +28,7 @@
 [merge]
 	tool = nvimdiff
 	ff = only
-	conflictStyle = zdiff3
+	conflictStyle = diff3
 [pull]
 	ff = only
 [push]
