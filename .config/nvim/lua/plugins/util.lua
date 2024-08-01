@@ -12,4 +12,12 @@ return {
   --     vim.g.lastplace_ignore_filetype = { "neo-tree", "gitcommit", "gitrebase", "svn", "hgcommit" }
   --   end,
   -- },
+
+  {
+    "avm99963/vim-jjdescription",
+  },
+
+  {
+    "rafikdraoui/jj-diffconflicts",
+  },
 }
