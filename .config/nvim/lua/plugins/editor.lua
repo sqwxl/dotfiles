@@ -3,7 +3,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       window = {
-        position = "right",
+        position = "left",
         mappings = {
           ["<cr>"] = "open_with_window_picker",
           ["s"] = "split_with_window_picker",
@@ -36,9 +36,14 @@ return {
     "stevearc/aerial.nvim",
     opts = {
       layout = {
-        placement = "edge",
-        default_direction = "left",
+        placement = "window",
+        default_direction = "right",
+        resize_to_content = true,
+        win_opts = {
+          spell = false,
+        },
       },
+      attach_mode = "window",
       highlight_mode = "none",
     },
   },

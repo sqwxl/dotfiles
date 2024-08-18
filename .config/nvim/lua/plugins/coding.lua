@@ -93,6 +93,7 @@ return {
     cmd = "TSJToggle",
     opts = {
       use_default_keymaps = false,
+      max_join_length = 200,
     },
     keys = {
       { "<A-a>", "<Cmd>TSJToggle<CR>", desc = "Toggle fold/unfold tree structures" },

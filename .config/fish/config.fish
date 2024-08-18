@@ -5,6 +5,7 @@ abbr -a s sudo
 abbr -a g git
 abbr -a n nvim
 abbr -a se sudoedit
+abbr -a dc 'docker compose'
 
 set forgit $HOMEBREW_PREFIX/opt/forgit/share/forgit/forgit.plugin.fish
 if test -f $forgit
@@ -53,6 +54,7 @@ abbr -a gm 'git merge'
 abbr -a gma 'git merge --abort'
 abbr -a gmc 'git merge --continue'
 abbr -a gmt 'git mergetool'
+abbr -a gmtg 'git mergetool --gui'
 abbr -a gp 'git push'
 abbr -a gpf 'git push --force-with-lease'
 abbr -a gpl 'git pull'

@@ -1,5 +1,27 @@
 return {
   {
+    "nvimdev/dashboard-nvim",
+    opts = {
+      config = {
+        header = {
+          [[                                                 ]],
+          [[                                                 ]],
+          [[                                                 ]],
+          [[                                                 ]],
+          [[                               __                ]],
+          [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+          [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+          [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+          [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+          [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+          [[                                                 ]],
+          [[                                                 ]],
+        },
+      },
+    },
+  },
+
+  {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 3000,
@@ -112,7 +134,7 @@ return {
   {
     -- auto-resize windows
     "anuvyklack/windows.nvim",
-    event = "WinNew",
+    event = "VimEnter",
     dependencies = {
       { "anuvyklack/middleclass" },
       -- { "anuvyklack/animation.nvim" },

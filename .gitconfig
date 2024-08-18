@@ -19,6 +19,8 @@
 	; external = difft
 	algorithm = histogram
 	colorMoved = default
+[mergetool "meld"]
+	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
 [fetch]
 	prune = true
 [help]
@@ -27,10 +29,8 @@
 	defaultBranch = main
 [merge]
 	tool = nvimdiff
-	ff = only
+	guitool = meld
 	conflictStyle = diff3
-[pull]
-	ff = only
 [push]
 	autoSetupRemote = true
 [rebase]
