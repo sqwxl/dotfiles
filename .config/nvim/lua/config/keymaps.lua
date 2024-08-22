@@ -17,10 +17,12 @@ map({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
 map("", "{", "}", { noremap = true })
 map("", "}", "{", { noremap = true })
 
--- move lines in visual mode
--- map("v", "J", "<Cmd>m '>+1<CR>gv=gv", { silent = true })
--- map("v", "K", "<Cmd>m '<-2<CR>gv=gv", { silent = true })
---
+-- move lines
+map({ "n", "i" }, "<M-S-Up>", "<Cmd>m -2<CR>", { silent = true })
+map({ "n", "i" }, "<M-S-Down>", "<Cmd>m +1<CR>", { silent = true })
+map({ "v" }, "<M-S-Up>", ":m '<-2<CR>gv=gv", { silent = true })
+map({ "v" }, "<M-S-Down>", ":m '>+1<CR>gv=gv", { silent = true })
+
 -- keep cursor centered when scrolling
 map("n", "<C-u>", "<C-u>zz", { silent = true })
 map("n", "<C-d>", "<C-d>zz", { silent = true })
@@ -60,7 +62,7 @@ vim.keymap.del({ "n", "t" }, "<C-l>")
 
 -- EDITING
 -- keep cursor pos when joining lines
-map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
+map("n", "J", "mzJ`z", { silent = true, desc = "Join lines", noremap = true })
 -- don't delete to register when pasting or deleting
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })

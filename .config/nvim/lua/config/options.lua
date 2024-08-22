@@ -86,9 +86,10 @@ opt.wildmode = "longest:full,full" -- command-line completion mode
 opt.smartindent = true -- insert indents automatically
 opt.breakindent = true -- keep indent when wrapping lines
 opt.expandtab = true -- use spaces instead of tabs
-opt.shiftwidth = 2
-opt.shiftround = false
-opt.tabstop = 2
+opt.shiftwidth = 2 -- number of spaces to use for indent
+opt.shiftround = false -- round indent to multiple of shiftwidth
+opt.tabstop = 2 -- number of spaces that a tab is replaced with
+opt.softtabstop = 2 -- number of spaces that a tab is replaced with when editing
 
 opt.formatoptions = "tcro/qnlj"
 -- folds

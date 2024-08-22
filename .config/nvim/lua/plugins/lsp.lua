@@ -42,6 +42,7 @@ return {
             },
           },
         },
+        biome = {},
         basedpyright = {
           settings = {
             basedpyright = {
