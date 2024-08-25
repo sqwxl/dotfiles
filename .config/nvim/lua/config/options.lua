@@ -76,7 +76,7 @@ opt.sidescrolloff = 8
 opt.laststatus = 2 -- window statusline visibility (2 == all windows)
 opt.shortmess:remove("W")
 opt.shortmess:append({ c = true, I = true })
-opt.showmode = true
+opt.showmode = false
 opt.splitright = true
 opt.splitbelow = true
 opt.wildmode = "longest:full,full" -- command-line completion mode

@@ -26,23 +26,6 @@ return {
       codelens = { enabled = false },
       diagnostics = { virtual_text = { prefix = "icons" } },
       servers = { -- servers included here get automatically installed by mason
-        bashls = {},
-        html = {
-          filetypes = { "html", "htmldjango" },
-        },
-        htmx = {
-          filetypes = { "html", "htmldjango" },
-        },
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
-              },
-            },
-          },
-        },
-        biome = {},
         basedpyright = {
           settings = {
             basedpyright = {
@@ -53,6 +36,23 @@ return {
                 diagnosticSeverityOverrides = {
                   reportUndefinedVariable = "none",
                 },
+              },
+            },
+          },
+        },
+        bashls = {},
+        html = {
+          filetypes = { "html", "htmldjango" },
+        },
+        biome = {},
+        htmx = {
+          filetypes = { "html", "htmldjango" },
+        },
+        lua_ls = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" },
               },
             },
           },
