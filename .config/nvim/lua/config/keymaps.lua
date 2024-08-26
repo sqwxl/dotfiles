@@ -55,6 +55,13 @@ map({ "t", "i" }, "<A-j>", "<C-Bslash><C-N><C-w>j")
 map({ "t", "i" }, "<A-k>", "<C-Bslash><C-N><C-w>k")
 map({ "t", "i" }, "<A-l>", "<C-Bslash><C-N><C-w>l")
 
+map({ "n" }, "<Leader>W", function()
+  local picked_window_id = require("window-picker").pick_window()
+  if picked_window_id then
+    vim.api.nvim_set_current_win(picked_window_id)
+  end
+end, { desc = "Pick window" })
+
 vim.keymap.del("n", "<C-k>")
 vim.keymap.del("n", "<C-j>")
 vim.keymap.del("n", "<C-h>")

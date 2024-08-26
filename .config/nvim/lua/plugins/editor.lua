@@ -51,14 +51,16 @@ return {
   {
     "s1n7ax/nvim-window-picker",
     name = "window-picker",
+    event = "VeryLazy",
     version = "2.*",
     opts = {
       hint = "floating-big-letter",
-      selection_chars = "aoeuidhtnsqjkxbmwvz", -- dvorak home row
+      show_prompt = false,
+      selection_chars = "aoeuidhtnsqjkxbmwvz",
       filter_rules = {
         bo = {
           filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
-          buftype = { "terminal", "quickfix", "help", "trouble" },
+          buftype = { "terminal", "help" },
         },
       },
       highlights = {
