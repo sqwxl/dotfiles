@@ -135,7 +135,7 @@ if type -q go
 end
 
 if type -q node
-    fish_add_path (npm prefix --global)/bin
+    fish_add_path $HOME/.npm-global/bin
 end
 
 if type -q cargo
