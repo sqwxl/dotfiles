@@ -5,6 +5,7 @@ return {
       window = {
         position = "left",
         mappings = {
+          ["P"] = { "toggle_preview", config = { use_float = true } },
           ["<cr>"] = "open_with_window_picker",
           ["s"] = "split_with_window_picker",
           ["v"] = "vsplit_with_window_picker",
