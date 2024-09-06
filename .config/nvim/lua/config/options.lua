@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-vim.g.node_host_prog = vim.fn.system({ "npm", "get", "-g", "prefix" }):gsub("\n", "") .. "/bin/neovim-node-host"
+vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
 -- local node_bin = vim.fn.exepath("node")
 -- vim.g.copilot_node_command = node_bin
 -- vim.cmd("let $PATH = '" .. node_bin .. ":' . $PATH")

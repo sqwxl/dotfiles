@@ -198,7 +198,10 @@ return {
   {
     "sourcegraph/sg.nvim",
     event = "VeryLazy",
-    opts = { enable_cody = true, accept_tos = true },
+    opts = {
+      enable_cody = true,
+      accept_tos = true,
+    },
     keys = {
       dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
       {
