@@ -73,4 +73,4 @@ if type -q direnv
     direnv hook fish | source
 end
 
-source "$HOME/.config/fish/functions/__auto_source_venv.fish"
+source "$__fish_config_dir/functions/__auto_source_venv.fish"

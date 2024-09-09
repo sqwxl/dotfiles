@@ -1,7 +1,7 @@
 abbr -a g git
 
-set forgit $HOMEBREW_PREFIX/opt/forgit/share/forgit/forgit.plugin.fish
-if test -f $forgit
+set forgit "/home/linuxbrew/.linuxbrew/opt/forgit/share/forgit/forgit.plugin.fish"
+if test -e $forgit
     source $forgit
 else
     abbr -a ga 'git add'
@@ -11,6 +11,7 @@ else
     abbr -a gcp 'git cherry-pick'
     abbr -a grb 'git rebase'
 end
+
 abbr -a gC 'git clean --interactive -d'
 abbr -a gS 'git stash'
 abbr -a gSD 'git stash drop'
@@ -41,7 +42,7 @@ abbr -a gf 'git fetch'
 abbr -a gfix 'git commit --fixup'
 abbr -a gls 'git show -p'
 abbr -a gl 'git log --decorate --pretty=oneline --abbrev-commit'
-abbr -a gll 'git log --decorate --pretty=oneline --abbrev-commit origin/main..'
+abbr -a glm 'git log --decorate --pretty=oneline --abbrev-commit origin/main^..'
 abbr -a gll 'git log --graph --decorate --pretty=oneline --abbrev-commit'
 abbr -a glll 'git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 abbr -a gm 'git merge'
