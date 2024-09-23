@@ -1,5 +1,14 @@
 return {
   {
+    "mfussenegger/nvim-dap",
+    opts = function(_, opts)
+      local dap = require("dap")
+      dap.defaults.fallback.external_terminal = {
+        command = "/usr/bin/foot",
+      }
+    end,
+  },
+  {
     "mxsdev/nvim-dap-vscode-js",
     enabled = false,
     dependencies = {

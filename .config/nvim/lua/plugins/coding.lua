@@ -201,6 +201,7 @@ return {
     opts = {
       enable_cody = true,
       accept_tos = true,
+      node_executable = "/home/linuxbrew/.linuxbrew/opt/node@20/bin/node",
     },
     keys = {
       dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
