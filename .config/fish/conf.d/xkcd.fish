@@ -1,3 +1,6 @@
+if not type -q magick
+    exit
+end
 set -l day (date +%j)
 if not set -q xkcd_day
     set -U xkcd_day -1
