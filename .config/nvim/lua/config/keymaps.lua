@@ -46,6 +46,8 @@ map("n", "<C-Tab>", function()
 end, { desc = "Go to last accessed tab" })
 
 -- windows
+map({ "n", "v" }, "<Tab>", "<C-w>w")
+map({ "n", "v" }, "<S-Tab>", "<C-w>W")
 map("n", "<A-h>", "<C-w>h")
 map("n", "<A-j>", "<C-w>j")
 map("n", "<A-k>", "<C-w>k")
@@ -98,7 +100,7 @@ map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get remote hunk (wh
 -- toggle wrap
 map("n", "<A-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
 -- toggle highlight
--- map("n", "<Leader>uh", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
+map("n", "<Leader>ue", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
 -- toggle dark/light
 map("n", "<Leader>ub", function()
   if vim.o.background == "dark" then
