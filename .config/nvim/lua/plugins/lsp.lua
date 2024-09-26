@@ -40,6 +40,11 @@ return {
             },
           },
         },
+        ruff = {
+          settings = {
+            lineLength = { 120 },
+          },
+        },
         bashls = {},
         html = {
           filetypes = { "html", "htmldjango" },
