@@ -22,6 +22,16 @@ return {
         stylelint = {
           stream = "stderr",
         },
+        cspell = {
+          args = {
+            "lint",
+            "-c",
+            vim.env.HOME .. "/.config/cspell/cspell.yaml",
+            "--no-color",
+            "--no-progress",
+            "--no-summary",
+          },
+        },
       },
     },
   },

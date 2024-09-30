@@ -117,3 +117,5 @@ opt.foldenable = false
 --     }
 --   }
 -- end
+
+require("config.custom")

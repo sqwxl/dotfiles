@@ -1,5 +1,5 @@
 -- run cspell everywhere
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
   callback = function()
     require("lint").try_lint("cspell")
   end,
@@ -24,40 +24,28 @@ vim.api.nvim_create_autocmd("WinEnter", {
   end,
 })
 
-local resize_to_tw = function(buf)
-  local pad = 2 -- a lot of help pages seem to have lines that overflow by 1 or 2 chars over tw
-
-  local tw = vim.api.nvim_get_option_value("textwidth", { buf = buf }) or 80
-
-  if tw == 0 then
-    tw = 80
-  end
-
-  vim.api.nvim_win_set_width(vim.api.nvim_get_current_win(), tw + pad)
-end
-
 -- move help window to the left side and resize to textwidth
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost" }, {
   pattern = { "*.md", "*.txt" },
   callback = function(ev)
     if vim.o.buftype == "help" then
-      vim.o.signcolumn = "no"
-      vim.o.foldcolumn = "0"
-      vim.o.colorcolumn = ""
-      vim.o.wrap = true
-      vim.opt_local.spell = false
+      vim.wo.signcolumn = "no"
+      vim.wo.foldcolumn = "0"
+      vim.wo.colorcolumn = ""
+      vim.wo.wrap = true
+      vim.wo.spell = false
       vim.diagnostic.enable(false, { bufnr = ev.buf })
       vim.cmd.wincmd("H")
-      resize_to_tw(ev.buf)
     end
   end,
 })
 
-vim.api.nvim_create_autocmd("WinEnter", {
+vim.api.nvim_create_autocmd({ "BufNew", "BufWinEnter", "BufEnter", "BufLeave" }, {
   pattern = { "*.md", "*.txt" },
   callback = function(ev)
     if vim.o.buftype == "help" then
-      resize_to_tw(ev.buf)
+      local tw = (vim.bo[ev.buf].textwidth or 80) + 2
+      vim.api.nvim_win_set_width(0, tw)
     end
   end,
 })

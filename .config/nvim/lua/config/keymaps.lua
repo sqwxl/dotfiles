@@ -14,8 +14,8 @@ map({ "n", "x", "o" }, "H", "^", { desc = "Move to start of line" })
 map({ "n", "x", "o" }, "L", "$", { desc = "Move to end of line" })
 
 -- follow J-K order for paragraph jump
-map("", "{", "}", { noremap = true })
-map("", "}", "{", { noremap = true })
+map("", "{", "}")
+map("", "}", "{")
 
 -- move lines
 map({ "n", "i" }, "<M-S-Up>", "<Cmd>m -2<CR>", { silent = true })
@@ -46,6 +46,7 @@ map("n", "<C-Tab>", function()
 end, { desc = "Go to last accessed tab" })
 
 -- windows
+map({ "n", "v" }, "<C-i>", "<Tab>")
 map({ "n", "v" }, "<Tab>", "<C-w>w")
 map({ "n", "v" }, "<S-Tab>", "<C-w>W")
 map("n", "<A-h>", "<C-w>h")
@@ -71,7 +72,7 @@ vim.keymap.del({ "n", "t" }, "<C-l>")
 
 -- EDITING
 -- keep cursor pos when joining lines
-map("n", "J", "mzJ`z", { silent = true, desc = "Join lines", noremap = true })
+map("n", "J", "mzJ`z", { silent = true, desc = "Join lines" })
 -- don't delete to register when pasting or deleting
 map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
 map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
@@ -113,11 +114,14 @@ end, { desc = "Toggle dark/light" })
 -- saner command history (Up/Down consider partial input, now p/n do to!)
 map("c", "<C-p>", function()
   return vim.fn.wildmenumode() and "<Up>" or "<C-p>"
-end, { expr = true, noremap = true })
+end, { expr = true })
 map("c", "<C-u>", function()
   return vim.fn.wildmenumode() and "<Down>" or "<C-u>"
-end, { expr = true, noremap = true })
+end, { expr = true })
 
 -- add empty lines (can add count)
 map("n", "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>", { desc = "Add empty line(s) above" })
 map("n", "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>", { desc = "Add empty line(s) below" })
+
+-- cspell
+map("n", "<Leader>cp", "<Cmd>CspellLearnFile<CR>", { desc = "Teach cspell words in current buffer" })
