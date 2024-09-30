@@ -9,28 +9,18 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      opts.sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
-        { name = "luasnip" },
-        { name = "cody" },
-        { name = "codeium" },
-        { name = "path" },
-      }, {
-        { name = "buffer" },
-        { name = "nvim_lua" },
-      })
-
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+
+      opts.mapping = cmp.mapping.preset.insert({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        -- ["<C-Space>"] = cmp.mapping.complete(),
-        -- ["<C-e>"] = cmp.mapping.close(),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-f>"] = LazyVim.cmp.confirm({ select = true }),
+        ["<CR>"] = LazyVim.cmp.confirm({ select = true }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -41,7 +31,7 @@ return {
           else
             fallback()
           end
-        end, { "i", "s" }),
+        end),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -50,7 +40,19 @@ return {
           else
             fallback()
           end
-        end, { "i", "s" }),
+        end),
+      })
+
+      opts.sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "nvim_lsp_signature_help" },
+        { name = "luasnip" },
+        { name = "cody" },
+        -- { name = "codeium" },
+        { name = "path" },
+      }, {
+        { name = "buffer" },
+        { name = "nvim_lua" },
       })
     end,
   },
