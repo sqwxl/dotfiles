@@ -26,6 +26,10 @@ return {
         --   end,
         -- },
       },
+      default_component_configs = {
+        file_size = { enabled = false },
+        last_modified = { enabled = false },
+      },
     },
     keys = {
       { "<Bslash>", "<Cmd>Neotree toggle=true<CR>", noremap = true, desc = "Toggle Neotree" },
