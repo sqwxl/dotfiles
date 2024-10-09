@@ -6,12 +6,10 @@ return {
       auto_install = true,
       highlight = {
         enable = true,
-        disable = function(lang, bufnr)
-          return lang == "htmldjango" or vim.api.nvim_buf_line_count(bufnr) > 5000
+        disable = function(lang, _)
+          return lang == "htmldjango"
         end,
-        additional_vim_regex_highlighting = false,
       },
-      -- indent = { enable = true, disable = { "python" } }, -- indentation for the "=" operator
       matchup = { enable = true },
       endwise = { enable = true },
       autotag = { enable = true, filetypes = { "html", "htmldjango", "javascriptreact", "typescriptreact" } },

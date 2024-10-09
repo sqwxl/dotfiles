@@ -50,50 +50,23 @@ vim.api.nvim_create_autocmd({ "BufNew", "BufWinEnter", "BufEnter", "BufLeave" },
   end,
 })
 
--- use insert mode when entering commit edit
---[[ vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*COMMIT_EDITMSG",
+-- show cursorline only in active window
+vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
   callback = function()
-    vim.cmd("startinsert")
+    if vim.w.auto_cursorline then
+      vim.wo.cursorline = true
+      vim.w.auto_cursorline = nil
+    end
   end,
-}) ]]
-
--- -- better cursorline
--- vim.api.nvim_create_autocmd({ "InsertLeave", "WinEnter" }, {
---   pattern = "*",
---   callback = function()
---     vim.opt_local.cursorline = true
---   end,
--- })
--- vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
---   pattern = "*",
---   callback = function()
---     vim.opt_local.cursorline = false
---   end,
--- })
-vim.cmd([[" disable syntax highlighting in big files
-function DisableSyntaxTreesitter()
-    echo("Big file, disabling syntax, treesitter and folding")
-    if exists(':TSBufDisable')
-        exec 'TSBufDisable autotag'
-        exec 'TSBufDisable highlight'
-        " etc...
-    endif
-
-    set foldmethod=manual
-    syntax clear
-    syntax off    " hmmm, which one to use?
-    filetype off
-    set noundofile
-    set noswapfile
-    set noloadplugins
-endfunction
-
-augroup BigFileDisable
-    autocmd!
-    autocmd BufWinEnter * if getfsize(expand("%")) > 512 * 1024 | exec DisableSyntaxTreesitter() | endif
-augroup END
-]])
+})
+vim.api.nvim_create_autocmd({ "InsertEnter", "WinLeave" }, {
+  callback = function()
+    if vim.wo.cursorline then
+      vim.w.auto_cursorline = true
+      vim.wo.cursorline = false
+    end
+  end,
+})
 
 vim.api.nvim_create_autocmd("BufRead", {
   desc = "Restore cursor position",

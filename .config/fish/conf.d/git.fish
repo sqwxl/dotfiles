@@ -57,6 +57,7 @@ abbr -a grv 'git remote -v'
 abbr -a gf 'git fetch'
 abbr -a gp 'git push'
 abbr -a gpf 'git push --force-with-lease'
+abbr -a gpfm 'git push --force-with-lease origin HEAD:sqwxl/main'
 abbr -a gpl 'git pull'
 abbr -a gplr 'git pull --rebase'
 
@@ -93,6 +94,9 @@ abbr -a gSs 'git stash show --patch'
 abbr -a gwa 'git worktree add'
 abbr -a gwl 'git worktree list'
 abbr -a gwd 'git worktree remove'
+
+abbr -a sprr 'spr diff -m Rebase'
+abbr -a spru 'spr diff -m Update'
 
 if type -q git-forgit
     abbr -a ga 'git forgit add'

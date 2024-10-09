@@ -86,6 +86,7 @@ map("n", "<Leader>R", function()
     end
   end)
 end, { desc = "Replace word under cursor" })
+
 -- yank to clipboard
 map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })

@@ -2,7 +2,10 @@
   "extras": [
     "lazyvim.plugins.extras.coding.luasnip",
     "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.coding.yanky",
     "lazyvim.plugins.extras.editor.aerial",
+    "lazyvim.plugins.extras.editor.fzf",
+    "lazyvim.plugins.extras.editor.inc-rename",
     "lazyvim.plugins.extras.lang.markdown",
     "lazyvim.plugins.extras.lang.omnisharp",
     "lazyvim.plugins.extras.lang.toml",
@@ -12,7 +15,8 @@
     "lazyvim.plugins.extras.util.startuptime"
   ],
   "news": {
-    "NEWS.md": "6520"
+    "NEWS.md": "6520",
+    "doc/news.txt": "24450"
   },
   "version": 6
 }
