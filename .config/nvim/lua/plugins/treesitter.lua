@@ -9,6 +9,7 @@ return {
         disable = function(lang, _)
           return lang == "htmldjango"
         end,
+        additional_vim_regex_highlighting = false,
       },
       matchup = { enable = true },
       endwise = { enable = true },

@@ -1,3 +1,4 @@
+vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
@@ -40,19 +41,22 @@ end
 local opt = vim.opt
 
 opt.breakindent = true -- keep indent when wrapping lines
+opt.clipboard = ""
 -- opt.colorcolumn = "80,110"
 opt.conceallevel = 3 -- hide * markup for bold and italic
 opt.exrc = true -- enable local .vimrc files
 opt.foldcolumn = "0"
 opt.foldenable = false
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.formatoptions = "jcroqlnt/"
 opt.laststatus = 2 -- window statusline visibility (2 == all windows)
+opt.listchars = "tab:> ,trail:·,nbsp:+"
 opt.pumblend = 0 -- transparency of popup menu (0 = opaque/disabled)
 opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
 opt.relativenumber = false
 opt.scrolloff = 10
 opt.secure = true -- disable shell and write commands in local .vimrc files
-opt.spell = true
+opt.spell = false
 opt.timeoutlen = 300
 opt.updatetime = 50 -- swap file update & CursorHold interval
 

@@ -109,3 +109,4 @@ superadmin
 Normcore
 hoverable
 refinedev
+noqa

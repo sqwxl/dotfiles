@@ -11,14 +11,45 @@ return {
       --   end
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
 
-      keys[#keys + 1] = {
-        "gV",
-        function()
-          require("telescope.builtin").lsp_definitions({ jump_type = "vsplit", reuse_win = true })
-        end,
-        desc = "Open definition in vsplit",
-      }
-      keys[#keys + 1] = { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" }
+      vim.list_extend(keys, {
+        {
+          "gd",
+          function()
+            require("fzf-lua").lsp_definitions({
+              jump_to_single_result = true,
+              jump_to_single_result_action = require("fzf-lua.actions").file_switch_or_edit,
+              ignore_current_line = true,
+            })
+          end,
+          desc = "Go to definition",
+          has = "definition",
+        },
+        {
+          "gV",
+          function()
+            require("fzf-lua").lsp_definitions({
+              jump_to_single_result = true,
+              jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
+              ignore_current_line = true,
+            })
+          end,
+          desc = "Go to definition in vsplit",
+          has = "definition",
+        },
+        {
+          "gr",
+          function()
+            require("fzf-lua").lsp_references({
+              jump_to_single_result = true,
+              ignore_current_line = true,
+              includeDeclaration = false,
+            })
+          end,
+          desc = "References",
+          nowait = true,
+        },
+        { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
+      })
     end,
     opts = {
       inlay_hints = { enabled = false },
