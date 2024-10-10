@@ -1,10 +1,17 @@
-abbr -a n nvim
+abbr n nvim
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
-abbr -a s sudo
-abbr -a se sudoedit
-abbr -a dc 'docker compose'
+abbr s sudo
+abbr se sudoedit
+abbr dc 'docker compose'
+
+abbr mv "mv -iv"
+abbr cp "cp -riv"
+abbr mkdir "mkdir -vp"
+
+# Weather in Stukely
+abbr 'curl -s "wttr.in/45.32,-72.42?nFQ"'
 
 abbr --add cfgsway "cd ~/.config/sway && $EDITOR config"
 abbr --add cfgvim "cd ~/.config/nvim && $EDITOR init.lua"

@@ -11,9 +11,8 @@ return {
         end,
         additional_vim_regex_highlighting = false,
       },
-      matchup = { enable = true },
+      -- matchup = { enable = true },
       endwise = { enable = true },
-      autotag = { enable = true, filetypes = { "html", "htmldjango", "javascriptreact", "typescriptreact" } },
       incremental_selection = {
         enable = true,
         keymaps = {

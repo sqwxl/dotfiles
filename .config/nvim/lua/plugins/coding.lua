@@ -57,8 +57,6 @@ return {
     end,
   },
 
-  -- { "echasnovski/mini.ai", enabled = false },
-  -- { "tpope/vim-surround", lazy = false },
   {
     "echasnovski/mini.surround",
     opts = {
@@ -102,8 +100,6 @@ return {
     },
   },
 
-  { "numToStr/Comment.nvim", enabled = false, config = true },
-
   {
     "danymat/neogen", -- generate annotations
     opts = { snippet_engine = "luasnip" },
@@ -133,18 +129,13 @@ return {
 
   {
     "andymass/vim-matchup",
+    enabled = false,
     event = "BufReadPost",
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
     end,
   },
 
-  -- {
-  --   "simrat39/symbols-outline.nvim",
-  --   cmd = "SymbolsOutline",
-  --   keys = { { "<Leader>T", "<Cmd>SymbolsOutline<CR>", desc = "Document structure" } },
-  -- },
-  --
   -- indent-aware pasting
   {
     "sickill/vim-pasta",
@@ -159,23 +150,6 @@ return {
     end,
   },
 
-  -- {
-  --   "ThePrimeagen/refactoring.nvim",
-  --   keys = {
-  --     {
-  --       "<Leader>R",
-  --       function()
-  --         require("refactoring").select_refactor()
-  --       end,
-  --       mode = "v",
-  --       noremap = true,
-  --       silent = true,
-  --       expr = false,
-  --       desc = "Select refactor",
-  --     },
-  --   },
-  -- },
-
   -- structural find & replace
   {
     "cshuaimin/ssr.nvim",
@@ -189,13 +163,6 @@ return {
       },
     },
   },
-
-  -- {
-  --   "sheerun/vim-polyglot",
-  --   init = function()
-  --     vim.g.polyglot_disabled = { "autoindent" }
-  --   end
-  -- }
 
   {
     "sourcegraph/sg.nvim",

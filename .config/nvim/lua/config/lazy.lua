@@ -26,7 +26,7 @@ require("lazy").setup({
   },
   change_detection = { notify = false },
   defaults = {
-    lazy = false,
+    lazy = true,
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },

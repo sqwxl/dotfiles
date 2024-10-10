@@ -98,11 +98,6 @@ return {
   },
 
   {
-    "echasnovski/mini.indentscope",
-    enabled = false,
-  },
-
-  {
     "folke/noice.nvim",
     opts = {
       presets = {
@@ -147,18 +142,5 @@ return {
       },
     },
     keys = { { "<C-w>m", "<Cmd>WindowsMaximize<CR>", desc = "Maximize window" } },
-  },
-
-  -- {
-  --   "norcalli/nvim-colorizer.lua",
-  --   config = function()
-  --     require("colorizer").setup({ "*" }, { names = false })
-  --   end
-  -- },
-
-  {
-    -- markdown goodies
-    "lukas-reineke/headlines.nvim",
-    enabled = false,
   },
 }
