@@ -1,10 +1,7 @@
-vim.g.maplocalleader = ","
+vim.g.leader = " "
+vim.g.maplocalleader = "\\"
 
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
--- local node_bin = vim.fn.exepath("node")
--- vim.g.copilot_node_command = node_bin
--- vim.cmd("let $PATH = '" .. node_bin .. ":' . $PATH")
-
 vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
@@ -37,6 +34,10 @@ if vim.g.neovide then
   end)
 end
 
+vim.opt.breakindent = true -- keep indent when wrapping lines
+vim.opt.clipboard = ""
+vim.opt.conceallevel = 3 -- hide * markup for bold and italic
+-- vim.opt.colorcolumn = "80,110"
 -- more useful diffs (nvim -d)
 --- by ignoring whitespace
 vim.opt.diffopt:append("iwhite")
@@ -46,23 +47,18 @@ vim.opt.diffopt:append("iwhite")
 --- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
 vim.opt.diffopt:append("algorithm:histogram")
 vim.opt.diffopt:append("indent-heuristic")
-
-vim.opt.breakindent = true -- keep indent when wrapping lines
--- vim.opt.colorcolumn = "80,110"
-vim.opt.conceallevel = 3 -- hide * markup for bold and italic
 vim.opt.exrc = true -- enable local .vimrc files
 vim.opt.foldcolumn = "0"
 vim.opt.foldenable = false
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.formatoptions = "jcroqlnt/"
 vim.opt.laststatus = 2 -- window statusline visibility (2 == all windows)
-vim.opt.pumblend = 0 -- transparency of popup menu (0 = opaque/disabled)
+vim.opt.listchars = "tab:> ,trail:·,nbsp:+"
+vim.opt.pumblend = 60 -- transparency of popup menu (0 = opaque/disabled)
 vim.opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
 vim.opt.relativenumber = false
 vim.opt.scrolloff = 10
 vim.opt.secure = true -- disable shell and write commands in local .vimrc files
-vim.opt.spell = true
-vim.opt.timeoutlen = 300
-vim.opt.updatetime = 50 -- swap file update & CursorHold interval
 vim.opt.spell = false
 vim.opt.timeoutlen = 300
 vim.opt.updatetime = 50 -- swap file update & CursorHold interval

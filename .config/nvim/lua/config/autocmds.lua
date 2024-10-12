@@ -32,19 +32,17 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
       vim.wo.signcolumn = "no"
       vim.wo.foldcolumn = "0"
       vim.wo.colorcolumn = ""
-      vim.wo.wrap = true
       vim.wo.spell = false
       vim.diagnostic.enable(false, { bufnr = ev.buf })
       vim.cmd.wincmd("H")
     end
   end,
 })
-
 vim.api.nvim_create_autocmd({ "BufNew", "BufWinEnter", "BufEnter", "BufLeave" }, {
   pattern = { "*.md", "*.txt" },
   callback = function(ev)
     if vim.o.buftype == "help" then
-      local tw = (vim.bo[ev.buf].textwidth or 80) + 2
+      local tw = (vim.bo[ev.buf].textwidth or 80)
       vim.api.nvim_win_set_width(0, tw)
     end
   end,

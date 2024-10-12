@@ -4,7 +4,7 @@ local map = vim.keymap.set
 map("n", "<Leader>k", "<Cmd>WhichKey<CR>", { desc = "Keymaps" })
 
 -- GENERAL
--- map("n", ";", ":") commented cause conflicts with flash.nvim
+map("n", "<CR>", ":")
 map("i", "<C-c>", "<Esc>")
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Save" })

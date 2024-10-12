@@ -20,17 +20,22 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      opts = { news = { lazyvim = true, neovim = true } },
+      opts = {
+        colorscheme = "gruvbox",
+        news = { lazyvim = true, neovim = true },
+      },
     },
     { import = "plugins" },
   },
   change_detection = { notify = false },
+  ui = { backdrop = 20 },
   defaults = {
     lazy = true,
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "tokyonight", "habamax" } },
+  -- try to load one of these colorschemes when starting an installation during startup -- colorscheme to use during plugin install
+  install = { colorscheme = { "gruvbox", "retrobox" } },
   checker = { enabled = true }, -- automatically check for plugin updates
   performance = {
     cache = { enabled = true },

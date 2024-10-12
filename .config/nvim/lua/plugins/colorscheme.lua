@@ -1,16 +1,10 @@
 return {
   {
-    "LazyVim/LazyVim",
-    opts = { colorscheme = "gruvbox" },
-  },
-
-  {
     "ellisonleao/gruvbox.nvim",
     config = function()
       local colors = require("gruvbox").palette
       require("gruvbox").setup({
-        contrast = "hard", -- can be "hard", "soft" or empty string
-        -- dim_inactive = true,
+        contrast = "", -- can be "hard", "soft" or empty string
         overrides = {
           -- CursorLine = { bg = colors.dark2 },
           -- NormalNC = { bg = "#2c2c2c" },

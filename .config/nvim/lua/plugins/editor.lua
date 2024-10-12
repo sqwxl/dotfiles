@@ -12,10 +12,11 @@ return {
         },
       },
       filesystem = {
-        -- bind_to_cwd = true,
-        -- cwd_target = {
-        --   sidebar = "global",
-        -- },
+        bind_to_cwd = true,
+        cwd_target = {
+          sidebar = "tab",
+          current = "window",
+        },
         -- filtered_items = {},
       },
       event_handlers = {
@@ -107,7 +108,7 @@ return {
   --   },
   --   keys = { { "<Leader><Leader>", false } },
   -- },
-
+  --
   {
     "ibhagwan/fzf-lua",
     opts = function(_, opts)
@@ -130,19 +131,23 @@ return {
   {
     "folke/flash.nvim",
     opts = {
+      labels = "aoeuidhtnsqjkxbmwvzpyfgcrl",
+      modes = {
+        char = {
+          char_actions = function(motion)
+            return {
+              [";"] = "prev",
+              [","] = "next",
+              [motion:lower()] = "next",
+              [motion:upper()] = "prev",
+            }
+          end,
+        },
+      },
       jump = {
         autojump = true,
       },
     },
-  },
-
-  {
-    "folke/which-key.nvim",
-  },
-
-  {
-    "folke/trouble.nvim",
-    -- enabled = false,
   },
 
   {
@@ -156,6 +161,37 @@ return {
     },
     keys = {
       { "<Leader>z", "<Cmd>ZenMode<CR>", desc = "Toggle Zen Mode" },
+    },
+  },
+
+  {
+    "folke/edgy.nvim",
+    enabled = false,
+    event = "VeryLazy",
+    init = function()
+      vim.opt.laststatus = 3
+      vim.opt.splitkeep = "screen"
+    end,
+    opts = {
+      bottom = {
+        -- toggleterm / lazyterm at the bottom with a height of 40% of the screen
+        {
+          ft = "toggleterm",
+          size = { height = 0.4 },
+          -- exclude floating windows
+          filter = function(buf, win)
+            return vim.api.nvim_win_get_config(win).relative == ""
+          end,
+        },
+        {
+          ft = "lazyterm",
+          title = "LazyTerm",
+          size = { height = 0.4 },
+          filter = function(buf)
+            return not vim.b[buf].lazyterm_cmd
+          end,
+        },
+      },
     },
   },
 }

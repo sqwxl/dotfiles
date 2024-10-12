@@ -1,38 +1,35 @@
 abbr n nvim
-set -gx EDITOR nvim
-set -gx VISUAL nvim
+set -gx EDITOR (which nvim)
+set -gx VISUAL $EDITOR
 
 abbr s sudo
 abbr se sudoedit
+
 abbr dc 'docker compose'
 
 abbr mv "mv -iv"
 abbr cp "cp -riv"
 abbr mkdir "mkdir -vp"
 
-# Weather in Stukely
-abbr 'curl -s "wttr.in/45.32,-72.42?nFQ"'
+abbr cfgsway "cd ~/.config/sway && $EDITOR config"
+abbr cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
+abbr cfgfish "cd ~/.config/fish && $EDITOR config.fish"
+abbr cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
 
-abbr --add cfgsway "cd ~/.config/sway && $EDITOR config"
-abbr --add cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
-abbr --add cfgfish "cd ~/.config/fish && $EDITOR config.fish"
-abbr --add cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
+# Weather in Stukely
+abbr weather 'curl -s "wttr.in/45.32,-72.42?nFQ"'
 
 if test "$TERM" = foot -o "$TERM" = foot-extra
-    abbr --add ssh "TERM=linux command ssh"
+    abbr ssh "TERM=linux command ssh"
 end
 
 if type -q eza
-    alias ls eza
-else if type -q exa
-    alias ls exa
-else if type -q lsd
-    alias ls lsd
+    alias ls 'eza --icons --group-directories-first'
 end
 
-abbr --add l ls
-abbr --add ll 'ls -l'
-abbr --add lll 'ls -lah'
+abbr l ls
+abbr ll 'ls -l'
+abbr lll 'ls -lah'
 
 if type -q fzf
     fzf --fish | source
@@ -58,13 +55,8 @@ if type -q go
     fish_add_path $GOPATH/bin
 end
 
-if type -q node
-    fish_add_path $HOME/.npm-global/bin
-end
-
-if type -q cargo
-    fish_add_path $HOME/.cargo/bin
-end
+fish_add_path $HOME/.npm-global/bin
+fish_add_path $HOME/.cargo/bin
 
 if type -q zoxide
     zoxide init fish | source
