@@ -6,6 +6,51 @@ vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
+vim.opt.breakindent = true -- keep indent when wrapping lines
+vim.opt.clipboard = "" -- maybe use "unnamedplus" to sync with sys clipboard?
+-- vim.opt.conceallevel = 3 -- hide * markup for bold and italic
+-- vim.opt.colorcolumn = "80,110"
+vim.opt.diffopt:append("iwhite") -- ignore whitespace
+--- and using a smarter algorithm
+--- https://vimways.org/2018/the-power-of-diff/
+--- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
+--- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+vim.opt.diffopt:append("algorithm:histogram")
+vim.opt.diffopt:append("indent-heuristic")
+vim.opt.exrc = true -- enable local .vimrc files
+vim.opt.foldcolumn = "0"
+vim.opt.foldenable = false
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.formatoptions = "jcroqlnt/"
+vim.opt.laststatus = 2 -- window statusline visibility (2 == all windows)
+vim.opt.listchars = "tab:> ,trail:·,nbsp:+"
+vim.opt.pumblend = 10 -- transparency of popup menu (0 = opaque/disabled)
+vim.opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
+vim.opt.relativenumber = false
+vim.opt.scrolloff = 10
+vim.opt.secure = true -- disable shell and write commands in local .vimrc files
+vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals", "skiprtp", "folds" }
+vim.opt.spell = false
+vim.opt.timeoutlen = 300
+vim.opt.updatetime = 50 -- swap file update & CursorHold interval
+
+-- if vim.g.started_by_firenvim then
+--   opt.laststatus = 0
+--   opt.number = false
+--   opt_local.signcolumn = "no"
+--   opt.background = "light"
+--   opt_local.cursorline = false
+--
+--   vim.g.firenvim_config = {
+--     localSettings = {
+--           [".*"] = {
+--         selector = "textarea",
+--         takeover = "never"
+--       }
+--     }
+--   }
+-- end
+
 if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"
   vim.g.neovide_floating_blur_amount_x = 2.0
@@ -33,51 +78,3 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.25)
   end)
 end
-
-vim.opt.breakindent = true -- keep indent when wrapping lines
-vim.opt.clipboard = ""
-vim.opt.conceallevel = 3 -- hide * markup for bold and italic
--- vim.opt.colorcolumn = "80,110"
--- more useful diffs (nvim -d)
---- by ignoring whitespace
-vim.opt.diffopt:append("iwhite")
---- and using a smarter algorithm
---- https://vimways.org/2018/the-power-of-diff/
---- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
---- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
-vim.opt.diffopt:append("algorithm:histogram")
-vim.opt.diffopt:append("indent-heuristic")
-vim.opt.exrc = true -- enable local .vimrc files
-vim.opt.foldcolumn = "0"
-vim.opt.foldenable = false
--- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.formatoptions = "jcroqlnt/"
-vim.opt.laststatus = 2 -- window statusline visibility (2 == all windows)
-vim.opt.listchars = "tab:> ,trail:·,nbsp:+"
-vim.opt.pumblend = 60 -- transparency of popup menu (0 = opaque/disabled)
-vim.opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
-vim.opt.relativenumber = false
-vim.opt.scrolloff = 10
-vim.opt.secure = true -- disable shell and write commands in local .vimrc files
-vim.opt.spell = false
-vim.opt.timeoutlen = 300
-vim.opt.updatetime = 50 -- swap file update & CursorHold interval
-
--- if vim.g.started_by_firenvim then
---   opt.laststatus = 0
---   opt.number = false
---   opt_local.signcolumn = "no"
---   opt.background = "light"
---   opt_local.cursorline = false
---
---   vim.g.firenvim_config = {
---     localSettings = {
---           [".*"] = {
---         selector = "textarea",
---         takeover = "never"
---       }
---     }
---   }
--- end
-
-require("config.custom")

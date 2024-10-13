@@ -1,9 +1,9 @@
--- run cspell everywhere
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
-  callback = function()
-    require("lint").try_lint("cspell")
-  end,
-})
+-- -- run cspell everywhere
+-- vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+--   callback = function()
+--     require("lint").try_lint("cspell")
+--   end,
+-- })
 
 -- change the appearance of terminal window
 vim.api.nvim_create_autocmd("TermOpen", {
@@ -38,12 +38,13 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
     end
   end,
 })
-vim.api.nvim_create_autocmd({ "BufNew", "BufWinEnter", "BufEnter", "BufLeave" }, {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufLeave" }, {
   pattern = { "*.md", "*.txt" },
   callback = function(ev)
     if vim.o.buftype == "help" then
       local tw = (vim.bo[ev.buf].textwidth or 80)
-      vim.api.nvim_win_set_width(0, tw)
+      local width = math.max(tw, 80)
+      vim.api.nvim_win_set_width(0, width)
     end
   end,
 })

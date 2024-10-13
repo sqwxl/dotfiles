@@ -20,27 +20,17 @@ require("lazy").setup({
     {
       "LazyVim/LazyVim",
       import = "lazyvim.plugins",
-      opts = {
-        colorscheme = "gruvbox",
-        news = { lazyvim = true, neovim = true },
-      },
+      opts = { colorscheme = "gruvbox", news = { lazyvim = true, neovim = true } },
     },
     { import = "plugins" },
   },
-  change_detection = { notify = false },
-  ui = { backdrop = 20 },
-  defaults = {
-    lazy = true,
-    version = false, -- always use the latest git commit
-    -- version = "*", -- try installing the latest stable version for plugins that support semver
-  },
-  -- try to load one of these colorschemes when starting an installation during startup -- colorscheme to use during plugin install
+  defaults = { lazy = true },
+  diff = { cmd = "terminal_git" },
+  rocks = { enabled = false },
   install = { colorscheme = { "gruvbox", "retrobox" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  change_detection = { notify = false },
   performance = {
-    cache = { enabled = true },
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
         -- "matchit",
@@ -54,4 +44,7 @@ require("lazy").setup({
       },
     },
   },
+  ui = { backdrop = 20 },
 })
+
+require("config.commands")

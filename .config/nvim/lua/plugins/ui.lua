@@ -87,17 +87,6 @@ return {
   },
 
   {
-    "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      scope = {
-        enabled = true,
-        show_start = false,
-        show_end = false,
-      },
-    },
-  },
-
-  {
     "folke/noice.nvim",
     opts = {
       presets = {
@@ -129,7 +118,8 @@ return {
   {
     -- auto-resize windows
     "anuvyklack/windows.nvim",
-    event = "VimEnter",
+    enabled = false,
+    event = "VeryLazy",
     dependencies = {
       { "anuvyklack/middleclass" },
       -- { "anuvyklack/animation.nvim" },

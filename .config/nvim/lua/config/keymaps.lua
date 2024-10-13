@@ -1,11 +1,13 @@
 local map = vim.keymap.set
 
 -- show top level keymaps
-map("n", "<Leader>k", "<Cmd>WhichKey<CR>", { desc = "Keymaps" })
+map("n", "<Leader>k", function()
+  require("which-key").show()
+end, { desc = "Keymaps" })
 
 -- GENERAL
-map("n", "<CR>", ":")
-map("i", "<C-c>", "<Esc>")
+map("n", "<S-CR>", ":")
+map({ "", "i" }, "<C-c>", "<Esc>")
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Save" })
 
@@ -103,6 +105,8 @@ map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get remote hunk (wh
 map("n", "<A-z>", "<Cmd>set wrap!<CR>", { desc = "Toggle wrap" })
 -- toggle highlight
 map("n", "<Leader>ue", "<Cmd>set hlsearch!<CR>", { desc = "Toggle search highlight" })
+-- Clear search with <C-c>
+map({ "i", "n" }, "<C-c>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
 -- toggle dark/light
 map("n", "<Leader>ub", function()
   if vim.o.background == "dark" then

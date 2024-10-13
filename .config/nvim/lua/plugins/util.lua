@@ -1,7 +1,8 @@
 return {
   {
     "tpope/vim-fugitive",
-    event = "VimEnter",
+    enabled = false,
+    event = "VeryLazy",
     keys = { { "<C-g>", "<Cmd>Git<cr>", desc = "Git menu" } },
   },
 
@@ -15,9 +16,11 @@ return {
 
   {
     "avm99963/vim-jjdescription",
+    enabled = false,
   },
 
   {
     "rafikdraoui/jj-diffconflicts",
+    enabled = false,
   },
 }
