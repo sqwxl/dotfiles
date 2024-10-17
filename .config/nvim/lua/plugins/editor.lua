@@ -82,33 +82,6 @@ return {
     },
   },
 
-  -- {
-  --   "nvim-telescope/telescope.nvim",
-  --   dependencies = {
-  --     {
-  --       "nvim-telescope/telescope-dap.nvim",
-  --       build = "make",
-  --       config = function()
-  --         require("telescope").load_extension("dap")
-  --       end,
-  --     },
-  --   },
-  --   opts = {
-  --     defaults = {
-  --       layout_config = { prompt_position = "top" },
-  --       sorting_strategy = "ascending",
-  --       mappings = {
-  --         i = {
-  --           ["<C-t>"] = require("telescope.actions").select_tab,
-  --           ["<C-h>"] = require("telescope.actions").preview_scrolling_left,
-  --           ["<C-l>"] = require("telescope.actions").preview_scrolling_right,
-  --         },
-  --       },
-  --     },
-  --   },
-  --   keys = { { "<Leader><Leader>", false } },
-  -- },
-  --
   {
     "ibhagwan/fzf-lua",
     opts = function(_, opts)

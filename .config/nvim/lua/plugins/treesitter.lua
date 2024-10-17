@@ -10,10 +10,9 @@ return {
         end,
         additional_vim_regex_highlighting = { "htmldjango" },
       },
-      -- matchup = { enable = true },
       endwise = { enable = true },
     },
   },
 
-  { "RRethy/nvim-treesitter-endwise" }, -- complete some structures like if -> end, do -> while
+  { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" }, -- complete some structures like if -> end, do -> while
 }

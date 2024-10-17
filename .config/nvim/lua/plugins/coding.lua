@@ -48,7 +48,6 @@ return {
         { name = "nvim_lsp_signature_help" },
         { name = "luasnip" },
         { name = "cody" },
-        -- { name = "codeium" },
         { name = "path" },
       }, {
         { name = "buffer" },
@@ -72,44 +71,20 @@ return {
     },
   },
 
-  -- {
-  --   "kylechui/nvim-surround",
-  --   enabled = false,
-  --   version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  --   event = "VeryLazy",
-  --   config = function()
-  --       require("nvim-surround").setup({
-  --           -- Configuration here, or leave empty to use defaults
-  --       })
-  --   end
-  -- },
-
-  -- { "tpope/vim-abolish" }, -- adds case-aware substitution via :S command
-
-  { "tpope/vim-sleuth" }, -- dynamic 'shiftwidth' and 'expandtab' based on file
-
   {
-    "Wansmer/treesj", -- fold/unfold "tree structures" like arrays and tables
-    cmd = "TSJToggle",
+    "Wansmer/treesj",
+    lazy = true,
     opts = {
       use_default_keymaps = false,
       max_join_length = 300,
     },
     keys = {
-      { "<A-a>", "<Cmd>TSJToggle<CR>", desc = "Toggle fold/unfold tree structures" },
-    },
-  },
-
-  {
-    "danymat/neogen", -- generate annotations
-    opts = { snippet_engine = "luasnip" },
-    keys = {
       {
-        "gC",
+        "<A-a>",
         function()
-          require("neogen").generate({})
+          require("treesj").toggle()
         end,
-        desc = "Generate annotations",
+        desc = "Toggle fold/unfold tree structures",
       },
     },
   },
@@ -124,43 +99,6 @@ return {
       enable_check_bracket_line = true,
       ignored_next_char = "[%w%.]",
       fast_wrap = {}, -- bound to <A-e> by default
-    },
-  },
-
-  {
-    "andymass/vim-matchup",
-    enabled = false,
-    event = "BufReadPost",
-    config = function()
-      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
-    end,
-  },
-
-  -- indent-aware pasting
-  {
-    "sickill/vim-pasta",
-    config = function()
-      vim.g.pasta_disable_filetypes = {
-        "gitcommit",
-        "gitrebase",
-        "svn",
-        "fugitive",
-        "fugitiveblame",
-      }
-    end,
-  },
-
-  -- structural find & replace
-  {
-    "cshuaimin/ssr.nvim",
-    keys = {
-      {
-        "<Leader>S",
-        function()
-          require("ssr").open()
-        end,
-        desc = "Structural search & replace",
-      },
     },
   },
 

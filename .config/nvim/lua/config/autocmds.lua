@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
     vim.opt_local.number = false
     vim.opt_local.signcolumn = "no"
     vim.opt_local.spell = false
-    vim.cmd("startinsert")
+    vim.cmd.startinsert()
   end,
 })
 
@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 vim.api.nvim_create_autocmd("WinEnter", {
   pattern = "term://*",
   callback = function()
-    vim.cmd("startinsert")
+    vim.cmd.startinsert()
   end,
 })
 

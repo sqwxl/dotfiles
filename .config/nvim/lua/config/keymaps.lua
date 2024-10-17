@@ -95,10 +95,20 @@ map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })
 -- macros
 map("n", "Q", "@q")
 -- git
+-- unmap LazyVim's default lazygit mappings
+pcall(vim.keymap.del, "n", "<leader>gf")
+pcall(vim.keymap.del, "n", "<leader>gl")
 map("n", "<Leader>gu", "<Cmd>diffget LOCAL<CR>", { desc = "Get local hunk" })
 map("n", "<Leader>gl", "<Cmd>diffget REMOTE<CR>", { desc = "Get remote hunk" })
 map("n", "<Leader>gU", "<Cmd>%diffget LOCAL<CR>", { desc = "Get local hunk (whole file)" })
 map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get remote hunk (whole file)" })
+
+map("n", "<leader>gG", function()
+  LazyVim.terminal.open({ "gitui" }, { esc_esc = false, ctrl_hjkl = false })
+end, { desc = "GitUi (cwd)" })
+map("n", "<leader>gg", function()
+  LazyVim.terminal.open({ "gitui" }, { cwd = LazyVim.root.get(), esc_esc = false, ctrl_hjkl = false })
+end, { desc = "GitUi (Root Dir)" })
 
 -- UI
 -- toggle wrap
@@ -129,4 +139,5 @@ map("n", "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>", { desc = "A
 map("n", "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>", { desc = "Add empty line(s) below" })
 
 -- cspell
-map("n", "<Leader>cp", "<Cmd>CspellLearnFile<CR>", { desc = "Teach cspell words in current buffer" })
+map("n", "<Leader>cw", "<Cmd>CspellLearnWord<CR>", { desc = "Teach current word to cspell" })
+map("n", "<Leader>cp", "<Cmd>CspellLearnFile<CR>", { desc = "Teach words in current buffer to cspell" })

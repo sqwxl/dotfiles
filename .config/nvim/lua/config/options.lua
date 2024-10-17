@@ -8,16 +8,13 @@ vim.g.lazyvim_python_ruff = "ruff"
 
 vim.opt.breakindent = true -- keep indent when wrapping lines
 vim.opt.clipboard = "" -- maybe use "unnamedplus" to sync with sys clipboard?
--- vim.opt.conceallevel = 3 -- hide * markup for bold and italic
--- vim.opt.colorcolumn = "80,110"
 vim.opt.diffopt:append("iwhite") -- ignore whitespace
---- and using a smarter algorithm
 --- https://vimways.org/2018/the-power-of-diff/
---- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
---- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
+-- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
+-- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
 vim.opt.diffopt:append("algorithm:histogram")
 vim.opt.diffopt:append("indent-heuristic")
-vim.opt.exrc = true -- enable local .vimrc files
+vim.opt.exrc = true -- enable local .init.lua files
 vim.opt.foldcolumn = "0"
 vim.opt.foldenable = false
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
@@ -33,23 +30,6 @@ vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals"
 vim.opt.spell = false
 vim.opt.timeoutlen = 300
 vim.opt.updatetime = 50 -- swap file update & CursorHold interval
-
--- if vim.g.started_by_firenvim then
---   opt.laststatus = 0
---   opt.number = false
---   opt_local.signcolumn = "no"
---   opt.background = "light"
---   opt_local.cursorline = false
---
---   vim.g.firenvim_config = {
---     localSettings = {
---           [".*"] = {
---         selector = "textarea",
---         takeover = "never"
---       }
---     }
---   }
--- end
 
 if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"
@@ -78,3 +58,20 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.25)
   end)
 end
+
+-- if vim.g.started_by_firenvim then
+--   opt.laststatus = 0
+--   opt.number = false
+--   opt_local.signcolumn = "no"
+--   opt.background = "light"
+--   opt_local.cursorline = false
+--
+--   vim.g.firenvim_config = {
+--     localSettings = {
+--           [".*"] = {
+--         selector = "textarea",
+--         takeover = "never"
+--       }
+--     }
+--   }
+-- end
