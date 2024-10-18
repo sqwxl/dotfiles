@@ -1,10 +1,3 @@
--- -- run cspell everywhere
--- vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
---   callback = function()
---     require("lint").try_lint("cspell")
---   end,
--- })
-
 -- change the appearance of terminal window
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
@@ -34,17 +27,17 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
       vim.wo.colorcolumn = ""
       vim.wo.spell = false
       vim.diagnostic.enable(false, { bufnr = ev.buf })
-      vim.cmd.wincmd("H")
+      vim.cmd("wincmd H")
     end
   end,
 })
-vim.api.nvim_create_autocmd({ "BufWinEnter", "BufLeave" }, {
+vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "BufLeave" }, {
   pattern = { "*.md", "*.txt" },
   callback = function(ev)
     if vim.o.buftype == "help" then
       local tw = (vim.bo[ev.buf].textwidth or 80)
       local width = math.max(tw, 80)
-      vim.api.nvim_win_set_width(0, width)
+      vim.cmd("vert resize " .. width)
     end
   end,
 })
@@ -71,17 +64,17 @@ vim.api.nvim_create_autocmd("BufRead", {
   desc = "Restore cursor position",
   pattern = "*",
   once = true,
-  callback = function(event)
-    local ftignore = { "gitcommit", "gitrebase", "neo-tree" }
-    local bufignore = { "nofile", "quickfix", "help" }
+  callback = function()
+    local ft_ignore = { "gitcommit", "gitrebase", "neo-tree" }
+    local bt_ignore = { "nofile", "quickfix", "help" }
 
     local line = vim.fn.line([['"]])
     if line >= 1 and line <= vim.fn.line("$") then
-      local ft = vim.api.nvim_get_option_value("filetype", { buf = event.buf })
-      if not vim.tbl_contains(ftignore, ft) then
-        local buftype = vim.api.nvim_get_option_value("buftype", { buf = event.buf })
-        if not vim.tbl_contains(bufignore, buftype) then
-          vim.cmd([[keepjumps normal! g`"]])
+      local ft = vim.cmd("set filetype")
+      if not vim.tbl_contains(ft_ignore, ft) then
+        local bt = vim.cmd("set buftype")
+        if not vim.tbl_contains(bt_ignore, bt) then
+          vim.cmd('keepjumps normal! g`"')
         end
       end
     end

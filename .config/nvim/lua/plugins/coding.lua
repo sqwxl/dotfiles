@@ -141,18 +141,14 @@ return {
           end
         end
       end
-      vim.api.nvim_exec2(
-        string.gsub(
-          [[
+      vim.cmd(string.format(
+        [[
         function MkdpBrowserFn(url)
-          execute '!#' a:url
+          execute '!%s' a:url
         endfunction
         ]],
-          "#",
-          cmd
-        ),
-        {}
-      )
+        cmd
+      ))
       vim.g.mkdp_browserfunc = "MkdpBrowserFn"
     end,
   },

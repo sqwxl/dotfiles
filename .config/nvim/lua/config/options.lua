@@ -31,6 +31,15 @@ vim.opt.spell = false
 vim.opt.timeoutlen = 300
 vim.opt.updatetime = 50 -- swap file update & CursorHold interval
 
+-- make all keymaps silent by default
+local keymap_set = vim.keymap.set
+---@diagnostic disable-next-line: duplicate-set-field
+vim.keymap.set = function(mode, lhs, rhs, opts)
+  opts = opts or {}
+  opts.silent = opts.silent ~= false
+  return keymap_set(mode, lhs, rhs, opts)
+end
+
 if vim.g.neovide then
   vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"
   vim.g.neovide_floating_blur_amount_x = 2.0
