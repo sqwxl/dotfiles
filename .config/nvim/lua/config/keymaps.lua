@@ -107,11 +107,11 @@ map({ "i", "n" }, "<C-c>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear searc
 
 -- saner command history
 map("c", "<C-p>", function()
-  return vim.fn.wildmenumode() and "<C-p>"
-end, { expr = true })
-map("c", "<C-u>", function()
-  return vim.fn.wildmenumode() and "<C-u>"
-end, { expr = true })
+  return vim.fn.wildmenumode() and "<Up>" or "<C-p>"
+end, { expr = true, silent = false })
+map("c", "<C-n>", function()
+  return vim.fn.wildmenumode() and "<Down>" or "<C-n>"
+end, { expr = true, silent = false })
 
 -- cspell
 map("n", "<Leader>cw", "<Cmd>CspellLearnWord<CR>", { desc = "Teach current word to cspell" })

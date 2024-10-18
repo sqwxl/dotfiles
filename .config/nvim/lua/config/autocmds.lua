@@ -70,9 +70,9 @@ vim.api.nvim_create_autocmd("BufRead", {
 
     local line = vim.fn.line([['"]])
     if line >= 1 and line <= vim.fn.line("$") then
-      local ft = vim.cmd("set filetype")
+      local ft = vim.opt.filetype:get()
       if not vim.tbl_contains(ft_ignore, ft) then
-        local bt = vim.cmd("set buftype")
+        local bt = vim.opt.buftype:get()
         if not vim.tbl_contains(bt_ignore, bt) then
           vim.cmd('keepjumps normal! g`"')
         end
