@@ -61,9 +61,9 @@ map({ "t", "i" }, "<A-k>", "<C-Bslash><C-N><C-w>k")
 map({ "t", "i" }, "<A-l>", "<C-Bslash><C-N><C-w>l")
 
 map({ "n" }, "<Leader>W", function()
-  local picked_window_id = require("window-picker").pick_window()
-  if picked_window_id then
-    vim.api.nvim_set_current_win(picked_window_id)
+  local nr = require("window-picker").pick_window()
+  if nr ~= nil then
+    vim.cmd.wincmd(nr .. " w")
   end
 end, { desc = "Pick window" })
 
@@ -128,10 +128,10 @@ end, { desc = "Toggle dark/light" })
 
 -- saner command history (Up/Down consider partial input, now p/n do to!)
 map("c", "<C-p>", function()
-  return vim.fn.wildmenumode() and "<Up>" or "<C-p>"
+  return vim.fn.wildmenumode() and "<C-p>"
 end, { expr = true })
 map("c", "<C-u>", function()
-  return vim.fn.wildmenumode() and "<Down>" or "<C-u>"
+  return vim.fn.wildmenumode() and "<C-u>"
 end, { expr = true })
 
 -- add empty lines (can add count)

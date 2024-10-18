@@ -7,7 +7,7 @@ vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 
 vim.opt.breakindent = true -- keep indent when wrapping lines
-vim.opt.clipboard = "" -- maybe use "unnamedplus" to sync with sys clipboard?
+-- vim.opt.clipboard = "" -- maybe use "unnamedplus" to sync with sys clipboard?
 vim.opt.diffopt:append("iwhite") -- ignore whitespace
 --- https://vimways.org/2018/the-power-of-diff/
 -- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
