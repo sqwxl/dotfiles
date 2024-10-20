@@ -1,12 +1,7 @@
 -- unmap C-c in command-line window
 vim.api.nvim_create_autocmd("CmdwinEnter", {
   callback = function()
-    vim.keymap.set("n", "<C-c>", "<C-c>")
-  end,
-})
-vim.api.nvim_create_autocmd("CmdwinLeave", {
-  callback = function()
-    vim.keymap.set("n", "<C-c>", "<Esc>")
+    vim.keymap.del("n", "<C-c>", { buffer = vim.fn.bufnr() })
   end,
 })
 
