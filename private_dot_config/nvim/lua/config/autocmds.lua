@@ -1,3 +1,15 @@
+-- unmap C-c in command-line window
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+  callback = function()
+    vim.keymap.set("n", "<C-c>", "<C-c>")
+  end,
+})
+vim.api.nvim_create_autocmd("CmdwinLeave", {
+  callback = function()
+    vim.keymap.set("n", "<C-c>", "<Esc>")
+  end,
+})
+
 -- change the appearance of terminal window
 vim.api.nvim_create_autocmd("TermOpen", {
   pattern = "*",
