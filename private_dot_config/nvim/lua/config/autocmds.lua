@@ -1,7 +1,9 @@
 -- unmap C-c in command-line window
 vim.api.nvim_create_autocmd("CmdwinEnter", {
   callback = function()
-    vim.print(vim.fn.expand("<afile>"))
+    if vim.fn.expand("<afile>") ~= ":" then
+      return
+    end
     vim.keymap.set({ "i", "n" }, "<C-c>", "<C-c>", { buffer = true, silent = false })
   end,
 })

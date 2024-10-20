@@ -16,9 +16,7 @@ end, { desc = "Keymaps" })
 -- GENERAL
 -- esc
 map("n", "<S-CR>", ":", { silent = false, desc = "Command line" })
-map({ "", "i" }, "<C-c>", "<Esc>")
--- Clear search with <C-c>
--- map({ "i", "n" }, "<C-c>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear search highlights" })
+map({ "", "i" }, "<C-c>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear search highlights" })
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Write buffer to file" })
 -- macros
