@@ -1,0 +1,8 @@
+
+! Modifier key remap
+clear lock
+clear control
+keycode 66 = Control_L
+add control = Control_L Control_R
+
+keysym p = p P Greek_pi Greek_phi
