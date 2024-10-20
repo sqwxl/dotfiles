@@ -1,9 +1,6 @@
 abbr g git
 abbr gg gitui
 
-abbr cfginit "git init --bare $HOME/.dotfiles && git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME remote add origin && echo .dotfiles >> $HOME/.gitignore"
-abbr cfg "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-
 abbr ga 'git add'
 abbr gaa 'git add --all'
 abbr gau 'git add --update'
