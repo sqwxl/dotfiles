@@ -2,7 +2,7 @@
 vim.api.nvim_create_autocmd("CmdwinEnter", {
   callback = function()
     vim.print(vim.fn.expand("<afile>"))
-    vim.keymap.set({ "i", "n" }, "<C-c>", "<C-c>", { buffer = true, remap = true, silent = false })
+    vim.keymap.set({ "i", "n" }, "<C-c>", "<C-c>", { buffer = true, silent = false })
   end,
 })
 
