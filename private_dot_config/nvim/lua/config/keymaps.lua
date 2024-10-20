@@ -16,7 +16,7 @@ end, { desc = "Keymaps" })
 -- GENERAL
 -- esc
 map("n", "<S-CR>", ":", { silent = false, desc = "Command line" })
-map({ "", "i", "c" }, "<C-c>", "<Esc>")
+map({ "", "i" }, "<C-c>", "<Esc>")
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Write buffer to file" })
 -- macros
