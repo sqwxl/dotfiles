@@ -2,6 +2,8 @@ abbr n nvim
 set -gx EDITOR (which nvim)
 set -gx VISUAL $EDITOR
 
+alias cz chezmoi
+
 abbr s sudo
 abbr se sudoedit
 
