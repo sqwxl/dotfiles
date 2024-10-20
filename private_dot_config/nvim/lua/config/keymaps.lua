@@ -17,6 +17,8 @@ end, { desc = "Keymaps" })
 -- esc
 map("n", "<S-CR>", ":", { silent = false, desc = "Command line" })
 map({ "", "i" }, "<C-c>", "<Esc>")
+-- Clear search with <C-c>
+-- map({ "i", "n" }, "<C-c>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear search highlights" })
 map("t", "<Esc>", "<C-Bslash><C-n>")
 map("n", "<C-s>", "<Cmd>w<CR>", { desc = "Write buffer to file" })
 -- macros
@@ -102,8 +104,6 @@ map("n", "<leader>gg", function()
 end, { desc = "GitUi (Root Dir)" })
 
 -- UI
--- Clear search with <C-c>
-map({ "i", "n" }, "<C-c>", "<Cmd>noh<CR><Esc>", { desc = "Escape and clear search highlights" })
 
 -- saner command history
 map("c", "<C-p>", function()
