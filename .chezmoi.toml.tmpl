@@ -1,4 +1,6 @@
-sourceDir = "/var{{ .chezmoi.homeDir }}/.local/share/chezmoi"
+{{if ne .chezmoi.homeDir (joinPath "/var" "/home" .chezmoi.username)}}
+sourceDir = "{{ joinPath "/var" .chezmoi.homeDir ".local/share/chezmoi"}}"
+{{end}}
 
 [git]
 autoCommit = true
