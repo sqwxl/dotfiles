@@ -31,6 +31,7 @@ return {
       vim.g["chezmoi#source_dir_path"] = os.getenv("HOME") .. "/.local/share/chezmoi"
     end,
   },
+
   {
     "sqwxl/chezmoi.nvim",
     branch = "patch-1",
@@ -61,10 +62,12 @@ return {
         pattern = { os.getenv("HOME") .. "/.local/share/chezmoi/*" },
         callback = function()
           vim.schedule(require("chezmoi.commands.__edit").watch)
+          vim.print("hello")
         end,
       })
     end,
   },
+
   {
     "nvimdev/dashboard-nvim",
     optional = true,
