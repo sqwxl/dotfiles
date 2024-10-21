@@ -1,13 +1,13 @@
-sourceDir = "/var/{{ .chezmoi.homeDir }}/.local/share/chezmoi"
+sourceDir = "/var{{ .chezmoi.homeDir }}/.local/share/chezmoi"
 
 [git]
 autoCommit = true
 autoPush = true
 
 [diff]
-command = 'delta'
-pager = 'bat'
+command = "delta"
+pager = "bat"
 
 [merge]
 command = "nvim"
-args = ["-d", {{ "{{ .Destination }}" }}, {{ "{{ .Source }}" }}, {{ "{{ .Target }}" }}]
+args = ["-d", "{{ "{{ .Destination }}" }}", "{{ "{{ .Source }}" }}", "{{ "{{ .Target }}" }}"]
