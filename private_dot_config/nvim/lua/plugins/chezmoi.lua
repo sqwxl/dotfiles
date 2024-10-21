@@ -61,7 +61,6 @@ return {
       vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
         pattern = { "*/.local/share/chezmoi/*" },
         callback = function(ev)
-          vim.notify("hello")
           vim.schedule(function()
             require("chezmoi.commands.__edit").watch(ev.buf)
           end)
