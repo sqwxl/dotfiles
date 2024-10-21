@@ -13,10 +13,10 @@ abbr mv "mv -iv"
 abbr cp "cp -riv"
 abbr mkdir "mkdir -vp"
 
-abbr cfgsway "cd ~/.config/sway && $EDITOR config"
-abbr cfgvim "cd ~/.config/nvim && $EDITOR init.lua"
-abbr cfgfish "cd ~/.config/fish && $EDITOR config.fish"
-abbr cfgterm "cd ~/.config/foot && $EDITOR foot.ini"
+abbr czsway "cz edit --apply ~/.config/sway/config"
+abbr czvim "cz edit --apply ~/.config/nvim/lua"
+abbr czfish "cz edit --apply ~/.config/fish/config.fish"
+abbr czterm "cz ~/.config/foot/foot.ini"
 
 # Weather in Stukely
 abbr weather 'curl -s "wttr.in/45.32,-72.42?nFQ"'
