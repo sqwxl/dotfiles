@@ -15,6 +15,11 @@ function fish_greeting
     echo "Greetings, Nicolas!"
     set_color yellow
     echo -e "The date is $(date +%A,\ %B\ %d\ %Y)\n"
+    set_color normal
 
     xkcd
+
+    if type -q chezmoi
+        chezmoi update
+    end
 end
