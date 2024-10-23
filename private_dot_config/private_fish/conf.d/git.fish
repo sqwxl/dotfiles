@@ -69,6 +69,7 @@ abbr gswc 'git switch -c'
 
 abbr gl 'git log --decorate --pretty=oneline --abbrev-commit'
 abbr glm --set-cursor 'git log --decorate --pretty=oneline --abbrev-commit origin/main^..%'
+abbr glmm 'git log --decorate --pretty=oneline --abbrev-commit origin/main^..main'
 abbr gll 'git log --graph --decorate --pretty=oneline --abbrev-commit'
 abbr glll 'git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 abbr gsh 'git show'
