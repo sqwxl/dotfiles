@@ -33,11 +33,15 @@ return {
   },
 
   {
-    "sqwxl/chezmoi.nvim",
-    branch = "patch-1",
+    "xvzc/chezmoi.nvim",
     keys = {
       {
-        "<leader>sz",
+        "<leader>fz",
+        pick_chezmoi,
+        desc = "Chezmoi",
+      },
+      {
+        "<leader>fc",
         pick_chezmoi,
         desc = "Chezmoi",
       },
@@ -67,50 +71,5 @@ return {
         end,
       })
     end,
-  },
-
-  {
-    "nvimdev/dashboard-nvim",
-    optional = true,
-    opts = function(_, opts)
-      local projects = {
-        action = pick_chezmoi,
-        desc = "  Config",
-        icon = "",
-        key = "c",
-      }
-
-      projects.desc = projects.desc .. string.rep(" ", 43 - #projects.desc)
-      projects.key_format = "  %s"
-
-      -- remove lazyvim config property
-      for i = #opts.config.center, 1, -1 do
-        if opts.config.center[i].key == "c" then
-          table.remove(opts.config.center, i)
-        end
-      end
-
-      table.insert(opts.config.center, 5, projects)
-    end,
-  },
-
-  -- Filetype icons
-  {
-    "echasnovski/mini.icons",
-    opts = {
-      file = {
-        [".chezmoiignore"] = { glyph = "", hl = "MiniIconsGrey" },
-        [".chezmoiremove"] = { glyph = "", hl = "MiniIconsGrey" },
-        [".chezmoiroot"] = { glyph = "", hl = "MiniIconsGrey" },
-        [".chezmoiversion"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["bash.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["json.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["ps1.tmpl"] = { glyph = "󰨊", hl = "MiniIconsGrey" },
-        ["sh.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["toml.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["yaml.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-        ["zsh.tmpl"] = { glyph = "", hl = "MiniIconsGrey" },
-      },
-    },
   },
 }
