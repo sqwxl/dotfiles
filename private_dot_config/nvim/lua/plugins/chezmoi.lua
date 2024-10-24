@@ -45,7 +45,7 @@ return {
         function()
           pick_chezmoi("~/.config/nvim/")
         end,
-        desc = "Edit nvim config",
+        desc = "Edit nvim config files",
       },
     },
     opts = {
