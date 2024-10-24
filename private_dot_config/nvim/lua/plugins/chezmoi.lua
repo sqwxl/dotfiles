@@ -1,9 +1,9 @@
-local pick_chezmoi = function()
+local pick_chezmoi = function(targets)
   if LazyVim.pick.picker.name == "telescope" then
     require("telescope").extensions.chezmoi.find_files()
   elseif LazyVim.pick.picker.name == "fzf" then
     local fzf_lua = require("fzf-lua")
-    local results = require("chezmoi.commands").list()
+    local results = require("chezmoi.commands").list({ targets = targets })
     local chezmoi = require("chezmoi.commands")
 
     local opts = {
@@ -20,10 +20,6 @@ local pick_chezmoi = function()
     }
     fzf_lua.fzf_exec(results, opts)
   end
-end
-
-local pick_chezmoi_nvim = function()
-  require("fzf-lua").fzf_exec()
 end
 
 return {
@@ -46,8 +42,10 @@ return {
       },
       {
         "<leader>fc",
-        pick_chezmoi,
-        desc = "Chezmoi",
+        function()
+          pick_chezmoi("~/.config/nvim/")
+        end,
+        desc = "Edit nvim config",
       },
     },
     opts = {
