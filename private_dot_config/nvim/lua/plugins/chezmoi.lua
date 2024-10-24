@@ -22,6 +22,10 @@ local pick_chezmoi = function()
   end
 end
 
+local pick_chezmoi_nvim = function()
+  require("fzf-lua").fzf_exec()
+end
+
 return {
   {
     -- highlighting for chezmoi files template files
