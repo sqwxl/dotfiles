@@ -16,7 +16,7 @@ function fish_greeting
     echo "Greetings, Nicolas!"
 
     if type -q chezmoi
-        chezmoi update 1>/dev/null
+        chezmoi update
     end
 
     set_color yellow
