@@ -11,15 +11,18 @@ function fish_greeting
 
     set last_day $day
 
+
     set_color brwhite
     echo "Greetings, Nicolas!"
-    set_color yellow
-    echo -e "The date is $(date +%A,\ %B\ %d\ %Y)\n"
-    set_color normal
-
-    xkcd
 
     if type -q chezmoi
         chezmoi update 1>/dev/null
     end
+
+    set_color yellow
+    echo -e "The date is $(date +%A,\ %B\ %d\ %Y)\n\n"
+    set_color normal
+
+    xkcd
+
 end
