@@ -20,6 +20,6 @@ function fish_greeting
     xkcd
 
     if type -q chezmoi
-        chezmoi update
+        chezmoi update 1>/dev/null
     end
 end
