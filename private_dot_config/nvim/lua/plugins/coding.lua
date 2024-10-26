@@ -1,57 +1,54 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      { "hrsh7th/cmp-nvim-lua" },
-      { "hrsh7th/cmp-nvim-lsp-signature-help" },
-    },
+    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
 
-      opts.mapping = cmp.mapping.preset.insert({
+      local cmp = require("cmp")
+
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-f>"] = LazyVim.cmp.confirm({ select = true }),
-        ["<CR>"] = LazyVim.cmp.confirm({ select = true }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
+            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
             cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
           elseif has_words_before() then
             cmp.complete()
           else
             fallback()
           end
-        end),
+        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
+          elseif vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
           else
             fallback()
           end
-        end),
+        end, { "i", "s" }),
       })
 
       opts.sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "nvim_lsp_signature_help" },
-        { name = "luasnip" },
         { name = "cody" },
         { name = "path" },
       }, {
         { name = "buffer" },
-        { name = "nvim_lua" },
       })
     end,
   },
@@ -60,13 +57,9 @@ return {
     "echasnovski/mini.surround",
     opts = {
       mappings = {
-        add = "ys", -- Add surrounding in Normal and Visual modes
-        delete = "ds", -- Delete surrounding
-        replace = "cs", -- Replace surrounding
-        find = "gsf", -- Find surrounding (to the right)
-        find_left = "gsF", -- Find surrounding (to the left)
-        highlight = "gsh", -- Highlight surrounding
-        update_n_lines = "gsn", -- Update `n_lines`
+        add = "ys",
+        delete = "ds",
+        replace = "cs",
       },
     },
   },
@@ -124,6 +117,7 @@ return {
 
   {
     "iamcco/markdown-preview.nvim",
+    enabled = false,
     opts = function()
       local cmd
       -- check if flatpak command is available

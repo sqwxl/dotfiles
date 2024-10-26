@@ -2,13 +2,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     init = function()
-      --   -- disable lsp watcher. Too slow on linux
-      --   local ok, wf = pcall(require, "vim.lsp._watchfiles")
-      --   if ok then
-      --     wf._watchfunc = function()
-      --       return function() end
-      --     end
-      --   end
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
 
       vim.list_extend(keys, {
@@ -51,6 +44,7 @@ return {
         { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
       })
     end,
+
     opts = {
       inlay_hints = { enabled = false },
       document_highlight = { enabled = false }, -- Enable LSP cursor word highlighting
