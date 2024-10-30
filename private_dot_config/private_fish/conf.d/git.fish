@@ -96,11 +96,3 @@ abbr gwd 'git worktree remove'
 
 abbr sprr 'spr diff -m Rebase'
 abbr spru 'spr diff -m Update'
-
-if type -q git-forgit
-    abbr ga 'git forgit add'
-    abbr gd 'git forgit diff'
-    abbr gco 'git forgit checkout'
-    abbr gcp 'git forgit cherry-pick'
-    abbr grb 'git forgit rebase'
-end

@@ -43,12 +43,10 @@ return {
         end, { "i", "s" }),
       })
 
-      opts.sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "cody" },
-        { name = "path" },
-      }, {
-        { name = "buffer" },
+      table.insert(opts.sources, {
+        name = "cody",
+        group_index = 1,
+        priority = 100,
       })
     end,
   },
