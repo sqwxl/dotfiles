@@ -136,4 +136,8 @@ return {
       { "<Leader>z", "<Cmd>ZenMode<CR>", desc = "Toggle Zen Mode" },
     },
   },
+
+  {
+    "gbprod/yanky.nvim",
+  },
 }
