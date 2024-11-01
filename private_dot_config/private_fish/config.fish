@@ -75,5 +75,3 @@ if type -q direnv
 end
 
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
-
-fnm --help
