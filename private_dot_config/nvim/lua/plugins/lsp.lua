@@ -78,6 +78,7 @@ return {
             ["harper-ls"] = {
               linters = {
                 avoid_curses = false,
+                sentence_capitalization = false,
               },
             },
           },
