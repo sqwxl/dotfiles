@@ -71,7 +71,6 @@ return {
           },
         },
         bashls = {},
-        marksman = nil,
         html = {
           filetypes = { "html", "htmldjango" },
         },
