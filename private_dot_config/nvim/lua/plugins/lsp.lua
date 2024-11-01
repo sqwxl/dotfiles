@@ -48,8 +48,6 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       document_highlight = { enabled = false }, -- Enable LSP cursor word highlighting
-      codelens = { enabled = false },
-      diagnostics = { virtual_text = { prefix = "icons" } },
       servers = { -- servers included here get automatically installed by mason
         basedpyright = {
           settings = {

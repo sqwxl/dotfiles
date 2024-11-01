@@ -16,7 +16,7 @@ return {
         sql = { "sqlfluff" },
         typescript = { "biomejs" },
         typescriptreact = { "biomejs" },
-        ["*"] = { "cspell" },
+        -- ["*"] = { "cspell" },
       },
       linters = {
         sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
