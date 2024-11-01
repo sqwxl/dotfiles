@@ -71,10 +71,20 @@ return {
           },
         },
         bashls = {},
+        marksman = nil,
         html = {
           filetypes = { "html", "htmldjango" },
         },
         biome = {},
+        harper_ls = {
+          settings = {
+            ["harper-ls"] = {
+              linters = {
+                avoid_curses = false,
+              },
+            },
+          },
+        },
         htmx = {
           filetypes = { "html", "htmldjango" },
         },
