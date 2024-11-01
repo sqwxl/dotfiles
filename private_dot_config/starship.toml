@@ -1,5 +1,7 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+add_newline = false
+
 [custom.git-check-merge]
 command = 'echo MERGE COMMIT'
 when = 'test -e (git rev-parse --git-path MERGE_MSG)'

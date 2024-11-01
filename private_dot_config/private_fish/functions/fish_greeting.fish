@@ -11,7 +11,6 @@ function fish_greeting
 
     set last_day $day
 
-
     set_color brwhite
     echo "Greetings, Nicolas!"
 
@@ -24,5 +23,4 @@ function fish_greeting
     set_color normal
 
     xkcd
-
 end
