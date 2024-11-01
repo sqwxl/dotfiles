@@ -74,4 +74,8 @@ if type -q direnv
     direnv hook fish | source
 end
 
+if type -q fnm
+    fnm env --use-on-cd --corepack-enabled --version-file-strategy=recursive --shell fish | source
+end
+
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
