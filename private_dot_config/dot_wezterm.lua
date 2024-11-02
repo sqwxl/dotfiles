@@ -2,6 +2,6 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.color_scheme = "Gruvbox"
+config.color_scheme = "GruvboxDark"
 
 return config
