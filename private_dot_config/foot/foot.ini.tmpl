@@ -28,18 +28,7 @@ label-letters=aoeuidhtns
 hide-when-typing=yes
 
 [csd]
-preferred=client
-size=26
-# font=Inter Regular:size=12
-# color=<foreground color>
-# hide-when-maximized=no
-border-width=1
-# border-color=<csd.color>
-# button-width=26
-# button-color=<background color>
-# button-minimize-color=<regular4>
-# button-maximize-color=<regular2>
-# button-close-color=<regular1>
+border-width={{- if eq .chezmoi.hostname "blackbox" }}2{{- else }}1{{- end }}
 
 [key-bindings]
 scrollback-up-half-page=Shift+Page_Up
