@@ -33,6 +33,7 @@ abbr gcanan 'git commit --amend --no-edit --all --no-verify'
 abbr gfu 'git commit --fixup && git rebase -i --autosquash'
 
 abbr grb 'git rebase'
+abbr grbq 'git rebase --autosquash'
 abbr grbi 'git rebase --interactive'
 abbr gi 'git rebase --interactive'
 abbr grbI 'git rebase --interactive --autostash'
