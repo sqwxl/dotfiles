@@ -84,20 +84,20 @@ return {
 
   {
     "ibhagwan/fzf-lua",
-    opts = function(_, opts)
-      return vim.tbl_deep_extend("force", opts, {
-        keymap = {
-          builtin = {
-            ["<c-u>"] = "preview-page-up",
-            ["<c-d>"] = "preview-page-down",
-          },
-          fzf = {
-            ["ctrl-u"] = "preview-page-up",
-            ["ctrl-d"] = "preview-page-down",
-          },
+    opts = {
+      keymap = {
+        builtin = {
+          true,
+          ["<c-u>"] = "preview-page-up",
+          ["<c-d>"] = "preview-page-down",
         },
-      })
-    end,
+        fzf = {
+          true,
+          ["ctrl-u"] = "preview-page-up",
+          ["ctrl-d"] = "preview-page-down",
+        },
+      },
+    },
     keys = { { "<leader><space>", false } },
   },
 
