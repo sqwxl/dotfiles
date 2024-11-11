@@ -1,0 +1,1 @@
+neovim-bin = "flatpak-spawn --host /home/linuxbrew/.linuxbrew/bin/nvim"
