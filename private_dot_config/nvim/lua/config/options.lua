@@ -35,12 +35,17 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
 end
 
 if vim.g.neovide then
-  vim.o.guifont = "FantasqueSansM Nerd Font Mono,Noto Color Emoji:h12"
+  vim.o.guifont = "FantasqueSansM_Nerd_Font_Mono,Noto_Color_Emoji:h11"
   vim.g.neovide_cursor_animate_in_insert_mode = false
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_floating_blur_amount_x = 2.0
   vim.g.neovide_floating_blur_amount_y = 2.0
   vim.g.neovide_scale_factor = 1.0
+  vim.g.neovide_padding_top = 8
+  vim.g.neovide_padding_bottom = 8
+  vim.g.neovide_padding_right = 8
+  vim.g.neovide_padding_left = 8
+
   vim.keymap.set("n", "<C-s>", ":w<CR>") -- Save
   vim.keymap.set("v", "<C-S-c>", '"+y') -- Copy
   vim.keymap.set("n", "<C-S-v>", '"+P') -- Paste normal mode
