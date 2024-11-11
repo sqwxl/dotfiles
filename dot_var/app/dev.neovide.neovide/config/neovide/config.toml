@@ -1,5 +1,5 @@
 neovim-bin = "flatpak-spawn --host /home/linuxbrew/.linuxbrew/bin/nvim"
 
-[font]
-normal = "FantasqueSansM Nerd Font Mono"
-size = 11.0
+# [font]
+# normal = "FantasqueSansM Nerd Font Mono"
+# size = 11.0
