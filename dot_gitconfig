@@ -22,6 +22,7 @@
 	colorMoved = default
 [mergetool "meld"]
 	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
+  keepBackup = false
 [fetch]
 	prune = true
 [help]
