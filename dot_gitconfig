@@ -20,9 +20,10 @@
 	; external = difft
 	algorithm = histogram
 	colorMoved = default
+[mergetool]
+  keepBackup = false
 [mergetool "meld"]
 	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
-  keepBackup = false
 [fetch]
 	prune = true
 [help]
