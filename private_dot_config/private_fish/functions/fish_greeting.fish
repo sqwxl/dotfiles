@@ -22,5 +22,5 @@ function fish_greeting
     echo -e "The date is $(date +%A,\ %B\ %d\ %Y)\n\n"
     set_color normal
 
-    xkcd
+    # xkcd
 end
