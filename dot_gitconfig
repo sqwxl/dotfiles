@@ -1,3 +1,5 @@
+[advice]
+  mergeConflict = false
 [alias]
 	fixup = commit --fixup
 	last = log -1 HEAD --ext-diff
