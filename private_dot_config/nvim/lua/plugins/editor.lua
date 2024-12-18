@@ -65,7 +65,7 @@ return {
       selection_chars = "aoeuidhtnsqjkxbmwvz",
       filter_rules = {
         bo = {
-          filetype = { "neo-tree", "neo-tree-popup", "notify", "noice" },
+          filetype = { "neo-tree", "neo-tree-popup", "notify", "noice", "snacks_notif" },
           buftype = { "terminal" },
         },
       },
