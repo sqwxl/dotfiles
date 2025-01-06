@@ -14,6 +14,9 @@ return {
       dashboard = {
         preset = { header = "" },
       },
+      animate = { enabled = false },
+      scroll = { enabled = false },
+      indent = { animate = { enabled = false } },
     },
   },
 
