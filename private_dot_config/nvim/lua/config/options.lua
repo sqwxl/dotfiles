@@ -4,6 +4,7 @@ vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
 vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
+vim.g.snacks_animate = false
 
 vim.opt.breakindent = true -- keep indent when wrapping lines
 vim.opt.diffopt:append("iwhite") -- ignore whitespace

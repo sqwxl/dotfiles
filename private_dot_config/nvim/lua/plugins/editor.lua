@@ -124,20 +124,6 @@ return {
   },
 
   {
-    "folke/zen-mode.nvim",
-    cmd = "ZenMode",
-    opts = {
-      plugins = {
-        gitsigns = true,
-        kitty = { enabled = false, font = "+2" },
-      },
-    },
-    keys = {
-      { "<Leader>z", "<Cmd>ZenMode<CR>", desc = "Toggle Zen Mode" },
-    },
-  },
-
-  {
     "gbprod/yanky.nvim",
   },
 }

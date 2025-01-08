@@ -52,6 +52,15 @@ return {
   },
 
   {
+    "saghen/blink.cmp",
+    opts = {
+      appearance = {
+        nerd_font_variant = "normal",
+      },
+    },
+  },
+
+  {
     "echasnovski/mini.surround",
     opts = {
       mappings = {

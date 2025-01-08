@@ -1,27 +1,60 @@
-local header = [[
-                                _
-   __      __     __   __  __ /\_\
- / __ ︡   / ‗‗ ︡  / __ ︡ /\ \/\ \\/\ \  / __ ︡ __ ︡
-/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \
-\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\
- \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/
- ]]
-
 return {
+  {
+    "akinsho/bufferline.nvim",
+    enabled = false,
+  },
+
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = false,
+  },
+
+  {
+    "folke/noice.nvim",
+    opts = {
+      presets = {
+        bottom_search = true,
+      },
+      routes = {
+        {
+          view = "cmdline",
+          filter = { event = "msg_showmode" },
+        },
+      },
+      views = {
+        cmdline_popup = {
+          position = "50%",
+          win_options = {
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            winblend = 10,
+          },
+        },
+      },
+    },
+  },
+
   {
     "folke/snacks.nvim",
     opts = {
       dashboard = {
-        preset = { header = "" },
+        preset = {
+          --           header = [[
+          --      / __ ︡ \  __\ /  \/\ \/\ \\_\ / __ ︡ __ ︡
+          --     /\ \/\ \\  __\\ \ \\ \/ |/\ \\ \/\ \/\ \
+          --     \ \_\ \_\\____ \__/\ \__/ \ \_\\_\ \_\ \_\
+          --      \/_/\/_//____//_/  \/_/   \/_//_/\/_/\/_/
+          -- ]],
+        },
+        formats = {
+          header = { "%s", align = "left" },
+        },
       },
-      animate = { enabled = false },
-      scroll = { enabled = false },
-      indent = { animate = { enabled = false } },
     },
   },
 
   {
     "rcarriga/nvim-notify",
+    enabled = false,
     opts = {
       timeout = 3000,
       stages = {
@@ -73,45 +106,6 @@ return {
         end,
       },
     },
-  },
-
-  {
-    "akinsho/bufferline.nvim",
-    enabled = false,
-  },
-
-  {
-    "nvim-lualine/lualine.nvim",
-    enabled = false,
-  },
-
-  {
-    "folke/noice.nvim",
-    opts = {
-      presets = {
-        bottom_search = true,
-      },
-      routes = {
-        {
-          view = "cmdline",
-          filter = { event = "msg_showmode" },
-        },
-      },
-      views = {
-        cmdline_popup = {
-          position = "50%",
-          win_options = {
-            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
-            winblend = 10,
-          },
-        },
-      },
-    },
-  },
-
-  {
-    "SmiteshP/nvim-navic", -- lsp symbols in lualine
-    enabled = false,
   },
 
   {

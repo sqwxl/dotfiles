@@ -14,5 +14,6 @@ return {
     },
   },
 
-  { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" }, -- complete some structures like if -> end, do -> while
+  -- complete some structures like if -> end, do -> while
+  { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" },
 }
