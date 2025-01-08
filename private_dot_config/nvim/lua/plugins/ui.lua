@@ -50,6 +50,18 @@ return {
           header = { "%s", align = "left" },
         },
       },
+      input = {
+        win = {
+          keys = {
+            i_del_word = { "<C-w>", "delete_word", mode = "i" },
+          },
+          actions = {
+            delete_word = function()
+              vim.cmd("normal! diw<cr><right>")
+            end,
+          },
+        },
+      },
     },
   },
 
