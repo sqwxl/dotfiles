@@ -1,6 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
+    enabled = false,
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
@@ -57,6 +58,20 @@ return {
       appearance = {
         nerd_font_variant = "normal",
       },
+      completion = {
+        trigger = {
+          show_in_snippet = false,
+        },
+      },
+      keymap = {
+        preset = "super-tab",
+        ["<C-y>"] = {},
+        ["<C-b>"] = {},
+        ["<C-f>"] = { LazyVim.cmp.map({ "ai_accept" }), "fallback" },
+        ["<A-f>"] = { LazyVim.cmp.map({ "ai_accept_word" }), "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+      },
     },
   },
 
@@ -104,6 +119,7 @@ return {
 
   {
     "sourcegraph/sg.nvim",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       enable_cody = true,
@@ -152,6 +168,26 @@ return {
         cmd
       ))
       vim.g.mkdp_browserfunc = "MkdpBrowserFn"
+    end,
+  },
+
+  {
+    "supermaven-inc/supermaven-nvim",
+    opts = function(_, opts)
+      opts.disable_keymaps = true
+
+      -- create ai_accept_word action
+      require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
+      LazyVim.cmp.actions.ai_accept_word = function()
+        local suggestion = require("supermaven-nvim.completion_preview")
+        if suggestion.has_suggestion() then
+          LazyVim.create_undo()
+          vim.schedule(function()
+            suggestion.on_accept_suggestion_word()
+          end)
+          return true
+        end
+      end
     end,
   },
 }
