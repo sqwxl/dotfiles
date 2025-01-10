@@ -64,7 +64,7 @@ return {
         },
       },
       keymap = {
-        preset = "super-tab",
+        preset = "enter",
         ["<C-y>"] = {},
         ["<C-b>"] = {},
         ["<C-f>"] = { LazyVim.cmp.map({ "ai_accept" }), "fallback" },
