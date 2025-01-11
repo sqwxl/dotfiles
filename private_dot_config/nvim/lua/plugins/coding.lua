@@ -1,61 +1,9 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
-    enabled = false,
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      local has_words_before = function()
-        unpack = unpack or table.unpack
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-      end
-
-      local cmp = require("cmp")
-
-      opts.mapping = vim.tbl_extend("force", opts.mapping, {
-        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-f>"] = LazyVim.cmp.confirm({ select = true }),
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
-            cmp.select_next_item()
-          elseif vim.snippet.active({ direction = 1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(1)
-            end)
-          elseif has_words_before() then
-            cmp.complete()
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif vim.snippet.active({ direction = -1 }) then
-            vim.schedule(function()
-              vim.snippet.jump(-1)
-            end)
-          else
-            fallback()
-          end
-        end, { "i", "s" }),
-      })
-
-      table.insert(opts.sources, {
-        name = "cody",
-        group_index = 1,
-        priority = 100,
-      })
-    end,
-  },
-
-  {
     "saghen/blink.cmp",
     opts = {
       appearance = {
+        -- "mono" or "normal"; basically "normal" has larger icons; see nerd font readmes for more info
         nerd_font_variant = "normal",
       },
       completion = {
@@ -67,8 +15,9 @@ return {
         preset = "enter",
         ["<C-y>"] = {},
         ["<C-b>"] = {},
-        ["<C-f>"] = { LazyVim.cmp.map({ "ai_accept" }), "fallback" },
-        ["<A-f>"] = { LazyVim.cmp.map({ "ai_accept_word" }), "fallback" },
+        ["<C-f>"] = {},
+        -- ["<C-f>"] = { LazyVim.cmp.map({ "ai_accept" }), "fallback" },
+        -- ["<A-f>"] = { LazyVim.cmp.map({ "ai_accept_word" }), "fallback" },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
       },
@@ -118,27 +67,6 @@ return {
   },
 
   {
-    "sourcegraph/sg.nvim",
-    enabled = false,
-    event = "VeryLazy",
-    opts = {
-      enable_cody = true,
-      accept_tos = true,
-      node_executable = "/home/linuxbrew/.linuxbrew/opt/node@20/bin/node",
-    },
-    keys = {
-      dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-      {
-        "<leader>cy",
-        function()
-          require("sg.cody.commands").toggle()
-        end,
-        desc = "Toggle Cody chat",
-      },
-    },
-  },
-
-  {
     "iamcco/markdown-preview.nvim",
     enabled = false,
     opts = function()
@@ -172,22 +100,55 @@ return {
   },
 
   {
-    "supermaven-inc/supermaven-nvim",
+    "hrsh7th/nvim-cmp",
+    enabled = false,
+    ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
-      opts.disable_keymaps = true
-
-      -- create ai_accept_word action
-      require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
-      LazyVim.cmp.actions.ai_accept_word = function()
-        local suggestion = require("supermaven-nvim.completion_preview")
-        if suggestion.has_suggestion() then
-          LazyVim.create_undo()
-          vim.schedule(function()
-            suggestion.on_accept_suggestion_word()
-          end)
-          return true
-        end
+      local has_words_before = function()
+        unpack = unpack or table.unpack
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
       end
+
+      local cmp = require("cmp")
+
+      opts.mapping = vim.tbl_extend("force", opts.mapping, {
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-f>"] = LazyVim.cmp.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
+            cmp.select_next_item()
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      })
+
+      table.insert(opts.sources, {
+        name = "cody",
+        group_index = 1,
+        priority = 100,
+      })
     end,
   },
 }

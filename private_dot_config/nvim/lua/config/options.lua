@@ -5,6 +5,7 @@ vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 vim.g.snacks_animate = false
+vim.g.ai_cmp = false -- adds ai source to blink.cmp
 
 vim.opt.breakindent = true -- keep indent when wrapping lines
 vim.opt.diffopt:append("iwhite") -- ignore whitespace
