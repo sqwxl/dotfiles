@@ -2,28 +2,47 @@ return {
 
   {
     "supermaven-inc/supermaven-nvim",
+    opts = function(_, opts)
+      opts.disable_keymaps = true
+      opts.disable_inline_completion = false
+      opts.color = {
+        -- NOTE: Not working at the moment see https://github.com/supermaven-inc/supermaven-nvim/issues/52
+        suggestion_color = vim.api.nvim_get_hl(0, { name = "GruvboxBg2" }).fg,
+        cterm = 0,
+      }
+
+      -- create ai_accept_word action (mirrors the ai_accept action in LazyVim)
+      require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
+      LazyVim.cmp.actions.ai_accept_word = function()
+        local suggestion = require("supermaven-nvim.completion_preview")
+        if suggestion.has_suggestion() then
+          LazyVim.create_undo()
+          vim.schedule(function()
+            suggestion.on_accept_suggestion_word()
+          end)
+          return true
+        end
+      end
+    end,
+  },
+
+  {
+    "saghen/blink.cmp",
+    optional = true,
+    dependencies = { "supermaven-nvim", "saghen/blink.compat" },
     opts = {
-      keymaps = {
-        accept_word = "<A-f>",
-        accept_suggestion = "<C-f>",
+      sources = {
+        compat = { "supermaven" },
+        providers = {
+          supermaven = {
+            kind = "Supermaven",
+            score_offset = 100,
+            async = true,
+            should_show_items = true,
+          },
+        },
       },
     },
-    -- opts = function(_, opts)
-    --   opts.disable_keymaps = true
-    --
-    --   -- create ai_accept_word action
-    --   require("supermaven-nvim.completion_preview").suggestion_group = "SupermavenSuggestion"
-    --   LazyVim.cmp.actions.ai_accept_word = function()
-    --     local suggestion = require("supermaven-nvim.completion_preview")
-    --     if suggestion.has_suggestion() then
-    --       LazyVim.create_undo()
-    --       vim.schedule(function()
-    --         suggestion.on_accept_suggestion_word()
-    --       end)
-    --       return true
-    --     end
-    --   end
-    -- end,
   },
 
   {
