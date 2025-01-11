@@ -76,6 +76,8 @@ return {
         harper_ls = {
           settings = {
             ["harper-ls"] = {
+              userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+              codeActions = { forceStable = true },
               linters = {
                 avoid_curses = false,
                 sentence_capitalization = false,
