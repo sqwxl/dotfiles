@@ -2,7 +2,7 @@
 pcall(vim.keymap.del, "n", "<C-k>")
 pcall(vim.keymap.del, "n", "<C-j>")
 pcall(vim.keymap.del, "n", "<C-h>")
-pcall(vim.keymap.del, { "n" }, "<C-l>")
+pcall(vim.keymap.del, { "n", "t" }, "<C-l>")
 -- LazyVim's default lazygit mappings
 pcall(vim.keymap.del, "n", "<leader>gf")
 pcall(vim.keymap.del, "n", "<leader>gl")
@@ -92,7 +92,7 @@ map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })
 map("n", "<Leader>gu", "<Cmd>diffget LOCAL<CR>", { desc = "Get LOCAL hunk" })
 map("n", "<Leader>gl", "<Cmd>diffget REMOTE<CR>", { desc = "Get REMOTE hunk" })
 map("n", "<Leader>gU", "<Cmd>%diffget LOCAL<CR>", { desc = "Get all LOCAL hunks" })
-map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get all REMOTE hunks (whole file)" })
+map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get all REMOTE hunks" })
 
 -- UI
 
