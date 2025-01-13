@@ -93,6 +93,12 @@ map("n", "<Leader>gu", "<Cmd>diffget LOCAL<CR>", { desc = "Get LOCAL hunk" })
 map("n", "<Leader>gl", "<Cmd>diffget REMOTE<CR>", { desc = "Get REMOTE hunk" })
 map("n", "<Leader>gU", "<Cmd>%diffget LOCAL<CR>", { desc = "Get all LOCAL hunks" })
 map("n", "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", { desc = "Get all REMOTE hunks" })
+map("n", "<leader>gG", function()
+  Snacks.terminal({ "gitui" })
+end, { desc = "GitUi (cwd)" })
+map("n", "<leader>gg", function()
+  Snacks.terminal({ "gitui" }, { cwd = LazyVim.root.get() })
+end, { desc = "GitUi (Root Dir)" })
 
 -- UI
 
