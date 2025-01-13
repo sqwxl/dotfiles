@@ -1,21 +1,16 @@
 local pick_chezmoi = function(targets)
-  local fzf_lua = require("fzf-lua")
-  local results = require("chezmoi.commands").list({ targets = targets })
-  local chezmoi = require("chezmoi.commands")
-
-  local opts = {
+  require("fzf-lua").fzf_exec(require("chezmoi.commands").list({ targets = targets }), {
     fzf_opts = {},
     fzf_colors = true,
     actions = {
       ["default"] = function(selected)
-        chezmoi.edit({
+        require("chezmoi.commands").edit({
           targets = { "~/" .. selected[1] },
           args = { "--watch" },
         })
       end,
     },
-  }
-  fzf_lua.fzf_exec(results, opts)
+  })
 end
 
 return {
@@ -46,14 +41,11 @@ return {
         on_apply = true,
         on_watch = false,
       },
-      telescope = {
-        select = { "<CR>" },
-      },
     },
     init = function()
       -- run chezmoi edit on file enter
       vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-        pattern = { "*/.local/share/chezmoi/*" },
+        pattern = os.getenv("HOME") .. "/.local/share/chezmoi/*",
         callback = function(ev)
           vim.schedule(function()
             require("chezmoi.commands.__edit").watch(ev.buf)

@@ -55,7 +55,7 @@ return {
       node_executable = "/home/linuxbrew/.linuxbrew/opt/node@20/bin/node",
     },
     keys = {
-      dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+      dependencies = { "nvim-lua/plenary.nvim" },
       {
         "<leader>cy",
         function()

@@ -24,8 +24,8 @@ require("lazy").setup({
     },
     { import = "plugins" },
   },
-  defaults = { lazy = true },
-  diff = { cmd = "terminal_git" },
+  defaults = { lazy = true, version = false },
+  checker = { enabled = true, notify = false },
   rocks = { enabled = false },
   install = { colorscheme = { "gruvbox", "retrobox" } },
   change_detection = { notify = false },
@@ -44,7 +44,6 @@ require("lazy").setup({
       },
     },
   },
-  ui = { backdrop = 20 },
 })
 
 require("config.commands")
