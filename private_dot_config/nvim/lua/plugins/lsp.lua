@@ -72,7 +72,6 @@ return {
         html = {
           filetypes = { "html", "htmldjango" },
         },
-        biome = {},
         harper_ls = {
           settings = {
             ["harper-ls"] = {
