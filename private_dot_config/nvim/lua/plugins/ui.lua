@@ -52,7 +52,7 @@ return {
       input = {
         win = {
           keys = {
-            i_del_word = { "<C-w>", "delete_word", mode = "i" },
+            -- i_del_word = { "<C-w>", "delete_word", mode = "i" },
           },
           actions = {
             delete_word = function()
