@@ -79,7 +79,6 @@ return {
               codeActions = { forceStable = true },
               linters = {
                 avoid_curses = false,
-                sentence_capitalization = false,
               },
             },
           },
@@ -93,6 +92,15 @@ return {
               diagnostics = {
                 globals = { "vim" },
               },
+            },
+          },
+        },
+        biome = {
+          mason = false,
+          autostart = false,
+          settings = {
+            biome = {
+              enabled = false,
             },
           },
         },
