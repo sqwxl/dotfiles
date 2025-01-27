@@ -65,7 +65,6 @@ return {
 
   {
     "iamcco/markdown-preview.nvim",
-    enabled = false,
     opts = function()
       local cmd
       -- check if flatpak command is available
