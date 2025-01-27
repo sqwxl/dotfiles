@@ -10,7 +10,7 @@ return {
         -- javascript = { "biomejs" },
         json = { "biomejs" },
         jsonc = { "biomejs" },
-        markdown = { "markdownlint" },
+        -- markdown = { "markdownlint" },
         sass = { "stylelint" },
         sh = { "shellcheck" },
         sql = { "sqlfluff" },
