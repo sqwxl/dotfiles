@@ -1,15 +1,29 @@
 nvim
 n.b.
 PAYG
+<<<<<<< Updated upstream
 nvim
 PAYG
 hjkl
+||||||| Stash base
+=======
+nvim
+PAYG
+payg
+JSON
+>>>>>>> Stashed changes
 org's
 stdin
 #equie
 requie/!
 postgres
 Sendgrid
+sortable
 unflagged
+<<<<<<< Updated upstream
 jx
 JSON
+||||||| Stash base
+PAYG
+=======
+>>>>>>> Stashed changes

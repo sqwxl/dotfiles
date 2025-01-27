@@ -98,11 +98,6 @@ return {
         biome = {
           mason = false,
           autostart = false,
-          settings = {
-            biome = {
-              enabled = false,
-            },
-          },
         },
         -- tailwindcss = {
         --   root_dir = function(...)
@@ -125,14 +120,15 @@ return {
     opts = {
       PATH = "append",
       ensure_installed = { -- lsp servers are listed above, this is for other linters & formatters
+        "basedpyright",
         "djlint",
         "markdownlint",
-        "stylua",
-        "rustywind",
+        "prettierd",
         "ruff",
-        "basedpyright",
+        "rustywind",
         "shellcheck",
         "shfmt",
+        "stylua",
       },
     },
   },
