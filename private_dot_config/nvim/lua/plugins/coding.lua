@@ -69,7 +69,7 @@ return {
       local cmd
       -- check if flatpak command is available
       if vim.fn.executable("flatpak") == 1 then
-        cmd = "flatpak firefox --new-tab"
+        cmd = "flatpak run org.mozilla.firefox --new-tab"
       else
         -- check for running from container
         if vim.fn.executable("flatpak-spawn") == 1 then
