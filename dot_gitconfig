@@ -3,9 +3,10 @@
 [alias]
 	fixup = commit --fixup
 	last = log -1 HEAD --ext-diff
-	today = log --since=00:00:00 --all --no-merges --oneline --author=nilueps@gmail.com --ext-diff
+	today = log --since 00:00:00 --all --no-merges --oneline --author nilueps@gmail.com --ext-diff
 	co = checkout
 	sho = show --ext-diff
+  unstage-commit = !git reset HEAD^ && git commit --reuse-message=ORIG_HEAD --allow-empty
 
 [branch]
 	sort = -committerdate
