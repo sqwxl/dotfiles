@@ -95,4 +95,3 @@ abbr gwd 'git worktree remove'
 
 abbr sprr 'spr diff -m Rebase'
 abbr spru 'spr diff -m Update'
-abbr amend-and-diff --set-cursor 'git commit --amend --no-edit % && spr diff -m Update'
