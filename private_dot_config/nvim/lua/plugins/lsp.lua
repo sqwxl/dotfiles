@@ -73,6 +73,12 @@ return {
           filetypes = { "html", "htmldjango" },
         },
         harper_ls = {
+          on_new_config = function(config, root_dir)
+            if root_dir:match("^.*[nN]ormcore.*$") == nil then
+              vim.notify("harper-ls only works with Normcore projects")
+              config.autostart = false
+            end
+          end,
           settings = {
             ["harper-ls"] = {
               userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
