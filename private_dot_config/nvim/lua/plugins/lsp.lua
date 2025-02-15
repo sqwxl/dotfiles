@@ -9,8 +9,8 @@ return {
           "gd",
           function()
             require("fzf-lua").lsp_definitions({
-              jump_to_single_result = true,
-              jump_to_single_result_action = require("fzf-lua.actions").file_switch_or_edit,
+              jump1 = true,
+              jump1_action = require("fzf-lua.actions").file_switch_or_edit,
               ignore_current_line = true,
             })
           end,
@@ -21,8 +21,8 @@ return {
           "gV",
           function()
             require("fzf-lua").lsp_definitions({
-              jump_to_single_result = true,
-              jump_to_single_result_action = require("fzf-lua.actions").file_vsplit,
+              jump1 = true,
+              jump1_action = require("fzf-lua.actions").file_vsplit,
               ignore_current_line = true,
             })
           end,
@@ -33,7 +33,7 @@ return {
           "gr",
           function()
             require("fzf-lua").lsp_references({
-              jump_to_single_result = true,
+              jump1 = true,
               ignore_current_line = true,
               includeDeclaration = false,
             })
@@ -105,7 +105,6 @@ return {
           },
         },
         biome = {
-          mason = false,
           autostart = false,
         },
       },
@@ -115,7 +114,7 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      PATH = "append", -- So that shell PATH will take precedence
+      -- PATH = "append", -- So that shell PATH will take precedence
       -- LSP servers are listed above, and are installed by mason-lspconfig; this is for linters & formatters.
       ensure_installed = {
         "djlint",
