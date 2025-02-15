@@ -73,12 +73,14 @@ return {
           filetypes = { "html", "htmldjango" },
         },
         harper_ls = {
-          root_dir = function(filename)
-            if filename:match("^.*[nN]ormcore.*$") == nil then
+          root_dir = function(fname)
+            local should_start = fname:match("^.*[nN]ormcore.*$") == nil
+            vim.notify(fname .. " " .. should_start)
+            if should_start == nil then
               return nil
             end
 
-            return require("lspconfig.configs.harper_ls").default_config.root_dir(filename)
+            return require("lspconfig.configs.harper_ls").default_config.root_dir(fname)
           end,
           settings = {
             ["harper-ls"] = {
