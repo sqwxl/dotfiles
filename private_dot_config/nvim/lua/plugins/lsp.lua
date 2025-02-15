@@ -73,10 +73,9 @@ return {
           filetypes = { "html", "htmldjango" },
         },
         harper_ls = {
-          on_new_config = function(config, root_dir)
-            if root_dir:match("^.*[nN]ormcore.*$") == nil then
-              vim.notify("harper-ls only works with Normcore projects")
-              config.autostart = false
+          root_dir = function(filename)
+            if filename:match("^.*[nN]ormcore.*$") ~= nil then
+              return require("lspconfig.configs.harper_ls").default_config.root_dir(filename)
             end
           end,
           settings = {
