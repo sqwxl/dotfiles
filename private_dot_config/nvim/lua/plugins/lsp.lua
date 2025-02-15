@@ -74,9 +74,9 @@ return {
         },
         harper_ls = {
           root_dir = function(fname)
-            local should_start = fname:match("^.*[nN]ormcore.*$") == nil
-            vim.notify(fname .. " " .. should_start)
-            if should_start == nil then
+            local should_skip = fname:match("^.*[nN]ormcore.*$") == nil
+            vim.notify(fname)
+            if should_skip then
               return nil
             end
 
