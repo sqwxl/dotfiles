@@ -48,7 +48,7 @@ return {
     opts = {
       inlay_hints = { enabled = false },
       document_highlight = { enabled = false }, -- Enable LSP cursor word highlighting
-      servers = { -- servers included here get automatically installed by mason
+      servers = {
         basedpyright = {
           settings = {
             basedpyright = {
@@ -74,14 +74,14 @@ return {
         },
         harper_ls = {
           root_dir = function(fname)
-            local should_skip = string.match(fname, "^.*[nN]ormcore.*$") == nil
-
-            if should_skip then
+            -- Only run Harper in Normcore projects
+            if string.match(fname, "^.*[nN]ormcore.*$") == nil then
               return nil
             end
 
-            return require("lspconfig.configs.harper_ls").default_config.root_dir(fname)
+            return require("lspconfig").harper_ls.config_def.default_config.root_dir(fname)
           end,
+          single_file_support = false, -- If this is true, then the rood_dir function above will have no effect
           settings = {
             ["harper-ls"] = {
               userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
@@ -108,32 +108,19 @@ return {
           mason = false,
           autostart = false,
         },
-        -- tailwindcss = {
-        --   root_dir = function(...)
-        --     return require("lspconfig.util").root_pattern(".git")(...)
-        --   end,
-        -- },
       },
-    },
-  },
-
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      automatic_installation = false,
     },
   },
 
   {
     "williamboman/mason.nvim",
     opts = {
-      PATH = "append",
-      ensure_installed = { -- lsp servers are listed above, this is for other linters & formatters
-        "basedpyright",
+      PATH = "append", -- So that shell PATH will take precedence
+      -- LSP servers are listed above, and are installed by mason-lspconfig; this is for linters & formatters.
+      ensure_installed = {
         "djlint",
         "markdownlint",
         "prettierd",
-        "ruff",
         "rustywind",
         "shellcheck",
         "shfmt",
