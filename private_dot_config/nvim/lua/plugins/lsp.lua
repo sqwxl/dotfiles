@@ -74,9 +74,11 @@ return {
         },
         harper_ls = {
           root_dir = function(filename)
-            if filename:match("^.*[nN]ormcore.*$") ~= nil then
-              return require("lspconfig.configs.harper_ls").default_config.root_dir(filename)
+            if filename:match("^.*[nN]ormcore.*$") == nil then
+              return nil
             end
+
+            return require("lspconfig.configs.harper_ls").default_config.root_dir(filename)
           end,
           settings = {
             ["harper-ls"] = {
