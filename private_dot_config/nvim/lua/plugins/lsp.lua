@@ -1,7 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    init = function()
+    opts = function(_, opts)
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
 
       vim.list_extend(keys, {
@@ -43,72 +43,75 @@ return {
         },
         { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
       })
-    end,
 
-    opts = {
-      inlay_hints = { enabled = false },
-      document_highlight = { enabled = false }, -- Enable LSP cursor word highlighting
-      servers = {
-        basedpyright = {
-          settings = {
-            basedpyright = {
-              disableOrganizeImports = true, -- Using Ruff
-              disableTaggedHints = true, -- Using Ruff
-              analysis = {
-                autoImportCompletions = true,
-                diagnosticSeverityOverrides = {
-                  reportUndefinedVariable = "none",
+      return vim.tbl_deep_extend("force", opts, {
+        inlay_hints = { enabled = false },
+        diagnostics = {
+          update_in_insert = false,
+        },
+        servers = {
+          basedpyright = {
+            settings = {
+              basedpyright = {
+                disableOrganizeImports = true, -- Using Ruff
+                disableTaggedHints = true, -- Using Ruff
+                analysis = {
+                  autoImportCompletions = true,
+                  diagnosticSeverityOverrides = {
+                    reportUndefinedVariable = "none",
+                  },
                 },
               },
             },
           },
-        },
-        ruff = {
-          settings = {
-            lineLength = { 120 },
+          ruff = {
+            settings = {
+              lineLength = { 120 },
+            },
           },
-        },
-        bashls = {},
-        html = {
-          filetypes = { "html", "htmldjango" },
-        },
-        harper_ls = {
-          root_dir = function(fname)
-            -- Only run Harper in Normcore projects
-            if string.match(fname, "^.*[nN]ormcore.*$") == nil then
-              return nil
-            end
+          bashls = {},
+          html = {
+            filetypes = { "html", "htmldjango" },
+          },
+          harper_ls = {
+            root_dir = function(fname)
+              -- Only run Harper in Normcore projects
+              if string.match(fname, "^.*[nN]ormcore.*$") == nil then
+                return nil
+              end
 
-            return require("lspconfig").harper_ls.config_def.default_config.root_dir(fname)
-          end,
-          single_file_support = false, -- If this is true, then the rood_dir function above will have no effect
-          settings = {
-            ["harper-ls"] = {
-              userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
-              codeActions = { forceStable = true },
-              linters = {
-                avoid_curses = false,
+              return require("lspconfig").harper_ls.config_def.default_config.root_dir(fname)
+            end,
+            single_file_support = false, -- If this is true, then the rood_dir function above will have no effect
+            settings = {
+              ["harper-ls"] = {
+                userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
+                codeActions = { forceStable = true },
+                linters = {
+                  avoid_curses = false,
+                },
               },
             },
           },
-        },
-        htmx = {
-          filetypes = { "html", "htmldjango" },
-        },
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { "vim" },
+          htmx = {
+            filetypes = { "html", "htmldjango" },
+          },
+          lua_ls = {
+            settings = {
+              Lua = {
+                diagnostics = {
+                  globals = { "vim" },
+                },
               },
             },
           },
+          biome = {
+            autostart = false,
+          },
+          bacon_ls = {},
         },
-        biome = {
-          autostart = false,
-        },
-      },
-    },
+      })
+    end,
   },
 
   {
