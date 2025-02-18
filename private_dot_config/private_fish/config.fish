@@ -17,7 +17,7 @@ abbr czsway "cz edit --apply ~/.config/sway/config"
 abbr czvim "cz edit --apply ~/.config/nvim/lua"
 abbr czfish "cz edit --apply ~/.config/fish/config.fish"
 abbr czterm "cz edit --apply ~/.config/foot/foot.ini"
-abbr czcommit "cz git commit -- -am (openssl rand -hex 8) && cz git push"
+abbr czcommit "cz git commit -- -am (openssl rand -hex 4) && cz git push"
 
 # Weather in Stukely
 abbr weather 'curl -s "wttr.in/45.32,-72.42?nFQ"'
