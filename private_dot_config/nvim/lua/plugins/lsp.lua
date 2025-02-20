@@ -120,6 +120,7 @@ return {
       -- PATH = "append", -- So that shell PATH will take precedence
       -- LSP servers are listed above, and are installed by mason-lspconfig; this is for linters & formatters.
       ensure_installed = {
+        "biome",
         "djlint",
         "markdownlint",
         "prettierd",
