@@ -54,18 +54,4 @@ return {
       })
     end,
   },
-
-  {
-    "folke/snacks.nvim",
-    opts = function(_, opts)
-      -- replace the "config" entry's action in opts.dashboard.preset.keys
-      for _, key in ipairs(opts.dashboard.preset.keys) do
-        if key.desc == "Config" then
-          key.action = function()
-            pick_chezmoi("~/.config/nvim")
-          end
-        end
-      end
-    end,
-  },
 }
