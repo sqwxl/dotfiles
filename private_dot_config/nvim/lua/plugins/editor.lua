@@ -1,6 +1,37 @@
 return {
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        sources = {
+          explorer = {
+            auto_close = true,
+          },
+        },
+      },
+    },
+    keys = {
+      {
+        "<Bslash>",
+        function()
+          Snacks.explorer()
+        end,
+        desc = "File explorer",
+      },
+      {
+        "<A-Bslash>",
+        function()
+          Snacks.explorer.reveal()
+        end,
+        desc = "Reveal in file explorer",
+      },
+    },
+  },
+
   {
     "nvim-neo-tree/neo-tree.nvim",
+    enabled = false,
     opts = {
       window = {
         position = "left",
@@ -84,6 +115,7 @@ return {
 
   {
     "ibhagwan/fzf-lua",
+    enabled = false,
     opts = {
       fzf_opts = { ["--cycle"] = true },
       keymap = {
