@@ -63,6 +63,13 @@ return {
           biome = {
             autostart = false,
           },
+          lua_ls = {
+            settings = {
+              Lua = {
+                codelens = { enabled = false },
+              },
+            },
+          },
         },
       })
     end,
