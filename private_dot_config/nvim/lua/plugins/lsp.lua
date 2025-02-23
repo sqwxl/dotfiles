@@ -5,42 +5,6 @@ return {
       local keys = require("lazyvim.plugins.lsp.keymaps").get()
 
       vim.list_extend(keys, {
-        {
-          "gd",
-          function()
-            require("fzf-lua").lsp_definitions({
-              jump1 = true,
-              jump1_action = require("fzf-lua.actions").file_switch_or_edit,
-              ignore_current_line = true,
-            })
-          end,
-          desc = "Go to definition",
-          has = "definition",
-        },
-        {
-          "gV",
-          function()
-            require("fzf-lua").lsp_definitions({
-              jump1 = true,
-              jump1_action = require("fzf-lua.actions").file_vsplit,
-              ignore_current_line = true,
-            })
-          end,
-          desc = "Go to definition in vsplit",
-          has = "definition",
-        },
-        {
-          "gr",
-          function()
-            require("fzf-lua").lsp_references({
-              jump1 = true,
-              ignore_current_line = true,
-              includeDeclaration = false,
-            })
-          end,
-          desc = "References",
-          nowait = true,
-        },
         { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
       })
 
@@ -96,19 +60,9 @@ return {
           htmx = {
             filetypes = { "html", "htmldjango" },
           },
-          lua_ls = {
-            settings = {
-              Lua = {
-                diagnostics = {
-                  globals = { "vim" },
-                },
-              },
-            },
-          },
           biome = {
             autostart = false,
           },
-          bacon_ls = {},
         },
       })
     end,
