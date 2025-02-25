@@ -1,11 +1,11 @@
 [user]
 	email = nilueps@gmail.com
 	name = Nicolas Epstein
+[init]
+	defaultBranch = main
 [core]
 	excludesFile = ~/.gitignore
 	pager = delta
-[init]
-	defaultBranch = main
 [column]
   ui = auto
 [branch]
@@ -29,26 +29,25 @@
   autoStash = true
 	updateRefs = true
 [diff]
-	; external = difft
 	algorithm = histogram
   colorMoved = plain
   mnemonicPrefix = true ; use i/, w/ and c/ for index, worktree and commit instead of a/, b/, c/...
   renames = true
 [merge]
+	conflictStyle = diff3
 	tool = nvimdiff
 	guitool = meld
-	conflictStyle = diff3
 [rerere]
 	enabled = true
 	autoUpdate = true
-[interactive]
-	diffFilter = delta --color-only
 [mergetool]
   keepBackup = false
 [mergetool "meld"]
 	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
 [delta]
 	navigate = true
+[interactive]
+	diffFilter = delta --color-only
 [transfer]
 	fsckObjects = true
 [url "git@github.com:"]
