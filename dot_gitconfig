@@ -1,3 +1,65 @@
+[user]
+	email = nilueps@gmail.com
+	name = Nicolas Epstein
+[core]
+	excludesFile = ~/.gitignore
+	pager = delta
+[init]
+	defaultBranch = main
+[column]
+  ui = auto
+[branch]
+	sort = -committerdate
+[tag]
+  sort = version:refname
+[commit]
+	verbose = true
+[fetch]
+	prune = true
+  pruneTags = true
+  all = true
+[pull]
+  rebase = true
+[push]
+  default = simple
+	autoSetupRemote = true
+  followTags = true
+[rebase]
+	autoSquash = true
+  autoStash = true
+	updateRefs = true
+[diff]
+	; external = difft
+	algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true ; use i/, w/ and c/ for index, worktree and commit instead of a/, b/, c/...
+  renames = true
+[merge]
+	tool = nvimdiff
+	guitool = meld
+	conflictStyle = diff3
+[rerere]
+	enabled = true
+	autoUpdate = true
+[interactive]
+	diffFilter = delta --color-only
+[mergetool]
+  keepBackup = false
+[mergetool "meld"]
+	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
+[delta]
+	navigate = true
+[transfer]
+	fsckObjects = true
+[url "git@github.com:"]
+	insteadOf = "https://github.com/"
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[help]
+	autoCorrect = prompt
 [advice]
   mergeConflict = false
 [alias]
@@ -7,53 +69,3 @@
 	co = checkout
 	sho = show --ext-diff
   unstage-commit = !git reset HEAD^ && git commit --reuse-message ORIG_HEAD --allow-empty --no-verify
-
-[branch]
-	sort = -committerdate
-[commit]
-	verbose = true
-[core]
-	excludesFile = ~/.gitignore
-	pager = delta
-[delta]
-	navigate = true
-[interactive]
-	diffFilter = delta --color-only
-[diff]
-	; external = difft
-	algorithm = histogram
-	colorMoved = default
-[mergetool]
-  keepBackup = false
-[mergetool "meld"]
-	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
-[fetch]
-	prune = true
-[help]
-	autoCorrect = prompt
-[init]
-	defaultBranch = main
-[merge]
-	tool = nvimdiff
-	guitool = meld
-	conflictStyle = diff3
-[push]
-	autoSetupRemote = true
-[rebase]
-	autoSquash = true
-	updateRefs = true
-[rerere]
-	enabled = true
-	autoUpdate = true
-[transfer]
-	fsckObjects = true
-[user]
-	email = nilueps@gmail.com
-	name = Nicolas Epstein
-[url "git@github.com:"]
-	insteadOf = "https://github.com/"
-[filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
