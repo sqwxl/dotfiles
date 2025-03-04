@@ -57,6 +57,7 @@ map({ "n" }, "<Leader>W", function()
     vim.cmd.wincmd(nr .. " w")
   end
 end, { desc = "Pick window" })
+map("n", "gV", "<C-w>vgd", { desc = "Go to definiton in split" })
 
 -- EDITING
 -- keep cursor pos when joining lines

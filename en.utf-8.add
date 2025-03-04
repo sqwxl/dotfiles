@@ -1,5 +1,6 @@
 jx
 JWT
+Zod
 JSON
 PAYG
 hjkl
@@ -11,6 +12,7 @@ jsonb
 org's
 stdin
 biome
+getter
 schemas
 PgTyped
 Normcore
