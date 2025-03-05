@@ -14,7 +14,7 @@ return {
           update_in_insert = false,
         },
         servers = {
-          ada_language_server = {},
+          ada_ls = {},
           basedpyright = {
             settings = {
               basedpyright = {
