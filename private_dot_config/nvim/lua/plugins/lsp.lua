@@ -1,25 +1,15 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = function()
-      local keys = require("lazyvim.plugins.lsp.keymaps").get()
-
-      vim.list_extend(keys, {
-        { "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
-      })
-    end,
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    -- @class PluginLspOpts
     opts = {
       inlay_hints = { enabled = false },
       diagnostics = {
         update_in_insert = false,
       },
       servers = {
-        ada_ls = {},
+        ada_ls = {
+          settings = {},
+        },
         basedpyright = {
           settings = {
             basedpyright = {
