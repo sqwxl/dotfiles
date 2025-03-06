@@ -2,6 +2,13 @@
 
 add_newline = false
 
+[custom.get-msg]
+command = 'git show --format=%s --no-patch'
+when = true
+require_repo = true
+style = 'blue'
+symbol = "📝 "
+
 [custom.git-check-merge]
 command = 'echo MERGE COMMIT'
 when = 'test -e (git rev-parse --git-path MERGE_MSG)'
