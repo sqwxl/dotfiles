@@ -7,9 +7,7 @@ return {
         update_in_insert = false,
       },
       servers = {
-        ada_ls = {
-          settings = {},
-        },
+        ada_ls = {},
         basedpyright = {
           settings = {
             basedpyright = {
