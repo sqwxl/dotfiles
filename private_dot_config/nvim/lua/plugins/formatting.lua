@@ -4,7 +4,6 @@ return {
     opts = {
       notify_on_error = true,
       formatters_by_ft = {
-        cpp = { "clang-format" },
         css = { "prettierd" },
         fish = { "fish_indent" },
         go = { "gofmt" },

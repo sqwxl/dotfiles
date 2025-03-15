@@ -86,4 +86,8 @@ return {
       },
     },
   },
+
+  {
+    "$HOME/Projects/playdate.nvim",
+  },
 }
