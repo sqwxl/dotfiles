@@ -29,6 +29,10 @@ require("lazy").setup({
   rocks = { enabled = false },
   install = { colorscheme = { "gruvbox", "retrobox" } },
   change_detection = { notify = false },
+  dev = {
+    path = "$HOME/Projects",
+    fallback = false,
+  },
   performance = {
     rtp = {
       disabled_plugins = {

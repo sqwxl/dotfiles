@@ -96,6 +96,7 @@ return {
   },
 
   {
-    "$HOME/Projects/playdate.nvim",
+    "playdate.nvim",
+    dev = true,
   },
 }
