@@ -97,7 +97,7 @@ return {
 
   {
     "playdate.nvim",
-    lazy = true,
+    event = "BufEnter",
     dev = true,
   },
 }
