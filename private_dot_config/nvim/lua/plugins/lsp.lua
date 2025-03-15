@@ -61,6 +61,11 @@ return {
           settings = {
             Lua = {
               codelens = { enabled = false },
+              format = {
+                defaultConfig = {
+                  call_arg_parentheses = "remove_string_only",
+                },
+              },
             },
           },
         },
