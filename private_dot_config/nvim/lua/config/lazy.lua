@@ -30,7 +30,7 @@ require("lazy").setup({
   install = { colorscheme = { "gruvbox", "retrobox" } },
   change_detection = { notify = false },
   dev = {
-    path = "$HOME/Projects",
+    path = "~/Projects",
     fallback = false,
   },
   performance = {
