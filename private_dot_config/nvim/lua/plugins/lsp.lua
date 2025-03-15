@@ -61,6 +61,9 @@ return {
           settings = {
             Lua = {
               codelens = { enabled = false },
+              diagnostics = {
+                disable = { "redefined-local", "lowercase-global" },
+              },
               format = {
                 defaultConfig = {
                   call_arg_parentheses = "remove_string_only",
