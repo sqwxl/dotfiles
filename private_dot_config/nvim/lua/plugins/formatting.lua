@@ -14,7 +14,7 @@ return {
         json = { "biome" },
         jsonc = { "biome" },
         just = { "just" },
-        lua = { "stylua" },
+        -- lua = { "stylua" },
         markdown = { "prettierd" },
         nix = { "alejandra" },
         php = { "pint" },
