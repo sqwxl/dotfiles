@@ -3,7 +3,7 @@
 add_newline = false
 
 [custom.get-msg]
-command = 'git show --format=%s --no-patch | string shorten -m 15'
+command = 'git show --format=%s --no-patch | string shorten -m 25'
 when = true
 require_repo = true
 style = 'blue'
