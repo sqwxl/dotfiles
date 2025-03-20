@@ -95,7 +95,8 @@ return {
   },
 
   {
-    "sqwxl/playdate.nvim",
+    "playdate.nvim",
+    dev = true,
     opts = {
       playdate_luacats_path = "~/Clones/playdate-luacats",
       server_settings = {
