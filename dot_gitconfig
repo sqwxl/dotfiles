@@ -68,3 +68,4 @@
 	co = checkout
 	sho = show --ext-diff
   unstage-commit = !git reset HEAD^ && git commit --reuse-message ORIG_HEAD --allow-empty --no-verify
+  rand = commit -am (openssl rand -hex 8)
