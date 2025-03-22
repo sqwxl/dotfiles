@@ -1,28 +1,7 @@
 return {
 
   {
-    "folke/snacks.nvim",
-    keys = {
-      {
-        "<Bslash>",
-        function()
-          Snacks.explorer()
-        end,
-        desc = "File explorer",
-      },
-      {
-        "<A-Bslash>",
-        function()
-          Snacks.explorer.reveal()
-        end,
-        desc = "Reveal in file explorer",
-      },
-    },
-  },
-
-  {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false,
     opts = {
       window = {
         position = "left",
@@ -55,7 +34,7 @@ return {
       },
     },
     keys = {
-      { "<Bslash>", "<Cmd>Neotree toggle=true<CR>", noremap = true, desc = "Toggle Neotree" },
+      { "<Space>e", "<Cmd>Neotree toggle=true<CR>", noremap = true, desc = "Toggle Neotree" },
       { "<A-Bslash>", "<Cmd>Neotree reveal=true<CR>", desc = "Reveal in Neotree" },
     },
   },
