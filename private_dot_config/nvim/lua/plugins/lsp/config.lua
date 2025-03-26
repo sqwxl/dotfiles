@@ -44,7 +44,7 @@ return function()
   vim.lsp.enable("harper_ls")
 
   -- Lua
-  vim.lsp.config("lua_ls", {
+  vim.lsp.config("luals", {
     settings = {
       Lua = {
         codelens = { enabled = false },
@@ -54,5 +54,5 @@ return function()
       },
     },
   })
-  vim.lsp.enable("lua_ls")
+  vim.lsp.enable("luals")
 end
