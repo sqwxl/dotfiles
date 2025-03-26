@@ -11,7 +11,14 @@ auto-format = true
 insert = "bar"
 select = "underline"
 
-# [keys.normal]
+[keys.normal]
+S-ret = "@:"
+
+[keys.insert]
+C-c = "normal_mode"
+
+[keys.select]
+C-c = "normal_mode"
 # # remap all movements to h-t-n-s (dvorak)
 
 # t = "move_line_down" # old 'till_char'
