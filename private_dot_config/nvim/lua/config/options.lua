@@ -2,11 +2,13 @@ vim.g.leader = " "
 vim.g.maplocalleader = "\\"
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
 vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
+
 vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_ruff = "ruff"
 vim.g.lazyvim_rust_diagnostics = "rust-analyzer"
-vim.g.snacks_animate = false
 vim.g.ai_cmp = true -- adds ai source to blink.cmp
+
+vim.g.snacks_animate = false
 
 vim.opt.breakindent = true -- keep indent when wrapping lines
 vim.opt.diffopt:append("iwhite") -- ignore whitespace
@@ -38,7 +40,7 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
 end
 
 if vim.g.neovide then
-  vim.o.guifont = "JetBrainsMono,Nerd_Font,Noto_Color_Emoji:h11"
+  vim.o.guifont = "JetBrains Mono,Symbols Nerd Font,Noto Color Emoji:h13"
   vim.g.neovide_cursor_animate_in_insert_mode = false
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_floating_blur_amount_x = 2.0
