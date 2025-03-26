@@ -38,7 +38,7 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
 end
 
 if vim.g.neovide then
-  vim.o.guifont = "JetBrainsMono_Nerd_Font,Noto_Color_Emoji:h11"
+  vim.o.guifont = "JetBrainsMono,Nerd_Font,Noto_Color_Emoji:h11"
   vim.g.neovide_cursor_animate_in_insert_mode = false
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_floating_blur_amount_x = 2.0
@@ -69,20 +69,3 @@ if vim.g.neovide then
     change_scale_factor(1 / 1.25)
   end)
 end
-
--- if vim.g.started_by_firenvim then
---   opt.laststatus = 0
---   opt.number = false
---   opt_local.signcolumn = "no"
---   opt.background = "light"
---   opt_local.cursorline = false
---
---   vim.g.firenvim_config = {
---     localSettings = {
---           [".*"] = {
---         selector = "textarea",
---         takeover = "never"
---       }
---     }
---   }
--- end
