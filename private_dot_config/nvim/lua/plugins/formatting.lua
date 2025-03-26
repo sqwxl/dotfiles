@@ -10,7 +10,7 @@ return {
         html = { "prettierd", "rustywind" },
         htmldjango = { "djlint", "rustywind" },
         just = { "just" },
-        lua = { "stylua" },
+        -- lua = { "stylua" },
         markdown = { "prettierd" },
         nix = { "alejandra" },
         php = { "pint" },

@@ -35,11 +35,6 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<Leader><Leader>", "<Cmd>e#<CR>", { desc = "Go to last accessed buffer" })
 map("n", "<C-Tab>", "<C-W>p", { desc = "Go to last accessed window" })
 map("n", "<Leader><C-Tab>", "<Cmd>tabnext #<CR>", { desc = "Go to last accessed tab" })
-map("n", "<A-t>", "<Cmd>tabnew<CR>", { desc = "New tab" })
-map("n", "<A-p>", "<Cmd>tabprevious<CR>", { desc = "Previous tab" })
-map("n", "<A-n>", "<Cmd>tabnext<CR>", { desc = "Next tab" })
-map("n", "<Leader>xk", "<Cmd>cprev<CR>zz", { desc = "Previous quickfix item" })
-map("n", "<Leader>xj", "<Cmd>cnext<CR>zz", { desc = "Next quickfix item" })
 map({ "n", "v" }, "<S-Tab>", "<C-w>W", { desc = "Go to window above/left" })
 map({ "n", "v" }, "<Tab>", "<C-w>w", { desc = "Go to window below/right" })
 map({ "n", "v" }, "<C-i>", "<Tab>") -- CTRL-I can be mapped separately from <Tab>, on the condition that both keys are mapped, otherwise the mapping applies to both.
@@ -57,15 +52,11 @@ map({ "n" }, "<Leader>W", function()
     vim.cmd.wincmd(nr .. " w")
   end
 end, { desc = "Pick window" })
-map("n", "gV", "<C-w>vgd", { desc = "Go to definiton in split" })
+map("n", "gV", function()
+  vim.lsp.buf.definition({ reuse_win = true })
+end, { desc = "Go to definiton in split" })
 
 -- EDITING
--- keep cursor pos when joining lines
-map("n", "J", "mzJ`z", { desc = "Join lines" })
--- don't delete to register when pasting or deleting
-map("x", "<Leader>p", [["_dhp]], { desc = "Paste no yank" })
-map("x", "<Leader>P", [["_dP]], { desc = "Paste no yank (before)" })
-map({ "n", "v" }, "<Leader>D", [["_d]], { desc = "Delete no yank" })
 -- move lines up & down
 map({ "n", "i" }, "<M-S-Up>", "<Cmd>m -2<CR>", { desc = "Move line up" })
 map({ "n", "i" }, "<M-S-Down>", "<Cmd>m +1<CR>", { desc = "Move line down" })
@@ -84,10 +75,6 @@ map("n", "<Leader>R", function()
   end)
 end, { desc = "Replace word under cursor" })
 
--- yank to clipboard
-map({ "n", "v" }, "<Leader>y", [["+y]], { desc = "Yank to clipboard" })
-map({ "n", "v" }, "<Leader>Y", [["+Y]], { desc = "Yank to clipboard (eol)" })
-
 -- GIT
 -- diffs
 map("n", "<Leader>gu", "<Cmd>diffget LOCAL<CR>", { desc = "Get LOCAL hunk" })
@@ -102,7 +89,6 @@ map("n", "<leader>gg", function()
 end, { desc = "GitUi (Root Dir)" })
 
 -- UI
-
 -- saner command history
 map("c", "<C-p>", function()
   return vim.fn.wildmenumode() and "<Up>" or "<C-p>"
@@ -110,7 +96,3 @@ end, { expr = true, silent = false })
 map("c", "<C-n>", function()
   return vim.fn.wildmenumode() and "<Down>" or "<C-n>"
 end, { expr = true, silent = false })
-
--- cspell
-map("n", "<Leader>cw", "<Cmd>CspellLearnWord<CR>", { desc = "Teach current word to cspell" })
-map("n", "<Leader>cp", "<Cmd>CspellLearnFile<CR>", { desc = "Teach words in current buffer to cspell" })
