@@ -2,7 +2,7 @@ return function()
   vim.lsp.inlay_hint.enable(false)
 
   -- Bash
-  vim.lsp.enabl("bashls")
+  vim.lsp.enable("bashls")
 
   -- Python
   vim.lsp.config("basedpyright", {
