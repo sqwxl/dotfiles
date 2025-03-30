@@ -1,4 +1,4 @@
-vim.g.leader = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
@@ -13,26 +13,74 @@ vim.g.snacks_animate = false
 
 local opt = vim.opt
 
+-- Session management
 opt.autowrite = true
-opt.breakindent = true -- keep indent when wrapping lines
-opt.diffopt:append("iwhite") -- ignore whitespace
-opt.diffopt:append("algorithm:histogram")
-opt.diffopt:append("indent-heuristic")
 opt.exrc = true -- enable local .init.lua files
-opt.foldcolumn = "0"
-opt.foldenable = false
-opt.formatoptions = "jcroqlnt/"
-opt.laststatus = 2 -- statusline visibility (2 = all windows)
-opt.listchars = "tab:> ,trail:·,nbsp:+"
-opt.pumblend = 0 -- transparency of popup menu (0 = opaque/disabled)
-opt.pumheight = 0 -- max number of items in popup menu (0 = use available screen space)
-opt.relativenumber = false
-opt.scrolloff = 10
 opt.secure = true -- disable shell and write commands in local .vimrc files
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "globals", "skiprtp", "folds" }
+opt.undofile = true
+opt.undolevels = 10000
+
+-- UI
+opt.confirm = true -- Confirm to save changes before exiting modified buffer
+opt.laststatus = 2 -- Each window has a status line
+opt.jumpoptions = "view" -- When moving through the jumplist, changelist, alternate-file or using mark-motions try to restore the mark-view in which the action occurred.
+opt.pumblend = 0 -- Disabled popup menu transparency
+opt.smoothscroll = true
+opt.splitbelow = true -- Put new windows below current
+opt.splitkeep = "screen"
+opt.splitright = true -- Put new windows right of current
+opt.statuscolumn = "" -- TODO: figure out if I should set this
+opt.termguicolors = true
+opt.timeoutlen = 300 -- Time in milliseconds to wait for a mapped sequence to complete.
+opt.updatetime = 50 -- Save swap file update & CursorHold interval
+opt.winminwidth = 5 -- Minimum window width
+opt.shortmess:append({ W = true, I = true, c = true, C = true }) -- This option helps to avoid all the |hit-enter| prompts caused by file messages, for example with CTRL-G, and to avoid some other messages.
+
+-- Editor
+opt.conceallevel = 2
+vim.g.markdown_syntax_conceal = 0
+opt.completeopt = "menu,menuone,noselect" -- A comma-separated list of options for Insert mode completion
+opt.cursorline = true -- Enable highlighting of the current line
+opt.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " ", diff = "╱", eob = " " }
+opt.foldcolumn = "0" -- Disabled
+opt.foldenable = false
+opt.foldlevel = 99
+opt.formatexpr = "" -- TODO: figure out if I should set this
+opt.formatoptions = "jcroqlnt/"
+opt.ignorecase = true
+opt.inccommand = "nosplit" -- preview incremental :substitute commands
+opt.list = true -- Show whitespace
+opt.listchars = "tab:> ,trail:·,nbsp:+"
+opt.number = true -- Show line number
+opt.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true -- Don't ignore case with capitals
 opt.spell = false
-opt.timeoutlen = 300
-opt.updatetime = 50 -- swap file update & CursorHold interval
+opt.spelllang = { "en" }
+opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.wrap = false
+opt.linebreak = true -- Wrap lines at convenient points
+opt.scrolloff = 10
+opt.sidescrolloff = 8
+
+-- Integrations
+opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard -- only set clipboard if not in ssh, to make sure the OSC 52
+opt.diffopt:append("algorithm:histogram")
+opt.diffopt:append("indent-heuristic")
+opt.diffopt:append("iwhite") -- Ignore whitespace
+opt.diffopt:append("context:99") -- Disable folding
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.mouse = "nv" -- Enable mouse mode in Normal and Visual mode
+
+-- Indentation
+opt.breakindent = true -- keep indent when wrapping lines
+opt.shiftround = true -- Round indent
+opt.shiftwidth = 4 -- Size of an indent
+opt.tabstop = 4
+opt.expandtab = true -- Use spaces instead of tabs
+opt.smartindent = true -- Insert indents automatically
 
 -- make all keymaps silent by default
 local keymap_set = vim.keymap.set
