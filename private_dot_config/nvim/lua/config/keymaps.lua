@@ -51,10 +51,10 @@ local keymaps = {
         { "<Down>",     "v:count == 0 ? 'gj' : 'j'",                                 desc = "Down",          expr = true,                  silent = true, mode = { "n", "x" } },
         { "k",          "v:count == 0 ? 'gk' : 'k'",                                 desc = "Up",            expr = true,                  silent = true, mode = { "n", "x" } },
         { "<Up>",       "v:count == 0 ? 'gk' : 'k'",                                 desc = "Up",            expr = true,                  silent = true, mode = { "n", "x" } },
-        { "{",          "}",                                                         mode = { "n", "v" } },
-        { "}",          "{",                                                         mode = { "n", "v" } },
-        { "H",          "^",                                                         desc = "Start of line", mode = { "n", "x", "o" } },
-        { "L",          "$",                                                         desc = "End of line",   mode = { "n", "x", "o" } },
+        { "{",          "}",                                                         mode = "" },
+        { "}",          "{",                                                         mode = "" },
+        { "H",          "^",                                                         desc = "Start of line", mode = "" },
+        { "L",          "$",                                                         desc = "End of line",   mode = "" },
 
         -- keep cursor centered when scrolling
         { "<C-u>",      "<C-u>zz" },
@@ -129,14 +129,14 @@ local keymaps = {
         { "S",       function() require("flash").treesitter() end,        desc = "Flash Treesitter",                  mode = { "n", "o", "x" } },
         { "r",       function() require("flash").remote() end,            desc = "Remote Flash",                      mode = "o" },
         { "R",       function() require("flash").treesitter_search() end, desc = "Treesitter Search",                 mode = { "o", "x" } },
-        { "<c-s>",   function() require("flash").toggle() end,            desc = "Toggle Flash Search",               mode = { "c" } },
+        { "<C-s>",   function() require("flash").toggle() end,            desc = "Toggle Flash Search",               mode = { "c" } },
 
         { "<A-a>",   function() require("treesj").toggle() end,           desc = "Toggle fold/unfold tree structures" },
 
     },
 
     match = {
-        { "mm",     "%",                            desc = "Go to matching bracket",    mode = { "n", "v", "c" } },
+        { "mm",     "%",                            desc = "Go to matching bracket",    mode = "" },
         { "<C-g>s", "<Plug>(nvim-surround-insert)", desc = "Surround",                  mode = "i" },
         { "ms",     "<Plug>(nvim-surround-normal)", desc = "Surround" },
         { "mr",     "<Plug>(nvim-surround-change)", desc = "Replace surround character" },
@@ -301,31 +301,31 @@ local keymaps = {
 
     bracket = {
 
-        { "]]",       function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",         mode = { "n", "t" } },
-        { "[[",       function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",         mode = { "n", "t" } },
+        { "]]",       function() Snacks.words.jump(vim.v.count1, true) end,  desc = "Next Reference",         mode = { "n", "t" } },
+        { "[[",       function() Snacks.words.jump(-vim.v.count1, true) end, desc = "Prev Reference",         mode = { "n", "t" } },
 
-        { "[b",       "<cmd>bprevious<cr>",                            desc = "Prev Buffer" },
-        { "]b",       "<cmd>bnext<cr>",                                desc = "Next Buffer" },
+        { "[b",       "<cmd>bprevious<cr>",                                  desc = "Prev Buffer" },
+        { "]b",       "<cmd>bnext<cr>",                                      desc = "Next Buffer" },
 
-        { "]d",       diagnostic_goto(true),                           desc = "Next Diagnostic" },
-        { "[d",       diagnostic_goto(false),                          desc = "Prev Diagnostic" },
+        { "]d",       diagnostic_goto(true),                                 desc = "Next Diagnostic" },
+        { "[d",       diagnostic_goto(false),                                desc = "Prev Diagnostic" },
 
-        { "]e",       diagnostic_goto(true, "ERROR"),                  desc = "Next Error" },
-        { "[e",       diagnostic_goto(false, "ERROR"),                 desc = "Prev Error" },
+        { "]e",       diagnostic_goto(true, "ERROR"),                        desc = "Next Error" },
+        { "[e",       diagnostic_goto(false, "ERROR"),                       desc = "Prev Error" },
 
-        { "[q",       vim.cmd.cprev,                                   desc = "Previous Quickfix" },
-        { "]q",       vim.cmd.cnext,                                   desc = "Next Quickfix" },
+        { "[q",       vim.cmd.cprev,                                         desc = "Previous Quickfix" },
+        { "]q",       vim.cmd.cnext,                                         desc = "Next Quickfix" },
 
-        { "]w",       diagnostic_goto(true, "WARN"),                   desc = "Next Warning" },
-        { "[w",       diagnostic_goto(false, "WARN"),                  desc = "Prev Warning" },
+        { "]w",       diagnostic_goto(true, "WARN"),                         desc = "Next Warning" },
+        { "[w",       diagnostic_goto(false, "WARN"),                        desc = "Prev Warning" },
 
-        { "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>",  desc = "Add empty line(s) above" },
-        { "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>",   desc = "Add empty line(s) below" },
+        { "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>",        desc = "Add empty line(s) above" },
+        { "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>",         desc = "Add empty line(s) below" },
     },
 
     g = {
-        { "gh",    "^",                                                         desc = "Start of line",           mode = { "n", "x", "o" } },
-        { "gl",    "$",                                                         desc = "End of line",             mode = { "n", "x", "o" } },
+        { "gh",    "^",                                                         desc = "Start of line",           mode = "" },
+        { "gl",    "$",                                                         desc = "End of line",             mode = "" },
 
         { "gV",    function() vim.lsp.buf.definition({ reuse_win = true }) end, desc = "Go to definiton in split" }, -- TODO: fix this
         { "gd",    function() Snacks.picker.lsp_definitions() end,              desc = "Goto Definition" },
@@ -356,7 +356,7 @@ for _, group in pairs(keymaps) do
             expr = key.expr or false,
             nowait = key.nowait or false,
             remap = key.remap or false,
-            silent = key.silent or true
+            silent = key.silent or false
         }
         map(lhs, rhs, opts, key.mode or "n")
     end

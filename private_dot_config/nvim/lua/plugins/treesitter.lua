@@ -3,27 +3,10 @@ return {
     { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" },
 
     -- Automatically add closing tags for HTML and JSX
-    {
-        "windwp/nvim-ts-autotag",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    },
+    { "windwp/nvim-ts-autotag",         event = { "BufReadPost", "BufNewFile", "BufWritePre" } },
 
-    {
-        "folke/which-key.nvim",
-        opts = {
-            spec = {
-                { "<BS>",      desc = "Decrement Selection", mode = "x" },
-                { "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
-            },
-        },
-    },
-
-    -- Treesitter is a new parser generator tool that we can
-    -- use in Neovim to power faster and more accurate
-    -- syntax highlighting.
     {
         "nvim-treesitter/nvim-treesitter",
-        version = false, -- last release is way too old and doesn't work on Windows
         build = ":TSUpdate",
         event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
         lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
@@ -36,16 +19,16 @@ return {
             require("lazy.core.loader").add_to_rtp(plugin)
             require("nvim-treesitter.query_predicates")
         end,
-        cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
         keys = {
             { "<c-space>", desc = "Increment Selection" },
             { "<bs>",      desc = "Decrement Selection", mode = "x" },
         },
-        opts_extend = { "ensure_installed" },
         ---@type TSConfig
         ---@diagnostic disable-next-line: missing-fields
         opts = {
+            ensure_installed = { "bash", "c", "diff", "html", "javascript", "jsdoc", "json", "jsonc", "lua", "luadoc", "luap", "markdown", "markdown_inline", "printf", "python", "query", "regex", "toml", "tsx", "typescript", "vim", "vimdoc", "xml", "yaml" },
             auto_install = true,
+            sync_install = false,
             highlight = {
                 enable = true,
                 disable = function(lang, _)
@@ -55,32 +38,6 @@ return {
             },
             endwise = { enable = true },
             indent = { enable = true },
-            ensure_installed = {
-                "bash",
-                "c",
-                "diff",
-                "html",
-                "javascript",
-                "jsdoc",
-                "json",
-                "jsonc",
-                "lua",
-                "luadoc",
-                "luap",
-                "markdown",
-                "markdown_inline",
-                "printf",
-                "python",
-                "query",
-                "regex",
-                "toml",
-                "tsx",
-                "typescript",
-                "vim",
-                "vimdoc",
-                "xml",
-                "yaml",
-            },
             incremental_selection = {
                 enable = true,
                 keymaps = {
@@ -118,9 +75,6 @@ return {
         },
         ---@param opts TSConfig
         config = function(_, opts)
-            if type(opts.ensure_installed) == "table" then
-                opts.ensure_installed = require('util').dedup(opts.ensure_installed)
-            end
             require("nvim-treesitter.configs").setup(opts)
         end,
     },
@@ -128,11 +82,10 @@ return {
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         event = "VeryLazy",
-        enabled = true,
         config = function()
             -- If treesitter is already loaded, we need to run config again for textobjects
-            if require('util').is_loaded("nvim-treesitter") then
-                local opts = require('util').opts("nvim-treesitter")
+            if require("util").is_loaded("nvim-treesitter") then
+                local opts = require("util").opts("nvim-treesitter")
                 require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
             end
 
