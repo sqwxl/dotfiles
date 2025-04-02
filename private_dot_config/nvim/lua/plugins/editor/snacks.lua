@@ -36,7 +36,7 @@ return {
             },
         },
         styles = { notifications = { wo = { wrap = true }, relative = true } },
-        words = { enabled = true }
+        words = { enabled = false }
     },
     keys = {
     },
