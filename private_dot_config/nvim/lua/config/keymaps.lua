@@ -30,7 +30,6 @@ end
 
 local keymaps = {
     core = {
-        -- Esc
         { "<S-CR>", ":",               silent = false, desc = "Command line" },
         { "<Esc>",  "<C-Bslash><C-n>", mode = "t" },
         {
@@ -301,48 +300,49 @@ local keymaps = {
 
     bracket = {
 
-        { "]]",       function() require "ref_jump".jump(vim.v.count1) end,  desc = "Next Reference",         mode = { "n", "t" } },
-        { "[[",       function() require "ref_jump".jump(-vim.v.count1) end, desc = "Prev Reference",         mode = { "n", "t" } },
+        { "]]",       function() require "sqwxl.lsp_refs".jump(vim.v.count1) end,  desc = "Next Reference",         mode = { "n", "t" } },
+        { "[[",       function() require "sqwxl.lsp_refs".jump(-vim.v.count1) end, desc = "Prev Reference",         mode = { "n", "t" } },
 
-        { "[b",       "<cmd>bprevious<cr>",                                  desc = "Prev Buffer" },
-        { "]b",       "<cmd>bnext<cr>",                                      desc = "Next Buffer" },
+        { "[b",       "<cmd>bprevious<cr>",                                        desc = "Prev Buffer" },
+        { "]b",       "<cmd>bnext<cr>",                                            desc = "Next Buffer" },
 
-        { "]d",       diagnostic_goto(true),                                 desc = "Next Diagnostic" },
-        { "[d",       diagnostic_goto(false),                                desc = "Prev Diagnostic" },
+        { "]d",       diagnostic_goto(true),                                       desc = "Next Diagnostic" },
+        { "[d",       diagnostic_goto(false),                                      desc = "Prev Diagnostic" },
 
-        { "]e",       diagnostic_goto(true, "ERROR"),                        desc = "Next Error" },
-        { "[e",       diagnostic_goto(false, "ERROR"),                       desc = "Prev Error" },
+        { "]e",       diagnostic_goto(true, "ERROR"),                              desc = "Next Error" },
+        { "[e",       diagnostic_goto(false, "ERROR"),                             desc = "Prev Error" },
 
-        { "[q",       vim.cmd.cprev,                                         desc = "Previous Quickfix" },
-        { "]q",       vim.cmd.cnext,                                         desc = "Next Quickfix" },
+        { "[q",       vim.cmd.cprev,                                               desc = "Previous Quickfix" },
+        { "]q",       vim.cmd.cnext,                                               desc = "Next Quickfix" },
 
-        { "]w",       diagnostic_goto(true, "WARN"),                         desc = "Next Warning" },
-        { "[w",       diagnostic_goto(false, "WARN"),                        desc = "Prev Warning" },
+        { "]w",       diagnostic_goto(true, "WARN"),                               desc = "Next Warning" },
+        { "[w",       diagnostic_goto(false, "WARN"),                              desc = "Prev Warning" },
 
-        { "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>",        desc = "Add empty line(s) above" },
-        { "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>",         desc = "Add empty line(s) below" },
+        { "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>",              desc = "Add empty line(s) above" },
+        { "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>",               desc = "Add empty line(s) below" },
     },
 
     g = {
-        { "gh",    "^",                                                         desc = "Start of line",           mode = "" },
-        { "gl",    "$",                                                         desc = "End of line",             mode = "" },
 
-        { "gV",    function() vim.lsp.buf.definition({ reuse_win = true }) end, desc = "Go to definiton in split" }, -- TODO: fix this
-        { "gd",    function() Snacks.picker.lsp_definitions() end,              desc = "Goto Definition" },
-        { "gD",    function() Snacks.picker.lsp_declarations() end,             desc = "Goto Declaration" },
-        { "gr",    function() Snacks.picker.lsp_references() end,               nowait = true,                    desc = "References" },
-        { "gI",    function() Snacks.picker.lsp_implementations() end,          desc = "Goto Implementation" },
-        { "gy",    function() Snacks.picker.lsp_type_definitions() end,         desc = "Goto T[y]pe Definition" },
+        { "gh",    "^",                                                                                                                                                     desc = "Start of line",           mode = "" },
+        { "gl",    "$",                                                                                                                                                     desc = "End of line",             mode = "" },
 
-        { "gp",    "<cmd>bprevious<cr>",                                        desc = "Prev Buffer" },
-        { "gn",    "<cmd>bnext<cr>",                                            desc = "Next Buffer" },
+        { "gV",    function() Snacks.picker.lsp_definitions({ show_empty = false, confirm = "edit_vsplit", win = { list = { keys = { ["<CR>"] = "edit_vsplit" } } } }) end, desc = "Go to definiton in split" },
+        { "gd",    function() Snacks.picker.lsp_definitions() end,                                                                                                          desc = "Goto Definition" },
+        { "gD",    function() Snacks.picker.lsp_declarations() end,                                                                                                         desc = "Goto Declaration" },
+        { "gr",    function() Snacks.picker.lsp_references() end,                                                                                                           nowait = true,                    desc = "References" },
+        { "gI",    function() Snacks.picker.lsp_implementations() end,                                                                                                      desc = "Goto Implementation" },
+        { "gy",    function() Snacks.picker.lsp_type_definitions() end,                                                                                                     desc = "Goto T[y]pe Definition" },
 
-        { "gK",    function() return vim.lsp.buf.signature_help() end,          desc = "Signature help" },
-        { "<C-s>", function() return vim.lsp.buf.signature_help() end,          desc = "Signature help",          mode = "i" },
+        { "gp",    "<cmd>bprevious<cr>",                                                                                                                                    desc = "Prev Buffer" },
+        { "gn",    "<cmd>bnext<cr>",                                                                                                                                        desc = "Next Buffer" },
+
+        { "gK",    function() return vim.lsp.buf.signature_help() end,                                                                                                      desc = "Signature help" },
+        { "<C-s>", function() return vim.lsp.buf.signature_help() end,                                                                                                      desc = "Signature help",          mode = "i" },
 
         -- commenting
-        { "gco",   "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",                  desc = "Add Comment Below" },
-        { "gcO",   "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",                  desc = "Add Comment Above" },
+        { "gco",   "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",                                                                                                              desc = "Add Comment Below" },
+        { "gcO",   "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>",                                                                                                              desc = "Add Comment Above" },
     }
 }
 

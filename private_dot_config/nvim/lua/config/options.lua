@@ -26,7 +26,6 @@ opt.smoothscroll = true
 opt.splitbelow = true                                            -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true                                            -- Put new windows right of current
-opt.statuscolumn = ""                                            -- TODO: figure out if I should set this
 opt.termguicolors = true
 opt.timeoutlen = 300                                             -- Time in milliseconds to wait for a mapped sequence to complete.
 opt.updatetime = 50                                              -- Save swap file update & CursorHold interval
@@ -42,7 +41,6 @@ opt.fillchars = { foldopen = "", foldclose = "", fold = " ", foldsep = " "
 opt.foldcolumn = "0"                      -- Disabled
 opt.foldenable = false
 opt.foldlevel = 99
-opt.formatexpr = "" -- TODO: figure out if I should set this
 opt.formatoptions = "jcroqlnt/"
 opt.ignorecase = true
 opt.inccommand = "nosplit" -- preview incremental :substitute commands

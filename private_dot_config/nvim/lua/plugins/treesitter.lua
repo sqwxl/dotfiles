@@ -84,8 +84,8 @@ return {
         event = "VeryLazy",
         config = function()
             -- If treesitter is already loaded, we need to run config again for textobjects
-            if require("util").is_loaded("nvim-treesitter") then
-                local opts = require("util").opts("nvim-treesitter")
+            if require("sqwxl.plugins").is_loaded("nvim-treesitter") then
+                local opts = require("sqwxl.plugins").opts("nvim-treesitter")
                 require("nvim-treesitter.configs").setup({ textobjects = opts.textobjects })
             end
 
