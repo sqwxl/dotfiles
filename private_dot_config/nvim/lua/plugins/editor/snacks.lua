@@ -23,7 +23,6 @@ return {
         statuscolumn = { enabled = true },
         picker = { enabled = true },
         styles = { notifications = { wo = { wrap = true }, relative = true } },
-        words = { enabled = false }
     },
     keys = {
     },
