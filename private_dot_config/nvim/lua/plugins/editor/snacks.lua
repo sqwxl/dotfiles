@@ -20,21 +20,8 @@ return {
             },
         },
         notifier = { enabled = true, timeout = 3000 },
-        statuscolumn = { enabled = true },
+        -- statuscolumn = { enabled = true },
         picker = { enabled = true },
-        input = {
-            enabled = false, -- NOTICE ME!
-            win = {
-                keys = {
-                    -- i_del_word = { "<C-w>", "delete_word", mode = "i" },
-                },
-                actions = {
-                    delete_word = function()
-                        vim.cmd("normal! diw<cr><right>")
-                    end,
-                },
-            },
-        },
         styles = { notifications = { wo = { wrap = true }, relative = true } },
         words = { enabled = false }
     },
