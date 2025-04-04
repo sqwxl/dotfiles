@@ -134,9 +134,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
         local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-        -- disable reference highlighting
-        -- client.server_capabilities.documentHighlightProvider = false
-
         -- disable colorscheme
         client.server_capabilities.semanticTokensProvider = nil
     end,
