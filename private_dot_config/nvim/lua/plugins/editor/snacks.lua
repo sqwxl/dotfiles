@@ -19,9 +19,9 @@ return {
                 header = { "%s", align = "left" },
             },
         },
-        notifier = { enabled = true, timeout = 3000 },
+        notifier = { enabled = false, timeout = 3000 },
         statuscolumn = { enabled = true },
-        picker = { enabled = true },
+        picker = { enabled = true, ui_select = true },
         styles = { notifications = { wo = { wrap = true }, relative = true } },
     },
     keys = {
