@@ -2,6 +2,8 @@ abbr n nvim
 set -gx EDITOR (which nvim)
 set -gx VISUAL $EDITOR
 
+abbr devim 'devcontainer exec --workspace-folder . nvim'
+
 alias cz chezmoi
 
 abbr s sudo
