@@ -7,6 +7,9 @@ local servers = {
     -- Bash
     bashls = {},
 
+    -- Fish
+    fish_lsp = {},
+
     -- Docker
     dockerls = {},
     docker_compose_language_service = {},
@@ -83,7 +86,6 @@ local servers = {
     taplo = {},
 
     -- JSON
-
     jsonls = {
         -- lazy-load shemastore when needed
         on_new_config = function(new_config)
@@ -101,7 +103,6 @@ local servers = {
     },
 
     -- YAML
-
     yamlls = {},
 
 }
