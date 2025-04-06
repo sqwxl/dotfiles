@@ -21,7 +21,7 @@ return {
         },
         notifier = { enabled = false, timeout = 3000 },
         statuscolumn = { enabled = true },
-        picker = { enabled = true, ui_select = true },
+        picker = { enabled = true },
         styles = { notifications = { wo = { wrap = true }, relative = true } },
     },
     keys = {
