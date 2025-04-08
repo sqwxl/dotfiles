@@ -19,8 +19,9 @@ return {
 
     {
         "mrcjkb/rustaceanvim",
-        version = "^5",
+        version = "^6",
         lazy = false,
+        ft = { "rust" },
         opts = {
             server = {
                 on_attach = function(_, bufnr)
