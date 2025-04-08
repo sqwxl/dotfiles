@@ -1,5 +1,5 @@
 vim.lsp.config("*", {
-    -- anything defined here will serve as a merge base for server configs
+    -- Anything defined here will serve as a merge base for server configs
 })
 
 ---@type table<string, vim.lsp.Config>
