@@ -11,6 +11,7 @@ abbr se sudoedit
 
 abbr dc 'docker compose'
 
+abbr rm "rm -v"
 abbr mv "mv -iv"
 abbr cp "cp -riv"
 abbr mkdir "mkdir -vp"
