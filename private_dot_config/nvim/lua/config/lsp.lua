@@ -35,7 +35,6 @@ local servers = {
 
     -- JavaScript
     ts_ls = {
-
         init_options = {
             plugins = {
                 {
