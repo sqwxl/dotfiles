@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.g.npm_global_modules = "~/.npm-global/lib/node_modules/"
+vim.g.npm_global_modules = vim.fs.normalize("~/.npm-global/lib/node_modules/")
 vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
 vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
 
