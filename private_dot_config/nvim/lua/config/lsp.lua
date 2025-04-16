@@ -71,7 +71,7 @@ local servers = {
 
     -- HTML
     html = { { filetypes = { "html", "htmldjango" } } },
-    htmx = { { filetypes = { "html", "htmldjango" } } },
+    -- htmx = { { filetypes = { "html", "htmldjango" } } },
 
     -- Spelling
     harper_ls = {
