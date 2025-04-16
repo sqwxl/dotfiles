@@ -34,7 +34,40 @@ local servers = {
     ruff = { { settings = { lineLength = { 120 } } } },
 
     -- JavaScript
-    ts_ls = {},
+    ts_ls = {
+
+        init_options = {
+            plugins = {
+                {
+                    name = "@vue/typescript-plugin",
+                    location = vim.fs.joinpath(vim.g.npm_global_modules, "@vue/typescript-plugin"),
+                    languages = { "javascript", "typescript", "vue" },
+                },
+            },
+        },
+        filetypes = {
+            "javascript",
+            "typescript",
+            "vue",
+        },
+    },
+
+    -- Vue
+    volar = {
+        init_options = {
+            typescript = {
+                tsdk = vim.fs.joinpath(vim.g.npm_global_modules, "typescript/lib")
+            },
+            vue = { hybridMode = true },
+        },
+        on_new_config = function(new_config, new_root_dir)
+            local lib_path = vim.fs.find(vim.fs.joinpath(vim.g.npm_global_modules, "typescript/lib"),
+                { path = new_root_dir, upward = true })[1]
+            if lib_path then
+                new_config.init_options.typescript.tsdk = lib_path
+            end
+        end
+    },
 
     -- HTML
     html = { { filetypes = { "html", "htmldjango" } } },
@@ -99,7 +132,8 @@ local servers = {
                 },
                 validate = { enable = true },
             },
-        }
+        },
+
     },
 
     -- YAML
