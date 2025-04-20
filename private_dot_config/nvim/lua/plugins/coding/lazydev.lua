@@ -5,9 +5,11 @@ return {
     opts = {
         library = {
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            { path = "LazyVim",            words = { "LazyVim" } },
             { path = "snacks.nvim",        words = { "Snacks" } },
-            { path = "lazy.nvim",          words = { "LazyVim" } },
         },
     },
+    enabled = function(root_dir)
+        return string.match(root_dir, "^" .. vim.fn.stdpath("config")) or
+            string.match(root_dir, "^" .. vim.fs.normalize("~/.local/share/chezmoi/private_dot_config/nvim"))
+    end,
 }

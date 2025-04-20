@@ -9,21 +9,9 @@ return {
     ---@type blink.cmp.Config
     opts = {
         keymap = { preset = "enter" },
-        appearance = {
-            -- sets the fallback highlight groups to nvim-cmp's highlight groups
-            -- useful for when your theme doesn't support blink.cmp
-            -- will be removed in a future release, assuming themes add support
-            use_nvim_cmp_as_default = false,
-            nerd_font_variant = "normal",
-        },
+        appearance = { nerd_font_variant = "normal" },
         fuzzy = { implementation = "rust" },
         completion = {
-            accept = {
-                -- experimental auto-brackets support
-                auto_brackets = {
-                    enabled = true,
-                },
-            },
             menu = {
                 draw = {
                     treesitter = { "lsp" },
@@ -34,9 +22,6 @@ return {
             },
             ghost_text = {
                 enabled = true,
-            },
-            trigger = {
-                show_in_snippet = false,
             },
         },
 
