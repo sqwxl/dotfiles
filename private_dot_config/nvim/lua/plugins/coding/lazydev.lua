@@ -8,6 +8,7 @@ return {
             { path = "snacks.nvim",        words = { "Snacks" } },
         },
         enabled = function(root_dir)
+            print(root_dir)
             return root_dir ~= nil and (
                 string.match(root_dir, "^" .. vim.fn.stdpath("config"))
                 or string.match(root_dir, "^" .. vim.fs.normalize("~/.local/share/chezmoi/private_dot_config/nvim"))
