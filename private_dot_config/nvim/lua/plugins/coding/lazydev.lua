@@ -9,7 +9,6 @@ return {
         },
     },
     enabled = function(root_dir)
-        vim.notify(root_dir)
         return false
         -- return root_dir ~= nil and (string.match(root_dir, "^" .. vim.fn.stdpath("config")) or
         --     string.match(root_dir, "^" .. vim.fs.normalize("~/.local/share/chezmoi/private_dot_config/nvim")))
