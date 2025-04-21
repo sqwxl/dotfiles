@@ -29,19 +29,13 @@ return {
         -- signature = { enabled = true },
 
         sources = {
-            default = {
-                "lsp",
-                "path",
-                "snippets",
-                "buffer",
-                -- "lazydev",
-            },
+            default = { "lsp", "path", "snippets", "buffer", "lazydev" },
             providers = {
-                -- lazydev = {
-                --     name = "LazyDev",
-                --     module = "lazydev.integrations.blink",
-                --     score_offset = 100, -- show at a higher priority than lsp
-                -- },
+                lazydev = {
+                    name = "LazyDev",
+                    module = "lazydev.integrations.blink",
+                    score_offset = 100, -- show at a higher priority than lsp
+                },
             },
         },
 
