@@ -14,7 +14,7 @@ function fish_greeting
     set_color brwhite
     echo "Greetings, Nicolas!"
 
-    if type -q chezmoi
+    if type -q chezmoi && curl -s google.com
         chezmoi update
     end
 
