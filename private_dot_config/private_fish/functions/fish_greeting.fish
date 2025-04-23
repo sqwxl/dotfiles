@@ -5,6 +5,11 @@ function fish_greeting
         set -U last_day -1
     end
 
+    if type -q chezmoi && ping -c 1 1.1.1.1 >/dev/null
+        echo hello
+        chezmoi update
+    end
+
     if test $day = $last_day
         return
     end
@@ -13,10 +18,6 @@ function fish_greeting
 
     set_color brwhite
     echo "Greetings, Nicolas!"
-
-    if type -q chezmoi && curl -s google.com
-        chezmoi update
-    end
 
     set_color yellow
     echo -e "The date is $(date +%A,\ %B\ %d\ %Y)\n\n"
