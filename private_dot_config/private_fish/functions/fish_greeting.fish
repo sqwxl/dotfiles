@@ -6,7 +6,6 @@ function fish_greeting
     end
 
     if type -q chezmoi && ping -c 1 1.1.1.1 >/dev/null
-        echo hello
         chezmoi update
     end
 
