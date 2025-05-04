@@ -3,7 +3,7 @@ return {
     opts = {
         events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         linters_by_ft = {
-            text = nil,
+            text = {},
             css = { "stylelint" },
             fish = { "fish" },
             html = { "htmlhint" },
