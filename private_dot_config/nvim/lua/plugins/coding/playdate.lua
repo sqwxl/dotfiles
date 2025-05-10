@@ -1,5 +1,6 @@
 return {
-    "sqwxl/playdate.nvim",
+    path = "playdate.nvim",
+    dev = true,
     opts = {
         playdate_luacats_path = "~/Clones/playdate-luacats",
         build = {
