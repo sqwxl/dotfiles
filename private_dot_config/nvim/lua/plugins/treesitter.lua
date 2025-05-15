@@ -3,7 +3,7 @@ return {
     { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" },
 
     -- Automatically add closing tags for HTML and JSX
-    { "windwp/nvim-ts-autotag",         event = { "BufReadPost", "BufNewFile", "BufWritePre" } },
+    { "windwp/nvim-ts-autotag",         event = { "BufReadPre", "BufNewFile" } },
 
     {
         "nvim-treesitter/nvim-treesitter",
