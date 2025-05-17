@@ -3,11 +3,14 @@ return {
     {
         "RRethy/nvim-treesitter-endwise",
         event = "VeryLazy",
-        opts = { aliases = { htmldjango = "html" } },
     },
 
     -- Automatically add closing tags for HTML and JSX
-    { "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" }, opts = { aliases = { htmldjango = "html" } } },
+    {
+        "windwp/nvim-ts-autotag",
+        event = { "BufReadPre", "BufNewFile" },
+        opts = { aliases = { htmldjango = "html" } },
+    },
 
     {
         "nvim-treesitter/nvim-treesitter",
