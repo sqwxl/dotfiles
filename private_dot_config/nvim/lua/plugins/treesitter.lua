@@ -1,9 +1,13 @@
 return {
     -- complete some structures like if -> end, do -> while
-    { "RRethy/nvim-treesitter-endwise", event = "VeryLazy" },
+    {
+        "RRethy/nvim-treesitter-endwise",
+        event = "VeryLazy",
+        opts = { aliases = { htmldjango = "html" } },
+    },
 
     -- Automatically add closing tags for HTML and JSX
-    { "windwp/nvim-ts-autotag",         event = { "BufReadPre", "BufNewFile" } },
+    { "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
 
     {
         "nvim-treesitter/nvim-treesitter",
