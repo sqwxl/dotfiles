@@ -7,7 +7,7 @@ return {
     },
 
     -- Automatically add closing tags for HTML and JSX
-    { "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
+    { "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" }, opts = { aliases = { htmldjango = "html" } } },
 
     {
         "nvim-treesitter/nvim-treesitter",
