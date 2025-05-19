@@ -70,6 +70,7 @@ local servers = {
 
     -- HTML
     html = { { filetypes = { "html", "htmldjango" } } },
+    jinja_lsp = { { filetypes = 'jinja'}},
 
     -- Spelling
     harper_ls = {
