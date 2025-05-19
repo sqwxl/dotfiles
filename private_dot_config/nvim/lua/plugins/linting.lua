@@ -8,6 +8,7 @@ return {
             fish = { "fish" },
             html = { "htmlhint" },
             htmldjango = { "djlint" },
+            jinja = { "djlint" },
             markdown = { "markdownlint-cli2" },
             sass = { "stylelint" },
             sh = { "shellcheck" },
