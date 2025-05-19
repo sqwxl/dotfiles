@@ -6,9 +6,8 @@ return {
         "nvim-tree/nvim-web-devicons"
     },
     opts = {
-        attach_mode = "global",
+        attach_mode = "window",
         backends = { "lsp", "treesitter", "markdown", "man" },
-        show_guides = true,
         layout = {
             resize_to_content = false,
             win_opts = {
@@ -17,6 +16,7 @@ return {
                 statuscolumn = " ",
             },
         },
+        show_guides = true,
         guides = {
             mid_item   = "├╴",
             last_item  = "└╴",
