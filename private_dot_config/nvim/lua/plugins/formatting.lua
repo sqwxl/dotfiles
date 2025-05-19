@@ -1,7 +1,15 @@
 return {
     "stevearc/conform.nvim",
+    lazy = true,
+    cmd = "ConformInfo",
     ---@type conform.setupOpts
     opts = {
+        default_format_opts = {
+            timeout_ms = 3000,
+            async = false,           -- not recommended to change
+            quiet = false,           -- not recommended to change
+            lsp_format = "fallback", -- not recommended to change
+        },
         format_after_save = {
             async = true,
             lsp_format = "fallback",
@@ -15,6 +23,7 @@ return {
             go = { "gofmt" },
             html = { "prettierd", "rustywind" },
             htmldjango = { "djlint", "rustywind" },
+            jinja = { "djlint" },
             just = { "just" },
             -- lua = { "stylua" },
             markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
@@ -36,6 +45,7 @@ return {
             yaml = { "yamlfix" },
         },
         formatters = {
+            injected = { options = { ignore_errors = true } },
             sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
             ["markdownlint-cli2"] = {
                 condition = function(_, ctx)
