@@ -69,8 +69,7 @@ local servers = {
     },
 
     -- HTML
-    html = { { filetypes = { "html", "htmldjango" } } },
-    jinja_lsp = { { filetypes = "jinja" } },
+    html = { filetypes = { "html", "templ", "htmldjango" } },
 
     -- Spelling
     harper_ls = {
