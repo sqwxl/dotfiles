@@ -1,6 +1,5 @@
 return {
     "stevearc/conform.nvim",
-    cmd = "ConformInfo",
     ---@type conform.setupOpts
     opts = {
         format_after_save = {
