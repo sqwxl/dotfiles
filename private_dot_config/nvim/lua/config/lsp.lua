@@ -69,7 +69,20 @@ local servers = {
     },
 
     -- HTML
-    html = { filetypes = { "html", "templ", "htmldjango" } },
+    html = {
+        filetypes = {
+            "html",
+            "templ",
+            "htmldjango",
+        },
+        on_attach = function(client, bufnr)
+            local filetype = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
+            if filetype == "htmldjango" then
+                client.server_capabilities.documentFormattingProvider = false
+                client.server_capabilities.documentRangeFormattingProvider = false
+            end
+        end,
+    },
 
     -- Spelling
     harper_ls = {
