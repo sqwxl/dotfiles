@@ -52,7 +52,7 @@ local servers = {
     },
 
     -- Vue
-    vue_ls = {
+    volar = {
         init_options = {
             typescript = {
                 tsdk = vim.fs.joinpath(vim.g.npm_global_modules, "typescript/lib/")
