@@ -27,10 +27,11 @@ return {
                 end
             end
         end
+
         vim.cmd(string.format(
             [[
         function MkdpBrowserFn(url)
-          execute '!%s' a:url
+          execute 'silent ! %s -n --args ' . a:url
         endfunction
         ]],
             cmd
