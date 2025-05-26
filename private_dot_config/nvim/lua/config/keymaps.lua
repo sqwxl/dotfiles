@@ -277,7 +277,7 @@ local keymaps = {
         {
             "<leader>cp",
             ft = "markdown",
-            "<cmd>MarkdownPreview<cr>",
+            "<cmd>MarkdownPreviewToggle<cr>",
             desc = "Markdown Preview",
         },
         { "<leader>cs", "<cmd>AerialToggle<cr>",                     desc = "Aerial (Symbols)" },
