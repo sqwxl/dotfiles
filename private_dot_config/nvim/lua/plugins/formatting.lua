@@ -19,7 +19,6 @@ return {
             just = { "just" },
             -- lua = { "stylua" },
             markdown = { "markdownlint-cli2" },
-            ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
             nix = { "alejandra" },
             php = { "pint" },
             scss = { "prettierd" },
@@ -39,14 +38,14 @@ return {
         formatters = {
             injected = { options = { ignore_errors = true } },
             sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
-            ["markdownlint-cli2"] = {
-                condition = function(_, ctx)
-                    local diag = vim.tbl_filter(function(d)
-                        return d.source == "markdownlint"
-                    end, vim.diagnostic.get(ctx.buf))
-                    return #diag > 0
-                end,
-            },
+            -- ["markdownlint-cli2"] = {
+            --     condition = function(_, ctx)
+            --         local diag = vim.tbl_filter(function(d)
+            --             return d.source == "markdownlint"
+            --         end, vim.diagnostic.get(ctx.buf))
+            --         return #diag > 0
+            --     end,
+            -- },
         },
     },
 }
