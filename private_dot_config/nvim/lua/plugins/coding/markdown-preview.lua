@@ -1,9 +1,9 @@
 return {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && yarn install",
-    init = function()
-        vim.g.mkdp_filetypes = { "markdown" }
+    build = function()
+        require("lazy").load({ plugins = { "markdown-preview.nvim" } })
+        vim.fn["mkdp#util#install"]()
     end,
     ft = { "markdown" },
     config = function()
@@ -13,15 +13,15 @@ return {
         local cmd
         -- check if flatpak command is available
         if vim.fn.executable("flatpak") == 1 then
-            cmd = "flatpak run org.mozilla.firefox --new-tab"
+            cmd = "flatpak run org.mozilla.firefox"
         else
             -- check for running from container
             if vim.fn.executable("flatpak-spawn") == 1 then
-                cmd = "flatpak-spawn --host flatpak run org.mozilla.firefox --new-tab"
+                cmd = "flatpak-spawn --host flatpak run org.mozilla.firefox"
             else
                 -- native
                 if vim.fn.executable("firefox") == 1 then
-                    cmd = "firefox --new-tab"
+                    cmd = "firefox"
                 else
                     vim.notify("firefox not found", vim.log.levels.WARN)
                 end
@@ -31,7 +31,7 @@ return {
         vim.cmd(string.format(
             [[
         function MkdpBrowserFn(url)
-          execute 'silent ! %s -n --args ' . a:url
+          execute "! %s -n --args --new-tab " . a:url
         endfunction
         ]],
             cmd
