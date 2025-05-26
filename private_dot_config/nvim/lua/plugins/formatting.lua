@@ -18,7 +18,7 @@ return {
             jinja = { "djlint" },
             just = { "just" },
             -- lua = { "stylua" },
-            markdown = { "prettier", "markdownlint-cli2", "markdown-toc" },
+            markdown = { "markdownlint-cli2" },
             ["markdown.mdx"] = { "prettier", "markdownlint-cli2", "markdown-toc" },
             nix = { "alejandra" },
             php = { "pint" },
