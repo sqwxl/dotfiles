@@ -31,7 +31,8 @@ return {
         vim.cmd(string.format(
             [[
         function OpenMarkdownPreview (url)
-          execute "! %s -n --args --new-tab " . a:url
+            echo "hello"
+            execute "! %s -n --args --new-tab " . a:url
         endfunction
         ]],
             cmd
