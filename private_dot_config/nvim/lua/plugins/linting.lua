@@ -38,8 +38,5 @@ return {
             --   },
             -- },
         },
-    },
-    config = function(_, opts)
-        vim.cmd [[au BufWritePost * lua require('lint').try_lint()]]
-    end,
+    }
 }
