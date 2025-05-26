@@ -30,12 +30,13 @@ return {
 
         vim.cmd(string.format(
             [[
-        function MkdpBrowserFn(url)
+        function OpenMarkdownPreview (url)
           execute "! %s -n --args --new-tab " . a:url
         endfunction
         ]],
             cmd
         ))
-        vim.g.mkdp_browserfunc = "MkdpBrowserFn"
+
+        vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
     end,
 }
