@@ -4,7 +4,7 @@ return {
         events = { "BufWritePost", "BufReadPost", "InsertLeave" },
         linters_by_ft = {
             text = {},
-            css = { "stylelint" },
+            css = { "biomejs" },
             fish = { "fish" },
             html = { "htmlhint" },
             htmldjango = { "djlint" },
