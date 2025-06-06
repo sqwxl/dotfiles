@@ -29,6 +29,8 @@ return {
             javascriptreact = { "biome-check" },
             json = { "biome-check" },
             jsonc = { "biome-check" },
+            terraform = { "terraform_fmt" },
+            tf = { "terraform_fmt" },
             typescript = { "biome-check" },
             ["typescript.tsx"] = { "biome-check" },
             typescriptreact = { "biome-check" },

@@ -18,6 +18,7 @@ return {
             javascriptreact = { "biomejs" },
             typescript = { "biomejs" },
             typescriptreact = { "biomejs" },
+            terraform = { "terraform" },
             -- lua = { "selene", "luacheck" },
             -- ["*"] = { "cspell" },
         },
