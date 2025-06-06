@@ -269,6 +269,7 @@ local keymaps = {
 
         -- Code (c)
         { "<Leader>cl", function() Snacks.picker.lsp_config() end,                                                    desc = "LSP info" },
+        { "<Leader>cm", "<Cmd>Mason<CR>",                                                                             desc = "Mason",                     mode = { "n", "v" } },
         { "<Leader>cf", function() require("conform").format({ async = true }) end,                                   desc = "Format buffer",             mode = { "n", "v" } },
         { "<leader>cF", function() require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 }) end, desc = "Format Injected Langs",     mode = { "n", "v" } },
         { "<Leader>cc", vim.lsp.codelens.run,                                                                         desc = "Run Codelens",              mode = { "n", "v" } },
