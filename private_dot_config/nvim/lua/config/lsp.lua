@@ -51,6 +51,8 @@ local servers = {
         },
     },
 
+    terraformls = {},
+
     -- Vue
     volar = {
         init_options = {
