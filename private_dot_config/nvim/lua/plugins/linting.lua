@@ -12,13 +12,13 @@ return {
             sass = { "stylelint" },
             sh = { "shellcheck" },
             sql = { "sqlfluff" },
+            terraform = { "terraform_validate" },
             json = { "biomejs" },
             jsonc = { "biomejs" },
             javascript = { "biomejs" },
             javascriptreact = { "biomejs" },
             typescript = { "biomejs" },
             typescriptreact = { "biomejs" },
-            terraform = { "terraform" },
             -- lua = { "selene", "luacheck" },
             -- ["*"] = { "cspell" },
         },
@@ -91,7 +91,7 @@ return {
             names = vim.tbl_filter(function(name)
                 local linter = lint.linters[name]
                 if not linter then
-                    LazyVim.warn("Linter not found: " .. name, { title = "nvim-lint" })
+                    vim.notify("Linter not found: " .. name, vim.log.levels.WARN)
                 end
                 return linter and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
             end, names)
