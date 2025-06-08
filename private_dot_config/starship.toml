@@ -2,6 +2,9 @@
 
 add_newline = false
 
+[aws]
+disabled = true
+
 [custom.get-msg]
 command = 'git show --format=%s --no-patch | string shorten -m 40'
 when = true
