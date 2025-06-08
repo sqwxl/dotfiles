@@ -24,9 +24,7 @@ return {
         },
         linters = {
             sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
-            stylelint = {
-                stream = "stderr",
-            },
+            stylelint = { stream = "stderr" },
             -- cspell = {
             --   args = {
             --     "lint",

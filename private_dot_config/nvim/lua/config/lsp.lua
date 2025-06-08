@@ -51,10 +51,10 @@ local servers = {
         },
     },
 
-    terraformls = nil,
+    terraformls = {},
 
     -- Vue
-    volar = {
+    vue_ls = {
         init_options = {
             typescript = {
                 tsdk = vim.fs.joinpath(vim.g.npm_global_modules, "typescript/lib/")
@@ -168,11 +168,9 @@ vim.diagnostic.config({
 })
 
 for server, config in pairs(servers) do
-    if config == nil then
-        vim.lsp.enable(server)
-    else
-        vim.lsp.config(server, config)
-    end
+    vim.lsp.config(server, config)
+
+    vim.lsp.enable(server)
 end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {

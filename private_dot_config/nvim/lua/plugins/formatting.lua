@@ -13,7 +13,7 @@ return {
             dockerfile = { "hadolint" },
             fish = { "fish_indent" },
             go = { "gofmt" },
-            html = { "rustywind" },
+            html = { "prettierd", "rustywind" },
             htmldjango = { "djlint", "rustywind" },
             jinja = { "djlint" },
             just = { "just" },
