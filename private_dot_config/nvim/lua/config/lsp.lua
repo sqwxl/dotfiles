@@ -51,7 +51,7 @@ local servers = {
         },
     },
 
-    terraformls = {},
+    terraformls = nil,
 
     -- Vue
     volar = {
@@ -168,7 +168,11 @@ vim.diagnostic.config({
 })
 
 for server, config in pairs(servers) do
-    vim.lsp.config(server, config)
+    if config == nil then
+        vim.lsp.enable(server)
+    else
+        vim.lsp.config(server, config)
+    end
 end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
