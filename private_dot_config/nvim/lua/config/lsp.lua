@@ -168,13 +168,7 @@ vim.diagnostic.config({
 })
 
 for server, config in pairs(servers) do
-    config.capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        require("blink.cmp").get_lsp_capabilities(config.capabilities),
-        { workspace = { fileOperations = { didRename = true, willRename = true } } }
-    )
-    require "lspconfig"[server].setup(config)
+    vim.lsp.config(server, config)
 end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
