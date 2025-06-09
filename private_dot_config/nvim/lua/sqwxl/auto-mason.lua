@@ -140,10 +140,12 @@ local function try_install(mason_package_name)
 		end)
 end
 
-return function()
+local function install()
 	for name, _ in pairs(get_packages_to_install()) do
 		if name ~= nil then
 			try_install(to_mason_package_name(name))
 		end
 	end
 end
+
+return install
