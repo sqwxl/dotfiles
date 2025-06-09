@@ -82,6 +82,8 @@ local function get_packages_to_install()
 	vim.list_extend(result, get_lint_packages())
 	vim.list_extend(result, get_lsp_packages())
 
+	print(result)
+
 	local seen = {}
 
 	-- convert to mason registry names
@@ -168,7 +170,7 @@ end
 return function()
 	for _, name in ipairs(get_packages_to_install()) do
 		if name ~= nil then
-			ok, err = pcall(try_install, to_mason_package_name(name))
+			ok, err = pcall(try_install, name)
 			if err ~= nil then
 				vim.notify(err, vim.log.levels.ERROR)
 			end
