@@ -147,9 +147,8 @@ return function()
 	for name, _ in pairs(get_packages_to_install()) do
 		if name ~= nil then
 			ok, err = pcall(try_install, to_mason_package_name(name))
-			if not ok then
-				vim.print(name)
-				vim.print(err)
+			if err ~= nil then
+				vim.notify(err, vim.log.levels.ERROR)
 			end
 		end
 	end
