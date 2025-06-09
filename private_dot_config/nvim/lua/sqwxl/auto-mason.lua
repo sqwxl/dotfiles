@@ -33,6 +33,7 @@ local alias_to_mason_name = {
 	ruff_format = "ruff",
 	ruff_organize_imports = "ruff",
 	sql_formatter = "sql-formatter",
+	terraformls = false,
 	terraform_validate = false,
 	terraform_fmt = false,
 	ts_ls = "typescript-language-server",
