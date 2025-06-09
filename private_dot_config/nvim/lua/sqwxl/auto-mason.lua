@@ -26,7 +26,7 @@ local lint_to_mason = {
 	biomejs = "biome",
 }
 
-local function to_mason_package(name)
+local function to_mason_package_name(name)
 	return conform_to_mason[name] or lint_to_mason[name] or name
 end
 
@@ -37,10 +37,10 @@ local function get_conform_packages()
 		for _, formatter in pairs(formatters) do
 			if type(formatter) == "table" then
 				for _, f in pairs(formatter) do
-					result[to_mason_package(f)] = 1
+					result[f] = 1
 				end
 			else
-				result[to_mason_package(formatter)] = 1
+				result[formatter] = 1
 			end
 		end
 	end
@@ -54,7 +54,7 @@ local function get_lint_packages()
 
 	for _, linters in pairs(linters_by_ft) do
 		for _, linter in pairs(linters) do
-			result[to_mason_package(linter)] = 1
+			result[linter] = 1
 		end
 	end
 
@@ -119,10 +119,8 @@ local function try_install(mason_package_name)
 	local Package = require("mason-core.package")
 	local package_name, version = Package.Parse(mason_package_name)
 
-	vim.print("about to install " .. mason_package_name .. ", " .. package_name)
 	resolve_package(package_name)
 		:if_present(function(pkg)
-			vim.print(pkg)
 			if not pkg:is_installed() then
 				if require("mason.version").MAJOR_VERSION == 2 then
 					if pkg:is_installing() then
@@ -142,16 +140,10 @@ local function try_install(mason_package_name)
 		end)
 end
 
-local M = {}
-
-function M.install()
-	local packages = get_packages_to_install()
-	vim.print(packages)
-	for name, _ in pairs(packages) do
+return function()
+	for name, _ in pairs(get_packages_to_install()) do
 		if name ~= nil then
-			try_install(name)
+			try_install(to_mason_package_name(name))
 		end
 	end
 end
-
-return M
