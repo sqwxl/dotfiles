@@ -82,8 +82,7 @@ local function get_packages_to_install()
 	vim.list_extend(result, get_lint_packages())
 	vim.list_extend(result, get_lsp_packages())
 
-	print(result)
-
+	vim.print(result)
 	local seen = {}
 
 	-- convert to mason registry names
