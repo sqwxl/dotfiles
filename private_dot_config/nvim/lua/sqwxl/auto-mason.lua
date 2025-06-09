@@ -122,6 +122,7 @@ local function try_install(mason_package_name)
 	vim.print("about to install " .. mason_package_name .. ", " .. package_name)
 	resolve_package(package_name)
 		:if_present(function(pkg)
+			vim.print(pkg)
 			if not pkg:is_installed() then
 				if require("mason.version").MAJOR_VERSION == 2 then
 					if pkg:is_installing() then
