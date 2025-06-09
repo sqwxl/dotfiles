@@ -96,7 +96,6 @@ local function get_packages_to_install()
 		end)
 		-- remove duplicates
 		:fold({}, function(acc, name)
-			vim.print(name)
 			if seen[name] == nil then
 				acc[#acc + 1] = name
 				seen[name] = true
@@ -104,7 +103,6 @@ local function get_packages_to_install()
 
 			return acc
 		end)
-		:totable()
 end
 
 local registry = require("mason-registry")
