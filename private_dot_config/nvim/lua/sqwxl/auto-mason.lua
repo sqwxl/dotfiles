@@ -1,6 +1,7 @@
 -- conform formatter to mason package mapping
 -- https://mason-registry.dev/registry/list
 local alias_to_mason_name = {
+	bashls = "bash-language-server",
 	biomejs = "biome",
 	["biome-check"] = "biome",
 	["biome-organize-imports"] = "biome",
@@ -9,13 +10,20 @@ local alias_to_mason_name = {
 	dcm_fix = "dcm",
 	dcm_format = "dcm",
 	deno_fmt = "deno",
+	dockerls = "dockerfile-language-server",
+	docker_compose_language_service = "docker-compose-language-service",
 	elm_format = "elm-format",
 	erb_format = "erb-formatter",
 	fish = false,
+	fish_lsp = false,
 	fish_indent = false,
 	gofmt = false,
+	harper_ls = false,
+	html = "html-lsp",
 	hcl = "hclfmt",
 	just = "just-lsp",
+	jsonls = "json-lsp",
+	lua_ls = "lua-language-server",
 	["lua-format"] = "luaformatter",
 	nixpkgs_fmt = "nixpkgs-fmt",
 	opa_fmt = "opa",
@@ -27,7 +35,10 @@ local alias_to_mason_name = {
 	sql_formatter = "sql-formatter",
 	terraform_validate = false,
 	terraform_fmt = false,
+	ts_ls = "typescript-language-server",
+	vue_ls = "vue-language-server",
 	xmlformat = "xmlformatter",
+	yamlls = "yaml-language-server",
 }
 
 local ignore_package = {
