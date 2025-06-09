@@ -220,15 +220,7 @@ local conform_to_package = {
     ["zprint"] = "zprint",
 }
 
-return {
-    {
-        "neovim/nvim-lspconfig",
-        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    },
-    {
-        "mason-org/mason-lspconfig.nvim",
-        opts = {},
-        dependencies = {{"mason-org/mason.nvim", opts = {}, config = function() 
+local function conform_packages() 
             local formatters_by_ft = require("conform").formatters_by_ft;
     local formatters_to_install = {}
     for _, formatters in pairs(formatters_by_ft) do
@@ -247,9 +239,19 @@ return {
         local package = conform_to_package[conformFormatter]
         if package ~= nil then
             require("mason-conform.install").try_install(package)
-        end
     end
-        end, "neovim/nvim-lspconfig"},
+    end
+end
+
+return {
+    {
+        "neovim/nvim-lspconfig",
+        event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+    },
+    {
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
+        dependencies = {{"mason-org/mason.nvim", opts = {}, "neovim/nvim-lspconfig"},
     }
 }
 }

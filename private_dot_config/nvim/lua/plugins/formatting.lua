@@ -42,6 +42,5 @@ return {
             injected = { options = { ignore_errors = true } },
             sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
         },
-    },
-    { "zapling/mason-conform.nvim", dependencies = { "stevearc/conform.nvim" } }
+    }
 }
