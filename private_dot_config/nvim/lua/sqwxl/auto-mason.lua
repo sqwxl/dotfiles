@@ -1,227 +1,34 @@
 -- conform formatter to mason package mapping
 -- https://mason-registry.dev/registry/list
-local conform_to_package = {
-    -- air
-    ["alejandra"] = "alejandra",
-    ["ansible-lint"] = "ansible-lint",
-    ["asmfmt"] = "asmfmt",
-    ["ast-grep"] = "ast-grep",
-    -- astyle
-    -- auto_optional
-    -- autocorrect
-    ["autoflake"] = "autoflake",
-    ["autopep8"] = "autopep8",
-    -- bean-format
-    ["beautysh"] = "beautysh",
-    ["bibtex-tidy"] = "bibtex-tidy",
-    -- bicep; it exists on Mason, but as LSP (exec: `bicep-lsp`)
-    ["biome"] = "biome",
-    -- biome-check
-    -- biome-organize-imports
-    ["black"] = "black",
-    ["blade-formatter"] = "blade-formatter",
-    ["blue"] = "blue",
-    -- bpfmt
-    ["bsfmt"] = "brighterscript-formatter",
-    ["buf"] = "buf",
-    ["buildifier"] = "buildifier",
-    -- cabal_fmt
-    -- caramel_fmt
-    ["cbfmt"] = "cbfmt",
-    ["clang-format"] = "clang-format",
-    ["cljfmt"] = "cljfmt",
-    -- cljstyle
-    ["cmake_format"] = "cmakelang",
-    -- codeql; it exists on Mason, but as LSP (exec: `codeql`)
-    ["codespell"] = "codespell",
-    -- commitmsgfmt
-    ["crlfmt"] = "crlfmt",
-    -- crystal
-    ["csharpier"] = "csharpier",
-    -- css_beautify
-    -- cue_fmt
-    -- d2
-    ["darker"] = "darker",
-    -- dart_format
-    ["dcm_fix"] = "dcm",
-    ["dcm_format"] = "dcm",
-    ["deno_fmt"] = "deno",
-    -- dfmt
-    ["djlint"] = "djlint",
-    ["docformatter"] = "docformatter",
-    -- docstrfmt
-    ["doctoc"] = "doctoc",
-    ["dprint"] = "dprint",
-    ["easy-coding-standard"] = "easy-coding-standard",
-    -- efmt
-    ["elm_format"] = "elm-format",
-    ["erb_format"] = "erb-formatter",
-    -- erlfmt
-    ["eslint_d"] = "eslint_d",
-    ["fantomas"] = "fantomas",
-    ["findent"] = "findent",
-    -- fish_indent
-    ["fixjson"] = "fixjson",
-    -- fnlfmt
-    -- forge_fmt
-    -- format-dune-file
-    -- format-queries
-    ["fourmolu"] = "fourmolu",
-    ["fprettify"] = "fprettify",
-    -- gawk
-    ["gci"] = "gci",
-    ["gdformat"] = "gdtoolkit",
-    ["gersemi"] = "gersemi",
-    -- gleam
-    -- gluon_fmt
-    -- gn
-    -- gofmt
-    ["gofumpt"] = "gofumpt",
-    ["goimports"] = "goimports",
-    ["goimports-reviser"] = "goimports-reviser",
-    -- gojq
-    ["golines"] = "golines",
-    ["google-java-format"] = "google-java-format",
-    -- grain_format
-    ["hcl"] = "hclfmt",
-    -- hindent
-    -- html_beautify
-    ["htmlbeautifier"] = "htmlbeautifier",
-    -- hurlfmt
-    -- imba_fmt
-    -- indent
-    -- init
-    -- injected
-    -- inko
-    ["isort"] = "isort",
-    ["joker"] = "joker",
-    ["jq"] = "jq",
-    -- js_beautify
-    ["jsonnetfmt"] = "jsonnetfmt",
-    -- just
-    ["kcl"] = "kcl",
-    -- kdlfmt
-    ["ktfmt"] = "ktfmt",
-    ["ktlint"] = "ktlint",
-    ["kulala-fmt"] = "kulala-fmt",
-    ["latexindent"] = "latexindent",
-    -- leptosfmt
-    -- liquidsoap-prettier
-    -- llf
+local conform_to_mason = {
+    bsfmt = "brighterscript-formatter",
+    cmake_format = "cmakelang",
+    dcm_fix = "dcm",
+    dcm_format = "dcm",
+    deno_fmt = "deno",
+    elm_format = "elm-format",
+    erb_format = "erb-formatter",
+    hcl = "hclfmt",
     ["lua-format"] = "luaformatter",
-    ["markdown-toc"] = "markdown-toc",
-    -- markdownfmt
-    ["markdownlint"] = "markdownlint",
-    ["markdownlint-cli2"] = "markdownlint-cli2",
-    ["mdformat"] = "mdformat",
-    ["mdsf"] = "mdsf",
-    ["mdslw"] = "mdslw",
-    -- mix
-    -- mojo_format
-    -- nginxfmt
-    -- nickel; it exists on Mason, but as LSP (exec: `nls`)
-    -- nimpretty
-    -- nixfmt
-    ["nixpkgs_fmt"] = "nixpkgs-fmt",
-    -- nomad_fmt
-    -- nph
-    ["npm-groovy-lint"] = "npm-groovy-lint",
-    -- nufmt
-    ["ocamlformat"] = "ocamlformat",
-    -- ocp-indent
-    ["opa_fmt"] = "opa",
-    ["ormolu"] = "ormolu",
-    -- packer_fmt
-    -- pangu
-    -- perlimports
-    -- perltidy
-    -- pg_format
-    ["php_cs_fixer"] = "php-cs-fixer",
-    ["phpcbf"] = "phpcbf",
-    -- phpinsights
-    ["pint"] = "pint",
-    ["prettier"] = "prettier",
-    ["prettierd"] = "prettierd",
-    ["pretty-php"] = "pretty-php",
-    ["prettypst"] = "prettypst",
-    -- puppet-lint
+    nixpkgs_fmt = "nixpkgs-fmt",
+    opa_fmt = "opa",
+    php_cs_fixer = "php-cs-fixer",
     ["purs-tidy"] = "purescript-tidy",
-    ["pyink"] = "pyink",
-    -- pyproject-fmt
-    -- python-ly
-    ["reformat-gherkin"] = "reformat-gherkin",
-    ["reorder-python-imports"] = "reorder-python-imports",
-    -- rescript-format
-    -- roc
-    -- rstfmt
-    ["rubocop"] = "rubocop",
-    ["rubyfmt"] = "rubyfmt",
-    ["ruff_fix"] = "ruff",
-    ["ruff_format"] = "ruff",
-    ["ruff_organize_imports"] = "ruff",
-    ["rufo"] = "rufo",
-    -- runic
-    -- ["rustfmt"] = "rustfmt", Deprecated by mason
-    ["rustywind"] = "rustywind",
-    -- scalafmt
-    ["shellcheck"] = "shellcheck",
-    ["shellharden"] = "shellharden",
-    ["shfmt"] = "shfmt",
-    ["sleek"] = "sleek",
-    -- smlfmt
-    ["snakefmt"] = "snakefmt",
-    ["sql_formatter"] = "sql-formatter",
-    ["sqlfluff"] = "sqlfluff",
-    ["sqlfmt"] = "sqlfmt",
-    -- sqruff
-    -- squeeze_blanks
-    -- standard-clj
-    ["standardjs"] = "standardjs",
-    ["standardrb"] = "standardrb",
-    ["stylelint"] = "stylelint",
-    -- styler
-    -- stylish-haskell
-    ["stylua"] = "stylua",
-    ["superhtml"] = "superhtml",
-    -- swift_format
-    -- swiftformat
-    ["swiftlint"] = "swiftlint",
-    -- syntax_tree
-    ["taplo"] = "taplo",
-    ["templ"] = "templ",
-    -- terraform_fmt
-    -- terragrunt_hclfmt
-    ["tex-fmt"] = "tex-fmt",
-    ["tlint"] = "tlint",
-    -- tofu_fmt
-    -- trim_newlines
-    -- trim_whitespace
-    ["twig-cs-fixer"] = "twig-cs-fixer",
-    ["typos"] = "typos",
-    -- typstyle
-    -- ufmt
-    -- uncrustify
-    ["usort"] = "usort",
-    ["verible"] = "verible",
-    ["vsg"] = "vsg",
-    ["xmlformat"] = "xmlformatter", -- Deprecated in conform.nvim; redirects to xmlformatter
-    ["xmlformatter"] = "xmlformatter",
-    -- xmllint
-    -- xmlstarlet
-    ["yamlfix"] = "yamlfix",
-    ["yamlfmt"] = "yamlfmt",
-    ["yapf"] = "yapf",
-    -- yew-fmt
-    ["yq"] = "yq",
-    -- zigfmt
-    -- ziggy
-    -- ziggy_schema
-    ["zprint"] = "zprint",
+    ruff_fix = "ruff",
+    ruff_format = "ruff",
+    ruff_organize_imports = "ruff",
+    sql_formatter = "sql-formatter",
 }
 
-local lintnvim_to_mason = {
+local lint_to_mason = {
     biomejs = "biome"
 }
+
+local function to_mason_package(name)
+    return conform_to_mason[name] or lint_to_mason[name] or name
+end
+
+
 
 local function get_conform_packages()
     local formatters_by_ft = require("conform").formatters_by_ft;
@@ -230,10 +37,10 @@ local function get_conform_packages()
         for _, formatter in pairs(formatters) do
             if type(formatter) == "table" then
                 for _, f in pairs(formatter) do
-                    result[conform_to_package[f]] = 1
+                    result[to_mason_package(f)] = 1
                 end
             else
-                result[conform_to_package[formatter]] = 1
+                result[to_mason_package[formatter]] = 1
             end
         end
     end
@@ -247,7 +54,105 @@ local function get_lint_packages()
 
     for _, linters in pairs(linters_by_ft) do
         for _, linter in pairs(linters) do
-            result[linter] = 1
+            result[to_mason_package(linter)] = 1
         end
     end
+
+    return result
 end
+
+local function get_lsp_packages()
+    local result = {}
+    return result
+end
+
+local function get_packages_to_install()
+    local result = {}
+
+    for p, _ in pairs(get_conform_packages()) do
+        result[p] = 1
+    end
+
+    for p, _ in pairs(get_lint_packages()) do
+        result[p] = 1
+    end
+
+    for p, _ in pairs(get_conform_packages()) do
+        result[p] = 1
+    end
+
+    return result
+end
+
+local registry = require "mason-registry"
+
+local function resolve_package(mason_package_name)
+    local Optional = require "mason-core.optional"
+
+    local ok, pkg = pcall(registry.get_package, mason_package_name)
+    if ok then
+        return Optional.of_nilable(pkg)
+    end
+end
+
+local function install_package(pkg, version)
+    local name = pkg.name
+
+    vim.notify(("installing %s"):format(name))
+
+    return pkg:install({ version = version }):once(
+        "closed",
+        vim.schedule_wrap(function()
+            if pkg:is_installed() then
+                vim.notify(("%s was successfully installed"):format(name))
+            else
+                vim.notify(
+                    ("failed to install %s. Installation logs are available in :Mason and :MasonLog")
+                    :format(
+                        name
+                    ),
+                    vim.log.levels.ERROR
+                )
+            end
+        end)
+    )
+end
+
+local function try_install(mason_package_name)
+    local Package = require "mason-core.package"
+    local package_name, version = Package.Parse(mason_package_name)
+
+    resolve_package(package_name)
+        :if_present(
+            function(pkg)
+                if not pkg:is_installed() then
+                    if require("mason.version").MAJOR_VERSION == 2 then
+                        if pkg:is_installing() then
+                            return
+                        end
+                    end
+                    install_package(pkg, version)
+                end
+            end
+        )
+        :if_not_present(function()
+            vim.notify(
+                ("Formatter %q is not a valid entry in ensure_installed. Make sure to only provide valid formatter names.")
+                :format(
+                    package_name
+                ),
+                vim.log.levels.WARN
+            )
+        end)
+end
+
+local M = {}
+
+function M.install()
+    local packages = get_packages_to_install()
+    for _, name in ipairs(packages) do
+        try_install(name)
+    end
+end
+
+return M
