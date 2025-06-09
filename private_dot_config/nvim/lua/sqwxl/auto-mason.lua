@@ -40,7 +40,7 @@ local function get_conform_packages()
                     result[to_mason_package(f)] = 1
                 end
             else
-                result[to_mason_package[formatter]] = 1
+                result[to_mason_package(formatter)] = 1
             end
         end
     end
