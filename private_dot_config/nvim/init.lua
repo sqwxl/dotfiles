@@ -48,6 +48,6 @@ require("lazy").setup({
 })
 
 require("config.lsp")
-require("sqwxl.auto-mason")
+require("sqwxl.auto-mason").install()
 
 vim.cmd.colorscheme("gruvbox")
