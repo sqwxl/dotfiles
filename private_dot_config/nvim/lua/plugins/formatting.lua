@@ -1,11 +1,12 @@
 return {
     "stevearc/conform.nvim",
-    ---@type conform.setupOpts
+    dependencies = { "mason.nvim" },
     opts = {
-        format_after_save = {
-            async = true,
-            lsp_format = "fallback",
-            stop_after_first = true,
+        default_format_opts = {
+            lsp_format = "fallback"
+        },
+        format_on_save = {
+            timeout_ms = 500,
         },
         notify_on_error = true,
         formatters_by_ft = {
@@ -13,11 +14,11 @@ return {
             dockerfile = { "hadolint" },
             fish = { "fish_indent" },
             go = { "gofmt" },
-            html = { "prettierd", "rustywind" },
-            htmldjango = { "djlint", "rustywind" },
+            html = { "prettierd" },
+            htmldjango = { "djlint" },
             jinja = { "djlint" },
             just = { "just" },
-            -- lua = { "stylua" },
+            lua = { "stylua" },
             markdown = { "markdownlint-cli2" },
             nix = { "alejandra" },
             php = { "pint" },
@@ -40,14 +41,7 @@ return {
         formatters = {
             injected = { options = { ignore_errors = true } },
             sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
-            -- ["markdownlint-cli2"] = {
-            --     condition = function(_, ctx)
-            --         local diag = vim.tbl_filter(function(d)
-            --             return d.source == "markdownlint"
-            --         end, vim.diagnostic.get(ctx.buf))
-            --         return #diag > 0
-            --     end,
-            -- },
         },
     },
+    { "zapling/mason-conform.nvim", dependencies = { "stevearc/conform.nvim" } }
 }
