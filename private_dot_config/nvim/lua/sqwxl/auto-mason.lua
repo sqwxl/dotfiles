@@ -143,7 +143,11 @@ end
 return function()
 	for name, _ in pairs(get_packages_to_install()) do
 		if name ~= nil then
-			try_install(to_mason_package_name(name))
+			ok, err = pcall(try_install, to_mason_package_name(name))
+			if not ok then
+				vim.print(name)
+				vim.print(err)
+			end
 		end
 	end
 end
