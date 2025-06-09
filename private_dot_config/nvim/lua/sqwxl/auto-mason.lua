@@ -183,7 +183,7 @@ return function()
 		if name ~= nil then
 			ok, err = pcall(try_install, name)
 			if err ~= nil then
-				vim.notify(err, vim.log.levels.ERROR)
+				vim.notify(name .. ": " .. err, vim.log.levels.ERROR)
 			end
 		end
 	end
