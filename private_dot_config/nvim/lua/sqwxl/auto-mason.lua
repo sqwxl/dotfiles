@@ -59,9 +59,8 @@ local function get_lint_packages()
 	local linters_by_ft = require("lint").linters_by_ft
 
 	return vim.iter(linters_by_ft)
-		:map(function(_, v)
-			print(v)
-			return v
+		:map(function(_, linters)
+			return linters
 		end)
 		:flatten()
 		:totable()
