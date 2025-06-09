@@ -142,6 +142,7 @@ local M = {}
 
 function M.install()
 	local packages = get_packages_to_install()
+	vim.print(packages)
 	for name, _ in pairs(packages) do
 		if name ~= nil then
 			try_install(name)
