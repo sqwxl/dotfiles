@@ -141,8 +141,6 @@ local function try_install(mason_package_name)
 
 	local package_name, version = Package.Parse(mason_package_name)
 
-	vim.print(package_name)
-
 	resolve_package(package_name)
 		:if_present(function(pkg)
 			if not pkg:is_installed() then
