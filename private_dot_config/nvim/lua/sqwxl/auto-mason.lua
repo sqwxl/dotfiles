@@ -1,6 +1,8 @@
 -- conform formatter to mason package mapping
 -- https://mason-registry.dev/registry/list
 local conform_to_mason = {
+	["biome-check"] = "biome",
+	["biome-organize-imports"] = "biome",
 	bsfmt = "brighterscript-formatter",
 	cmake_format = "cmakelang",
 	dcm_fix = "dcm",
