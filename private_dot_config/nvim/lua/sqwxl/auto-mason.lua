@@ -82,12 +82,11 @@ local function get_packages_to_install()
 	vim.list_extend(result, get_lint_packages())
 	vim.list_extend(result, get_lsp_packages())
 
-	vim.print(result)
 	local seen = {}
 
-	-- convert to mason registry names
 	return vim
 		.iter(result)
+		-- convert to mason registry names
 		:map(function(v)
 			return to_mason_package_name(v)
 		end)
@@ -97,6 +96,7 @@ local function get_packages_to_install()
 		end)
 		-- remove duplicates
 		:fold({}, function(acc, name)
+			vim.print(name)
 			if seen[name] == nil then
 				acc[#acc + 1] = name
 				seen[name] = true
