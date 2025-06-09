@@ -95,10 +95,10 @@ local function get_packages_to_install()
 			return v ~= nil and ignore_package[v] == nil
 		end)
 		-- remove duplicates
-		:fold({}, function(acc, _, v)
-			if seen[v] == nil then
-				acc[#acc + 1] = v
-				seen[v] = true
+		:fold({}, function(acc, name)
+			if seen[name] == nil then
+				acc[#acc + 1] = name
+				seen[name] = true
 			end
 
 			return acc
