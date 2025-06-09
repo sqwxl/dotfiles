@@ -60,6 +60,7 @@ local function get_lint_packages()
 
 	return vim.iter(linters_by_ft)
 		:map(function(_, v)
+			print(v)
 			return v
 		end)
 		:flatten()
