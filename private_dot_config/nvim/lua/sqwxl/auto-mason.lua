@@ -77,7 +77,7 @@ local function get_packages_to_install()
         result[p] = 1
     end
 
-    for p, _ in pairs(get_conform_packages()) do
+    for p, _ in pairs(get_lsp_packages()) do
         result[p] = 1
     end
 
@@ -150,7 +150,7 @@ local M = {}
 
 function M.install()
     local packages = get_packages_to_install()
-    for _, name in ipairs(packages) do
+    for name, _ in pairs(packages) do
         try_install(name)
     end
 end
