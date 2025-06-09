@@ -46,9 +46,13 @@ local function to_mason_package_name(name)
 end
 
 local function get_conform_packages()
-	local formatters_by_ft = require("conform").formatters_by_ft
+	local formatters = require("conform").list_all_formatters()
 
-	return vim.iter(formatters_by_ft):flatten():totable()
+	return vim.iter(formatters)
+		:map(function(v)
+			return v["name"]
+		end)
+		:totable()
 end
 
 local function get_lint_packages()
