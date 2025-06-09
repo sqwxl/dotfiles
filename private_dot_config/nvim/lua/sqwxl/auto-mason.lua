@@ -120,6 +120,8 @@ local function try_install(mason_package_name)
 
 	local package_name, version = Package.Parse(mason_package_name)
 
+	vim.print(package_name)
+
 	resolve_package(package_name)
 		:if_present(function(pkg)
 			if not pkg:is_installed() then
@@ -147,7 +149,6 @@ return function()
 			ok, err = pcall(try_install, to_mason_package_name(name))
 			if not ok then
 				vim.print(name)
-				vim.print(require("mason-core.package").Parse, to_mason_package_name(name))
 				vim.print(err)
 			end
 		end
