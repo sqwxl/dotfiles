@@ -1,6 +1,7 @@
 -- conform formatter to mason package mapping
 -- https://mason-registry.dev/registry/list
-local conform_to_mason = {
+local alias_to_mason_name = {
+	biomejs = "biome",
 	["biome-check"] = "biome",
 	["biome-organize-imports"] = "biome",
 	bsfmt = "brighterscript-formatter",
@@ -10,7 +11,11 @@ local conform_to_mason = {
 	deno_fmt = "deno",
 	elm_format = "elm-format",
 	erb_format = "erb-formatter",
+	fish = false,
+	fish_indent = false,
+	gofmt = false,
 	hcl = "hclfmt",
+	just = "just-lsp",
 	["lua-format"] = "luaformatter",
 	nixpkgs_fmt = "nixpkgs-fmt",
 	opa_fmt = "opa",
@@ -20,45 +25,36 @@ local conform_to_mason = {
 	ruff_format = "ruff",
 	ruff_organize_imports = "ruff",
 	sql_formatter = "sql-formatter",
+	terraform_validate = false,
+	terraform_fmt = false,
+	xmlformat = "xmlformatter",
 }
 
-local lint_to_mason = {
-	biomejs = "biome",
+local ignore_package = {
+	pint = true,
 }
 
 local function to_mason_package_name(name)
-	return conform_to_mason[name] or lint_to_mason[name] or name
+	mason_name = alias_to_mason_name[name]
+	if mason_name == nil then
+		return name
+	elseif mason_name then
+		return mason_name
+	end
+
+	return nil
 end
 
 local function get_conform_packages()
 	local formatters_by_ft = require("conform").formatters_by_ft
-	local result = {}
-	for _, formatters in pairs(formatters_by_ft) do
-		for _, formatter in pairs(formatters) do
-			if type(formatter) == "table" then
-				for _, f in pairs(formatter) do
-					result[f] = 1
-				end
-			else
-				result[formatter] = 1
-			end
-		end
-	end
 
-	return result
+	return vim.iter(formatters_by_ft):flatten():totable()
 end
 
 local function get_lint_packages()
 	local linters_by_ft = require("lint").linters_by_ft
-	local result = {}
 
-	for _, linters in pairs(linters_by_ft) do
-		for _, linter in pairs(linters) do
-			result[linter] = 1
-		end
-	end
-
-	return result
+	return vim.iter(linters_by_ft):flatten():totable()
 end
 
 local function get_lsp_packages()
@@ -69,19 +65,32 @@ end
 local function get_packages_to_install()
 	local result = {}
 
-	for p, _ in pairs(get_conform_packages()) do
-		result[p] = 1
-	end
+	vim.list_extend(result, get_conform_packages())
+	vim.list_extend(result, get_lint_packages())
+	vim.list_extend(result, get_lsp_packages())
 
-	for p, _ in pairs(get_lint_packages()) do
-		result[p] = 1
-	end
+	local seen = {}
 
-	for p, _ in pairs(get_lsp_packages()) do
-		result[p] = 1
-	end
+	-- convert to mason registry names
+	return vim
+		.iter(result)
+		:map(function(v)
+			return to_mason_package_name(v)
+		end)
+		-- remove nils and ignored packages
+		:filter(function(v)
+			return v ~= nil and ignore_package[v] == nil
+		end)
+		-- remove duplicates
+		:fold({}, function(acc, _, v)
+			if seen[v] == nil then
+				acc[#acc + 1] = v
+				seen[v] = true
+			end
 
-	return result
+			return acc
+		end)
+		:totable()
 end
 
 local registry = require("mason-registry")
@@ -144,7 +153,7 @@ local function try_install(mason_package_name)
 end
 
 return function()
-	for name, _ in pairs(get_packages_to_install()) do
+	for _, name in ipairs(get_packages_to_install()) do
 		if name ~= nil then
 			ok, err = pcall(try_install, to_mason_package_name(name))
 			if err ~= nil then
