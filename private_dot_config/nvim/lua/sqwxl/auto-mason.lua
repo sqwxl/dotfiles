@@ -72,6 +72,11 @@ end
 
 local function get_lsp_packages()
 	local result = {}
+
+	for k, _ in pairs(require("config.lsp").configs) do
+		result[#result + 1] = k
+	end
+
 	return result
 end
 
