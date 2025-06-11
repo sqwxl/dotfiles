@@ -87,4 +87,4 @@ if type -q fnm
 end
 
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
-$HOME/.local/bin/mise active fish | source
+$HOME/.local/bin/mise activate fish | source
