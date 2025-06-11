@@ -29,6 +29,7 @@ local alias_to_mason_name = {
 	opa_fmt = "opa",
 	php_cs_fixer = "php-cs-fixer",
 	["purs-tidy"] = "purescript-tidy",
+	ruby_lsp = "ruby-lsp",
 	ruff_fix = "ruff",
 	ruff_format = "ruff",
 	ruff_organize_imports = "ruff",

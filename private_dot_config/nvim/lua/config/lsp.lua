@@ -51,6 +51,10 @@ local servers = {
 		},
 	},
 
+	-- Ruby
+	ruby_lsp = {},
+	rubocop = {},
+
 	terraformls = {},
 
 	-- Vue
