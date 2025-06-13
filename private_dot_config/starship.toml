@@ -6,6 +6,7 @@ add_newline = false
 disabled = true
 
 [custom.get-msg]
+disabled = true
 command = 'git show --format=%s --no-patch | string shorten -m 40'
 when = true
 require_repo = true
