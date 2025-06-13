@@ -40,6 +40,16 @@ return {
 					module = "lazydev.integrations.blink",
 					score_offset = 100, -- show at a higher priority than lsp
 				},
+
+				buffer = {
+					opts = {
+						get_bufnrs = function()
+							return vim.tbl_filter(function(bufnr)
+								return vim.bo[bufnr].buftype == ""
+							end, vim.api.nvim_list_bufs())
+						end,
+					},
+				},
 			},
 		},
 
