@@ -52,9 +52,9 @@ local servers = {
 	},
 
 	-- Ruby
-	-- ruby_lsp = {},
-	-- rubocop = {},
-	solargraph = {},
+	ruby_lsp = {},
+	rubocop = {},
+	-- solargraph = {},
 
 	terraformls = {},
 
