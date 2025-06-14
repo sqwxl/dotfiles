@@ -52,9 +52,9 @@ local servers = {
 	},
 
 	-- Ruby
-	ruby_lsp = {},
-	rubocop = {},
-	-- solargraph = {},
+	ruby_lsp = { enabled = false },
+	rubocop = { enabled = false },
+	solargraph = {},
 
 	terraformls = {},
 
@@ -174,7 +174,7 @@ vim.diagnostic.config({
 for server, config in pairs(servers) do
 	vim.lsp.config(server, config)
 
-	vim.lsp.enable(server)
+	vim.lsp.enable(server, config.enabled ~= false)
 end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
