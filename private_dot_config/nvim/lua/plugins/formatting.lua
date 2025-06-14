@@ -43,6 +43,9 @@ return {
 		formatters = {
 			injected = { options = { ignore_errors = true } },
 			sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
+			rubocop = {
+				args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
+			},
 		},
 	},
 }
