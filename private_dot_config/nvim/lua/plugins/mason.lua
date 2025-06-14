@@ -1,5 +1,4 @@
 return {
-    { "neovim/nvim-lspconfig",         event = { "BufReadPost", "BufNewFile", "BufWritePre" } },
-    { "mason-org/mason.nvim",          opts = {} },
-    { "mason-org/mason-lspconfig.nvim" }
+	{ "neovim/nvim-lspconfig", event = { "BufReadPost", "BufNewFile", "BufWritePre" } },
+	{ "mason-org/mason.nvim", opts = {} },
 }
