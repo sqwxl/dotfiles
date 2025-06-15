@@ -161,6 +161,10 @@ local function try_install(mason_package_name)
 
 	resolve_package(package_name)
 		:if_present(function(pkg)
+			-- skip if already present on PATH
+			if vim.fn.executable(vim.tbl_keys(pkg.spec.bin)[1]) then
+				return
+			end
 			if not pkg:is_installed() then
 				if require("mason.version").MAJOR_VERSION == 2 then
 					if pkg:is_installing() then
