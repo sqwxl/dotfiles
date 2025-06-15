@@ -52,7 +52,11 @@ local servers = {
 	},
 
 	-- Ruby
-	ruby_lsp = {},
+	ruby_lsp = {
+		init_options = {
+			formatter = "standard",
+		},
+	},
 	rubocop = {},
 	solargraph = { enabled = false },
 
