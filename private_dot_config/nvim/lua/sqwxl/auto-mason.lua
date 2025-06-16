@@ -187,6 +187,7 @@ local function try_install(mason_package_name)
 end
 
 return function()
+	print("hello")
 	for _, name in ipairs(get_packages_to_install()) do
 		if name ~= nil then
 			ok, err = pcall(try_install, name)
