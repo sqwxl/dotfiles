@@ -158,29 +158,25 @@ local function try_install(mason_package_name)
 	local Package = require("mason-core.package")
 	local package_name, version = Package.Parse(mason_package_name)
 
-	vim.notify("Trying to install " .. package_name)
 	resolve_package(package_name)
-		:if_present(
-			function(pkg)
-				-- skip if already present on PATH
-				if vim.fn.executable(vim.tbl_keys(pkg.spec.bin)[1]) == 1 then
-					vim.notify(vim.tbl_keys(pkg.spec.bin)[1] .. " already on PATH, skipping")
-					return
-				end
-				if not pkg:is_installed() then
-					if require("mason.version").MAJOR_VERSION == 2 then
-						if pkg:is_installing() then
-							return
-						end
-					end
-					install_package(pkg, version)
-				end
+		:if_present(function(pkg)
+			-- skip if already present on PATH
+			if vim.fn.executable(vim.tbl_keys(pkg.spec.bin)[1]) == 1 then
+				vim.notify(vim.tbl_keys(pkg.spec.bin)[1] .. " already on PATH, skipping", vim.log.levels.DEBUG)
+				return
 			end
-		)
+			if not pkg:is_installed() then
+				if require("mason.version").MAJOR_VERSION == 2 then
+					if pkg:is_installing() then
+						return
+					end
+				end
+				install_package(pkg, version)
+			end
+		end)
 		:if_not_present(function()
 			vim.notify(
-				("Formatter %q is not a valid entry in ensure_installed. Make sure to only provide valid formatter names.")
-				:format(
+				("Formatter %q is not a valid entry in ensure_installed. Make sure to only provide valid formatter names."):format(
 					package_name
 				),
 				vim.log.levels.WARN
