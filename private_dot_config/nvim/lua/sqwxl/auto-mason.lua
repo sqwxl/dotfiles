@@ -155,6 +155,7 @@ local function install_package(pkg, version)
 end
 
 local function try_install(mason_package_name)
+	vim.notify("Trying to install " .. mason_package_name)
 	local Package = require("mason-core.package")
 	local package_name, version = Package.Parse(mason_package_name)
 
@@ -187,7 +188,6 @@ local function try_install(mason_package_name)
 end
 
 return function()
-	print("hello")
 	for _, name in ipairs(get_packages_to_install()) do
 		if name ~= nil then
 			ok, err = pcall(try_install, name)
