@@ -164,6 +164,7 @@ local function try_install(mason_package_name)
 			function(pkg)
 				-- skip if already present on PATH
 				if vim.fn.executable(vim.tbl_keys(pkg.spec.bin)[1]) then
+					vim.notify(pkg.spec.bin[1] .. " already on PATH, skipping")
 					return
 				end
 				if not pkg:is_installed() then
