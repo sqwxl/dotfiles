@@ -59,7 +59,7 @@ local servers = {
 		},
 	},
 	standardrb = {},
-	-- rubocop = { enabled = false },
+	rubocop = {},
 	-- solargraph = { enabled = false },
 
 	terraformls = {},
