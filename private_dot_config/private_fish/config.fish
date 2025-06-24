@@ -87,3 +87,5 @@ if type -q fnm
 end
 
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
+
+rvm default
