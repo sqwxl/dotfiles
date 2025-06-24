@@ -1,3 +1,8 @@
 {
+	{{ if eq .chezmoi.os "linux" }}
+	"auths": {},
+	"credsStore": "desktop",
+	"currentContext": "desktop-linux",
+	{{ end}}
 	"detachKeys": "ctrl-z,z"
 }
