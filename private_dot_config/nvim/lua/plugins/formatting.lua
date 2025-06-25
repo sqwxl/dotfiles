@@ -40,7 +40,10 @@ return {
 		},
 		formatters = {
 			injected = { options = { ignore_errors = true } },
-			sqlfluff = { args = { "format", "--dialect=postgres", "-" } },
+			sqlfluff = {
+				args = { "format", "--dialect=postgres", "-" },
+				cwd = require("conform.util").root_file({ ".git", ".sqlfluff" }),
+			},
 			rubocop = {
 				args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
 			},

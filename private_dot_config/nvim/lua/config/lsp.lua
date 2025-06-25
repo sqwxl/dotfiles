@@ -1,6 +1,6 @@
-vim.lsp.config("*", {
-	-- Anything defined here will serve as a merge base for server configs
-})
+-- vim.lsp.config("*", {
+-- 	-- Anything defined here will serve as a merge base for server configs
+-- })
 
 ---@type table<string, vim.lsp.Config>
 local servers = {
@@ -58,8 +58,17 @@ local servers = {
 			linters = { "standard" },
 		},
 	},
-	standardrb = {},
-	rubocop = {},
+	standardrb = {
+		name = "standard",
+		cmd = {
+			"/Users/sqwxl/.rbenv/shims/standardrb",
+			"--lsp",
+		},
+	},
+	rubocop = {
+		name = "rubocop",
+		cmd = { "bundle", "exec", "rubocop", "--lsp" },
+	},
 	-- solargraph = { enabled = false },
 
 	terraformls = {},
@@ -164,8 +173,8 @@ local servers = {
 	yamlls = {},
 }
 
-vim.lsp.inlay_hint.enable(false)
-
+-- vim.lsp.inlay_hint.enable(false)
+--
 vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
@@ -178,9 +187,8 @@ vim.diagnostic.config({
 })
 
 for server, config in pairs(servers) do
-	vim.lsp.config(server, config)
-
 	vim.lsp.enable(server, config.enabled ~= false)
+	vim.lsp.config(server, config)
 end
 
 -- vim.api.nvim_create_autocmd("LspAttach", {
