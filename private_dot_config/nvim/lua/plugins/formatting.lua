@@ -42,7 +42,7 @@ return {
 			injected = { options = { ignore_errors = true } },
 			sqlfluff = {
 				args = { "format", "--dialect=postgres", "-" },
-				-- cwd = require("conform.util").root_file({ ".git", ".sqlfluff" }),
+				require_cwd = false,
 			},
 			rubocop = {
 				args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
