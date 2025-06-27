@@ -58,15 +58,9 @@ local servers = {
 			linters = { "standard" },
 		},
 	},
-	standardrb = {
-		name = "standard",
-		cmd = { "bundle", "exec", "stardardrb", "--lsp" },
-	},
+	standardrb = {},
 
-	rubocop = {
-		name = "rubocop",
-		cmd = { "bundle", "exec", "rubocop", "--lsp" },
-	},
+	rubocop = {},
 
 	terraformls = {},
 
