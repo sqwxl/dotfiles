@@ -60,7 +60,7 @@ local servers = {
 	},
 	standardrb = {
 		name = "standard",
-		cmd = { "~/sqwxl/.rbenv/shims/standardrb", "--lsp" },
+		cmd = { "bundle", "exec", "stardard", "--lsp" },
 	},
 
 	rubocop = {
