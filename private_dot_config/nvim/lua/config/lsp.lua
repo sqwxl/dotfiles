@@ -60,7 +60,7 @@ local servers = {
 	},
 	standardrb = {
 		name = "standard",
-		cmd = { "bundle", "exec", "stardard", "--lsp" },
+		cmd = { "bundle", "exec", "stardardrb", "--lsp" },
 	},
 
 	rubocop = {
