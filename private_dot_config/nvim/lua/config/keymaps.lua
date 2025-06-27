@@ -454,13 +454,13 @@ local keymaps = {
 			end,
 			desc = "Find Files",
 		},
-		{
-			"<Leader>g",
-			function()
-				Snacks.picker.git_files()
-			end,
-			desc = "Find Git Files",
-		},
+		-- {
+		-- 	"<Leader>g",
+		-- 	function()
+		-- 		Snacks.picker.git_files()
+		-- 	end,
+		-- 	desc = "Find Git Files",
+		-- },
 		{
 			"<Leader>K",
 			"<cmd>norm! K<cr>",

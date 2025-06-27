@@ -1,6 +1,6 @@
 vim.lsp.config("*", {
- 	-- Anything defined here will serve as a merge base for server configs
- })
+	-- Anything defined here will serve as a merge base for server configs
+})
 
 ---@type table<string, vim.lsp.Config>
 local servers = {
@@ -60,9 +60,13 @@ local servers = {
 	},
 	standardrb = {
 		name = "standard",
-			"~/sqwxl/.rbenv/shims/standardrb",
+		cmd = { "~/sqwxl/.rbenv/shims/standardrb", "--lsp" },
+	},
+
+	rubocop = {
+		name = "rubocop",
 		cmd = { "bundle", "exec", "rubocop", "--lsp" },
-	-- solargraph = { enabled = false },
+	},
 
 	terraformls = {},
 
