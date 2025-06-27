@@ -14,11 +14,8 @@ local alias_to_mason_name = {
 	docker_compose_language_service = "docker-compose-language-service",
 	elm_format = "elm-format",
 	erb_format = "erb-formatter",
-	fish = false,
-	fish_lsp = false,
-	fish_indent = false,
-	gofmt = false,
-	harper_ls = false,
+	fish_lsp = "fish-lsp",
+	harper_ls = "harper-ls",
 	html = "html-lsp",
 	hcl = "hclfmt",
 	just = "just-lsp",
@@ -29,14 +26,14 @@ local alias_to_mason_name = {
 	opa_fmt = "opa",
 	php_cs_fixer = "php-cs-fixer",
 	["purs-tidy"] = "purescript-tidy",
-	ruby_lsp = false, -- "ruby-lsp"
+	ruby_lsp = "ruby-lsp",
 	ruff_fix = "ruff",
 	ruff_format = "ruff",
 	ruff_organize_imports = "ruff",
 	sql_formatter = "sql-formatter",
-	terraformls = false,
-	terraform_validate = false,
-	terraform_fmt = false,
+	terraformls = "terraform-ls",
+	terraform_validate = "terraform",
+	terraform_fmt = "terraform",
 	ts_ls = "typescript-language-server",
 	vue_ls = "vue-language-server",
 	xmlformat = "xmlformatter",
@@ -84,13 +81,7 @@ local function get_lint_packages()
 end
 
 local function get_lsp_packages()
-	local result = {}
-
-	for k, _ in pairs(require("config.lsp").configs) do
-		result[#result + 1] = k
-	end
-
-	return result
+	return vim.tbl_keys(require("config.lsp").configs)
 end
 
 local function get_packages_to_install()
@@ -158,7 +149,13 @@ local function try_install(mason_package_name)
 	local Package = require("mason-core.package")
 	local package_name, version = Package.Parse(mason_package_name)
 
-	resolve_package(package_name)
+	resolved = resolve_package(package_name)
+
+	if resolved == nil then
+		return
+	end
+
+	resolved
 		:if_present(function(pkg)
 			-- skip if already present on PATH
 			if vim.fn.executable(vim.tbl_keys(pkg.spec.bin)[1]) == 1 then

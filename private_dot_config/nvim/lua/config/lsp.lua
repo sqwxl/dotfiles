@@ -1,6 +1,6 @@
--- vim.lsp.config("*", {
--- 	-- Anything defined here will serve as a merge base for server configs
--- })
+vim.lsp.config("*", {
+ 	-- Anything defined here will serve as a merge base for server configs
+ })
 
 ---@type table<string, vim.lsp.Config>
 local servers = {
@@ -53,22 +53,15 @@ local servers = {
 
 	-- Ruby
 	ruby_lsp = {
-		init_options = {
+		{
 			formatter = "standard",
 			linters = { "standard" },
 		},
 	},
 	standardrb = {
 		name = "standard",
-		cmd = {
-			"/Users/sqwxl/.rbenv/shims/standardrb",
-			"--lsp",
-		},
-	},
-	rubocop = {
-		name = "rubocop",
+			"~/sqwxl/.rbenv/shims/standardrb",
 		cmd = { "bundle", "exec", "rubocop", "--lsp" },
-	},
 	-- solargraph = { enabled = false },
 
 	terraformls = {},
@@ -110,6 +103,7 @@ local servers = {
 
 	-- Spelling
 	harper_ls = {
+		enabled = false,
 		settings = {
 			["harper-ls"] = {
 				userDictPath = vim.fn.stdpath("config") .. "/spell/en.utf-8.add",
@@ -187,7 +181,7 @@ vim.diagnostic.config({
 })
 
 for server, config in pairs(servers) do
-	vim.lsp.enable(server, config.enabled ~= false)
+	vim.lsp.enable(server, config.enabled)
 	vim.lsp.config(server, config)
 end
 
