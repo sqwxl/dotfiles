@@ -6,7 +6,7 @@ syntax enable
 
 set termguicolors
 set background=dark
-autocmd vimenter * ++nested colorscheme gruvbox
+" autocmd vimenter * ++nested colorscheme gruvbox
 
 set swapfile
 set directory^=~/.vim/swap//
