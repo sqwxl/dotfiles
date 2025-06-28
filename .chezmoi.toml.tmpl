@@ -1,6 +1,11 @@
-{{if ne .chezmoi.homeDir (joinPath "/var" "/home" .chezmoi.username)}}
-sourceDir = "{{ joinPath "/var" .chezmoi.homeDir ".local/share/chezmoi"}}"
-{{end}}
+{{- $email := promptStringOnce . "email" "Email address" -}}
+{{- $baseSourceDir := ".local/share/chezmoi" -}}
+
+{{- if (and (eq .chezmoi.os "linux") .chezmoi.osRelease.ostreeVersion) -}}
+    sourceDir = {{ joinPath "/var" .chezmoi.homeDir $baseSourceDir | quote }}
+{{- else -}}
+    sourceDir = {{ joinPath .chezmoi.homeDir $baseSourceDir | quote }}
+{{- end }}
 
 [git]
 autoCommit = true
@@ -15,3 +20,5 @@ command = "nvim"
 args = ["-d", "{{ "{{ .Destination }}" }}", "{{ "{{ .Source }}" }}", "{{ "{{ .Target }}" }}"]
 
 [data]
+email = {{ $email | quote }}
+
