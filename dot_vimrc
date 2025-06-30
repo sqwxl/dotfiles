@@ -84,7 +84,7 @@ set cursorline " highlight current line
 set nowrap
 set linebreak breakindent showbreak=﬌\ 
 
-set shiftwidth=2 tabstop=2 softtabstop=2 expandtab autoindent smartindent smarttab
+set shiftwidth=4 tabstop=4 softtabstop=4 expandtab autoindent smartindent smarttab
 set listchars=tab:→·,nbsp:·,extends:»,precedes:«,trail:~
 
 " dont go to very first char
@@ -105,6 +105,8 @@ if executable('rg')
   set grepprg=rg\ --vimgrep\ --smart-case
   set grepformat=%f:%l:%c:%m
 endif
+
+let mapleader=' '
 
 map ; :
 nmap <C-S> :w<CR>
