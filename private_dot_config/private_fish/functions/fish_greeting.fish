@@ -5,9 +5,9 @@ function fish_greeting
         set -U last_day -1
     end
 
-    if type -q chezmoi && ping -c 1 1.1.1.1 >/dev/null
-        chezmoi update
-    end
+    # if type -q chezmoi && ping -c 1 1.1.1.1 >/dev/null
+    #     chezmoi update
+    # end
 
     if test $day = $last_day
         return
