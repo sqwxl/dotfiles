@@ -2,8 +2,8 @@
 
 shell=/usr/bin/fish
 
-{{- $fontSize := 13 -}}
-{{- if eq .chezmoi.hostname "t14" }}{{$fontSize = 10}}{{ end -}}
+{{- $fontSize := 13 }}
+{{- if eq .chezmoi.hostname "t14" }}{{ $fontSize = 10 }}{{ end }}
 
 font=JetBrains Mono:size={{ $fontSize }}, Symbols Nerd Font:size={{ $fontSize }}, Noto Color Emoji:size={{ $fontSize }}
 line-height={{ mulf $fontSize 1.2 }}
@@ -16,7 +16,7 @@ box-drawings-uses-font-glyphs=yes
 {{if eq .chezmoi.hostname "t14"}}
 initial-window-size-chars=100x40
 pad=4x4
-{{else if eq .chezmoi.hostname "blackbox"}}
+{{else}}
 initial-window-size-chars=160x80
 pad=10x8
 {{end}}
