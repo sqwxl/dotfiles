@@ -14,9 +14,9 @@
 	sort = version:refname
 [commit]
 	verbose = true
-	{{ if eq .chezmoi.hostname .sterlingHostname }}
+	{{ if eq .chezmoi.hostname .sterlingHostname -}}
 	template = ~/.gitmessage.txt
-	{{ end }}
+	{{- end }}
 [fetch]
 	prune = true
 	pruneTags = true
