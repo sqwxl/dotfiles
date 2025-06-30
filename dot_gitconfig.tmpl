@@ -7,32 +7,35 @@
 	excludesFile = ~/.gitignore
 	pager = delta
 [column]
-  ui = auto
+	ui = auto
 [branch]
 	sort = -committerdate
 [tag]
-  sort = version:refname
+	sort = version:refname
 [commit]
 	verbose = true
+	{{ if eq .chezmoi.hostname .sterlingHostname }}
+	template = ~/.gitmessage.txt
+	{{ end }}
 [fetch]
 	prune = true
-  pruneTags = true
-  all = true
+	pruneTags = true
+	all = true
 [pull]
-  rebase = true
+	rebase = true
 [push]
-  default = simple
+	default = simple
 	autoSetupRemote = true
-  followTags = true
+	followTags = true
 [rebase]
 	autoSquash = true
-  autoStash = true
+	autoStash = true
 	updateRefs = true
 [diff]
 	algorithm = histogram
-  colorMoved = plain
-  mnemonicPrefix = true ; use i/, w/ and c/ for index, worktree and commit instead of a/, b/, c/...
-  renames = true
+	colorMoved = plain
+	mnemonicPrefix = true ; use i/, w/ and c/ for index, worktree and commit instead of a/, b/, c/...
+	renames = true
 [merge]
 	conflictStyle = diff3
 	tool = nvimdiff
@@ -41,7 +44,7 @@
 	enabled = true
 	autoUpdate = true
 [mergetool]
-  keepBackup = false
+	keepBackup = false
 [mergetool "meld"]
 	cmd = flatpak run org.gnome.meld -- "$LOCAL" "$MERGED" "$REMOTE"
 [delta]
@@ -62,12 +65,12 @@
 [help]
 	autoCorrect = prompt
 [advice]
-  mergeConflict = false
+	mergeConflict = false
 [alias]
 	fixup = commit --fixup
 	last = log -1 HEAD --ext-diff
 	today = log --since 00:00:00 --all --no-merges --oneline --author nilueps@gmail.com --ext-diff
 	co = checkout
 	sho = show --ext-diff
-  unstage-commit = !git reset HEAD^ && git commit --reuse-message ORIG_HEAD --allow-empty --no-verify
-  rand = commit -am (openssl rand -hex 8)
+	unstage-commit = !git reset HEAD^ && git commit --reuse-message ORIG_HEAD --allow-empty --no-verify
+	rand = commit -am (openssl rand -hex 8)
