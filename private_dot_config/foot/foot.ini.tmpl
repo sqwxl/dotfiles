@@ -1,27 +1,25 @@
 # -*- conf -*-
 
-shell=/usr/bin/fish
-
 {{- $fontSize := 13 }}
 {{- if eq .chezmoi.hostname "t14" }}{{ $fontSize = 10 }}{{ end }}
 
+shell=/usr/bin/fish
 font=JetBrains Mono:size={{ $fontSize }}, Symbols Nerd Font:size={{ $fontSize }}, Noto Color Emoji:size={{ $fontSize }}
-line-height={{ mulf $fontSize 1.2 }}
 font-size-adjustment=1
+include=/usr/share/foot/themes/gruvbox-dark
+line-height={{ mulf $fontSize 1.2 }}
 underline-thickness=1
 underline-offset=6
-# letter-spacing=-1
-box-drawings-uses-font-glyphs=yes
+# box-drawings-uses-font-glyphs=yes
+# dpi-aware=yes # TODO: try this with multimonitor setup
+pad={{ if eq .chezmoi.hostname "t14" }}4x4{{ else }}10x8{{ end }}
+resize-by-cells=no
+resize-keep-grid=no
+initial-window-size-chars={{ if eq .chezmoi.hostname "t14" }}80x30{{ else }}160x80{{ end }}
+selection-target=clipboard
 
-{{if eq .chezmoi.hostname "t14"}}
-initial-window-size-chars=100x40
-pad=4x4
-{{else}}
-initial-window-size-chars=160x80
-pad=10x8
-{{end}}
-
-include=/usr/share/foot/themes/gruvbox-dark
+[bell]
+visual=yes
 
 [scrollback]
 lines=100000
@@ -33,14 +31,14 @@ label-letters=aoeuidhtns
 hide-when-typing=yes
 
 [csd]
-border-width={{if eq .chezmoi.hostname "blackbox"}}2{{else}}1{{end}}
-{{ if eq .chezmoi.hostname "blackbox" -}}size=32{{- end }}
+size={{ if eq .chezmoi.hostname "blackbox" }}32{{ else }}26{{ end }}
+border-width={{ if eq .chezmoi.hostname "blackbox" }}2{{ else }}1{{ end }}
 
 [key-bindings]
-scrollback-up-half-page=Shift+Page_Up
 scrollback-up-page=none
-scrollback-down-half-page=Shift+Page_Down
+scrollback-up-half-page=Shift+Page_Up
 scrollback-down-page=none
+scrollback-down-half-page=Shift+Page_Down
 scrollback-home=Shift+Home
 scrollback-end=Shift+End
 
@@ -51,4 +49,4 @@ find-next=Control+n
 [url-bindings]
 toggle-url-visible=k
 
-# vim: ft=dosini
+# vim: ft=confini
