@@ -9,7 +9,7 @@ return {
 			html = { "htmlhint" },
 			htmldjango = { "djlint" },
 			jinja = { "djlint" },
-			ruby = { "standardrb" },
+			ruby = { "ruby" },
 			sass = { "stylelint" },
 			sh = { "shellcheck" },
 			sql = { "sqlfluff" },
