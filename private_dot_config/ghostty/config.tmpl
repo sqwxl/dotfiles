@@ -1,11 +1,13 @@
-command = /opt/homebrew/bin/fish -l
+command = {{ if eq .chezmoi.os "darwin" }}/opt/homebrew/bin/fish -l{{ else }}/usr/bin/fish{{ end }}
 shell-integration-features = no-cursor
 
 scrollback-limit = 100000
 
 theme = GruvboxDark
+{{ if eq .chezmoi.os "darwin" -}}
 alpha-blending = native
 window-colorspace = display-p3
+{{- end }}
 
 font-family = Jetbrains Mono
 font-size = 13
