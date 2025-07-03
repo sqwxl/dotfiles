@@ -1,78 +1,78 @@
 return {
-    {
-        "mfussenegger/nvim-dap",
-        recommended = true,
-        desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
+	{
+		"mfussenegger/nvim-dap",
+		recommended = true,
+		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 
-        dependencies = {
-            "rcarriga/nvim-dap-ui",
-            -- virtual text for the debugger
-            {
-                "theHamsta/nvim-dap-virtual-text",
-                opts = {},
-            },
-        },
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			-- virtual text for the debugger
+			{
+				"theHamsta/nvim-dap-virtual-text",
+				opts = {},
+			},
+		},
 
         -- stylua: ignore
         keys = {
         },
 
-        config = function()
-            vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+		config = function()
+			vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-            -- setup dap config by VsCode launch.json file
-            local vscode = require("dap.ext.vscode")
-            local json = require("plenary.json")
-            vscode.json_decode = function(str)
-                return vim.json.decode(json.json_strip_comments(str))
-            end
-        end,
-        opts = function(_, _)
-            local dap = require("dap")
-            dap.defaults.fallback.external_terminal = {
-                command = "/usr/bin/foot",
-            }
-        end,
-    },
+			-- setup dap config by VsCode launch.json file
+			local vscode = require("dap.ext.vscode")
+			local json = require("plenary.json")
+			vscode.json_decode = function(str)
+				return vim.json.decode(json.json_strip_comments(str))
+			end
+		end,
+		opts = function(_, _)
+			local dap = require("dap")
+			dap.defaults.fallback.external_terminal = {
+				command = "/usr/bin/foot",
+			}
+		end,
+	},
 
-    -- fancy UI for the debugger
-    {
-        "rcarriga/nvim-dap-ui",
-        dependencies = { "nvim-neotest/nvim-nio" },
+	-- fancy UI for the debugger
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "nvim-neotest/nvim-nio" },
         -- stylua: ignore
         keys = {
             { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
             { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
         },
-        opts = {},
-        config = function(_, opts)
-            local dap = require("dap")
-            local dapui = require("dapui")
-            dapui.setup(opts)
-            dap.listeners.after.event_initialized["dapui_config"] = function()
-                dapui.open({})
-            end
-            dap.listeners.before.event_terminated["dapui_config"] = function()
-                dapui.close({})
-            end
-            dap.listeners.before.event_exited["dapui_config"] = function()
-                dapui.close({})
-            end
-        end,
-    },
+		opts = {},
+		config = function(_, opts)
+			local dap = require("dap")
+			local dapui = require("dapui")
+			dapui.setup(opts)
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open({})
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close({})
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close({})
+			end
+		end,
+	},
 
-    {
-        "mxsdev/nvim-dap-vscode-js",
-        enabled = false,
-        dependencies = {
-            {
-                "microsoft/vscode-js-debug",
-                lazy = true,
-                build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
-            },
-        },
-        opts = {
-            debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
-        },
-    },
+	{
+		"mxsdev/nvim-dap-vscode-js",
+		enabled = false,
+		dependencies = {
+			{
+				"microsoft/vscode-js-debug",
+				lazy = true,
+				build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+			},
+		},
+		opts = {
+			debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
+		},
+	},
 }
