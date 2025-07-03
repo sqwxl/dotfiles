@@ -1,9 +1,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-vim.g.npm_global_modules = vim.fs.normalize("~/.npm-global/lib/node_modules/")
-vim.g.node_host_prog = "~/.npm-global/bin/neovim-node-host"
-vim.g.python3_host_prog = "~/.virtualenvs/pynvim/bin/python"
+-- vim.g.npm_global_modules = vim.fs.normalize("~/.npm-global/lib/node_modules/")
+-- vim.g.node_host_prog = vim.fs.normalize("~/.npm-global/bin/neovim-node-host")
+-- vim.g.ruby_host_prog = vim.fs.normalize("~/.rbenv/versions/3.4.4/bin/neovim-ruby-host")
+-- vim.g.python3_host_prog = vim.fs.normalize("~/.virtualenvs/neovim/bin/python3")
 
 vim.g.snacks_animate = false
 
