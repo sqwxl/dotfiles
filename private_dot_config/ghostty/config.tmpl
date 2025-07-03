@@ -1,4 +1,4 @@
-command = {{ if eq .chezmoi.os "darwin" }}/opt/homebrew/bin/fish -l{{ else }}/usr/bin/fish{{ end }}
+{{ if lookPath "fish" }}command = fish{{ end }}
 shell-integration-features = no-cursor
 
 scrollback-limit = 100000
