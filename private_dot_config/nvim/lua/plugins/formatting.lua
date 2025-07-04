@@ -27,7 +27,7 @@ return {
 			javascriptreact = { "biome-check" },
 			json = { "biome-check" },
 			jsonc = { "biome-check" },
-			ruby = { lsp_format = "prefer", "standardrb" },
+			-- ruby = { lsp_format = "prefer", "standardrb" },
 			eruby = { "erb_format" },
 			terraform = { "terraform_fmt" },
 			tf = { "terraform_fmt" },

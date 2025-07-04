@@ -58,6 +58,7 @@ local servers = {
 			linters = { "standard" },
 		},
 	},
+
 	-- standardrb = {},
 
 	-- rubocop = {},
