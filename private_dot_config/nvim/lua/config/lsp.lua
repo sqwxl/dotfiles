@@ -58,9 +58,9 @@ local servers = {
 			linters = { "standard" },
 		},
 	},
-	standardrb = {},
+	-- standardrb = {},
 
-	rubocop = {},
+	-- rubocop = {},
 
 	terraformls = {},
 
