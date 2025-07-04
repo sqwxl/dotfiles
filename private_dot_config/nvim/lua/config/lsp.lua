@@ -53,7 +53,7 @@ local servers = {
 
 	-- Ruby
 	ruby_lsp = {
-		{
+		init_options = {
 			formatter = "standard",
 			linters = { "standard" },
 		},
