@@ -317,7 +317,6 @@ local keymaps = {
 	},
 
 	leader = {
-		{"<Leader>a", "<Nop>", desc = "AI"},
 		-- quit
 		{
 			"<Leader>qq",
