@@ -99,28 +99,28 @@ local keymaps = {
 		{ "<C-d>", "<C-d>zz" },
 
 		-- move lines
-		{ "<A-S-Down>", "<cmd>execute 'move .+' . v:count1<cr>==", desc = "Move Down" },
-		{ "<A-S-Up>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", desc = "Move Up" },
+		{ "<A-S-t>", "<cmd>execute 'move .+' . v:count1<cr>==", desc = "Move Down" },
+		{ "<A-S-c>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", desc = "Move Up" },
 		{
-			"<A-S-Down>",
+			"<A-S-t>",
 			"<esc><cmd>m .+1<cr>==gi",
 			desc = "Move Down",
 			mode = "i",
 		},
 		{
-			"<A-S-Up>",
+			"<A-S-t>",
 			"<esc><cmd>m .-2<cr>==gi",
 			desc = "Move Up",
 			mode = "i",
 		},
 		{
-			"<A-S-Down>",
+			"<A-S-t>",
 			":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv",
 			desc = "Move Down",
 			mode = "v",
 		},
 		{
-			"<A-S-Up>",
+			"<A-S-c>",
 			":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv",
 			desc = "Move Up",
 			mode = "v",
@@ -227,23 +227,23 @@ local keymaps = {
 			desc = "Move left",
 			mode = { "t", "i" },
 		},
-		{ "<A-j>", "<C-w>j", desc = "Move down" },
+		{ "<A-t>", "<C-w>j", desc = "Move down" },
 		{
-			"<A-j>",
+			"<A-t>",
 			"<C-Bslash><C-N><C-w>j",
 			desc = "Move down",
 			mode = { "t", "i" },
 		},
-		{ "<A-k>", "<C-w>k", desc = "Move up" },
+		{ "<A-c>", "<C-w>k", desc = "Move up" },
 		{
-			"<A-k>",
+			"<A-c>",
 			"<C-Bslash><C-N><C-w>k",
 			desc = "Move up",
 			mode = { "t", "i" },
 		},
-		{ "<A-l>", "<C-w>l", desc = "Move right" },
+		{ "<A-n>", "<C-w>l", desc = "Move right" },
 		{
-			"<A-l>",
+			"<A-n>",
 			"<C-Bslash><C-N><C-w>l",
 			desc = "Move right",
 			mode = { "t", "i" },
@@ -317,6 +317,7 @@ local keymaps = {
 	},
 
 	leader = {
+		{"<Leader>a", nil, desc = "AI"},
 		-- quit
 		{
 			"<Leader>qq",
@@ -427,7 +428,7 @@ local keymaps = {
 			desc = "Source Action",
 		},
 		{
-			"<Leader>a",
+			"<Leader>ca",
 			vim.lsp.buf.code_action,
 			desc = "Code Action",
 			mode = { "n", "v" },
