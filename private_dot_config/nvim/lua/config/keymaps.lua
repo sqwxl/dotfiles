@@ -317,7 +317,7 @@ local keymaps = {
 	},
 
 	leader = {
-		{"<Leader>a", nil, desc = "AI"},
+		{"<Leader>a", "<Nop>", desc = "AI"},
 		-- quit
 		{
 			"<Leader>qq",
