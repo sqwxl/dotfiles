@@ -1,7 +1,7 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $baseSourceDir := ".local/share/chezmoi" -}}
 
-{{- if (and (eq .chezmoi.os "linux") .chezmoi.osRelease.ostreeVersion) -}}
+{{- if (and (and (eq .chezmoi.os "linux") .chezmoi.osRelease.ostreeVersion) (not (hasPrefix "/var" .chezmoi.homeDir))) -}}
     sourceDir = {{ joinPath "/var" .chezmoi.homeDir $baseSourceDir | quote }}
 {{- else -}}
     sourceDir = {{ joinPath .chezmoi.homeDir $baseSourceDir | quote }}
