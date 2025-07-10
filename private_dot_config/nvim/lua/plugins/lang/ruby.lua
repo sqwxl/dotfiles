@@ -1,7 +1,10 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = { "suketa/nvim-dap-ruby" },
+		dependencies = {
+			"sqwxl/nvim-dap-ruby",
+			branch = "patch-2",
+		},
 		config = function()
 			require("dap-ruby").setup()
 		end,
