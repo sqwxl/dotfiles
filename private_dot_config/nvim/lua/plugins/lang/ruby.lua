@@ -1,17 +1,17 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
+		optional = true,
 		dependencies = {
 			"sqwxl/nvim-dap-ruby",
-			branch = "patch-2",
+			config = function()
+				require("dap-ruby").setup()
+			end,
 		},
-		config = function()
-			require("dap-ruby").setup()
-		end,
 	},
 	{
 		"nvim-neotest/neotest",
-		lazy = true,
+		optional = true,
 		dependencies = {
 			"olimorris/neotest-rspec",
 		},

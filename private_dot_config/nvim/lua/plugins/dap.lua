@@ -19,8 +19,6 @@ end
 return {
 	{
 		"mfussenegger/nvim-dap",
-		recommended = true,
-		desc = "Debugging support. Requires language specific adapters to be configured. (see lang extras)",
 
 		dependencies = {
 			{ "igorlfs/nvim-dap-view", opts = {} },
@@ -169,12 +167,13 @@ return {
 				)
 			end
 
-			local vscode = require("dap.ext.vscode")
-			local json = require("plenary.json")
-			vscode.json_decode = function(str)
-				return vim.json.decode(json.json_strip_comments(str))
-			end
+			-- local vscode = require("dap.ext.vscode")
+			-- local json = require("plenary.json")
+			-- vscode.json_decode = function(str)
+			-- 	return vim.json.decode(json.json_strip_comments(str))
+			-- end
 		end,
+
 		opts = function(_, _)
 			local dap = require("dap")
 			dap.defaults.fallback.external_terminal = {
@@ -187,7 +186,14 @@ return {
 		"igorlfs/nvim-dap-view",
 		---@module 'dap-view'
 		---@type dapview.Config
-		opts = {},
+		opts = {
+			auto_toggle = true,
+			winbar = {
+				default_section = "repl",
+				sections = { "breakpoints", "watches", "scopes", "exceptions", "repl", "console", "threads" },
+			},
+			windows = { terminal = { start_hidden = true, hide = { "ruby", "go" } } },
+		},
 	},
 
 	{
@@ -231,8 +237,8 @@ return {
 	},
 
 	{
-		"mxsdev/nvim-dap-vscode-js",
 		enabled = false,
+		"mxsdev/nvim-dap-vscode-js",
 		dependencies = {
 			{
 				"microsoft/vscode-js-debug",
