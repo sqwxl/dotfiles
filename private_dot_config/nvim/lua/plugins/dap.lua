@@ -192,7 +192,7 @@ return {
 				default_section = "repl",
 				sections = { "breakpoints", "watches", "scopes", "exceptions", "repl", "console", "threads" },
 			},
-			windows = { terminal = { start_hidden = true, hide = { "ruby", "go" } } },
+			windows = { terminal = { hide = { "ruby", "go" } } },
 		},
 	},
 
