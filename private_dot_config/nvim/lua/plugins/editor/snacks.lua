@@ -52,7 +52,7 @@ return {
 		},
 		notifier = { enabled = false, timeout = 3000 },
 		statuscolumn = { enabled = true },
-		picker = { enabled = true },
+		picker = { enabled = true, formatters = { file = { truncate = 80 } } },
 		styles = { notifications = { wo = { wrap = true }, relative = true } },
 	},
 	dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },

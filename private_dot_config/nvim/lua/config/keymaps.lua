@@ -188,7 +188,7 @@ local keymaps = {
 		},
 
 		-- windows & tabs
-		{ "<C-Tab>", "<Cmd>tabnext #<CR>", desc = "Go to last accessed window" },
+		{ "<C-Tab>", "<Cmd>tabnext #<CR>", desc = "Go to last accessed tab" },
 		{
 			"<S-Tab>",
 			"<C-w>W",
