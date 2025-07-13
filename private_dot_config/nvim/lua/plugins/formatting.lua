@@ -3,8 +3,8 @@ return {
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
 	dependencies = { "mason-org/mason.nvim" },
-	--@module "conform"
-	--@type conform.setupOpts
+	---@module "conform"
+	---@type conform.setupOpts
 	opts = {
 		default_format_opts = {
 			timeout_ms = 3000,

@@ -8,6 +8,38 @@ return {
 	},
 
 	{
+		"mason-org/mason.nvim",
+		opts = { ensure_installed = { "sqlfluff" } },
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		optional = true,
+		opts = function(_, opts)
+			for _, ft in ipairs(sql_ft) do
+				opts.linters_by_ft[ft] = opts.linters_by_ft[ft] or {}
+				table.insert(opts.linters_by_ft[ft], "sqlfluff")
+			end
+			opts.linters.sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } }
+		end,
+	},
+
+	{
+		"stevearc/conform.nvim",
+		optional = true,
+		opts = function(_, opts)
+			opts.formatters.sqlfluff = {
+				args = { "format", "--dialect=postgres", "-" },
+				require_cwd = false,
+			}
+			for _, ft in ipairs(sql_ft) do
+				opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
+				table.insert(opts.formatters_by_ft[ft], "sqlfluff")
+			end
+		end,
+	},
+
+	{
 		"tpope/vim-dadbod",
 		cmd = "DB",
 	},
@@ -58,37 +90,5 @@ return {
 		dependencies = {
 			"kristijanhusak/vim-dadbod-completion",
 		},
-	},
-
-	{
-		"mason-org/mason.nvim",
-		opts = { ensure_installed = { "sqlfluff" } },
-	},
-
-	{
-		"mfussenegger/nvim-lint",
-		optional = true,
-		opts = function(_, opts)
-			for _, ft in ipairs(sql_ft) do
-				opts.linters_by_ft[ft] = opts.linters_by_ft[ft] or {}
-				table.insert(opts.linters_by_ft[ft], "sqlfluff")
-			end
-			opts.linters.sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } }
-		end,
-	},
-
-	{
-		"stevearc/conform.nvim",
-		optional = true,
-		opts = function(_, opts)
-			opts.formatters.sqlfluff = {
-				args = { "format", "--dialect=postgres", "-" },
-				require_cwd = false,
-			}
-			for _, ft in ipairs(sql_ft) do
-				opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
-				table.insert(opts.formatters_by_ft[ft], "sqlfluff")
-			end
-		end,
 	},
 }

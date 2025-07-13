@@ -1,4 +1,4 @@
--- conform formatter to mason package mapping
+-- conform formatter/nvim lineter to mason package mapping
 -- https://mason-registry.dev/registry/list
 local alias_to_mason_name = {
 	bashls = "bash-language-server",

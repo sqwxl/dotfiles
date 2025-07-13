@@ -14,21 +14,13 @@ return {
 		opts = { ensure_installed = { "erb-formatter", "erb-lint" } },
 	},
 
-	-- {
-	-- 	"suketa/nvim-dap-ruby",
-	-- 	config = function()
-	-- 		require("dap-ruby").setup()
-	-- 	end,
-	-- },
-
 	{
-		"mfussenegger/nvim-dap",
+		"mfussenegger/nvim-lint",
 		optional = true,
-		dependencies = {
-			"sqwxl/nvim-dap-ruby",
-			config = function()
-				require("dap-ruby").setup()
-			end,
+		opts = {
+			linters_by_ft = {
+				ruby = { "ruby" },
+			},
 		},
 	},
 
@@ -48,13 +40,21 @@ return {
 		},
 	},
 
+	-- {
+	-- 	"suketa/nvim-dap-ruby",
+	-- 	config = function()
+	-- 		require("dap-ruby").setup()
+	-- 	end,
+	-- },
+
 	{
-		"mfussenegger/nvim-lint",
+		"mfussenegger/nvim-dap",
 		optional = true,
-		opts = {
-			linters_by_ft = {
-				ruby = { "ruby" },
-			},
+		dependencies = {
+			"sqwxl/nvim-dap-ruby",
+			config = function()
+				require("dap-ruby").setup()
+			end,
 		},
 	},
 

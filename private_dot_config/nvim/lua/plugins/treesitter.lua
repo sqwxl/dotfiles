@@ -143,4 +143,9 @@ return {
 			end
 		end,
 	},
+
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+	},
 }
