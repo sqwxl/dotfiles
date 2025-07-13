@@ -10,12 +10,6 @@ local servers = {
 	-- Fish
 	fish_lsp = {},
 
-	-- Docker
-	dockerls = {},
-	docker_compose_language_service = {},
-
-	terraformls = {},
-
 	-- Vue
 	-- vue_ls = {
 	-- 	init_options = {

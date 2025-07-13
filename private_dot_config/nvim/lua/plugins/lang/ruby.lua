@@ -40,6 +40,21 @@ return {
 				ruby = { "standardrb" },
 				eruby = { "erb_format" },
 			},
+			formatters = {
+				rubocop = {
+					args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
+				},
+			},
+		},
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		optional = true,
+		opts = {
+			linters_by_ft = {
+				ruby = { "ruby" },
+			},
 		},
 	},
 

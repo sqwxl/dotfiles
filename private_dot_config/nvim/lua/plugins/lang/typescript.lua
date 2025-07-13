@@ -1,3 +1,5 @@
+local fts = { "javascript", "javascriptreact", "typescript", "typescriptreact", "typescript.tsx" }
+
 vim.lsp.config("ts_ls", {
 	init_options = {
 		-- plugins = {
@@ -8,23 +10,38 @@ vim.lsp.config("ts_ls", {
 		-- 	},
 		-- },
 	},
-	filetypes = {
-		"javascript",
-		"typescript",
-		-- "vue",
-	},
+	filetypes = fts,
 })
-
 vim.lsp.enable("ts_ls")
 
 return {
 	{
 		"mason-org/mason.nvim",
 		optional = true,
+		opts = {
+			ensure_installed = { "js-debug-adapter", "typescript-language-server", "biome" },
+		},
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		optional = true,
 		opts = function(_, opts)
-			opts.ensure_installed = opts.ensure_installed or {}
-			table.insert(opts.ensure_installed, "js-debug-adapter")
-			table.insert(opts.ensure_installed, "typescript-language-server")
+			for _, ft in ipairs(fts) do
+				opts.linters_by_ft[ft] = opts.linters_by_ft[ft] or {}
+				table.insert(opts.linters_by_ft[ft], "sqlfluff")
+			end
+		end,
+	},
+
+	{
+		"stevearc/conform.nvim",
+		optional = true,
+		opts = function(_, opts)
+			for _, ft in ipairs(fts) do
+				opts.formatters_by_ft[ft] = opts.formatters_by_ft[ft] or {}
+				table.insert(opts.formatters_by_ft[ft], "biomejs")
+			end
 		end,
 	},
 

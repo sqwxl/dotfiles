@@ -1,8 +1,17 @@
 return {
 	{
+		"mason-org/mason.nvim",
+		opts = { ensure_installed = { "markdownlint-cli2" } },
+	},
+
+	{
 		"stevearc/conform.nvim",
 		optional = true,
 		opts = {
+			formatters_by_ft = {
+				["markdown"] = { "prettier", "markdownlint-cli2" },
+				["markdown.mdx"] = { "prettier", "markdownlint-cli2" },
+			},
 			formatters = {
 				["markdownlint-cli2"] = {
 					condition = function(_, ctx)
@@ -13,16 +22,7 @@ return {
 					end,
 				},
 			},
-			formatters_by_ft = {
-				["markdown"] = { "prettier", "markdownlint-cli2" },
-				["markdown.mdx"] = { "prettier", "markdownlint-cli2" },
-			},
 		},
-	},
-
-	{
-		"mason-org/mason.nvim",
-		opts = { ensure_installed = { "markdownlint-cli2" } },
 	},
 
 	-- {

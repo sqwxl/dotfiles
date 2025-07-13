@@ -1,8 +1,13 @@
 return {
 	"stevearc/conform.nvim",
-	dependencies = { "mason.nvim" },
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	dependencies = { "mason-org/mason.nvim" },
+	--@module "conform"
+	--@type conform.setupOpts
 	opts = {
 		default_format_opts = {
+			timeout_ms = 3000,
 			lsp_format = "fallback",
 		},
 		format_on_save = {
@@ -12,7 +17,6 @@ return {
 		notify_on_error = true,
 		formatters_by_ft = {
 			css = { "prettierd" },
-			dockerfile = { "hadolint" },
 			fish = { "fish_indent" },
 			go = { "gofmt" },
 			html = { "prettierd" },
@@ -20,25 +24,17 @@ return {
 			jinja = { "djlint" },
 			just = { "just" },
 			lua = { "stylua" },
-			markdown = { "markdownlint-cli2" },
 			nix = { "alejandra" },
 			-- php = { "pint" },
 			scss = { "prettierd" },
 			sh = { "shfmt" },
-			javascript = { "biome-check" },
-			javascriptreact = { "biome-check" },
-			ruby = { "standardrb" },
-			eruby = { "erb_format" },
-			typescript = { "biome-check" },
-			["typescript.tsx"] = { "biome-check" },
-			typescriptreact = { "biome-check" },
 			xml = { "xmlformat" },
 		},
 		formatters = {
 			injected = { options = { ignore_errors = true } },
-			rubocop = {
-				args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
-			},
 		},
 	},
+	init = function()
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	end,
 }
