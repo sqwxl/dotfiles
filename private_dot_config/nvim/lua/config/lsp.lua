@@ -112,9 +112,6 @@ local servers = {
 			},
 		},
 	},
-
-	-- YAML
-	yamlls = {},
 }
 
 -- vim.lsp.inlay_hint.enable(false)
