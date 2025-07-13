@@ -7,7 +7,7 @@ return {
 		},
 		format_on_save = {
 			lsp_format = "fallback",
-			timeout = 500
+			timeout = 500,
 		},
 		notify_on_error = true,
 		formatters_by_ft = {
@@ -39,7 +39,6 @@ return {
 			["typescript.tsx"] = { "biome-check" },
 			typescriptreact = { "biome-check" },
 			xml = { "xmlformat" },
-			yaml = { "yamlfix" },
 		},
 		formatters = {
 			injected = { options = { ignore_errors = true } },
