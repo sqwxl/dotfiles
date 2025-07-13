@@ -14,54 +14,7 @@ local servers = {
 	dockerls = {},
 	docker_compose_language_service = {},
 
-	-- Python
-	basedpyright = {
-		{
-			settings = {
-				basedpyright = {
-					disableOrganizeImports = true, -- Using Ruff
-					disableTaggedHints = true, -- Using Ruff
-					analysis = {
-						autoImportCompletions = true,
-						diagnosticSeverityOverrides = {
-							reportUndefinedVariable = "none",
-						},
-					},
-				},
-			},
-		},
-	},
-	ruff = { { settings = { lineLength = { 120 } } } },
-
-	-- JavaScript
-	ts_ls = {
-		init_options = {
-			-- plugins = {
-			-- 	{
-			-- 		name = "@vue/typescript-plugin",
-			-- 		location = vim.fs.joinpath(vim.g.npm_global_modules, "@vue/typescript-plugin"),
-			-- 		languages = { "javascript", "typescript", "vue" },
-			-- 	},
-			-- },
-		},
-		filetypes = {
-			"javascript",
-			"typescript",
-			-- "vue",
-		},
-	},
-
 	-- Ruby
-	ruby_lsp = {
-		init_options = {
-			formatter = "standard",
-			linters = { "standard" },
-		},
-	},
-
-	-- standardrb = {},
-
-	-- rubocop = {},
 
 	terraformls = {},
 
@@ -174,9 +127,25 @@ vim.diagnostic.config({
 	virtual_text = {
 		spacing = 4,
 		source = "if_many",
-		prefix = "●",
+		prefix = function(diagnostic)
+			local icons = Sqwxl.icons.diagnostics
+			for d, icon in pairs(icons) do
+				if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
+					return icon
+				end
+			end
+			return "●"
+		end,
 	},
 	severity_sort = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = Sqwxl.icons.diagnostics.Error,
+			[vim.diagnostic.severity.WARN] = Sqwxl.icons.diagnostics.Warn,
+			[vim.diagnostic.severity.HINT] = Sqwxl.icons.diagnostics.Hint,
+			[vim.diagnostic.severity.INFO] = Sqwxl.icons.diagnostics.Info,
+		},
+	},
 })
 
 for server, config in pairs(servers) do

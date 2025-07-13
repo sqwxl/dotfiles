@@ -161,17 +161,20 @@ return {
 
 			for name, sign in pairs(Sqwxl.icons.dap) do
 				sign = type(sign) == "table" and sign or { sign }
-				vim.fn.sign_define(
-					"Dap" .. name,
-					{ text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-				)
+				vim.fn.sign_define("Dap" .. name, {
+					text = sign[1],
+					texthl = sign[2] or "DiagnosticInfo",
+					linehl = sign[3],
+					numhl = sign[3],
+				})
 			end
 
-			-- local vscode = require("dap.ext.vscode")
-			-- local json = require("plenary.json")
-			-- vscode.json_decode = function(str)
-			-- 	return vim.json.decode(json.json_strip_comments(str))
-			-- end
+			-- setup dap config by VsCode launch.json file
+			local vscode = require("dap.ext.vscode")
+			local json = require("plenary.json")
+			vscode.json_decode = function(str)
+				return vim.json.decode(json.json_strip_comments(str))
+			end
 		end,
 
 		opts = function(_, _)
