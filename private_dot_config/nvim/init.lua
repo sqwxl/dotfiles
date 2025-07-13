@@ -22,8 +22,6 @@ require("config.autocmds")
 
 require("lazy").setup({
 	{ import = "plugins" },
-	{ import = "plugins.coding" },
-	{ import = "plugins.editor" },
 	{ import = "plugins.lang" },
 }, {
 	checker = { enabled = true, notify = false },
