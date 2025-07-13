@@ -26,6 +26,7 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "^6",
 		lazy = false,
+		ft = { "rust" },
 		opts = {
 			server = {
 				on_attach = function(_, bufnr)
@@ -80,6 +81,9 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			vim.g.rustacean = vim.tbl_deep_extend("keep", vim.g.rustacean or {}, opts or {})
+		end,
 	},
 
 	{

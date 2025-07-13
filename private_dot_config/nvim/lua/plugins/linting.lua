@@ -12,8 +12,6 @@ return {
 			ruby = { "ruby" },
 			sass = { "stylelint" },
 			sh = { "shellcheck" },
-			sql = { "sqlfluff" },
-			terraform = { "terraform_validate" },
 			json = { "biomejs" },
 			jsonc = { "biomejs" },
 			javascript = { "biomejs" },
@@ -24,7 +22,6 @@ return {
 			-- ["*"] = { "cspell" },
 		},
 		linters = {
-			sqlfluff = { args = { "lint", "--format=json", "--dialect=postgres" } },
 			stylelint = { stream = "stderr" },
 			-- cspell = {
 			--   args = {

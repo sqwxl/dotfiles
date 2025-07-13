@@ -25,13 +25,10 @@ return {
 			-- php = { "pint" },
 			scss = { "prettierd" },
 			sh = { "shfmt" },
-			sql = { "sqlfluff" },
 			javascript = { "biome-check" },
 			javascriptreact = { "biome-check" },
 			ruby = { "standardrb" },
 			eruby = { "erb_format" },
-			terraform = { "terraform_fmt" },
-			tf = { "terraform_fmt" },
 			typescript = { "biome-check" },
 			["typescript.tsx"] = { "biome-check" },
 			typescriptreact = { "biome-check" },
@@ -39,10 +36,6 @@ return {
 		},
 		formatters = {
 			injected = { options = { ignore_errors = true } },
-			sqlfluff = {
-				args = { "format", "--dialect=postgres", "-" },
-				require_cwd = false,
-			},
 			rubocop = {
 				args = { "--server", "--auto-correct-all", "--stderr", "--force-exclusion", "--stdin", "$FILENAME" },
 			},
