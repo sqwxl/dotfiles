@@ -14,3 +14,26 @@ vim.lsp.config("jsonls", {
 	},
 })
 vim.lsp.enable("jsonls")
+
+return {
+	{
+		"nvim-treesitter/nvim-treesitter",
+		opts = { ensure_installed = { "json5" } },
+	},
+
+	{
+		"b0o/SchemaStore.nvim",
+		lazy = true,
+	},
+
+	{
+		"stevearc/conform.nvim",
+		optional = true,
+		opts = {
+			formatters_by_ft = {
+				json = { "biome-check" },
+				jsonc = { "biome-check" },
+			},
+		},
+	},
+}
