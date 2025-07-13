@@ -712,13 +712,6 @@ local keymaps = {
 			"<cmd>MarkdownPreviewToggle<cr>",
 			desc = "Markdown Preview",
 		},
-		{
-			"<leader>cn",
-			function()
-				require("neogen").generate()
-			end,
-			desc = "Generate Annotations (Neogen)",
-		},
 		{ "<Leader>r", vim.lsp.buf.rename, desc = "Rename" },
 		{
 			"<Leader>R",

@@ -1,10 +1,3 @@
-local header = [[
- ______ _____ ______ __  __ __ __________
-/\  __ \\  __\\  __ \\ \/\ \\_\\  __  __ \
-\ \ \/\ \\  __\\ \_\ \\ \/ |/\ \\ \/\ \/\ \
- \ \_\ \_\\____\\_____\\__/ \ \_\\_\ \_\ \_\
-  \/_/\/_//____//_____//_/   \/_//_/\/_/\/_/]]
-
 return {
 	{
 
@@ -17,7 +10,6 @@ return {
 			dashboard = {
 				enabled = true,
 				preset = {
-					header = header,
 					keys = {
 						{
 							icon = " ",
@@ -99,55 +91,56 @@ return {
 	},
 
 	{
+		"s1n7ax/nvim-window-picker",
+		name = "window-picker",
+		event = "VeryLazy",
+		version = "2.*",
+		opts = {
+			hint = "floating-big-letter",
+			show_prompt = false,
+			selection_chars = "aoeuidhtnsqjkxbmwvz",
+			filter_rules = {
+				include_current_win = false,
+				autoselect_one = true,
+				bo = {
+					filetype = { "neo-tree", "neo-tree-popup", "notify", "noice", "snacks_notif", "aerial" },
+					buftype = { "terminal" },
+				},
+			},
+			highlights = {
+				statusline = {
+					focused = "WindowPickerStatusLine",
+					unfocused = "WindowPickerStatusLineNC",
+				},
+				winbar = {
+					focused = "WindowPickerWinBar",
+					unfocused = "WindowPickerWinBarNC",
+				},
+			},
+		},
+		keys = {
+			{
+				"<Leader>W",
+				function()
+					local nr = require("window-picker").pick_window()
+					if nr ~= nil then
+						vim.cmd.wincmd(nr .. " w")
+					end
+				end,
+				desc = "Pick window",
+			},
+		},
+	},
+
+	{
 		"nvim-neo-tree/neo-tree.nvim",
 		lazy = false,
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
-			-- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-			{
-				"s1n7ax/nvim-window-picker",
-				name = "window-picker",
-				lazy = true,
-				version = "2.*",
-				opts = {
-					hint = "floating-big-letter",
-					show_prompt = false,
-					selection_chars = "aoeuidhtnsqjkxbmwvz",
-					filter_rules = {
-						include_current_win = false,
-						autoselect_one = true,
-						bo = {
-							filetype = { "neo-tree", "neo-tree-popup", "notify", "noice", "snacks_notif", "aerial" },
-							buftype = { "terminal" },
-						},
-					},
-					highlights = {
-						statusline = {
-							focused = "WindowPickerStatusLine",
-							unfocused = "WindowPickerStatusLineNC",
-						},
-						winbar = {
-							focused = "WindowPickerWinBar",
-							unfocused = "WindowPickerWinBarNC",
-						},
-					},
-				},
-				keys = {
-					{
-						"<Leader>W",
-						function()
-							local nr = require("window-picker").pick_window()
-							if nr ~= nil then
-								vim.cmd.wincmd(nr .. " w")
-							end
-						end,
-						desc = "Pick window",
-					},
-				},
-			},
+			"s1n7ax/nvim-window-picker",
 		},
 		init = function()
 			-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
@@ -204,7 +197,7 @@ return {
 			},
 			default_component_configs = {
 				file_size = { enabled = false },
-				last_modified = { enabled = false },
+				last_modified = { enabled = false, format = "relative" },
 				indent = {
 					with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
 					expander_collapsed = "",
@@ -561,12 +554,12 @@ return {
 			dim_inactive = false,
 			transparent_mode = false,
 			overrides = {
-				NeoTreeDirectoryName = { link = "GruvboxBlueBold" },
-				NeoTreeDirectoryIcon = { link = "NeoTreeDirectoryName" },
-				NeoTreeRootName = { link = "GruvboxAquaBold" },
-				NeoTreeModified = { link = "GruvboxYellow" },
-				NeoTreeGitAdded = { link = "GruvboxOrange" },
-				NeoTreeFilterTerm = { link = "GruvboxGreenBold" },
+				-- NeoTreeDirectoryName = { link = "GruvboxBlueBold" },
+				-- NeoTreeDirectoryIcon = { link = "NeoTreeDirectoryName" },
+				-- NeoTreeRootName = { link = "GruvboxAquaBold" },
+				-- NeoTreeModified = { link = "GruvboxYellow" },
+				-- NeoTreeGitAdded = { link = "GruvboxOrange" },
+				-- NeoTreeFilterTerm = { link = "GruvboxGreenBold" },
 				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
 				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
 				WindowPickerWinBar = { link = "GruvboxBlueBold" },

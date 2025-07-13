@@ -3,6 +3,9 @@ return {
 	event = { "BufWritePre" },
 	cmd = { "ConformInfo" },
 	dependencies = { "mason-org/mason.nvim" },
+	init = function()
+		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+	end,
 	---@module "conform"
 	---@type conform.setupOpts
 	opts = {
@@ -34,7 +37,4 @@ return {
 			injected = { options = { ignore_errors = true } },
 		},
 	},
-	init = function()
-		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-	end,
 }

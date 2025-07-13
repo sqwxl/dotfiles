@@ -41,6 +41,7 @@ return {
 			vim.g["chezmoi#source_dir_path"] = os.getenv("HOME") .. "/.local/share/chezmoi"
 		end,
 	},
+
 	{
 		"xvzc/chezmoi.nvim",
 		cmd = { "ChezmoiEdit" },
@@ -100,6 +101,7 @@ return {
 	-- Filetype icons
 	{
 		"echasnovski/mini.icons",
+		optional = true,
 		opts = {
 			file = {
 				[".chezmoiignore"] = { glyph = "", hl = "MiniIconsGrey" },
