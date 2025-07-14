@@ -1,4 +1,5 @@
 return {
+	enabled = false,
 	"sqwxl/playdate.nvim",
 	-- dev = true,
 	opts = {

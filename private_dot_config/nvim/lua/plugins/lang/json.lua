@@ -42,8 +42,8 @@ return {
 		optional = true,
 		opts = {
 			linters_by_ft = {
-				json = { "biomjs" },
-				jsonc = { "biomjs" },
+				json = { "biomejs" },
+				jsonc = { "biomejs" },
 			},
 		},
 	},

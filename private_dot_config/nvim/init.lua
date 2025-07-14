@@ -24,6 +24,7 @@ require("lazy").setup({
 	{ import = "plugins" },
 	{ import = "plugins.lang" },
 }, {
+	lazy = true,
 	checker = { enabled = true, notify = false },
 	rocks = { enabled = false },
 	install = { colorscheme = { "gruvbox", "retrobox" } },

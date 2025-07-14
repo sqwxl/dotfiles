@@ -19,7 +19,7 @@ end
 return {
 	{
 		"mfussenegger/nvim-dap",
-
+		lazy = true,
 		dependencies = {
 			{ "igorlfs/nvim-dap-view", opts = {} },
 			-- "rcarriga/nvim-dap-ui",
@@ -187,6 +187,7 @@ return {
 
 	{
 		"igorlfs/nvim-dap-view",
+		lazy = true,
 		---@module 'dap-view'
 		---@type dapview.Config
 		opts = {
