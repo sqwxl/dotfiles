@@ -56,6 +56,46 @@ return {
 			picker = { enabled = true, formatters = { file = { truncate = 80 } } },
 			styles = { notifications = { wo = { wrap = true }, relative = true } },
 		},
+		keys = {
+			-- stylua: ignore start
+			{ "<Leader>$", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
+			{ "<Leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
+			{ "<Leader>.", function() Snacks.picker.smart() end, desc = "Smart find files" },
+			{ "<Leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
+			{ "<Leader>:", function() Snacks.picker.command_history() end, desc = "Command history" },
+			{ "<Leader>f", function() Snacks.picker.files() end, desc = "Find files" },
+			{ "<Leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename file" },
+			{ "<Leader>cl", function() Snacks.picker.lsp_config() end, desc = "LSP info" },
+			{ "<Leader>gd", function() Snacks.picker.git_diff() end, desc = "Git diff (hunks)" },
+			{ "<Leader>gs", function() Snacks.picker.git_status() end, desc = "Git status" },
+			{ "<Leader>gS", function() Snacks.picker.git_stash() end, desc = "Git stash" },
+			{ "<Leader>n", function() Snacks.picker.notifications() end, desc = "Notification history" },
+			{ "<Leader>s/", function() Snacks.picker.search_history() end, desc = "Search history" },
+			{ "<Leader>s\"", function() Snacks.picker.registers() end, desc = "Registers" },
+			{ "<Leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
+			{ "<Leader>sb", function() Snacks.picker.grep_buffers() end, desc = "Grep buffers" },
+			{ "<Leader>sc", function() Snacks.picker.commands() end, desc = "Commands" },
+			{ "<Leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+			{ "<Leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer diagnostics" },
+			{ "<Leader>sh", function() Snacks.picker.help() end, desc = "Help pages" },
+			{ "<Leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
+			{ "<Leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
+			{ "<Leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
+			{ "<Leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+			{ "<Leader>sl", function() Snacks.picker.loclist() end, desc = "Location list" },
+			{ "<Leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
+			{ "<Leader>sM", function() Snacks.picker.man() end, desc = "Man pages" },
+			{ "<Leader>sp", function() Snacks.picker.lazy() end, desc = "Plugin specs" },
+			{ "<Leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
+			{ "<Leader>sR", function() Snacks.picker.resume() end, desc = "Resume last search" },
+			{ "<Leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP symbols" },
+			{ "<Leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP workspace symbols" },
+			{ "<Leader>su", function() Snacks.picker.undo() end, desc = "Undo history" },
+			{ "<Leader>sw", function() Snacks.picker.grep_word() end, desc = "Grep selection or word", mode = {"n", "x"} },
+			{ "<Leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
+			{ "<Leader>un", function() Snacks.picker.notifications() end, desc = "Notification history" },
+			-- stylua: ignore end
+		},
 		dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
 		init = function()
 			vim.api.nvim_create_autocmd("User", {
@@ -71,20 +111,20 @@ return {
 					vim.print = _G.dd -- Override print to use snacks for `:=` command
 
 					-- Create some toggle mappings
-					Snacks.toggle.zen():map("<leader>uz")
-					Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-					Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-					Snacks.toggle.diagnostics():map("<leader>ud")
+					Snacks.toggle.zen():map("<Leader>uz")
+					Snacks.toggle.option("spell", { name = "Spelling" }):map("<Leader>us")
+					Snacks.toggle.option("wrap", { name = "Wrap" }):map("<Leader>uw")
+					Snacks.toggle.diagnostics():map("<Leader>ud")
 					Snacks.toggle
 						.option(
 							"conceallevel",
 							{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }
 						)
-						:map("<leader>uc")
-					Snacks.toggle.treesitter():map("<leader>uT")
-					Snacks.toggle.dim():map("<leader>uD")
+						:map("<Leader>uc")
+					Snacks.toggle.treesitter():map("<Leader>uT")
+					Snacks.toggle.dim():map("<Leader>uD")
 
-					Snacks.toggle.inlay_hints():map("<leader>uh")
+					Snacks.toggle.inlay_hints():map("<Leader>uh")
 				end,
 			})
 		end,
@@ -212,9 +252,36 @@ return {
 				},
 			},
 		},
-		deactivate = function()
-			vim.cmd([[Neotree close]])
-		end,
+		keys = {
+			{
+				"<A-Bslash>",
+				function()
+					require("neo-tree.command").execute({ reveal = true })
+				end,
+				desc = "Reveal in explorer",
+			},
+			{
+				"<Leader>e",
+				function()
+					require("neo-tree.command").execute({ toggle = true })
+				end,
+				desc = "Toggle explorer",
+			},
+			{
+				"<Leader>ge",
+				function()
+					require("neo-tree.command").execute({ source = "git_status", toggle = true })
+				end,
+				desc = "Git explorer",
+			},
+			{
+				"<Leader>be",
+				function()
+					require("neo-tree.command").execute({ source = "buffers", toggle = true })
+				end,
+				desc = "Buffer explorer",
+			},
+		},
 		config = function(_, opts)
 			local function on_move(data)
 				Snacks.rename.on_rename_file(data.source, data.destination)
@@ -235,6 +302,9 @@ return {
 					end
 				end,
 			})
+		end,
+		deactivate = function()
+			vim.cmd([[Neotree close]])
 		end,
 	},
 
@@ -273,52 +343,51 @@ return {
 			spec = {
 				{
 					mode = { "n", "v" },
-					{ "<leader><tab>", group = "tabs" },
-					{ "<leader>c", group = "code" },
-					{ "<leader>d", group = "debug" },
-					{ "<leader>dp", group = "profiler" },
-					{ "<leader>f", group = "file/find" },
-					{ "<leader>g", group = "git" },
-					{ "<leader>gh", group = "hunks" },
-					{ "<leader>q", group = "quit/session" },
-					{ "<leader>s", group = "search" },
-					{ "<leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
-					{ "<leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
+					{ "<Leader><tab>", group = "tabs" },
+					{ "<Leader>c", group = "code" },
+					{ "<Leader>d", group = "debug" },
+					{ "<Leader>dp", group = "profiler" },
+					{ "<Leader>f", group = "file/find" },
+					{ "<Leader>g", group = "git" },
+					{ "<Leader>gh", group = "hunks" },
+					{ "<Leader>q", group = "quit/session" },
+					{ "<Leader>s", group = "search" },
+					{ "<Leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
+					{ "<Leader>x", group = "diagnostics/quickfix", icon = { icon = "󱖫 ", color = "green" } },
 					{ "[", group = "prev" },
 					{ "]", group = "next" },
 					{ "g", group = "goto" },
 					{ "gs", group = "surround" },
 					{ "z", group = "fold" },
 					{
-						"<leader>b",
+						"<Leader>b",
 						group = "buffer",
 						expand = function()
 							return require("which-key.extras").expand.buf()
 						end,
 					},
 					{
-						"<leader>w",
+						"<Leader>w",
 						group = "windows",
 						proxy = "<c-w>",
 						expand = function()
 							return require("which-key.extras").expand.win()
 						end,
 					},
-					-- better descriptions
 					{ "gx", desc = "Open with system app" },
 				},
 			},
 		},
 		keys = {
 			{
-				"<leader>?",
+				"<Leader>?",
 				function()
 					require("which-key").show({ global = false })
 				end,
 				desc = "Buffer Keymaps (which-key)",
 			},
 			{
-				"<leader><c-w>",
+				"<Leader><c-w>",
 				function()
 					require("which-key").show({ keys = "<c-w>", loop = true })
 				end,
@@ -360,7 +429,7 @@ return {
 			icons = vim.tbl_extend("force", {}, Sqwxl.icons.kinds, { Package = Sqwxl.icons.kinds.Control }),
 		},
 		keys = {
-			{ "<leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+			{ "<Leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
 		},
 	},
 
@@ -475,20 +544,20 @@ return {
 				map("n", "[G", function()
 					gs.nav_hunk("first")
 				end, "First Hunk")
-				map({ "n", "v" }, "<leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-				map({ "n", "v" }, "<leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-				map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-				map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-				map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-				map("n", "<leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
-				map("n", "<leader>ghb", function()
+				map({ "n", "v" }, "<Leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
+				map({ "n", "v" }, "<Leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
+				map("n", "<Leader>ghS", gs.stage_buffer, "Stage Buffer")
+				map("n", "<Leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
+				map("n", "<Leader>ghR", gs.reset_buffer, "Reset Buffer")
+				map("n", "<Leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+				map("n", "<Leader>ghb", function()
 					gs.blame_line({ full = true })
 				end, "Blame Line")
-				map("n", "<leader>ghB", function()
+				map("n", "<Leader>ghB", function()
 					gs.blame()
 				end, "Blame Buffer")
-				map("n", "<leader>ghd", gs.diffthis, "Diff This")
-				map("n", "<leader>ghD", function()
+				map("n", "<Leader>ghd", gs.diffthis, "Diff This")
+				map("n", "<Leader>ghD", function()
 					gs.diffthis("~")
 				end, "Diff This ~")
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
@@ -506,7 +575,7 @@ return {
 				set = function(state)
 					require("gitsigns").toggle_signs(state)
 				end,
-			}):map("<leader>uG")
+			}):map("<Leader>uG")
 		end,
 	},
 
@@ -525,23 +594,14 @@ return {
 		},
 	},
 
-	{
-		url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git",
-	},
+	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git" },
 
 	{
 		"norcalli/nvim-colorizer.lua", -- highlight color strings
 		event = "VeryLazy",
-		opts = {
-			"html",
-			"jinja",
-			"eruby",
-			"htmldjango",
-			"markdown",
-			"css",
-			"scss",
-			"sass",
-		},
+		---@module "colorizer"
+		opts = { "html", "jinja", "eruby", "htmldjango", "markdown", "css", "scss", "sass" },
+		keys = { { "<Leader>uH", "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlighting" } },
 	},
 
 	{
@@ -554,12 +614,6 @@ return {
 			dim_inactive = false,
 			transparent_mode = false,
 			overrides = {
-				-- NeoTreeDirectoryName = { link = "GruvboxBlueBold" },
-				-- NeoTreeDirectoryIcon = { link = "NeoTreeDirectoryName" },
-				-- NeoTreeRootName = { link = "GruvboxAquaBold" },
-				-- NeoTreeModified = { link = "GruvboxYellow" },
-				-- NeoTreeGitAdded = { link = "GruvboxOrange" },
-				-- NeoTreeFilterTerm = { link = "GruvboxGreenBold" },
 				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
 				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
 				WindowPickerWinBar = { link = "GruvboxBlueBold" },
