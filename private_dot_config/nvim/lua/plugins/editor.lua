@@ -1,7 +1,7 @@
 return {
 	{
-
 		"folke/snacks.nvim",
+		dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
 		priority = 1000,
 		lazy = false,
 		---@type snacks.Config
@@ -18,17 +18,17 @@ return {
 							action = ":lua Snacks.dashboard.pick('files')",
 						},
 						{ icon = "󰙅 ", key = "e", desc = "Explorer", action = ":Neotree" },
-						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{ icon = " ", key = "n", desc = "New file", action = ":ene | startinsert" },
 						{
 							icon = " ",
 							key = "g",
-							desc = "Find Text",
+							desc = "Grep",
 							action = ":lua Snacks.dashboard.pick('live_grep')",
 						},
 						{
 							icon = " ",
 							key = "r",
-							desc = "Recent Files",
+							desc = "Recent files",
 							action = ":lua Snacks.dashboard.pick('oldfiles')",
 						},
 						{
@@ -37,7 +37,7 @@ return {
 							desc = "Config",
 							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 						},
-						{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+						{ icon = " ", key = "s", desc = "Restore session", section = "session" },
 						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
 						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 					},
@@ -95,45 +95,13 @@ return {
 			{ "<Leader>un", function() Snacks.picker.notifications() end, desc = "Notification history" },
 			-- stylua: ignore end
 		},
-		dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
-		init = function()
-			vim.api.nvim_create_autocmd("User", {
-				pattern = "VeryLazy",
-				callback = function()
-					-- Setup some globals for debugging (lazy-loaded)
-					_G.dd = function(...)
-						Snacks.debug.inspect(...)
-					end
-					_G.bt = function()
-						Snacks.debug.backtrace()
-					end
-					vim.print = _G.dd -- Override print to use snacks for `:=` command
-
-					-- Create some toggle mappings
-					Snacks.toggle.zen():map("<Leader>uz")
-					Snacks.toggle.option("spell", { name = "Spelling" }):map("<Leader>us")
-					Snacks.toggle.option("wrap", { name = "Wrap" }):map("<Leader>uw")
-					Snacks.toggle.diagnostics():map("<Leader>ud")
-					Snacks.toggle
-						.option(
-							"conceallevel",
-							{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }
-						)
-						:map("<Leader>uc")
-					Snacks.toggle.treesitter():map("<Leader>uT")
-					Snacks.toggle.dim():map("<Leader>uD")
-
-					Snacks.toggle.inlay_hints():map("<Leader>uh")
-				end,
-			})
-		end,
 	},
 
 	{
 		"s1n7ax/nvim-window-picker",
+		version = "2.*",
 		name = "window-picker",
 		event = "VeryLazy",
-		version = "2.*",
 		opts = {
 			hint = "floating-big-letter",
 			show_prompt = false,
@@ -173,7 +141,6 @@ return {
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		lazy = false,
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -181,6 +148,7 @@ return {
 			"MunifTanjim/nui.nvim",
 			"s1n7ax/nvim-window-picker",
 		},
+		lazy = false,
 		init = function()
 			-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
 			-- because `cwd` is not set up properly.
@@ -251,6 +219,27 @@ return {
 				},
 			},
 		},
+		config = function(_, opts)
+			local function on_move(data)
+				Snacks.rename.on_rename_file(data.source, data.destination)
+			end
+
+			local events = require("neo-tree.events")
+			opts.event_handlers = opts.event_handlers or {}
+			vim.list_extend(opts.event_handlers, {
+				{ event = events.FILE_MOVED, handler = on_move },
+				{ event = events.FILE_RENAMED, handler = on_move },
+			})
+			require("neo-tree").setup(opts)
+			vim.api.nvim_create_autocmd("TermClose", {
+				pattern = "*gitui",
+				callback = function()
+					if package.loaded["neo-tree.sources.git_status"] then
+						require("neo-tree.sources.git_status").refresh()
+					end
+				end,
+			})
+		end,
 		keys = {
 			{
 				"<A-Bslash>",
@@ -281,30 +270,6 @@ return {
 				desc = "Buffer explorer",
 			},
 		},
-		config = function(_, opts)
-			local function on_move(data)
-				Snacks.rename.on_rename_file(data.source, data.destination)
-			end
-
-			local events = require("neo-tree.events")
-			opts.event_handlers = opts.event_handlers or {}
-			vim.list_extend(opts.event_handlers, {
-				{ event = events.FILE_MOVED, handler = on_move },
-				{ event = events.FILE_RENAMED, handler = on_move },
-			})
-			require("neo-tree").setup(opts)
-			vim.api.nvim_create_autocmd("TermClose", {
-				pattern = "*gitui",
-				callback = function()
-					if package.loaded["neo-tree.sources.git_status"] then
-						require("neo-tree.sources.git_status").refresh()
-					end
-				end,
-			})
-		end,
-		deactivate = function()
-			vim.cmd([[Neotree close]])
-		end,
 	},
 
 	{
@@ -315,6 +280,12 @@ return {
 	{
 		"echasnovski/mini.icons",
 		lazy = true,
+		init = function()
+			package.preload["nvim-web-devicons"] = function()
+				require("mini.icons").mock_nvim_web_devicons()
+				return package.loaded["nvim-web-devicons"]
+			end
+		end,
 		opts = {
 			file = {
 				[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
@@ -324,29 +295,20 @@ return {
 				dotenv = { glyph = "", hl = "MiniIconsYellow" },
 			},
 		},
-		init = function()
-			package.preload["nvim-web-devicons"] = function()
-				require("mini.icons").mock_nvim_web_devicons()
-				return package.loaded["nvim-web-devicons"]
-			end
-		end,
 	},
 
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
-		opts_extend = { "spec" },
 		opts = {
 			preset = "modern",
 			defaults = {},
 			spec = {
 				{
 					mode = { "n", "v" },
-					{ "<Leader><tab>", group = "tabs" },
+					{ "<Leader>a", group = "copilot" },
 					{ "<Leader>c", group = "code" },
 					{ "<Leader>d", group = "debug" },
-					{ "<Leader>dp", group = "profiler" },
-					{ "<Leader>f", group = "file/find" },
 					{ "<Leader>g", group = "git" },
 					{ "<Leader>gh", group = "hunks" },
 					{ "<Leader>q", group = "quit/session" },
@@ -377,6 +339,11 @@ return {
 				},
 			},
 		},
+		opts_extend = { "spec" },
+		config = function(_, opts)
+			local wk = require("which-key")
+			wk.setup(opts)
+		end,
 		keys = {
 			{
 				"<Leader>?",
@@ -393,19 +360,15 @@ return {
 				desc = "Window Hydra Mode (which-key)",
 			},
 		},
-		config = function(_, opts)
-			local wk = require("which-key")
-			wk.setup(opts)
-		end,
 	},
 
 	{
 		"stevearc/aerial.nvim", -- lsp symbols overview
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
+		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 		opts = {
 			attach_mode = "window",
 			backends = { "lsp", "treesitter", "markdown", "man" },
@@ -428,7 +391,7 @@ return {
 			icons = vim.tbl_extend("force", {}, Sqwxl.icons.kinds, { Package = Sqwxl.icons.kinds.Control }),
 		},
 		keys = {
-			{ "<Leader>cs", "<cmd>AerialToggle<cr>", desc = "Aerial (Symbols)" },
+			{ "<Leader>cs", "<cmd>AerialToggle<cr>", desc = "Symbols panel" },
 		},
 	},
 
@@ -467,7 +430,7 @@ return {
 				function()
 					require("flash").treesitter()
 				end,
-				desc = "Flash Treesitter",
+				desc = "Flash treesitter",
 				mode = { "n", "o", "x" },
 			},
 			{
@@ -475,7 +438,7 @@ return {
 				function()
 					require("flash").remote()
 				end,
-				desc = "Remote Flash",
+				desc = "Remote flash",
 				mode = "o",
 			},
 			{
@@ -483,7 +446,7 @@ return {
 				function()
 					require("flash").treesitter_search()
 				end,
-				desc = "Treesitter Search",
+				desc = "Treesitter search",
 				mode = { "o", "x" },
 			},
 			{
@@ -491,7 +454,7 @@ return {
 				function()
 					require("flash").toggle()
 				end,
-				desc = "Toggle Flash Search",
+				desc = "Toggle flash search",
 				mode = { "c" },
 			},
 		},
@@ -529,45 +492,46 @@ return {
 					else
 						gs.nav_hunk("next")
 					end
-				end, "Next Hunk")
+				end, "Next hunk")
 				map("n", "[g", function()
 					if vim.wo.diff then
 						vim.cmd.normal({ "[c", bang = true })
 					else
 						gs.nav_hunk("prev")
 					end
-				end, "Prev Hunk")
+				end, "Prev hunk")
 				map("n", "]G", function()
 					gs.nav_hunk("last")
-				end, "Last Hunk")
+				end, "Last hunk")
 				map("n", "[G", function()
 					gs.nav_hunk("first")
-				end, "First Hunk")
-				map({ "n", "v" }, "<Leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage Hunk")
-				map({ "n", "v" }, "<Leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset Hunk")
-				map("n", "<Leader>ghS", gs.stage_buffer, "Stage Buffer")
-				map("n", "<Leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-				map("n", "<Leader>ghR", gs.reset_buffer, "Reset Buffer")
-				map("n", "<Leader>ghp", gs.preview_hunk_inline, "Preview Hunk Inline")
+				end, "First hunk")
+				map({ "n", "v" }, "<Leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
+				map({ "n", "v" }, "<Leader>ghr", ":Gitsigns reset_hunk<CR>", "Reset hunk")
+				map("n", "<Leader>ghS", gs.stage_buffer, "Stage buffer")
+				map("n", "<Leader>ghu", gs.undo_stage_hunk, "Undo stage hunk")
+				map("n", "<Leader>ghR", gs.reset_buffer, "Reset buffer")
+				map("n", "<Leader>ghp", gs.preview_hunk_inline, "Preview hunk inline")
 				map("n", "<Leader>ghb", function()
 					gs.blame_line({ full = true })
-				end, "Blame Line")
+				end, "Blame line")
 				map("n", "<Leader>ghB", function()
 					gs.blame()
-				end, "Blame Buffer")
-				map("n", "<Leader>ghd", gs.diffthis, "Diff This")
+				end, "Blame buffer")
+				map("n", "<Leader>ghd", gs.diffthis, "Diff this")
 				map("n", "<Leader>ghD", function()
 					gs.diffthis("~")
-				end, "Diff This ~")
-				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
+				end, "Diff this ~")
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns select hunk")
 			end,
 		},
 	},
+
 	{
 		"gitsigns.nvim",
 		opts = function()
 			Snacks.toggle({
-				name = "Git Signs",
+				name = "Git signs",
 				get = function()
 					return require("gitsigns.config").config.signcolumn
 				end,
@@ -580,9 +544,8 @@ return {
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		dependencies = "tpope/vim-sleuth", -- set shiftwidth and tabstop automatically.
 		main = "ibl",
-		-- For setting shiftwidth and tabstop automatically.
-		dependencies = "tpope/vim-sleuth",
 		---@module "ibl"
 		---@type ibl.config
 		opts = {
@@ -600,7 +563,7 @@ return {
 		event = "VeryLazy",
 		---@module "colorizer"
 		opts = { "html", "jinja", "eruby", "htmldjango", "markdown", "css", "scss", "sass" },
-		keys = { { "<Leader>uH", "<cmd>ColorizerToggle<cr>", desc = "Toggle color highlighting" } },
+		keys = { { "<Leader>uH", "<Cmd>ColorizerToggle<CR>", desc = "Toggle color highlighting" } },
 	},
 
 	{

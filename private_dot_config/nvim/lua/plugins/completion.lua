@@ -1,10 +1,8 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "rafamadriz/friendly-snippets" },
 	version = "1.*",
-	opts_extend = { "sources.default" },
+	dependencies = { "rafamadriz/friendly-snippets" },
 	event = "InsertEnter",
-
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
@@ -60,6 +58,7 @@ return {
 			enabled = false,
 		},
 	},
+	opts_extend = { "sources.default" },
 	---@param opts blink.cmp.Config | { sources: { compat: string[] } }
 	config = function(_, opts)
 		-- check if we need to override symbol kinds

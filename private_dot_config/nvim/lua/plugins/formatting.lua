@@ -1,8 +1,8 @@
 return {
 	"stevearc/conform.nvim",
-	event = { "BufWritePre" },
-	cmd = { "ConformInfo" },
 	dependencies = { "mason-org/mason.nvim" },
+	cmd = { "ConformInfo" },
+	event = { "BufWritePre" },
 	init = function()
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 	end,

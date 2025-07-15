@@ -25,16 +25,6 @@ return {
 		},
 	},
 
-	-- {
-	-- 	"mfussenegger/nvim-lint",
-	-- 	optional = true,
-	-- 	opts = {
-	-- 		linters_by_ft = {
-	-- 			markdown = { "markdownlint-cli2" },
-	-- 		},
-	-- 	},
-	-- },
-
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -43,9 +33,6 @@ return {
 			vim.fn["mkdp#util#install"]()
 		end,
 		ft = { "markdown" },
-		config = function()
-			vim.cmd([[do FileType]])
-		end,
 		opts = function()
 			local cmd
 			-- native
@@ -55,7 +42,7 @@ return {
 				else
 					cmd = "xdg-open"
 				end
-			elseif vim.fn.has("macos") == 1 then
+			elseif vim.fn.has("mac") == 1 then
 				cmd = "open"
 			elseif vim.fn.has("win32") == 1 then
 				cmd = "start"
@@ -70,5 +57,11 @@ return {
 
 			vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
 		end,
+		config = function()
+			vim.cmd([[do FileType]])
+		end,
+		keys = {
+			{ "<leader>cP", "<Cmd>MarkdownPreviewToggle<CR>", ft = "markdown", desc = "Markdown preview" },
+		},
 	},
 }

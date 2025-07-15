@@ -11,7 +11,7 @@ local keys = {
 	-- general
 	{ "<Leader>qq", "<Cmd>qa<CR>", desc = "Quit" },
 	{ "<Esc>", function() vim.cmd("noh") if vim.snippet then vim.snippet.stop() end return "<Esc>" end, expr = true, desc = "Escape and Clear hlsearch", mode = { "i", "n", "s" } },
-	{ "<C-c>", "<Esc>", mode = { "i", "n", "s" } },
+	{ "<C-c>", "<Esc>", mode = { "i", "n", "s" }, remap = true },
 	{ "<Esc>", "<C-Bslash><C-n>", mode = "t" },
 	{ "<CR>", ":", silent = false, desc = "Command line" },
 	{ "<Leader>n", "<Cmd>enew<CR>", desc = "New file" },
@@ -154,8 +154,6 @@ local keys = {
 	{ "<Leader>l", "<Cmd>Lazy<CR>", desc = "Lazy" },
 	{ "<Leader>m", "<Cmd>Mason<CR>", desc = "Mason", mode = {"n", "v"} },
 
-	{ "<leader>cP", ft = "markdown", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown preview" },
-
 	{ "]]", function() require("sqwxl.lsp_refs").jump(vim.v.count1) end, desc = "Next symbol reference", mode = { "n", "t" } },
 	{ "[[", function() require("sqwxl.lsp_refs").jump(-vim.v.count1) end, desc = "Prev symbol reference", mode = { "n", "t" } },
 	{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Go to definition" },
@@ -206,3 +204,22 @@ for _, key in pairs(keys) do
 	}
 	map(lhs, rhs, opts, key.mode or "n")
 end
+
+Snacks.toggle.animate():map("<leader>ua")
+Snacks.toggle.diagnostics():map("<leader>ud")
+Snacks.toggle.dim():map("<leader>uD")
+Snacks.toggle.indent():map("<leader>ug")
+Snacks.toggle.inlay_hints():map("<Leader>uh")
+Snacks.toggle.line_number():map("<leader>ul")
+Snacks.toggle.option("background", { off = "light", on = "dark" , name = "Dark Background" }):map("<leader>ub")
+Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }):map("<leader>uc")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+Snacks.toggle.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+Snacks.toggle.profiler():map("<leader>dpp")
+Snacks.toggle.profiler_highlights():map("<leader>dph")
+Snacks.toggle.scroll():map("<leader>uS")
+Snacks.toggle.treesitter():map("<leader>uT")
+Snacks.toggle.zen():map("<Leader>uz")
+Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")

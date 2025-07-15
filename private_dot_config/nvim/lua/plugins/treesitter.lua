@@ -26,10 +26,6 @@ return {
 			require("lazy.core.loader").add_to_rtp(plugin)
 			require("nvim-treesitter.query_predicates")
 		end,
-		keys = {
-			{ "<c-space>", desc = "Increment Selection" },
-			{ "<bs>", desc = "Decrement Selection", mode = "x" },
-		},
 		---@type TSConfig
 		---@diagnostic disable-next-line: missing-fields
 		opts = {
@@ -109,6 +105,10 @@ return {
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
 		end,
+		keys = {
+			{ "<c-space>", desc = "Increment selection" },
+			{ "<bs>", desc = "Decrement selection", mode = "x" },
+		},
 	},
 
 	{
