@@ -35,7 +35,8 @@ return {
 							icon = " ",
 							key = "c",
 							desc = "Config",
-							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+							action =
+							":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 						},
 						{ icon = " ", key = "s", desc = "Restore session", section = "session" },
 						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
@@ -46,7 +47,7 @@ return {
 					header = { "%s", align = "left" },
 				},
 				sections = {
-					{ section = "keys", gap = 1, padding = 1 },
+					{ section = "keys",   gap = 1, padding = 1 },
 					{ section = "startup" },
 				},
 			},
@@ -55,44 +56,72 @@ return {
 			picker = { enabled = true, formatters = { file = { truncate = 80 } } },
 			styles = { notifications = { wo = { wrap = true }, relative = true } },
 		},
+		config = function(_, opts)
+			-- stylua: ignore start
+			Snacks.toggle.animate():map("<leader>ua")
+			Snacks.toggle.diagnostics():map("<leader>ud")
+			Snacks.toggle.dim():map("<leader>uD")
+			Snacks.toggle.indent():map("<leader>ug")
+			Snacks.toggle.inlay_hints():map("<Leader>uh")
+			Snacks.toggle.line_number():map("<leader>ul")
+			Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map(
+				"<leader>ub")
+			Snacks.toggle.option("conceallevel",
+				{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }):map(
+				"<leader>uc")
+			Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+			Snacks.toggle.option("showtabline",
+				{ off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
+			Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+			Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+			Snacks.toggle.profiler():map("<leader>dpp")
+			Snacks.toggle.profiler_highlights():map("<leader>dph")
+			Snacks.toggle.scroll():map("<leader>uS")
+			Snacks.toggle.treesitter():map("<leader>uT")
+			Snacks.toggle.zen():map("<Leader>uz")
+			Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+
+			require("snacks").setup(opts)
+			-- stylua: ignore end
+		end,
 		keys = {
 			-- stylua: ignore start
-			{ "<Leader>$", function() Snacks.picker.recent({ filter = { cwd = true }}) end, desc = "Recent (cwd)" },
-			{ "<Leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-			{ "<Leader>.", function() Snacks.picker.smart() end, desc = "Smart find files" },
-			{ "<Leader>/", function() Snacks.picker.grep() end, desc = "Grep" },
-			{ "<Leader>:", function() Snacks.picker.command_history() end, desc = "Command history" },
-			{ "<Leader>f", function() Snacks.picker.files() end, desc = "Find files" },
-			{ "<Leader>cR", function() Snacks.rename.rename_file() end, desc = "Rename file" },
-			{ "<Leader>cl", function() Snacks.picker.lsp_config() end, desc = "LSP info" },
-			{ "<Leader>gd", function() Snacks.picker.git_diff() end, desc = "Git diff (hunks)" },
-			{ "<Leader>gs", function() Snacks.picker.git_status() end, desc = "Git status" },
-			{ "<Leader>gS", function() Snacks.picker.git_stash() end, desc = "Git stash" },
-			{ "<Leader>n", function() Snacks.picker.notifications() end, desc = "Notification history" },
-			{ "<Leader>s/", function() Snacks.picker.search_history() end, desc = "Search history" },
-			{ "<Leader>s\"", function() Snacks.picker.registers() end, desc = "Registers" },
-			{ "<Leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
-			{ "<Leader>sb", function() Snacks.picker.grep_buffers() end, desc = "Grep buffers" },
-			{ "<Leader>sc", function() Snacks.picker.commands() end, desc = "Commands" },
-			{ "<Leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-			{ "<Leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer diagnostics" },
-			{ "<Leader>sh", function() Snacks.picker.help() end, desc = "Help pages" },
-			{ "<Leader>sH", function() Snacks.picker.highlights() end, desc = "Highlights" },
-			{ "<Leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
-			{ "<Leader>sj", function() Snacks.picker.jumps() end, desc = "Jumps" },
-			{ "<Leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
-			{ "<Leader>sl", function() Snacks.picker.loclist() end, desc = "Location list" },
-			{ "<Leader>sm", function() Snacks.picker.marks() end, desc = "Marks" },
-			{ "<Leader>sM", function() Snacks.picker.man() end, desc = "Man pages" },
-			{ "<Leader>sp", function() Snacks.picker.lazy() end, desc = "Plugin specs" },
-			{ "<Leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
-			{ "<Leader>sR", function() Snacks.picker.resume() end, desc = "Resume last search" },
-			{ "<Leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP symbols" },
-			{ "<Leader>sS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP workspace symbols" },
-			{ "<Leader>su", function() Snacks.picker.undo() end, desc = "Undo history" },
-			{ "<Leader>sw", function() Snacks.picker.grep_word() end, desc = "Grep selection or word", mode = {"n", "x"} },
-			{ "<Leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
-			{ "<Leader>un", function() Snacks.picker.notifications() end, desc = "Notification history" },
+			{ "<Leader>$",   function() Snacks.picker.recent({ filter = { cwd = true } }) end, desc = "Recent (cwd)" },
+			{ "<Leader>,",   function() Snacks.picker.buffers() end,                           desc = "Buffers" },
+			{ "<Leader>.",   function() Snacks.picker.smart() end,                             desc = "Smart find files" },
+			{ "<Leader>/",   function() Snacks.picker.grep() end,                              desc = "Grep" },
+			{ "<Leader>:",   function() Snacks.picker.command_history() end,                   desc = "Command history" },
+			{ "<Leader>f",   function() Snacks.picker.files() end,                             desc = "Find files" },
+			{ "<Leader>cR",  function() Snacks.rename.rename_file() end,                       desc = "Rename file" },
+			{ "<Leader>cl",  function() Snacks.picker.lsp_config() end,                        desc = "LSP info" },
+			{ "<Leader>gd",  function() Snacks.picker.git_diff() end,                          desc = "Git diff (hunks)" },
+			{ "<Leader>gs",  function() Snacks.picker.git_status() end,                        desc = "Git status" },
+			{ "<Leader>gS",  function() Snacks.picker.git_stash() end,                         desc = "Git stash" },
+			{ "<Leader>n",   function() Snacks.picker.notifications() end,                     desc = "Notification history" },
+			{ "<Leader>s/",  function() Snacks.picker.search_history() end,                    desc = "Search history" },
+			{ "<Leader>s\"", function() Snacks.picker.registers() end,                         desc = "Registers" },
+			{ "<Leader>sa",  function() Snacks.picker.autocmds() end,                          desc = "Autocmds" },
+			{ "<Leader>sb",  function() Snacks.picker.grep_buffers() end,                      desc = "Grep buffers" },
+			{ "<Leader>sc",  function() Snacks.picker.commands() end,                          desc = "Commands" },
+			{ "<Leader>sd",  function() Snacks.picker.diagnostics() end,                       desc = "Diagnostics" },
+			{ "<Leader>sD",  function() Snacks.picker.diagnostics_buffer() end,                desc = "Buffer diagnostics" },
+			{ "<Leader>sh",  function() Snacks.picker.help() end,                              desc = "Help pages" },
+			{ "<Leader>sH",  function() Snacks.picker.highlights() end,                        desc = "Highlights" },
+			{ "<Leader>si",  function() Snacks.picker.icons() end,                             desc = "Icons" },
+			{ "<Leader>sj",  function() Snacks.picker.jumps() end,                             desc = "Jumps" },
+			{ "<Leader>sk",  function() Snacks.picker.keymaps() end,                           desc = "Keymaps" },
+			{ "<Leader>sl",  function() Snacks.picker.loclist() end,                           desc = "Location list" },
+			{ "<Leader>sm",  function() Snacks.picker.marks() end,                             desc = "Marks" },
+			{ "<Leader>sM",  function() Snacks.picker.man() end,                               desc = "Man pages" },
+			{ "<Leader>sp",  function() Snacks.picker.lazy() end,                              desc = "Plugin specs" },
+			{ "<Leader>sq",  function() Snacks.picker.qflist() end,                            desc = "Quickfix List" },
+			{ "<Leader>sR",  function() Snacks.picker.resume() end,                            desc = "Resume last search" },
+			{ "<Leader>ss",  function() Snacks.picker.lsp_symbols() end,                       desc = "LSP symbols" },
+			{ "<Leader>sS",  function() Snacks.picker.lsp_workspace_symbols() end,             desc = "LSP workspace symbols" },
+			{ "<Leader>su",  function() Snacks.picker.undo() end,                              desc = "Undo history" },
+			{ "<Leader>sw",  function() Snacks.picker.grep_word() end,                         desc = "Grep selection or word", mode = { "n", "x" } },
+			{ "<Leader>uC",  function() Snacks.picker.colorschemes() end,                      desc = "Colorschemes" },
+			{ "<Leader>un",  function() Snacks.picker.notifications() end,                     desc = "Notification history" },
 			-- stylua: ignore end
 		},
 	},
@@ -196,7 +225,8 @@ return {
 					},
 					["O"] = {
 						function(state)
-							require("lazy.util").open(state.tree:get_node().path, { system = true })
+							require("lazy.util").open(state.tree:get_node().path,
+								{ system = true })
 						end,
 						desc = "Open with System Application",
 					},
@@ -227,7 +257,7 @@ return {
 			local events = require("neo-tree.events")
 			opts.event_handlers = opts.event_handlers or {}
 			vim.list_extend(opts.event_handlers, {
-				{ event = events.FILE_MOVED, handler = on_move },
+				{ event = events.FILE_MOVED,   handler = on_move },
 				{ event = events.FILE_RENAMED, handler = on_move },
 			})
 			require("neo-tree").setup(opts)
