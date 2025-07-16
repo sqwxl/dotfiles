@@ -19,3 +19,4 @@ __pycache__
 .jj
 cspell.*
 project-words.txt
+.claude
