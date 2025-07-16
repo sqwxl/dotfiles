@@ -1,7 +1,7 @@
 {{ if lookPath "fish" }}command = {{ lookPath "fish"}}{{ end }}
 shell-integration-features = no-cursor
 
-scrollback-limit = 1000000
+scrollback-limit = 10000000
 
 theme = GruvboxDark
 {{ if eq .chezmoi.os "darwin" -}}
