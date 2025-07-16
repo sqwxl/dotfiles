@@ -8,6 +8,8 @@ vim.lsp.config("ruby_lsp", {
 vim.lsp.enable("ruby_lsp")
 
 return {
+	{ "tpope/vim-rails" },
+
 	{
 		"mason-org/mason.nvim",
 		optional = true,

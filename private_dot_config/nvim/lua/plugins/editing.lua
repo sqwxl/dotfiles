@@ -31,6 +31,10 @@ return {
 	},
 
 	{
+		"tpope/vim-abolish", -- abbreviation, substitution, coercion
+	},
+
+	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		opts = {
