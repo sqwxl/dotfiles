@@ -29,7 +29,7 @@ return {
 		opts = function(_, opts)
 			for _, ft in ipairs(fts) do
 				opts.linters_by_ft[ft] = opts.linters_by_ft[ft] or {}
-				table.insert(opts.linters_by_ft[ft], "biome-check")
+				table.insert(opts.linters_by_ft[ft], "biomejs")
 			end
 		end,
 	},
