@@ -87,7 +87,7 @@ vim.keymap.set = function(mode, lhs, rhs, opts)
 end
 
 if vim.g.neovide then
-	vim.o.guifont = "JetBrains_Mono,Symbols_Nerd_Font,Noto_Color_Emoji:h13"
+	vim.o.guifont = "JetBrains Mono,Symbols Nerd Font,Noto Color Emoji:h13"
 	vim.g.neovide_cursor_animate_in_insert_mode = false
 	vim.g.neovide_cursor_animate_command_line = false
 	vim.g.neovide_floating_blur_amount_x = 2.0
