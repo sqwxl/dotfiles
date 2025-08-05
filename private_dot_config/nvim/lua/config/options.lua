@@ -6,6 +6,7 @@ vim.g.maplocalleader = "\\"
 -- vim.g.ruby_host_prog = vim.fs.normalize("~/.rbenv/versions/3.4.4/bin/neovim-ruby-host")
 -- vim.g.python3_host_prog = vim.fs.normalize("~/.virtualenvs/neovim/bin/python3")
 
+vim.g.format_on_save = true
 vim.g.snacks_animate = false
 
 local opt = vim.opt

@@ -35,8 +35,7 @@ return {
 							icon = " ",
 							key = "c",
 							desc = "Config",
-							action =
-							":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+							action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
 						},
 						{ icon = " ", key = "s", desc = "Restore session", section = "session" },
 						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
@@ -47,7 +46,7 @@ return {
 					header = { "%s", align = "left" },
 				},
 				sections = {
-					{ section = "keys",   gap = 1, padding = 1 },
+					{ section = "keys", gap = 1, padding = 1 },
 					{ section = "startup" },
 				},
 			},
@@ -58,28 +57,33 @@ return {
 		},
 		config = function(_, opts)
 			-- stylua: ignore start
-			Snacks.toggle.animate():map("<leader>ua")
-			Snacks.toggle.diagnostics():map("<leader>ud")
-			Snacks.toggle.dim():map("<leader>uD")
-			Snacks.toggle.indent():map("<leader>ug")
+			Snacks.toggle.animate():map("<Leader>ua")
+			Snacks.toggle.diagnostics():map("<Leader>ud")
+			Snacks.toggle.dim():map("<Leader>uD")
+			Snacks.toggle.indent():map("<Leader>ug")
 			Snacks.toggle.inlay_hints():map("<Leader>uh")
-			Snacks.toggle.line_number():map("<leader>ul")
+			Snacks.toggle.line_number():map("<Leader>ul")
 			Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map(
-				"<leader>ub")
+				"<Leader>ub")
 			Snacks.toggle.option("conceallevel",
 				{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }):map(
-				"<leader>uc")
-			Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
+				"<Leader>uc")
+			Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<Leader>uL")
 			Snacks.toggle.option("showtabline",
-				{ off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<leader>uA")
-			Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
-			Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
-			Snacks.toggle.profiler():map("<leader>dpp")
-			Snacks.toggle.profiler_highlights():map("<leader>dph")
-			Snacks.toggle.scroll():map("<leader>uS")
-			Snacks.toggle.treesitter():map("<leader>uT")
+				{ off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<Leader>uA")
+			Snacks.toggle.option("spell", { name = "Spelling" }):map("<Leader>us")
+			Snacks.toggle.option("wrap", { name = "Wrap" }):map("<Leader>uw")
+			Snacks.toggle.profiler():map("<Leader>dpp")
+			Snacks.toggle.profiler_highlights():map("<Leader>dph")
+			Snacks.toggle.scroll():map("<Leader>uS")
+			Snacks.toggle.treesitter():map("<Leader>uT")
 			Snacks.toggle.zen():map("<Leader>uz")
-			Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
+			Snacks.toggle.zoom():map("<Leader>wm"):map("<Leader>uZ")
+			Snacks.toggle({
+				name="Format on save",
+				get=function() return vim.g.format_on_save end,
+				set=function(s) vim.g.format_on_save = s end,
+			}):map("<Leader>uf")
 
 			require("snacks").setup(opts)
 			-- stylua: ignore end
@@ -225,8 +229,7 @@ return {
 					},
 					["O"] = {
 						function(state)
-							require("lazy.util").open(state.tree:get_node().path,
-								{ system = true })
+							require("lazy.util").open(state.tree:get_node().path, { system = true })
 						end,
 						desc = "Open with System Application",
 					},
@@ -257,7 +260,7 @@ return {
 			local events = require("neo-tree.events")
 			opts.event_handlers = opts.event_handlers or {}
 			vim.list_extend(opts.event_handlers, {
-				{ event = events.FILE_MOVED,   handler = on_move },
+				{ event = events.FILE_MOVED, handler = on_move },
 				{ event = events.FILE_RENAMED, handler = on_move },
 			})
 			require("neo-tree").setup(opts)
@@ -304,7 +307,14 @@ return {
 
 	{
 		"j-hui/fidget.nvim", -- lsp status progress
-		opts = {},
+		opts = {
+			progress = {
+				suppress_on_insert = true,
+				display = {
+					render_limit = 2,
+				},
+			},
+		},
 	},
 
 	{

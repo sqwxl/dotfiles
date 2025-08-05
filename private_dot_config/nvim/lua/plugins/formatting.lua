@@ -13,10 +13,16 @@ return {
 			timeout_ms = 3000,
 			lsp_format = "fallback",
 		},
-		format_on_save = {
-			lsp_format = "fallback",
-			timeout = 500,
-		},
+		format_on_save = function()
+			if not vim.g.format_on_save then
+				return
+			end
+
+			return {
+				lsp_format = "fallback",
+				timeout = 500,
+			}
+		end,
 		notify_on_error = true,
 		formatters_by_ft = {
 			css = { "prettierd" },
