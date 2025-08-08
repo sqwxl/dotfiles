@@ -56,21 +56,25 @@ return {
 			styles = { notifications = { wo = { wrap = true }, relative = true } },
 		},
 		config = function(_, opts)
-			-- stylua: ignore start
 			Snacks.toggle.animate():map("<Leader>ua")
 			Snacks.toggle.diagnostics():map("<Leader>ud")
 			Snacks.toggle.dim():map("<Leader>uD")
 			Snacks.toggle.indent():map("<Leader>ug")
 			Snacks.toggle.inlay_hints():map("<Leader>uh")
 			Snacks.toggle.line_number():map("<Leader>ul")
-			Snacks.toggle.option("background", { off = "light", on = "dark", name = "Dark Background" }):map(
-				"<Leader>ub")
-			Snacks.toggle.option("conceallevel",
-				{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }):map(
-				"<Leader>uc")
+			Snacks.toggle
+				.option("background", { off = "light", on = "dark", name = "Dark Background" })
+				:map("<Leader>ub")
+			Snacks.toggle
+				.option(
+					"conceallevel",
+					{ off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2, name = "Conceal Level" }
+				)
+				:map("<Leader>uc")
 			Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<Leader>uL")
-			Snacks.toggle.option("showtabline",
-				{ off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" }):map("<Leader>uA")
+			Snacks.toggle
+				.option("showtabline", { off = 0, on = vim.o.showtabline > 0 and vim.o.showtabline or 2, name = "Tabline" })
+				:map("<Leader>uA")
 			Snacks.toggle.option("spell", { name = "Spelling" }):map("<Leader>us")
 			Snacks.toggle.option("wrap", { name = "Wrap" }):map("<Leader>uw")
 			Snacks.toggle.profiler():map("<Leader>dpp")
@@ -78,27 +82,31 @@ return {
 			Snacks.toggle.scroll():map("<Leader>uS")
 			Snacks.toggle.treesitter():map("<Leader>uT")
 			Snacks.toggle({
-				name="Context header",
-				get=function()
-					return require'treesitter-context'.enabled()
+				name = "Context header",
+				get = function()
+					return require("treesitter-context").enabled()
 				end,
-				set=function(state)
+				set = function(state)
+					if state then
+						require("treesitter-context").enable()
+					else
+						require("treesitter-context").disable()
+					end
 				end,
-			})
+			}):map("<Leader>ut")
 			Snacks.toggle.zen():map("<Leader>uz")
 			Snacks.toggle.zoom():map("<Leader>wm"):map("<Leader>uZ")
 			Snacks.toggle({
-				name="Format on save",
-				get=function()
+				name = "Format on save",
+				get = function()
 					return vim.g.format_on_save
 				end,
-				set=function(
-					state
-				) vim.g.format_on_save = state end,
+				set = function(state)
+					vim.g.format_on_save = state
+				end,
 			}):map("<Leader>uf")
 
 			require("snacks").setup(opts)
-			-- stylua: ignore end
 		end,
 		keys = {
 			-- stylua: ignore start
