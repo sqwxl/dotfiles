@@ -77,12 +77,24 @@ return {
 			Snacks.toggle.profiler_highlights():map("<Leader>dph")
 			Snacks.toggle.scroll():map("<Leader>uS")
 			Snacks.toggle.treesitter():map("<Leader>uT")
+			Snacks.toggle({
+				name="Context header",
+				get=function()
+					return require'treesitter-context'.enabled()
+				end,
+				set=function(state)
+				end,
+			})
 			Snacks.toggle.zen():map("<Leader>uz")
 			Snacks.toggle.zoom():map("<Leader>wm"):map("<Leader>uZ")
 			Snacks.toggle({
 				name="Format on save",
-				get=function() return vim.g.format_on_save end,
-				set=function(s) vim.g.format_on_save = s end,
+				get=function()
+					return vim.g.format_on_save
+				end,
+				set=function(
+					state
+				) vim.g.format_on_save = state end,
 			}):map("<Leader>uf")
 
 			require("snacks").setup(opts)

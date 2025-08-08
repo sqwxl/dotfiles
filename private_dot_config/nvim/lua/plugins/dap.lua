@@ -20,7 +20,15 @@ return {
 	{
 		"mfussenegger/nvim-dap",
 		dependencies = {
-			{ "igorlfs/nvim-dap-view", opts = {} },
+			{
+				"igorlfs/nvim-dap-view",
+				opts = {},
+				keys = { {
+					"<Leader>du",
+					"<Cmd>DapViewToggle<CR>",
+					desc = "Toggle view",
+				} },
+			},
 			-- "rcarriga/nvim-dap-ui",
 			{ "theHamsta/nvim-dap-virtual-text", opts = {} },
 		},
