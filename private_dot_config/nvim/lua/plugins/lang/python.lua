@@ -35,6 +35,26 @@ vim.lsp.enable("ruff")
 
 return {
 	{
+		"stevearc/conform.nvim",
+		optional = true,
+		opts = {
+			formatters_by_ft = {
+				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+			}
+		}
+	},
+
+	{
+		"mfussenegger/nvim-lint",
+		optional = true,
+		opts = {
+			linters_by_ft = {
+				python = { "ruff" }
+			}
+		}
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = { ensure_installed = { "ninja", "rst" } },
 	},
