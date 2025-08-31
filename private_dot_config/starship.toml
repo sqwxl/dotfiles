@@ -15,6 +15,6 @@ symbol = "📝 "
 
 [custom.git-check-merge]
 command = 'echo MERGE COMMIT'
-when = 'test -e (git rev-parse --git-path MERGE_MSG)'
+when = 'path is (git rev-parse --git-path MERGE_MSG)'
 require_repo = true
 style = 'bold red'
