@@ -1,6 +1,8 @@
 function git_commit_safe_amend
+    set op
+
     # check if we're in a merge
-    if not set -l op (git_check_merge_op)
+    if not set op (git_check_merge_op)
         command git $argv
         return
     end
