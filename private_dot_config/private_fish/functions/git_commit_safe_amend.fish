@@ -7,13 +7,13 @@ function git_commit_safe_amend
         return
     end
 
-    read -P "Warning: You're resolving a merge conflict. Are you sure you want to amend? [y/N]: " confirm
+    read --prompt-str "Warning: You're resolving a merge conflict. Are you sure you want to amend? [y/N]: " confirm
     if string match -qir '^y$' $confirm
         command git $argv
         return
     end
 
-    set -l cmd
+    set cmd
     switch $op
         case rebase
             set cmd "git rebase --continue"
@@ -26,25 +26,25 @@ function git_commit_safe_amend
             return 1
     end
 
-    read -P "Run `$cmd` instead? [y/N]: " confirm
+    read --prompt-str "Run `$cmd` instead? [y/N]: " confirm
     if string match -qir '^y$' $confirm
         eval $cmd
         return
     end
 
-    echo "Aborted amending commit."
+    echo "Operation aborted"
 end
 
 function git_check_merge_op
-    if not test -e (git rev-parse --git-path MERGE_MSG)
+    if not path is (git rev-parse --git-path MERGE_MSG)
         return 1
     end
 
-    if test -d (git rev-parse --git-path rebase-apply) || test -d (git rev-parse --git-path rebase-merge)
+    if path is -d (git rev-parse --git-path rebase-apply); or path is -d (git rev-parse --git-path rebase-merge)
         echo rebase
-    else if test -e (git rev-parse --git-path CHERRY_PICK_HEAD)
+    else if path is (git rev-parse --git-path CHERRY_PICK_HEAD)
         echo cherry-pick
-    else if test -e (git rev-parse --git-path MERGE_HEAD)
+    else if path is (git rev-parse --git-path MERGE_HEAD)
         echo merge
     end
 end
