@@ -2,6 +2,9 @@
 
 add_newline = false
 
+[package]
+disabled = true
+
 [aws]
 disabled = true
 
