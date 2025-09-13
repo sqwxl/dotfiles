@@ -66,6 +66,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+vim.api.nvim_create_autocmd("Filetype", {
+	group = augroup("unmap <CR> remap"),
+	pattern = { "qf" },
+	callback = function()
+		vim.keymap.del({ "n" }, "<CR>")
+	end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Make it easier to close man-files when opened inline",
 	group = augroup("man_unlisted"),

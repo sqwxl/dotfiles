@@ -14,10 +14,11 @@ local keys = {
 	{ "<C-c>", "<Esc>", mode = { "i", "n", "s" }, remap = true },
 	{ "<Esc>", "<C-Bslash><C-n>", mode = "t" },
 	{ "<CR>", ":", silent = false, desc = "Command line" },
-	{ "<Leader>n", "<Cmd>enew<CR>", desc = "New file" },
+	{ "<Leader>N", "<Cmd>enew<CR>", desc = "New file" },
 	{ "<C-s>", "<Cmd>w<CR><Esc>", desc = "Save file", mode = { "i", "x", "n", "s" } },
 
-	{ "<Leader>K", "<Cmd>norm! K<CR>", desc = "Keywordprg" },
+	-- quick macro
+	{ "Q", "@q" },
 
 	-- better movement
 	{ "j", "v:count == 0 ? 'gj' : 'j'", desc = "Down", expr = true, silent = true, mode = { "n", "x" } },
@@ -27,10 +28,6 @@ local keys = {
 	{ "H", "^", desc = "Start of line", mode = "" },
 	{ "L", "$", desc = "End of line", mode = "" },
 	{ "mm", "%", desc = "Go to matching bracket", mode = "" },
-
-	-- keep cursor centered when scrolling
-	{ "<C-u>", "<C-u>zz" },
-	{ "<C-d>", "<C-d>zz" },
 
 	-- move lines
 	{ "<A-S-c>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", desc = "Move line up" },
@@ -57,18 +54,17 @@ local keys = {
 	{ ".", ".<C-g>u", mode = "i" },
 	{ ";", ";<C-g>u", mode = "i" },
 
-	{ "Q", "@q" },
-
+	-- comments
 	{ "gco", "o<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>", desc = "Add comment below" },
 	{ "gcO", "O<Esc>Vcx<Esc><Cmd>normal gcc<CR>fxa<BS>", desc = "Add comment above" },
 	{ "[<Space>", "<Cmd>put! =repeat(nr2char(10), v:count1)<CR>", desc = "Add empty line(s) above" },
 	{ "]<Space>", "<Cmd>put =repeat(nr2char(10), v:count1)<CR>", desc = "Add empty line(s) below" },
 
-	-- Command history
+	-- command history
 	{ "<C-p>", function() return vim.fn.wildmenumode() and "<Up>" or "<C-p>" end, expr = true, silent = false, mode = "c" },
 	{ "<C-n>", function() return vim.fn.wildmenumode() and "<Down>" or "<C-n>" end, expr = true, silent = false, mode = "c" },
 
-	-- Buffers
+	-- buffers
 	{ "<Leader><Space>", "<Cmd>e#<CR>", desc = "Go to last accessed buffer" },
 	{ "[b", "<Cmd>bprevious<CR>", desc = "Prev buffer" },
 	{ "gp", "<Cmd>bprevious<CR>", desc = "Prev buffer" },
@@ -77,7 +73,7 @@ local keys = {
 	{ "<Leader>bD", "<Cmd>bd<CR>", desc = "Delete buffer" },
 	{ "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", desc = "Redraw / Clear hlsearch / Diff Update" },
 
-	-- Windaws
+	-- move to windows
 	{ "<S-Tab>", "<C-w>W", desc = "Go to window above/left", mode = { "n", "v" } },
 	{ "<Tab>", "<C-w>w", desc = "Go to window below/right", mode = { "n", "v" } },
 	{ "<C-i>", "<Tab>", mode = { "n", "v" } }, -- CTRL-I can be mapped separately from <Tab>, on the condition that both keys are mapped, otherwise the mapping applies to both.
@@ -94,8 +90,22 @@ local keys = {
 	{ "<Leader><Tab>", "<Cmd>tabnew<CR>", desc = "New tab" },
 	{ "<C-Tab>", "<Cmd>tabnext #<CR>", desc = "Go to last accessed tab" },
 
+	-- terminal
 	{ "<C-/>", function() Snacks.terminal() end, desc = "Toggle terminal", mode = { "n", "v", "i" } },
 	{ "<C-/>", "<Cmd>close<CR>", desc = "Hide terminal", mode = "t" },
+
+	-- plugins
+	{ "<Leader>l", "<Cmd>Lazy<CR>", desc = "Lazy" },
+	{ "<Leader>m", "<Cmd>Mason<CR>", desc = "Mason", mode = {"n", "v"} },
+
+	-- diagnostics
+	{ "<Leader>cd", vim.diagnostic.open_float, desc = "Line diagnostics" },
+	{ "[d", go_to_diagnostic(false), desc = "Prev diagnostic" },
+	{ "]d", go_to_diagnostic(true), desc = "Next diagnostic" },
+	{ "[e", go_to_diagnostic(false, "ERROR"), desc = "Prev error" },
+	{ "]e", go_to_diagnostic(true, "ERROR"), desc = "Next error" },
+	{ "<Leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+	{ "<Leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer diagnostics" },
 
 	-- location list
 	{
@@ -124,49 +134,29 @@ local keys = {
 	{ "[q", vim.cmd.cprev, desc = "Prev quickfix" },
 	{ "]q", vim.cmd.cnext, desc = "Next quickfix" },
 
-
-	-- format
-	{ "<Leader>cf", function() require("conform").format() end, desc = "Format", mode = { "n", "v" } },
-	{ "<leader>cF", function() require("conform").format({ formatters = { "injected" } }) end, desc = "Format injected langs", mode = { "n", "v" } },
-
-	-- diagnostics
-	{ "<Leader>cd", vim.diagnostic.open_float, desc = "Line diagnostics" },
-	{ "[d", go_to_diagnostic(false), desc = "Prev diagnostic" },
-	{ "]d", go_to_diagnostic(true), desc = "Next diagnostic" },
-	{ "[e", go_to_diagnostic(false, "ERROR"), desc = "Prev error" },
-	{ "]e", go_to_diagnostic(true, "ERROR"), desc = "Next error" },
-	{ "[w", go_to_diagnostic(false, "WARN"), desc = "Prev warning" },
-	{ "]w", go_to_diagnostic(true, "WARN"), desc = "Next warning" },
-	{ "<Leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
-	{ "<Leader>sD", function() Snacks.picker.diagnostics_buffer() end, desc = "Buffer diagnostics" },
-
 	-- git
 	{ "<Leader>gg", function() Snacks.terminal({ "gitui" }) end, desc = "gitui" },
 	{ "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Current file history" } },
 	{ "<Leader>gb", function() Snacks.picker.git_log_line() end, desc = "Blame line" },
-	{ "<Leader>gB", function() Snacks.gitbrowse() end, desc = "Git browse (open)", mode = {"n", "x"} },
-	{ "<Leader>gY", function() Snacks.gitbrowse({open = function(url) vim.fn.setreg("+", url) end, notify = false}) end, desc = "Git browse (copy)", mode = {"n", "x"} },
+	{ "<Leader>gB", function() Snacks.gitbrowse({ what="permalink", notify=false }) end, desc = "Open in browser", mode = {"n", "x"} },
+	{ "<Leader>gY", function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false, what = "permalink" }) end, desc = "Copy permalink", mode = {"n", "x"} },
 	{ "<Leader>gL", "<Cmd>%diffget REMOTE<CR>", desc = "Get all REMOTE hunks" },
 	{ "<Leader>gU", "<Cmd>%diffget LOCAL<CR>", desc = "Get all LOCAL hunks" },
 	{ "<Leader>gl", "<Cmd>diffget REMOTE<CR>", desc = "Get REMOTE hunk" },
 	{ "<Leader>gu", "<Cmd>diffget LOCAL<CR>", desc = "Get LOCAL hunk" },
 
-	{ "<Leader>l", "<Cmd>Lazy<CR>", desc = "Lazy" },
-	{ "<Leader>m", "<Cmd>Mason<CR>", desc = "Mason", mode = {"n", "v"} },
-
-	{ "]]", function() require("sqwxl.lsp_refs").jump(vim.v.count1) end, desc = "Next symbol reference", mode = { "n", "t" } },
-	{ "[[", function() require("sqwxl.lsp_refs").jump(-vim.v.count1) end, desc = "Prev symbol reference", mode = { "n", "t" } },
+	-- lsp
+	{ "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
 	{ "gd", function() Snacks.picker.lsp_definitions() end, desc = "Go to definition" },
 	{ "gV", function() Snacks.picker.lsp_definitions({ show_empty = false, confirm = "edit_vsplit", win = { list = { keys = { ["<CR>"] = "edit_vsplit" } } } }) end, desc = "Go to definiton in split" },
 	{ "gD", function() Snacks.picker.lsp_declarations() end, desc = "Go to declaration" },
 	{ "gr", function() Snacks.picker.lsp_references() end, nowait = true, desc = "References" },
 	{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Go to implementation" },
 	{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Go to type definition" },
-	{ "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
 	{ "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature help" },
 	{ "<C-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help" },
 	{ "<Leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = {"n","v"} },
-	{ "<Leader>cA", function() vim.lsp.buf.code_action({apply = true, context = {only = {"source"}, diagnostics = {}}}) end, desc = "Source action" },
+	{ "<Leader>cA", function() vim.lsp.buf.code_action({ apply = true, context = { only = {"source"}, diagnostics = {} } }) end, desc = "Source action" },
 	{ "<Leader>cc", vim.lsp.codelens.run, desc = "Run code lens", mode = {"n", "v"} },
 	{ "<Leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & display codelens" },
 	{ "<Leader>r", vim.lsp.buf.rename, desc = "Rename symbol" },
@@ -183,9 +173,30 @@ local keys = {
 				end
 			)
 		end,
-		desc = "Replace word under cursor",
+		desc = "Find-n-replace word",
+		mode = { "n" }
+	},
+	{
+		"<Leader>R",
+		function()
+			vim.cmd('normal! "zy')
+			local old = vim.fn.getreg("z")
+			vim.ui.input(
+				{ prompt = 'Replace "' .. old .. '" with: ', default = old, completion = "buffer" },
+				function(new)
+					if new ~= nil then
+						vim.cmd("%s/" .. old .. "/" .. new .. "/gI")
+					end
+				end
+			)
+		end,
+		desc = "Find-n-replace word",
+		mode = { "v" }
 	},
 
+	-- format
+	{ "<Leader>cf", function() require("conform").format() end, desc = "Format", mode = { "n", "v" } },
+	{ "<leader>cF", function() require("conform").format({ formatters = { "injected" } }) end, desc = "Format injected langs", mode = { "n", "v" } },
 }
 
 local map = function(lhs, rhs, opts, mode)
@@ -204,4 +215,3 @@ for _, key in pairs(keys) do
 	}
 	map(lhs, rhs, opts, key.mode or "n")
 end
-

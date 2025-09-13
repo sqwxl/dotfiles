@@ -1,7 +1,7 @@
 return {
 	{
 		"folke/snacks.nvim",
-		dependencies = { "echasnovski/mini.icons", "nvim-tree/nvim-web-devicons" },
+		dependencies = { "nvim-mini/mini.icons", "nvim-tree/nvim-web-devicons" },
 		priority = 1000,
 		lazy = false,
 		---@type snacks.Config
@@ -21,7 +21,7 @@ return {
 						{ icon = " ", key = "n", desc = "New file", action = ":ene | startinsert" },
 						{
 							icon = " ",
-							key = "g",
+							key = "/",
 							desc = "Grep",
 							action = ":lua Snacks.dashboard.pick('live_grep')",
 						},
@@ -338,7 +338,7 @@ return {
 	},
 
 	{
-		"echasnovski/mini.icons",
+		"nvim-mini/mini.icons",
 		lazy = true,
 		init = function()
 			package.preload["nvim-web-devicons"] = function()

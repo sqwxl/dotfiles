@@ -25,18 +25,9 @@ return {
 		end,
 		notify_on_error = true,
 		formatters_by_ft = {
-			css = { "prettierd" },
-			fish = { "fish_indent" },
 			go = { "gofmt" },
-			html = { "prettierd" },
-			htmldjango = { "djlint" },
-			jinja = { "djlint" },
 			just = { "just" },
-			lua = { "stylua" },
 			nix = { "alejandra" },
-			-- php = { "pint" },
-			scss = { "prettierd" },
-			sh = { "shfmt" },
 			xml = { "xmlformat" },
 		},
 		formatters = {

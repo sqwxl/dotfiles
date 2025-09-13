@@ -80,16 +80,16 @@ local function get_lint_packages()
 	return vim.iter(t):flatten():totable()
 end
 
-local function get_lsp_packages()
-	return vim.tbl_keys(require("config.lsp").configs)
-end
+-- local function get_lsp_packages()
+-- 	return vim.tbl_keys(require("config.lsp").configs)
+-- end
 
 local function get_packages_to_install()
 	local result = {}
 
 	vim.list_extend(result, get_conform_packages())
 	vim.list_extend(result, get_lint_packages())
-	vim.list_extend(result, get_lsp_packages())
+	-- vim.list_extend(result, get_lsp_packages())
 
 	local seen = {}
 
@@ -181,13 +181,11 @@ local function try_install(mason_package_name)
 		end)
 end
 
-return function()
-	for _, name in ipairs(get_packages_to_install()) do
-		if name ~= nil then
-			ok, err = pcall(try_install, name)
-			if err ~= nil then
-				vim.notify(name .. ": " .. err, vim.log.levels.ERROR)
-			end
+for _, name in ipairs(get_packages_to_install()) do
+	if name ~= nil then
+		ok, err = pcall(try_install, name)
+		if err ~= nil then
+			vim.notify(name .. ": " .. err, vim.log.levels.ERROR)
 		end
 	end
 end
