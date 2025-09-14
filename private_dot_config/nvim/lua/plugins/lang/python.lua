@@ -1,14 +1,17 @@
 vim.lsp.config("basedpyright", {
-	{
-		settings = {
-			basedpyright = {
-				disableOrganizeImports = true, -- Using Ruff
-				disableTaggedHints = true, -- Using Ruff
-				analysis = {
-					autoImportCompletions = true,
-					diagnosticSeverityOverrides = {
-						reportUndefinedVariable = "none",
-					},
+	settings = {
+		basedpyright = {
+			disableOrganizeImports = true, -- Using Ruff
+			analysis = {
+				typeCheckingMode = "basic",
+				autoImportCompletions = true,
+				diagnosticSeverityOverrides = {
+					reportAny = "none",
+					reportUnknownVariableType = "none",
+					reportUnknownMemberType = "none",
+					reportUnknownArgumentType = "none",
+					reportUnusedExpression = "none",
+					reportUnusedCallResult = "none",
 				},
 			},
 		},
@@ -17,17 +20,9 @@ vim.lsp.config("basedpyright", {
 vim.lsp.enable("basedpyright")
 
 vim.lsp.config("ruff", {
-	{ settings = { lineLength = { 120 } } },
-	keys = {
-		{
-			"<leader>co",
-			function()
-				vim.lsp.buf.code_action({
-					apply = true,
-					context = { only = { "source.organizeImports" }, diagnostics = {} },
-				})
-			end,
-			desc = "Organize Imports",
+	init_options = {
+		settings = {
+			lineLength = 160,
 		},
 	},
 })
@@ -39,9 +34,14 @@ return {
 		optional = true,
 		opts = {
 			formatters_by_ft = {
-				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
-			}
-		}
+				python = {
+					"ruff_fix",
+					-- "ruff_format",
+					"ruff_organize_imports",
+					lsp_format = "last",
+				},
+			},
+		},
 	},
 
 	{
@@ -49,9 +49,9 @@ return {
 		optional = true,
 		opts = {
 			linters_by_ft = {
-				python = { "ruff" }
-			}
-		}
+				python = { "ruff" },
+			},
+		},
 	},
 
 	{

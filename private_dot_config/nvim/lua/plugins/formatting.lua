@@ -18,10 +18,7 @@ return {
 				return
 			end
 
-			return {
-				lsp_format = "fallback",
-				timeout = 500,
-			}
+			return {}
 		end,
 		notify_on_error = true,
 		formatters_by_ft = {
