@@ -136,7 +136,7 @@ local keys = {
 
 	-- git
 	{ "<Leader>gg", function() Snacks.terminal({ "gitui" }) end, desc = "gitui" },
-	{ "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Current file history" } },
+	{ "<leader>gf", function() Snacks.picker.git_log_file() end, desc = "Current file history" },
 	{ "<Leader>gb", function() Snacks.picker.git_log_line() end, desc = "Blame line" },
 	{ "<Leader>gB", function() Snacks.gitbrowse({ what="permalink", notify=false }) end, desc = "Open in browser", mode = {"n", "x"} },
 	{ "<Leader>gY", function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false, what = "permalink" }) end, desc = "Copy permalink", mode = {"n", "x"} },
