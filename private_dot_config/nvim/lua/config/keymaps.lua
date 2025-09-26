@@ -89,6 +89,8 @@ local keys = {
 	-- tabs
 	{ "<Leader><Tab>", "<Cmd>tabnew<CR>", desc = "New tab" },
 	{ "<C-Tab>", "<Cmd>tabnext #<CR>", desc = "Go to last accessed tab" },
+	{ "[<Tab>", "<Cmd>tabprevious<CR>", desc = "Go to previous tab" },
+	{ "]<Tab>", "<Cmd>tabnext<CR>", desc = "Go to previous tab" },
 
 	-- terminal
 	{ "<C-/>", function() Snacks.terminal() end, desc = "Toggle terminal", mode = { "n", "v", "i" } },
