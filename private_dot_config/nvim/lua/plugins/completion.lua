@@ -1,8 +1,9 @@
 return {
 	"saghen/blink.cmp",
-	version = "1.*",
+	version = "*",
+	build = "cargo build --release",
 	dependencies = { "rafamadriz/friendly-snippets" },
-	event = "InsertEnter",
+	event = { "InsertEnter", "CmdlineEnter" },
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
@@ -27,6 +28,9 @@ return {
 			},
 			ghost_text = {
 				enabled = true,
+			},
+			accept = {
+				auto_brackets = { enabled = true },
 			},
 		},
 
@@ -55,10 +59,23 @@ return {
 		},
 
 		cmdline = {
-			enabled = false,
+			enabled = true,
+			keymap = { preset = "cmdline" },
+			completion = {
+				list = { selection = { preselect = true } },
+				menu = {
+					auto_show = function()
+						return vim.fn.getcmdtype() == ":"
+					end,
+				},
+				ghost_text = { enabled = true },
+			},
 		},
 	},
-	opts_extend = { "sources.default" },
+	opts_extend = {
+		"sources.completion.enabled_providers",
+		"sources.default",
+	},
 	---@param opts blink.cmp.Config | { sources: { compat: string[] } }
 	config = function(_, opts)
 		-- check if we need to override symbol kinds

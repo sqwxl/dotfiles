@@ -65,6 +65,7 @@ return {
 
 	{
 		"folke/snacks.nvim",
+		optional = true,
 		opts = function(_, opts)
 			local chezmoi_entry = {
 				icon = " ",

@@ -39,6 +39,7 @@ return {
 						},
 						{ icon = " ", key = "s", desc = "Restore session", section = "session" },
 						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+						{ icon = "󰋖 ", key = "h", desc = "Help", action = ":lua Snacks.dashboard.pick('help')" },
 						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
 					},
 				},
