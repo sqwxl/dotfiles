@@ -449,7 +449,7 @@ return {
 				whitespace = "  ",
 			},
 			-- HACK: fix lua's weird choice for `Package` for control structures like if/else/for/etc.
-			icons = vim.tbl_extend("force", {}, Sqwxl.icons.kinds, { Package = Sqwxl.icons.kinds.Control }),
+			icons = vim.tbl_extend("force", {}, Util.config.icons.kinds, { Package = Util.config.icons.kinds.Control }),
 		},
 		keys = {
 			{ "<Leader>cs", "<cmd>AerialToggle<cr>", desc = "Symbols panel" },

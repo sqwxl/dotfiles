@@ -1,6 +1,10 @@
-_G.Sqwxl = {}
+_G.Util = require("util")
 
-Sqwxl.icons = {
+local M = {}
+
+Util.config = M
+
+M.icons = {
 	misc = {
 		dots = "󰇘",
 	},
@@ -69,4 +73,19 @@ Sqwxl.icons = {
 	},
 }
 
-return Sqwxl
+M.did_init = false
+M._options = {} ---@type vim.bo|vim.wo
+
+function M.init()
+	if M.did_init then
+		return
+	end
+	M.did_init = true
+
+	-- save some options to track defaults
+	M._options.indentexpr = vim.o.indentexpr
+	M._options.foldmethod = vim.o.foldmethod
+	M._options.foldexpr = vim.o.foldexpr
+end
+
+return M

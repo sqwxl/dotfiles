@@ -108,7 +108,7 @@ return {
 		end,
 		config = function(_, opts)
 			require("mini.ai").setup(opts)
-			require("sqwxl.plugins").on_load("which-key.nvim", function()
+			Util.on_load("which-key.nvim", function()
 				vim.schedule(function()
 					local objects = {
 						{ " ", desc = "whitespace" },

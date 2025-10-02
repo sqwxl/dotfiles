@@ -19,6 +19,7 @@ require("config")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+require("config").init()
 
 require("lazy").setup({
 	{ import = "plugins" },
@@ -48,6 +49,5 @@ require("lazy").setup({
 })
 
 require("config.lsp")
-require("sqwxl.auto-mason")
 
 vim.cmd.colorscheme("gruvbox")
