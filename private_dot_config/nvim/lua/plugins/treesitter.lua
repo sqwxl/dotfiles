@@ -179,7 +179,7 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				group = vim.api.nvim_create_augroup("lazyvim_treesitter_textobjects", { clear = true }),
 				callback = function(ev)
-					if not (vim.tbl_get(opts, "move", "enable") and Util.have(ev.match, "textobjects")) then
+					if not (vim.tbl_get(opts, "move", "enable") and Util.treesitter.have(ev.match, "textobjects")) then
 						return
 					end
 
