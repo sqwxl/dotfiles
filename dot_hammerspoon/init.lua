@@ -59,14 +59,10 @@ function checkFocusMode()
 	task:start()
 end
 
--- Watch controlcenter.plist for immediate focus mode changes
-local ccPath = os.getenv("HOME") .. "/Library/Preferences/com.apple.controlcenter.plist"
-hs.pathwatcher
-	.new(ccPath, function()
-		hs.timer.doAfter(0.1, checkFocusMode)
-	end)
-	:start()
+-- Poll for focus mode changes every 10 seconds
+hs.timer.doEvery(10, checkFocusMode)
 
+-- Check immediately on load
 checkFocusMode()
 
 print("Slack Focus Mode integration loaded")
