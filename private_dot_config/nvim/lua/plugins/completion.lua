@@ -60,13 +60,13 @@ return {
 
 		cmdline = {
 			enabled = true,
-			keymap = { preset = "cmdline" },
+			keymap = { preset = "cmdline", ["<CR>"] = { "accept_and_enter", "fallback" } },
 			completion = {
 				list = { selection = { preselect = true } },
 				menu = {
-					auto_show = function()
-						return vim.fn.getcmdtype() == ":"
-					end,
+					-- auto_show = function()
+					-- 	return vim.fn.getcmdtype() == ":"
+					-- end,
 				},
 				ghost_text = { enabled = true },
 			},
