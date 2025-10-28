@@ -30,12 +30,12 @@ local keys = {
 	{ "mm", "%", desc = "Go to matching bracket", mode = "" },
 
 	-- move lines
-	{ "<A-S-c>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", desc = "Move line up" },
-	{ "<A-S-t>", "<cmd>execute 'move .+' . v:count1<cr>==", desc = "Move line down" },
-	{ "<A-S-c>", "<esc><cmd>m .-2<cr>==gi", desc = "Move line up", mode = "i" },
-	{ "<A-S-t>", "<esc><cmd>m .+1<cr>==gi", desc = "Move line down", mode = "i" },
-	{ "<A-S-c>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", desc = "Move lines up", mode = "v" },
-	{ "<A-S-t>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", desc = "Move lines down", mode = "v" },
+	{ "<A-S-k>", "<cmd>execute 'move .-' . (v:count1 + 1)<cr>==", desc = "Move line up" },
+	{ "<A-S-j>", "<cmd>execute 'move .+' . v:count1<cr>==", desc = "Move line down" },
+	{ "<A-S-k>", "<esc><cmd>m .-2<cr>==gi", desc = "Move line up", mode = "i" },
+	{ "<A-S-j>", "<esc><cmd>m .+1<cr>==gi", desc = "Move line down", mode = "i" },
+	{ "<A-S-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", desc = "Move lines up", mode = "v" },
+	{ "<A-S-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<cr>gv=gv", desc = "Move lines down", mode = "v" },
 
 	-- indenting
 	{ "<", "<gv", mode = "v" },

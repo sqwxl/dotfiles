@@ -61,8 +61,6 @@ if type -q go
     fish_add_path $GOPATH/bin
 end
 
-fish_add_path $HOME/.npm-global/bin
-fish_add_path $HOME/.cargo/bin
 
 if type -q zoxide
     zoxide init fish | source
@@ -90,3 +88,7 @@ source "$__fish_config_dir/functions/__auto_source_venv.fish"
 
 # Added by `rbenv init` on Tue 24 Jun 2025 10:38:38 EDT
 status --is-interactive; and rbenv init - --no-rehash fish | source
+
+fish_add_path --prepend --move $HOME/.npm-global/bin
+fish_add_path --prepend --move $HOME/.cargo/bin
+fish_add_path --prepend --move $HOME/.local/bin
