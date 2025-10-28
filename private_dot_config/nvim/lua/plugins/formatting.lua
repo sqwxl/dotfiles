@@ -6,7 +6,7 @@ return {
 	init = function()
 		vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 	end,
-	opts_extend = { "formatters_by_ft", "formatters" },
+	-- opts_extend = { "formatters_by_ft", "formatters" },
 	---@module "conform"
 	---@type conform.setupOpts
 	opts = {
