@@ -46,21 +46,31 @@ function updateSlackStatus(focusState)
 end
 
 function checkFocusMode()
-	local task = hs.task.new("/usr/bin/defaults", function(exitCode, stdOut)
-		local focusState = (exitCode == 0 and stdOut:match("1")) and true or false
+	-- Use hs.execute for synchronous, simpler execution
+	local success, output, error = hs.execute("/usr/bin/defaults read com.apple.controlcenter 'NSStatusItem VisibleCC FocusModes'")
 
-		if lastFocusState ~= focusState then
-			lastFocusState = focusState
-			print("Focus mode:", focusState and "ON" or "OFF")
-			updateSlackStatus(focusState)
-		end
-	end, { "read", "com.apple.controlcenter", "NSStatusItem VisibleCC FocusModes" })
+	if not success then
+		print("⚠ Failed to check focus mode:", error)
+		return
+	end
 
-	task:start()
+	local focusState = output and output:match("1") and true or false
+
+	if lastFocusState ~= focusState then
+		lastFocusState = focusState
+		print("Focus mode:", focusState and "ON" or "OFF")
+		updateSlackStatus(focusState)
+	end
 end
 
 -- Poll for focus mode changes every 10 seconds
-hs.timer.doEvery(10, checkFocusMode)
+-- Wrap in pcall to catch any errors and prevent timer from stopping
+local pollTimer = hs.timer.doEvery(10, function()
+	local success, err = pcall(checkFocusMode)
+	if not success then
+		print("⚠ Error in checkFocusMode:", err)
+	end
+end)
 
 -- Check immediately on load
 checkFocusMode()
