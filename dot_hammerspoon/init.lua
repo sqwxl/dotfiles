@@ -46,26 +46,47 @@ function updateSlackStatus(focusState)
 end
 
 function checkFocusMode()
-	-- Use hs.execute for synchronous, simpler execution
-	local success, output, error = hs.execute("/usr/bin/defaults read com.apple.controlcenter 'NSStatusItem VisibleCC FocusModes'")
+	-- Check DoNotDisturb database (requires Full Disk Access)
+	local assertionsPath = os.getenv("HOME") .. "/Library/DoNotDisturb/DB/Assertions.json"
+	local file = io.open(assertionsPath, "r")
 
-	if not success then
-		print("⚠ Failed to check focus mode:", error)
+	if not file then
+		print("⚠ Cannot read Focus mode status - Hammerspoon needs Full Disk Access")
+		print("   Go to: System Settings → Privacy & Security → Full Disk Access")
+		print("   Add: Hammerspoon.app")
 		return
 	end
 
-	local focusState = output and output:match("1") and true or false
+	local content = file:read("*all")
+	file:close()
+
+	-- Parse JSON and check for active assertions
+	local data = hs.json.decode(content)
+	local focusState = false
+
+	if data and data.data and #data.data > 0 then
+		-- Check if there are any active Focus mode assertions
+		for _, assertion in ipairs(data.data) do
+			if assertion.storeAssertionRecords and #assertion.storeAssertionRecords > 0 then
+				focusState = true
+				break
+			end
+		end
+	end
+
+	print("⏰ Focus mode check:", focusState and "ON" or "OFF")
 
 	if lastFocusState ~= focusState then
 		lastFocusState = focusState
-		print("Focus mode:", focusState and "ON" or "OFF")
+		print("Focus mode CHANGED:", focusState and "ON" or "OFF")
 		updateSlackStatus(focusState)
 	end
 end
 
 -- Poll for focus mode changes every 10 seconds
 -- Wrap in pcall to catch any errors and prevent timer from stopping
-local pollTimer = hs.timer.doEvery(10, function()
+-- IMPORTANT: Store as global to prevent garbage collection (see https://github.com/Hammerspoon/hammerspoon/issues/1942)
+focusModeTimer = hs.timer.doEvery(10, function()
 	local success, err = pcall(checkFocusMode)
 	if not success then
 		print("⚠ Error in checkFocusMode:", err)
