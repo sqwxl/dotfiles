@@ -6,6 +6,7 @@ build
 .idea
 .DS_Store
 .direnv
+.worktrees
 
 #npm, pnpm, yarn
 node_modules
