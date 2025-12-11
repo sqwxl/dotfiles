@@ -10,10 +10,7 @@ return {
 	---@module "conform"
 	---@type conform.setupOpts
 	opts = {
-		default_format_opts = {
-			timeout_ms = 3000,
-			lsp_format = "fallback",
-		},
+		default_format_opts = { lsp_format = "fallback" },
 		format_on_save = function()
 			if not vim.g.format_on_save then
 				return

@@ -24,7 +24,7 @@ return {
 		---@class TSConfig
 		opts = {
 			endwise = { enable = true },
-			indent = { enable = false },
+			indent = { enable = true },
 			folds = { enable = true },
 			highlight = {
 				enable = true,
@@ -124,13 +124,13 @@ return {
 
 					-- indents
 					if vim.tbl_get(opts, "indent", "enable") ~= false and Util.treesitter.have(ev.match, "indents") then
-						Util.set_default("indentexpr", "v:lua.LazyVim.treesitter.indentexpr()")
+						Util.set_default("indentexpr", "nvim_treesitter#indentexpr()")
 					end
 
 					-- folds
 					if vim.tbl_get(opts, "folds", "enable") ~= false and Util.treesitter.have(ev.match, "folds") then
 						if Util.set_default("foldmethod", "expr") then
-							Util.set_default("foldexpr", "v:lua.LazyVim.treesitter.foldexpr()")
+							Util.set_default("foldexpr", "nvim_treesitter#foldexpr()")
 						end
 					end
 				end,
