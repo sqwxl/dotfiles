@@ -73,7 +73,7 @@ return {
 		config = function(_, opts)
 			local TS = require("nvim-treesitter")
 
-			setmetatable(require("nvim-treesitter.install"))
+			setmetatable(require("nvim-treesitter.install"), {})
 
 			-- some quick sanity checks
 			if not TS.get_installed then
