@@ -32,13 +32,13 @@ return {
 				on_attach = function(_, bufnr)
 					vim.keymap.set("n", "<leader>cR", function()
 						vim.cmd.RustLsp("codeAction")
-					end, { desc = "Code Action", buffer = bufnr })
+					end, { desc = "Code action", buffer = bufnr })
 					vim.keymap.set("n", "<leader>dr", function()
 						vim.cmd.RustLsp("debuggables")
-					end, { desc = "Rust Debuggables", buffer = bufnr })
+					end, { desc = "Rust debuggables", buffer = bufnr })
 					vim.keymap.set("n", "K", function()
 						vim.cmd.RustLsp({ "hover", "actions" })
-					end, { desc = "Rust Hover Actions", buffer = bufnr })
+					end, { desc = "Rust hover actions", buffer = bufnr })
 				end,
 				default_settings = {
 					-- rust-analyzer language server configuration
