@@ -2,7 +2,7 @@ return {
 	"coder/claudecode.nvim",
 	dependencies = { "folke/snacks.nvim" },
 	opts = {
-		terminal_cmd = "~/.local/bin/claude",
+		terminal_cmd = vim.env.HOME .. "/.local/bin/claude",
 		diff_opts = {
 			keep_terminal_focus = true,
 		},

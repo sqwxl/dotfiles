@@ -1,11 +1,27 @@
 return {
 	{
+		"ellisonleao/gruvbox.nvim",
+		priority = 1000,
+		---@module "gruvbox"
+		---@type GruvboxConfig
+		opts = {
+			overrides = {
+				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
+				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
+				WindowPickerWinBar = { link = "GruvboxBlueBold" },
+				WindowPickerWinBarNC = { link = "GruvboxAqua" },
+			},
+		},
+	},
+
+	{
 		"folke/snacks.nvim",
 		dependencies = { "nvim-mini/mini.icons", "nvim-tree/nvim-web-devicons" },
 		priority = 1000,
 		lazy = false,
 		---@type snacks.Config
 		opts = {
+			indent = { enabled = false },
 			bigfile = { enabled = true },
 			dashboard = {
 				enabled = true,
@@ -467,23 +483,10 @@ return {
 	{
 		"folke/flash.nvim", -- jump around
 		event = "VeryLazy",
+		---@type Flash.Config
 		opts = {
 			labels = "aoeuidhtnsqjkxbmwvzpyfgcrl",
-			modes = {
-				char = {
-					char_actions = function(motion)
-						return {
-							[";"] = "prev",
-							[","] = "next",
-							[motion:lower()] = "next",
-							[motion:upper()] = "prev",
-						}
-					end,
-				},
-			},
-			jump = {
-				autojump = true,
-			},
+			jump = { autojump = true },
 		},
 		keys = {
 			{
@@ -531,7 +534,7 @@ return {
 
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		event = "LazyFile",
 		opts = {
 			signs = {
 				add = { text = "▎" },
@@ -552,27 +555,27 @@ return {
 				local gs = package.loaded.gitsigns
 
 				local function map(mode, l, r, desc)
-					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+					vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
 				end
 
-				map("n", "]g", function()
+				map("n", "]h", function()
 					if vim.wo.diff then
 						vim.cmd.normal({ "]c", bang = true })
 					else
 						gs.nav_hunk("next")
 					end
 				end, "Next hunk")
-				map("n", "[g", function()
+				map("n", "[h", function()
 					if vim.wo.diff then
 						vim.cmd.normal({ "[c", bang = true })
 					else
 						gs.nav_hunk("prev")
 					end
 				end, "Prev hunk")
-				map("n", "]G", function()
+				map("n", "]H", function()
 					gs.nav_hunk("last")
 				end, "Last hunk")
-				map("n", "[G", function()
+				map("n", "[H", function()
 					gs.nav_hunk("first")
 				end, "First hunk")
 				map({ "n", "v" }, "<Leader>ghs", ":Gitsigns stage_hunk<CR>", "Stage hunk")
@@ -591,7 +594,7 @@ return {
 				map("n", "<Leader>ghD", function()
 					gs.diffthis("~")
 				end, "Diff this ~")
-				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns select hunk")
+				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "Select hunk")
 			end,
 		},
 	},
@@ -611,21 +614,51 @@ return {
 		end,
 	},
 
+	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git" },
+
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		dependencies = "tpope/vim-sleuth", -- set shiftwidth and tabstop automatically.
+		event = "LazyFile",
 		main = "ibl",
-		---@module "ibl"
-		---@type ibl.config
-		opts = {
-			scope = {
-				show_start = false,
-				show_end = false,
-			},
-		},
-	},
+		opts = function()
+			Snacks.toggle({
+				name = "Indention guides",
+				get = function()
+					return require("ibl.config").get_config(0).enabled
+				end,
+				set = function(state)
+					require("ibl").setup_buffer(0, { enabled = state })
+				end,
+			}):map("<leader>ug")
 
-	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git" },
+			return {
+				indent = {
+					char = "│",
+					tab_char = "│",
+				},
+				scope = { show_start = false, show_end = false },
+				exclude = {
+					filetypes = {
+						"Trouble",
+						"alpha",
+						"dashboard",
+						"help",
+						"lazy",
+						"mason",
+						"neo-tree",
+						"notify",
+						"snacks_dashboard",
+						"snacks_notif",
+						"snacks_terminal",
+						"snacks_win",
+						"toggleterm",
+						"trouble",
+					},
+				},
+			}
+		end,
+	},
 
 	{
 		"norcalli/nvim-colorizer.lua", -- highlight color strings
@@ -633,23 +666,5 @@ return {
 		---@module "colorizer"
 		opts = { "html", "jinja", "eruby", "htmldjango", "markdown", "css", "scss", "sass" },
 		keys = { { "<Leader>uH", "<Cmd>ColorizerToggle<CR>", desc = "Toggle color highlighting" } },
-	},
-
-	{
-		"ellisonleao/gruvbox.nvim",
-		priority = 1000,
-		---@module "gruvbox"
-		---@type GruvboxConfig
-		opts = {
-			contrast = "",
-			dim_inactive = false,
-			transparent_mode = false,
-			overrides = {
-				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
-				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
-				WindowPickerWinBar = { link = "GruvboxBlueBold" },
-				WindowPickerWinBarNC = { link = "GruvboxAqua" },
-			},
-		},
 	},
 }

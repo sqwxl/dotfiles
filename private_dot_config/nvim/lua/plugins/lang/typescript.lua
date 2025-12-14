@@ -24,7 +24,7 @@ return {
 		"mason-org/mason.nvim",
 		optional = true,
 		opts = {
-			ensure_installed = { "js-debug-adapter", "typescript-language-server" },
+			ensure_installed = { "js-debug-adapter" },
 		},
 	},
 

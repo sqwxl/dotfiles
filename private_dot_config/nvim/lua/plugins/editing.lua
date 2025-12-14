@@ -8,6 +8,7 @@ return {
 	{
 		"Wansmer/treesj",
 		lazy = true,
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		opts = {
 			use_default_keymaps = false,
 			max_join_length = 300,
@@ -63,6 +64,7 @@ return {
 
 	{
 		"nvim-mini/mini.ai",
+		version = "*", -- stable only
 		event = "VeryLazy",
 		opts = function()
 			local ai = require("mini.ai")
