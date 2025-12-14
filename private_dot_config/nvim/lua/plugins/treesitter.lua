@@ -77,9 +77,9 @@ return {
 
 			-- some quick sanity checks
 			if not TS.get_installed then
-				return vim.notify("Please use `:Lazy` and update `nvim-treesitter`", vim.log.levels.ERROR)
+				return Util.error("Please use `:Lazy` and update `nvim-treesitter`")
 			elseif type(opts.ensure_installed) ~= "table" then
-				return vim.notify("`nvim-treesitter` opts.ensure_installed must be a table", vim.log.levels.ERROR)
+				return Util.error("`nvim-treesitter` opts.ensure_installed must be a table")
 			end
 
 			-- setup treesitter
@@ -169,7 +169,7 @@ return {
 		config = function(_, opts)
 			local TS = require("nvim-treesitter-textobjects")
 			if not TS.setup then
-				vim.notify("Please use `:Lazy` and update `nvim-treesitter`", vim.log.levels.ERROR)
+				Util.error("Please use `:Lazy` and update `nvim-treesitter`")
 				return
 			end
 			TS.setup(opts)

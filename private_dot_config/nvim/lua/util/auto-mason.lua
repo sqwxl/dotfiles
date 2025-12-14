@@ -128,17 +128,16 @@ end
 local function install_package(pkg, version)
 	local name = pkg.name
 
-	vim.notify(("installing %s"):format(name))
+	Util.info(("installing %s"):format(name))
 
 	return pkg:install({ version = version }):once(
 		"closed",
 		vim.schedule_wrap(function()
 			if pkg:is_installed() then
-				vim.notify(("%s was successfully installed"):format(name))
+				Util.info(("%s was successfully installed"):format(name))
 			else
-				vim.notify(
-					("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(name),
-					vim.log.levels.ERROR
+				Util.error(
+					("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(name)
 				)
 			end
 		end)
@@ -172,11 +171,10 @@ local function try_install(mason_package_name)
 			end
 		end)
 		:if_not_present(function()
-			vim.notify(
+			Util.warn(
 				("Formatter %q is not a valid entry in ensure_installed. Make sure to only provide valid formatter names."):format(
 					package_name
-				),
-				vim.log.levels.WARN
+				)
 			)
 		end)
 end
@@ -185,7 +183,7 @@ for _, name in ipairs(get_packages_to_install()) do
 	if name ~= nil then
 		ok, err = pcall(try_install, name)
 		if err ~= nil then
-			vim.notify(name .. ": " .. err, vim.log.levels.ERROR)
+			Util.error(name .. ": " .. err)
 		end
 	end
 end

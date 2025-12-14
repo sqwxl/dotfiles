@@ -12,6 +12,15 @@ setmetatable(M, {
 	end,
 })
 
+--- Override the default title for notifications.
+for _, level in ipairs({ "info", "warn", "error" }) do
+	M[level] = function(msg, opts)
+		opts = opts or {}
+		opts.title = opts.title or "Neovim"
+		return LazyUtil[level](msg, opts)
+	end
+end
+
 ---@param name string
 function M.get_plugin(name)
 	return require("lazy.core.config").spec.plugins[name]
@@ -47,6 +56,16 @@ function M.on_load(name, fn)
 			end,
 		})
 	end
+end
+
+---@param fn fun()
+function M.on_very_lazy(fn)
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "VeryLazy",
+		callback = function()
+			fn()
+		end,
+	})
 end
 
 ---@generic T
