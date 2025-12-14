@@ -88,8 +88,7 @@ local function get_packages_to_install()
 	vim.list_extend(result, get_lint_packages())
 
 	local seen = {}
-	return vim
-		.iter(result)
+	return vim.iter(result)
 		:map(function(v)
 			return to_mason_package_name(v)
 		end)
@@ -126,7 +125,9 @@ local function auto_install()
 				if pkg:is_installed() then
 					Sqwxl.info(("%s was successfully installed"):format(name))
 				else
-					Sqwxl.error(("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(name))
+					Sqwxl.error(
+						("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(name)
+					)
 				end
 			end)
 		)
