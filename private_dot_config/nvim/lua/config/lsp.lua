@@ -7,7 +7,7 @@ vim.diagnostic.config({
 		spacing = 4,
 		source = "if_many",
 		prefix = function(diagnostic)
-			local icons = Util.config.icons.diagnostics
+			local icons = Sqwxl.config.icons.diagnostics
 			for d, icon in pairs(icons) do
 				if diagnostic.severity == vim.diagnostic.severity[d:upper()] then
 					return icon
@@ -19,10 +19,10 @@ vim.diagnostic.config({
 	severity_sort = true,
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = Util.config.icons.diagnostics.Error,
-			[vim.diagnostic.severity.WARN] = Util.config.icons.diagnostics.Warn,
-			[vim.diagnostic.severity.HINT] = Util.config.icons.diagnostics.Hint,
-			[vim.diagnostic.severity.INFO] = Util.config.icons.diagnostics.Info,
+			[vim.diagnostic.severity.ERROR] = Sqwxl.config.icons.diagnostics.Error,
+			[vim.diagnostic.severity.WARN] = Sqwxl.config.icons.diagnostics.Warn,
+			[vim.diagnostic.severity.HINT] = Sqwxl.config.icons.diagnostics.Hint,
+			[vim.diagnostic.severity.INFO] = Sqwxl.config.icons.diagnostics.Info,
 		},
 	},
 })

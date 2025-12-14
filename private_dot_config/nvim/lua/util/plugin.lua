@@ -1,4 +1,4 @@
----@class lazyvim.util.plugin
+---@class util.plugin
 local M = {}
 
 ---@type string[]

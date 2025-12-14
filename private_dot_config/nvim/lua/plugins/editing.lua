@@ -40,7 +40,7 @@ return {
 		opts = {
 			check_ts = true,
 			fast_wrap = {}, -- bound to <A-e> by default
-			disable_filetype = { "dap-repl" }
+			disable_filetype = { "dap-repl" },
 		},
 	},
 
@@ -76,8 +76,8 @@ return {
 					f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
 					c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
 					t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
-					d = { "%f[%d]%d+" },                                           -- digits
-					e = {                                                          -- Word with case
+					d = { "%f[%d]%d+" }, -- digits
+					e = { -- Word with case
 						{
 							"%u[%l%d]+%f[^%l%d]",
 							"%f[%S][%l%d]+%f[^%l%d]",
@@ -102,14 +102,14 @@ return {
 						local to_col = math.max(vim.fn.getline(end_line):len(), 1)
 						return { from = { line = start_line, col = 1 }, to = { line = end_line, col = to_col } }
 					end,
-					u = ai.gen_spec.function_call(),            -- u for "Usage"
+					u = ai.gen_spec.function_call(), -- u for "Usage"
 					U = ai.gen_spec.function_call({ name_pattern = "[%w_]" }), -- without dot in function name
 				},
 			}
 		end,
 		config = function(_, opts)
 			require("mini.ai").setup(opts)
-			Util.on_load("which-key.nvim", function()
+			Sqwxl.on_load("which-key.nvim", function()
 				vim.schedule(function()
 					local objects = {
 						{ " ", desc = "whitespace" },

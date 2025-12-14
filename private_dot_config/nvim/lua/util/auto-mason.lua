@@ -128,15 +128,15 @@ end
 local function install_package(pkg, version)
 	local name = pkg.name
 
-	Util.info(("installing %s"):format(name))
+	Sqwxl.info(("installing %s"):format(name))
 
 	return pkg:install({ version = version }):once(
 		"closed",
 		vim.schedule_wrap(function()
 			if pkg:is_installed() then
-				Util.info(("%s was successfully installed"):format(name))
+				Sqwxl.info(("%s was successfully installed"):format(name))
 			else
-				Util.error(
+				Sqwxl.error(
 					("failed to install %s. Installation logs are available in :Mason and :MasonLog"):format(name)
 				)
 			end
@@ -171,7 +171,7 @@ local function try_install(mason_package_name)
 			end
 		end)
 		:if_not_present(function()
-			Util.warn(
+			Sqwxl.warn(
 				("Formatter %q is not a valid entry in ensure_installed. Make sure to only provide valid formatter names."):format(
 					package_name
 				)
@@ -183,7 +183,7 @@ for _, name in ipairs(get_packages_to_install()) do
 	if name ~= nil then
 		ok, err = pcall(try_install, name)
 		if err ~= nil then
-			Util.error(name .. ": " .. err)
+			Sqwxl.error(name .. ": " .. err)
 		end
 	end
 end

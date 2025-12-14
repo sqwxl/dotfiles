@@ -1,4 +1,9 @@
 local LazyUtil = require("lazy.core.util")
+
+---@class util: LazyUtilCore
+---@field config SqwxlConfig
+---@field plugin util.plugin
+---@field treesitter util.treesitter
 local M = {}
 
 setmetatable(M, {
@@ -96,7 +101,7 @@ local _defaults = {} ---@type table<string, boolean>
 ---@return boolean was_set
 function M.set_default(option, value)
 	local l = vim.api.nvim_get_option_value(option, { scope = "local" })
-	local g = Util.config._options[option] or vim.api.nvim_get_option_value(option, { scope = "global" })
+	local g = Sqwxl.config._options[option] or vim.api.nvim_get_option_value(option, { scope = "global" })
 
 	_defaults[("%s=%s"):format(option, value)] = true
 	local key = ("%s=%s"):format(option, l)

@@ -1,8 +1,9 @@
-_G.Util = require("util")
+_G.Sqwxl = require("util")
 
+---@class SqwxlConfig
 local M = {}
 
-Util.config = M
+Sqwxl.config = M
 
 M.icons = {
 	misc = {
@@ -86,6 +87,8 @@ function M.init()
 	M._options.indentexpr = vim.o.indentexpr
 	M._options.foldmethod = vim.o.foldmethod
 	M._options.foldexpr = vim.o.foldexpr
+
+	Sqwxl.plugin.setup()
 end
 
 return M

@@ -152,49 +152,8 @@ return {
 	},
 
 	{
-		"s1n7ax/nvim-window-picker",
-		version = "2.*",
-		name = "window-picker",
-		event = "VeryLazy",
-		opts = {
-			hint = "floating-big-letter",
-			show_prompt = false,
-			selection_chars = "aoeuidhtnsqjkxbmwvz",
-			filter_rules = {
-				include_current_win = false,
-				autoselect_one = true,
-				bo = {
-					filetype = { "neo-tree", "neo-tree-popup", "notify", "noice", "snacks_notif", "aerial" },
-					buftype = { "terminal" },
-				},
-			},
-			highlights = {
-				statusline = {
-					focused = "WindowPickerStatusLine",
-					unfocused = "WindowPickerStatusLineNC",
-				},
-				winbar = {
-					focused = "WindowPickerWinBar",
-					unfocused = "WindowPickerWinBarNC",
-				},
-			},
-		},
-		keys = {
-			{
-				"<Leader>W",
-				function()
-					local nr = require("window-picker").pick_window()
-					if nr ~= nil then
-						vim.cmd.wincmd(nr .. " w")
-					end
-				end,
-				desc = "Pick window",
-			},
-		},
-	},
-
-	{
 		"nvim-neo-tree/neo-tree.nvim",
+		cmd = "Neotree",
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -203,6 +162,9 @@ return {
 			"s1n7ax/nvim-window-picker",
 		},
 		lazy = false,
+		deactivate = function()
+			vim.cmd([[Neotree close]])
+		end,
 		init = function()
 			-- FIX: use `autocmd` for lazy-loading neo-tree instead of directly requiring it,
 			-- because `cwd` is not set up properly.
@@ -223,13 +185,23 @@ return {
 			})
 		end,
 		---@module "neo-tree"
-		---@type neotree.Config?
+		---@type neotree.Config
 		opts = {
 			sources = { "filesystem", "buffers", "git_status" },
 			open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
 			filesystem = {
 				follow_current_file = { enabled = true },
 				use_libuv_file_watcher = true,
+			},
+			commands = {
+				yank_path = function(state)
+					local node = state.tree:get_node()
+					local path = node:get_id()
+					vim.fn.setreg("+", path, "c")
+				end,
+				open_with_os = function(state)
+					require("lazy.util").open(state.tree:get_node().path, { system = true })
+				end,
 			},
 			window = {
 				position = "left",
@@ -239,21 +211,8 @@ return {
 					["v"] = "vsplit_with_window_picker",
 					["l"] = "open",
 					["h"] = "close_node",
-					["<space>"] = "none",
-					["Y"] = {
-						function(state)
-							local node = state.tree:get_node()
-							local path = node:get_id()
-							vim.fn.setreg("+", path, "c")
-						end,
-						desc = "Copy Path to Clipboard",
-					},
-					["O"] = {
-						function(state)
-							require("lazy.util").open(state.tree:get_node().path, { system = true })
-						end,
-						desc = "Open with System Application",
-					},
+					["Y"] = "yank_path",
+					["O"] = "open_with_os",
 				},
 			},
 			default_component_configs = {
@@ -327,10 +286,54 @@ return {
 	},
 
 	{
+		"s1n7ax/nvim-window-picker",
+		version = "2.*",
+		name = "window-picker",
+		event = "VeryLazy",
+		opts = {
+			hint = "floating-big-letter",
+			show_prompt = false,
+			selection_chars = "aoeuidhtnsqjkxbmwvz",
+			filter_rules = {
+				include_current_win = false,
+				autoselect_one = true,
+				bo = {
+					filetype = { "neo-tree", "neo-tree-popup", "notify", "noice", "snacks_notif", "aerial" },
+					buftype = { "terminal", "quickfix" },
+				},
+			},
+			highlights = {
+				statusline = {
+					focused = "WindowPickerStatusLine",
+					unfocused = "WindowPickerStatusLineNC",
+				},
+				winbar = {
+					focused = "WindowPickerWinBar",
+					unfocused = "WindowPickerWinBarNC",
+				},
+			},
+		},
+		keys = {
+			{
+				"<Leader>W",
+				function()
+					local nr = require("window-picker").pick_window()
+					if nr ~= nil then
+						vim.cmd.wincmd(nr .. " w")
+					end
+				end,
+				desc = "Pick window",
+			},
+		},
+	},
+
+	{
 		"j-hui/fidget.nvim", -- lsp status progress
 		opts = {
 			progress = {
 				suppress_on_insert = true,
+				ignore_done_already = true,
+				ignore_empty_message = true,
 				display = {
 					render_limit = 2,
 				},
@@ -449,7 +452,12 @@ return {
 				whitespace = "  ",
 			},
 			-- HACK: fix lua's weird choice for `Package` for control structures like if/else/for/etc.
-			icons = vim.tbl_extend("force", {}, Util.config.icons.kinds, { Package = Util.config.icons.kinds.Control }),
+			icons = vim.tbl_extend(
+				"force",
+				{},
+				Sqwxl.config.icons.kinds,
+				{ Package = Sqwxl.config.icons.kinds.Control }
+			),
 		},
 		keys = {
 			{ "<Leader>cs", "<cmd>AerialToggle<cr>", desc = "Symbols panel" },

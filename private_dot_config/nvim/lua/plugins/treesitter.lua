@@ -77,23 +77,23 @@ return {
 
 			-- some quick sanity checks
 			if not TS.get_installed then
-				return Util.error("Please use `:Lazy` and update `nvim-treesitter`")
+				return Sqwxl.error("Please use `:Lazy` and update `nvim-treesitter`")
 			elseif type(opts.ensure_installed) ~= "table" then
-				return Util.error("`nvim-treesitter` opts.ensure_installed must be a table")
+				return Sqwxl.error("`nvim-treesitter` opts.ensure_installed must be a table")
 			end
 
 			-- setup treesitter
 			TS.setup(opts)
-			Util.treesitter.get_installed(true) -- initialize the installed langs
+			Sqwxl.treesitter.get_installed(true) -- initialize the installed langs
 
 			-- install missing parsers
 			local install = vim.tbl_filter(function(lang)
-				return not Util.treesitter.have(lang)
+				return not Sqwxl.treesitter.have(lang)
 			end, opts.ensure_installed or {})
 			if #install > 0 then
-				Util.treesitter.ensure_treesitter_cli(function()
+				Sqwxl.treesitter.ensure_treesitter_cli(function()
 					TS.install(install, { summary = true }):await(function()
-						Util.treesitter.get_installed(true) -- refresh the installed langs
+						Sqwxl.treesitter.get_installed(true) -- refresh the installed langs
 					end)
 				end)
 			end
@@ -102,7 +102,7 @@ return {
 				group = vim.api.nvim_create_augroup("sqwxl_treesitter", { clear = true }),
 				callback = function(ev)
 					local ft, lang = ev.match, vim.treesitter.language.get_lang(ev.match)
-					if not Util.treesitter.have(ft) then
+					if not Sqwxl.treesitter.have(ft) then
 						return
 					end
 
@@ -110,7 +110,7 @@ return {
 						local f = opts[feat] or {}
 						return f.enable ~= false
 							and not (type(f.disable) == "table" and vim.tbl_contains(f.disable, lang))
-							and Util.treesitter.have(ft, query)
+							and Sqwxl.treesitter.have(ft, query)
 					end
 
 					-- highlighting
@@ -120,13 +120,13 @@ return {
 
 					-- indents
 					if enabled("indent", "indents") then
-						Util.set_default("indentexpr", "v:lua.require'nvim-treesitter'.indentexpr()")
+						Sqwxl.set_default("indentexpr", "v:lua.require'nvim-treesitter'.indentexpr()")
 					end
 
 					-- folds
 					if enabled("folds", "folds") then
-						if Util.set_default("foldmethod", "expr") then
-							Util.set_default("foldexpr", "v:lua.vim.treesitter.foldexpr()")
+						if Sqwxl.set_default("foldmethod", "expr") then
+							Sqwxl.set_default("foldexpr", "v:lua.vim.treesitter.foldexpr()")
 						end
 					end
 				end,
@@ -169,14 +169,14 @@ return {
 		config = function(_, opts)
 			local TS = require("nvim-treesitter-textobjects")
 			if not TS.setup then
-				Util.error("Please use `:Lazy` and update `nvim-treesitter`")
+				Sqwxl.error("Please use `:Lazy` and update `nvim-treesitter`")
 				return
 			end
 			TS.setup(opts)
 
 			local function attach(buf)
 				local ft = vim.bo[buf].filetype
-				if not (vim.tbl_get(opts, "move", "enable") and Util.treesitter.have(ft, "textobjects")) then
+				if not (vim.tbl_get(opts, "move", "enable") and Sqwxl.treesitter.have(ft, "textobjects")) then
 					return
 				end
 				---@type table<string, table<string, string>>
