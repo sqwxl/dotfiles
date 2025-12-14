@@ -45,7 +45,7 @@ local ignore_package = {
 }
 
 local function to_mason_package_name(name)
-	mason_name = alias_to_mason_name[name]
+	local mason_name = alias_to_mason_name[name]
 	if mason_name == nil then
 		return name
 	elseif mason_name then
@@ -148,7 +148,7 @@ local function try_install(mason_package_name)
 	local Package = require("mason-core.package")
 	local package_name, version = Package.Parse(mason_package_name)
 
-	resolved = resolve_package(package_name)
+	local resolved = resolve_package(package_name)
 
 	if resolved == nil then
 		return
@@ -181,7 +181,7 @@ end
 
 for _, name in ipairs(get_packages_to_install()) do
 	if name ~= nil then
-		ok, err = pcall(try_install, name)
+		local ok, err = pcall(try_install, name)
 		if err ~= nil then
 			Sqwxl.error(name .. ": " .. err)
 		end

@@ -166,11 +166,12 @@ local keys = {
 		"<Leader>R",
 		function()
 			local old = vim.fn.expand("<cword>")
+			local escaped = vim.fn.escape(old, "/\\")
 			vim.ui.input(
 				{ prompt = 'Replace "' .. old .. '" with: ', default = old, completion = "buffer" },
 				function(new)
 					if new ~= nil then
-						vim.cmd("%s/\\<" .. old .. "\\>/" .. new .. "/gI")
+						vim.cmd("%s/\\<" .. escaped .. "\\>/" .. vim.fn.escape(new, "/\\&") .. "/gI")
 					end
 				end
 			)
@@ -183,11 +184,12 @@ local keys = {
 		function()
 			vim.cmd('normal! "zy')
 			local old = vim.fn.getreg("z")
+			local escaped = vim.fn.escape(old, "/\\")
 			vim.ui.input(
 				{ prompt = 'Replace "' .. old .. '" with: ', default = old, completion = "buffer" },
 				function(new)
 					if new ~= nil then
-						vim.cmd("%s/" .. old .. "/" .. new .. "/gI")
+						vim.cmd("%s/" .. escaped .. "/" .. vim.fn.escape(new, "/\\&") .. "/gI")
 					end
 				end
 			)

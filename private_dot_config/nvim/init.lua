@@ -19,7 +19,6 @@ require("config")
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
-require("config").init()
 
 require("lazy").setup({
 	{ import = "plugins" },
