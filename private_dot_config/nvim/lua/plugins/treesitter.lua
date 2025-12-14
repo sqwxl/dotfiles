@@ -120,13 +120,13 @@ return {
 
 					-- indents
 					if enabled("indent", "indents") then
-						Util.set_default("indentexpr", "nvim_treesitter#indentexpr()")
+						Util.set_default("indentexpr", "v:lua.require'nvim-treesitter'.indentexpr()")
 					end
 
 					-- folds
 					if enabled("folds", "folds") then
 						if Util.set_default("foldmethod", "expr") then
-							Util.set_default("foldexpr", "nvim_treesitter#foldexpr()")
+							Util.set_default("foldexpr", "v:lua.vim.treesitter.foldexpr()")
 						end
 					end
 				end,
