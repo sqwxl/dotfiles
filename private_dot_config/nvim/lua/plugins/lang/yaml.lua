@@ -17,9 +17,7 @@ vim.lsp.config("yamlls", {
 		redhat = { telemetry = { enabled = false } },
 		yaml = {
 			keyOrdering = false,
-			format = {
-				enable = true,
-			},
+			format = { enable = true },
 			validate = true,
 			schemaStore = {
 				-- Must disable built-in schemaStore support to use
@@ -35,9 +33,8 @@ vim.lsp.enable("yamlls")
 
 return {
 	{
-		"b0o/SchemaStore.nvim",
+		"b0o/schemastore.nvim",
 		lazy = true,
-		version = false,
 	},
 
 	{
