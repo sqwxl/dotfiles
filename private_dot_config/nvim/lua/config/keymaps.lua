@@ -98,7 +98,6 @@ local keys = {
 
 	-- plugins
 	{ "<Leader>l", "<Cmd>Lazy<CR>", desc = "Lazy" },
-	{ "<Leader>m", "<Cmd>Mason<CR>", desc = "Mason", mode = {"n", "v"} },
 
 	-- diagnostics
 	{ "<Leader>cd", vim.diagnostic.open_float, desc = "Line diagnostics" },

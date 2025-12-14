@@ -1,6 +1,7 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		optional = true,
 		opts = { ensure_installed = { "rust", "ron" } },
 	},
 
@@ -30,15 +31,15 @@ return {
 		opts = {
 			server = {
 				on_attach = function(_, bufnr)
-					vim.keymap.set("n", "<leader>cR", function()
+					vim.keymap.set("n", "<leader>ca", function()
 						vim.cmd.RustLsp("codeAction")
 					end, { desc = "Code action", buffer = bufnr })
-					vim.keymap.set("n", "<leader>dr", function()
-						vim.cmd.RustLsp("debuggables")
-					end, { desc = "Rust debuggables", buffer = bufnr })
 					vim.keymap.set("n", "K", function()
 						vim.cmd.RustLsp({ "hover", "actions" })
 					end, { desc = "Rust hover actions", buffer = bufnr })
+					vim.keymap.set("n", "<leader>dr", function()
+						vim.cmd.RustLsp("debuggables")
+					end, { desc = "Rust debuggables", buffer = bufnr })
 				end,
 				default_settings = {
 					-- rust-analyzer language server configuration
@@ -46,9 +47,7 @@ return {
 						cargo = {
 							allFeatures = true,
 							loadOutDirsFromCheck = true,
-							buildScripts = {
-								enable = true,
-							},
+							buildScripts = { enable = true },
 						},
 						-- Add clippy lints for Rust if using rust-analyzer
 						checkOnSave = true,
@@ -77,12 +76,14 @@ return {
 								".venv",
 							},
 						},
+						-- Avoid Roots Scanned hanging, see https://github.com/rust-lang/rust-analyzer/issues/12613#issuecomment-2096386344
+						watcher = "client",
 					},
 				},
 			},
 		},
 		config = function(_, opts)
-			vim.g.rustacean = vim.tbl_deep_extend("keep", vim.g.rustacean or {}, opts or {})
+			vim.g.rustacean = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
 		end,
 	},
 

@@ -17,6 +17,7 @@ vim.lsp.enable("ts_ls")
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		optional = true,
 		opts = { ensure_installed = { "typescript", "javascript", "tsx", "jsx" } },
 	},
 
@@ -117,7 +118,7 @@ return {
 	},
 
 	{
-		"echasnovski/mini.icons",
+		"nvim-mini/mini.icons",
 		optional = true,
 		opts = {
 			file = {

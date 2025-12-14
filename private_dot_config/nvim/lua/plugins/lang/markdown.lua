@@ -1,9 +1,10 @@
-return {
-	{
-		"mason-org/mason.nvim",
-		opts = { ensure_installed = { "markdownlint-cli2" } },
-	},
+Sqwxl.on_very_lazy(function()
+	vim.filetype.add({
+		extension = { mdx = "markdown.mdx" },
+	})
+end)
 
+return {
 	{
 		"stevearc/conform.nvim",
 		optional = true,

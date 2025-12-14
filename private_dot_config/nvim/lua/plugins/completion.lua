@@ -4,6 +4,10 @@ return {
 	build = "cargo build --release",
 	dependencies = { "rafamadriz/friendly-snippets" },
 	event = { "InsertEnter", "CmdlineEnter" },
+	opts_extend = {
+		"sources.completion.enabled_providers",
+		"sources.default",
+	},
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config
 	opts = {
@@ -71,10 +75,6 @@ return {
 				ghost_text = { enabled = true },
 			},
 		},
-	},
-	opts_extend = {
-		"sources.completion.enabled_providers",
-		"sources.default",
 	},
 	---@param opts blink.cmp.Config | { sources: { compat: string[] } }
 	config = function(_, opts)

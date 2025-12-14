@@ -14,6 +14,7 @@ local alias_to_mason_name = {
 	docker_compose_language_service = "docker-compose-language-service",
 	elm_format = "elm-format",
 	erb_format = "erb-formatter",
+	erb_lint = "erb-lint",
 	fish_lsp = "fish-lsp",
 	harper_ls = "harper-ls",
 	html = "html-lsp",
@@ -172,10 +173,14 @@ end
 return {
 	{
 		"mason-org/mason.nvim",
+		cmd = "Mason",
+		build = ":MasonUpdate",
+		opts_extend = { "ensure_installed" },
 		opts = {},
 		config = function(_, opts)
 			require("mason").setup(opts)
 			Sqwxl.on_very_lazy(auto_install)
 		end,
+		keys = { { "<Leader>cm", "<Cmd>Mason<CR>", desc = "Mason" } },
 	},
 }

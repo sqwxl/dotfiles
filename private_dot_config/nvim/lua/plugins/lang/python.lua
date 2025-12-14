@@ -30,6 +30,12 @@ vim.lsp.enable("ruff")
 
 return {
 	{
+		"nvim-treesitter/nvim-treesitter",
+		optional = true,
+		opts = { ensure_installed = { "ninja", "rst" } },
+	},
+
+	{
 		"stevearc/conform.nvim",
 		optional = true,
 		opts = {
@@ -52,11 +58,6 @@ return {
 				python = { "ruff" },
 			},
 		},
-	},
-
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = { ensure_installed = { "ninja", "rst" } },
 	},
 
 	{

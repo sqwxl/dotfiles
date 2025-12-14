@@ -380,6 +380,7 @@ return {
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
+		opts_extend = { "spec" },
 		opts = {
 			preset = "modern",
 			defaults = {},
@@ -419,7 +420,6 @@ return {
 				},
 			},
 		},
-		opts_extend = { "spec" },
 		config = function(_, opts)
 			local wk = require("which-key")
 			wk.setup(opts)

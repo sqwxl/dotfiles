@@ -18,12 +18,8 @@ vim.lsp.enable("jsonls")
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		optional = true,
 		opts = { ensure_installed = { "json5" } },
-	},
-
-	{
-		"b0o/schemastore.nvim",
-		lazy = true,
 	},
 
 	{
@@ -46,5 +42,10 @@ return {
 				jsonc = { "biomejs" },
 			},
 		},
+	},
+
+	{
+		"b0o/schemastore.nvim",
+		lazy = true,
 	},
 }

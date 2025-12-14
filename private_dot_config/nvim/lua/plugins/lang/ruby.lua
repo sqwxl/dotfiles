@@ -11,9 +11,9 @@ return {
 	{ "tpope/vim-rails" },
 
 	{
-		"mason-org/mason.nvim",
+		"nvim-treesitter/nvim-treesitter",
 		optional = true,
-		opts = { ensure_installed = { "erb-formatter", "erb-lint" } },
+		opts = { ensure_installed = { "ruby" } },
 	},
 
 	{
@@ -22,6 +22,7 @@ return {
 		opts = {
 			linters_by_ft = {
 				ruby = { "ruby" },
+				eruby = { "erb_lint" },
 			},
 		},
 	},
@@ -41,13 +42,6 @@ return {
 			},
 		},
 	},
-
-	-- {
-	-- 	"suketa/nvim-dap-ruby",
-	-- 	config = function()
-	-- 		require("dap-ruby").setup()
-	-- 	end,
-	-- },
 
 	{
 		"mfussenegger/nvim-dap",
