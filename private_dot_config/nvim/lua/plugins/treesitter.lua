@@ -8,7 +8,7 @@ return {
 	-- Automatically add closing tags for HTML and JSX
 	{
 		"windwp/nvim-ts-autotag",
-		event = { "BufReadPre", "BufNewFile" },
+		event = "LazyFile",
 		opts = { aliases = { htmldjango = "html" } },
 	},
 
@@ -17,7 +17,7 @@ return {
 		branch = "main",
 		version = false,
 		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre", "VeryLazy" },
+		event = { "LazyFile", "VeryLazy" },
 		cmd = { "TSUpdate", "TSInstall", "TSLog", "TSUninstall" },
 		opts_extend = { "ensure_installed" },
 		---@class TSConfig
@@ -51,7 +51,6 @@ return {
 				"javascript",
 				"jsdoc",
 				"json",
-				"jsonc",
 				"lua",
 				"luadoc",
 				"luap",
@@ -219,6 +218,6 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter-context",
-		event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+		event = "LazyFile",
 	},
 }
