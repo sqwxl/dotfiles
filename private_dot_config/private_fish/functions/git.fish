@@ -8,6 +8,7 @@ function git
         if test $status_code -ne 0; and string match -q "*already used by worktree*" "$output"
             set -l path (git worktree list | rg $branch | awk '{print $1}')
             if test -n "$path"
+                echo "Found matching worktree at '$path'"
                 cd $path
                 return 0
             end
