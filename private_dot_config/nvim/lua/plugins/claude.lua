@@ -4,7 +4,7 @@ return {
 	opts = {
 		terminal_cmd = vim.env.HOME .. "/.local/bin/claude",
 		diff_opts = {
-			keep_terminal_focus = true,
+			keep_terminal_focus = false,
 		},
 	},
 	keys = {
