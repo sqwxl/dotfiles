@@ -664,4 +664,14 @@ return {
 		opts = { "html", "jinja", "eruby", "htmldjango", "markdown", "css", "scss", "sass" },
 		keys = { { "<Leader>uH", "<Cmd>ColorizerToggle<CR>", desc = "Toggle color highlighting" } },
 	},
+
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			highlights = {
+				pattern = [[.*<(KEYWORDS)\s*:]],
+			},
+		},
+	},
 }
