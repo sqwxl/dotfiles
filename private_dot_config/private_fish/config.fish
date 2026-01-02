@@ -29,13 +29,16 @@ if test "$TERM" = foot -o "$TERM" = foot-extra
     abbr ssh "TERM=linux command ssh"
 end
 
-if type -q eza
-    alias ls 'eza --icons --group-directories-first'
-end
-
 abbr l ls
-abbr ll 'ls -l'
-abbr lll 'ls -lah'
+abbr ll 'ls --long --group-directories-first'
+abbr lll 'ls --all --header --long'
+
+if type -q eza
+    alias ls eza
+    alias ll 'eza --icons=auto --long --group-directories-first'
+    alias l. 'eza --treat-dirs-as-files --group-directories-first .*'
+    alias l1 'eza --oneline'
+end
 
 if type -q fzf
     fzf --fish | source
@@ -61,17 +64,6 @@ if type -q go
     fish_add_path $GOPATH/bin
 end
 
-
-if type -q zoxide
-    zoxide init fish | source
-end
-
-alias zz 'cd -'
-
-if type -q starship
-    starship init fish | source
-end
-
 function prompt_nl --on-event fish_postexec
     echo
 end
@@ -92,3 +84,9 @@ status --is-interactive; and rbenv init - --no-rehash fish | source
 fish_add_path --prepend --move $HOME/.npm-global/bin
 fish_add_path --prepend --move $HOME/.cargo/bin
 fish_add_path --prepend --move $HOME/.local/bin
+
+if status is-interactive
+    type -q starship && starship init fish | source
+    type -q zoxide && zoxide init fish | source
+    alias zz 'cd -'
+end
