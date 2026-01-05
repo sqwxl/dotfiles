@@ -35,7 +35,7 @@ if command -q eza
     alias l. "eza --treat-dirs-as-files --group-directories-first .*"
     alias l1 "eza --oneline"
     alias ll "eza --icons=auto --long --group-directories-first"
-    alias lll "eza --icons=auto --all --header --long --group-directorie-first"
+    alias lll "eza --icons=auto --all --header --long --group-directories-first"
 end
 
 if command -q fzf
