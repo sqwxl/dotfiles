@@ -1,35 +1,19 @@
 plugins:
-  raw-logs-follow:
-    shortCut: Ctrl-L
-    description: logs -f
-    scopes:
-    - po
-    command: kubectl
-    background: false
-    args:
-    - logs
-    - -f
-    - $NAME
-    - -n
-    - $NAMESPACE
-    - --context
-    - $CONTEXT
-    - --kubeconfig
-    - $KUBECONFIG
-
-  logs-page:
+  pino-pretty:
     shortCut: Shift-L
-    description: "logs|less"
+    confirm: false
+    description: "pino-pretty"
     scopes:
-    - po
+      - po
     command: bash
     background: false
     args:
     - -c
-    - '"$@" | less'
+    - '"$@" | pino-pretty --colorize'
     - dummy-arg
     - kubectl
     - logs
+    - --follow
     - $NAME
     - -n
     - $NAMESPACE
