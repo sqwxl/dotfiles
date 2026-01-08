@@ -1,26 +1,15 @@
 plugins:
-  pino-pretty:
-    shortCut: Shift-L
+  pino:
+    shortCut: Ctrl-L
+    description: pino-pretty
     confirm: false
-    description: "pino-pretty"
     scopes:
       - po
     command: bash
     background: false
     args:
     - -c
-    - '"$@" | pino-pretty --colorize'
-    - dummy-arg
-    - kubectl
-    - logs
-    - --follow
-    - $NAME
-    - -n
-    - $NAMESPACE
-    - --context
-    - $CONTEXT
-    - --kubeconfig
-    - $KUBECONFIG
+    - 'kubectl logs --follow $NAME -n $NAMESPACE --context $CONTEXT --kubeconfig $KUBECONFIG | pino-pretty --colorize -t UTC:yyyy-mm-dd HH:MM:ss.l'
 
   jqlogs:
     shortCut: Ctrl-J
