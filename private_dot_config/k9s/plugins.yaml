@@ -8,6 +8,7 @@ plugins:
     command: bash
     background: false
     args:
+    - -i
     - -c
     - 'kubectl logs --follow $NAME -n $NAMESPACE --context $CONTEXT --kubeconfig $KUBECONFIG | pino-pretty --colorize -t UTC:yyyy-mm-dd HH:MM:ss.l o'
 
