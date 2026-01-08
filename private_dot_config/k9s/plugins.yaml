@@ -9,7 +9,7 @@ plugins:
     background: false
     args:
     - -c
-    - 'kubectl logs --follow $NAME -n $NAMESPACE --context $CONTEXT --kubeconfig $KUBECONFIG | pino-pretty --colorize -t UTC:yyyy-mm-dd HH:MM:ss.l'
+    - 'kubectl logs --follow $NAME -n $NAMESPACE --context $CONTEXT --kubeconfig $KUBECONFIG | pino-pretty --colorize -t UTC:yyyy-mm-dd HH:MM:ss.l o'
 
   jqlogs:
     shortCut: Ctrl-J
