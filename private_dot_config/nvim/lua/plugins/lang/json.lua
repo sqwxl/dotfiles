@@ -27,8 +27,8 @@ return {
 		optional = true,
 		opts = {
 			formatters_by_ft = {
-				json = { "biome-check" },
-				jsonc = { "biome-check" },
+				-- json = { "biome-check" },
+				-- jsonc = { "biome-check" },
 			},
 		},
 	},
