@@ -1,7 +1,6 @@
 return {
 	"saghen/blink.cmp",
-	version = "*",
-	build = "cargo build --release",
+	version = "1.*",
 	dependencies = { "rafamadriz/friendly-snippets" },
 	event = { "InsertEnter", "CmdlineEnter" },
 	opts_extend = {
@@ -18,7 +17,7 @@ return {
 			kind_icons = Sqwxl.config.icons.kinds,
 		},
 
-		fuzzy = { implementation = "rust" },
+		fuzzy = { implementation = "prefer_rust" },
 
 		completion = {
 			menu = {
