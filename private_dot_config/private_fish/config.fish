@@ -74,6 +74,10 @@ if status is-interactive
     alias zz "cd -"
 end
 
+if command -q devcontainer
+    abbr nd devcontainer up --mount "type=bind,source=$HOME/.config/nvim,target=/home/vscode/.config/nvim" --workspace-folder . && devcontainer exec --worspace-folder .
+end
+
 fish_add_path --prepend --move $HOME/.npm-global/bin
 fish_add_path --prepend --move $HOME/.cargo/bin
 fish_add_path --prepend --move $HOME/.local/bin
