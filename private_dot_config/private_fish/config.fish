@@ -75,7 +75,7 @@ if status is-interactive
 end
 
 if command -q devcontainer
-    abbr nd 'devcontainer up --mount "type=bind,source=$HOME/.config/nvim,target=/home/vscode/.config/nvim" --workspace-folder . && devcontainer exec --workspace-folder .'
+    abbr nd 'devcontainer up --mount "type=bind,source=$HOME/.config/nvim,target=/home/vscode/.config/nvim" --workspace-folder . && devcontainer exec --workspace-folder . nvim'
 end
 
 fish_add_path --prepend --move $HOME/.npm-global/bin
