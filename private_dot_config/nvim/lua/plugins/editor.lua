@@ -5,6 +5,7 @@ return {
 		---@module "gruvbox"
 		---@type GruvboxConfig
 		opts = {
+			transparent_mode = true,
 			overrides = {
 				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
 				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
