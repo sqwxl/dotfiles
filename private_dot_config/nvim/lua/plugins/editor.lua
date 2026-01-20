@@ -354,6 +354,12 @@ return {
 				display = {
 					render_limit = 2,
 				},
+				notification = {
+					window = {
+						winblend = 100,
+						avoid = { "aerial" },
+					},
+				},
 			},
 		},
 	},
