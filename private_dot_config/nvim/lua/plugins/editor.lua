@@ -356,7 +356,8 @@ return {
 				},
 				notification = {
 					window = {
-						winblend = 100,
+						normal_hl = "Comment",
+						winblend = 0,
 						avoid = { "aerial" },
 					},
 				},
