@@ -19,6 +19,7 @@ abbr weather 'curl -s "wttr.in/45.32,-72.42?nFQ"'
 
 if command -q chezmoi
     alias cz chezmoi
+    abbr czedit "cz edit --apply "
     abbr czsway "cz edit --apply ~/.config/sway/config"
     abbr czvim "cz edit --apply ~/.config/nvim/lua"
     abbr czfish "cz edit --apply ~/.config/fish/config.fish"
