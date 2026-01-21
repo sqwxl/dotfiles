@@ -70,8 +70,13 @@ end
 if status is-interactive
     command -q starship; and starship init fish | source
     command -q zoxide; and zoxide init fish | source
-    command -q rbenv; and rbenv init - --no-rehash fish | source
+    # command -q rbenv; and rbenv init - --no-rehash fish | source
     alias zz "cd -"
+end
+
+if command -q rv
+    rv shell init fish | source
+    status is-interactive; and rv shell completions fish | source
 end
 
 if command -q devcontainer
