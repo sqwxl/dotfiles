@@ -1,0 +1,11 @@
+[user]
+name = "Nicolas Epstein"
+email = "nilueps@gmail.com"
+
+[ui]
+editor = "nvim"
+
+[merge-tools.diffconflicts]
+program = "nvim"
+merge-args = ["-c", "JJDiffConflicts!", "$output", "$base", "$left", "$right"]
+merge-tool-edits-conflict-markers = true
