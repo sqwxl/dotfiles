@@ -2,7 +2,7 @@ alias n nvim
 set -gx EDITOR (which nvim)
 set -gx VISUAL $EDITOR
 
-abbr devim "devcontainer exec --workspace-folder . nvim"
+command -q devcontainer; and abbr nd "devcontainer exec --workspace-folder . nvim"
 
 abbr s sudo
 abbr se sudoedit
@@ -76,10 +76,6 @@ if status is-interactive
 end
 
 if command -q rv
-end
-
-if command -q devcontainer
-    abbr nd 'devcontainer up --workspace-folder . && devcontainer exec --workspace-folder . nvim'
 end
 
 fish_add_path --prepend --move $HOME/.npm-global/bin
