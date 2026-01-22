@@ -68,14 +68,13 @@ if command -q fnm
     fnm env --use-on-cd --corepack-enabled --version-file-strategy=recursive --shell fish | source
 end
 
+command -q claude; and alias c claude
+
 if status is-interactive
     command -q starship; and starship init fish | source
     command -q zoxide; and zoxide init fish | source
     command -q rv; and rv shell init fish | source; and rv shell completions fish | source
     alias zz "cd -"
-end
-
-if command -q rv
 end
 
 fish_add_path --prepend --move $HOME/.npm-global/bin
