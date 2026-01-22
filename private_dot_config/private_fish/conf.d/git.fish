@@ -1,4 +1,4 @@
-abbr g git
+alias g git
 abbr gg gitui
 
 abbr ga 'git add'
@@ -64,6 +64,7 @@ abbr gba 'git branch --all'
 
 abbr gco 'git checkout'
 abbr gcop 'git checkout --patch'
+abbr w 'git switch'
 abbr gsw 'git switch'
 abbr gswc 'git switch -c'
 
