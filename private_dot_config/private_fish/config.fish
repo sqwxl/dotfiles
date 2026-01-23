@@ -1,3 +1,7 @@
+fish_add_path --prepend --move $HOME/.npm-global/bin
+fish_add_path --prepend --move $HOME/.cargo/bin
+fish_add_path --prepend --move $HOME/.local/bin
+
 alias n nvim
 set -gx EDITOR (which nvim)
 set -gx VISUAL $EDITOR
@@ -76,9 +80,5 @@ if status is-interactive
     command -q rv; and rv shell init fish | source; and rv shell completions fish | source
     alias zz "cd -"
 end
-
-fish_add_path --prepend --move $HOME/.npm-global/bin
-fish_add_path --prepend --move $HOME/.cargo/bin
-fish_add_path --prepend --move $HOME/.local/bin
 
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
