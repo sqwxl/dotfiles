@@ -68,7 +68,7 @@ if command -q fnm
     fnm env --use-on-cd --corepack-enabled --version-file-strategy=recursive --shell fish | source
 end
 
-command -q claude; and alias c claude
+command -q claude; and abbr c claude
 
 if status is-interactive
     command -q starship; and starship init fish | source
