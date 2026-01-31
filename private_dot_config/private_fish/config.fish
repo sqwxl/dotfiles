@@ -83,6 +83,9 @@ if status is-interactive
     alias zz "cd -"
 end
 
-test -e "$HOME/.docker/bin"; and fish_add_path $HOME/.docker/bin
+if test -e "$HOME/.docker/bin"
+    fish_add_path $HOME/.docker/bin
+    command -q docker; and docker completion fish >$HOME/.config/fish/completions/docker.fish
+end
 
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
