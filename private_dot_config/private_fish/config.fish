@@ -83,4 +83,6 @@ if status is-interactive
     alias zz "cd -"
 end
 
+test -e "$HOME/.docker/bin"; and fish_add_path $HOME/.docker/bin
+
 source "$__fish_config_dir/functions/__auto_source_venv.fish"
