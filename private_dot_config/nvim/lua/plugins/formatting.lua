@@ -22,7 +22,6 @@ return {
 		formatters_by_ft = {
 			go = { "gofmt" },
 			just = { "just" },
-			nix = { "alejandra" },
 			xml = { "xmlformat" },
 		},
 		formatters = {
