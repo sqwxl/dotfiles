@@ -93,7 +93,9 @@ local keys = {
 	{ "]<Tab>", "<Cmd>tabnext<CR>", desc = "Go to previous tab" },
 
 	-- terminal
-	{ "<C-/>", function() Snacks.terminal() end, desc = "Toggle terminal", mode = { "n", "v", "i" } },
+	{ "<C-/>", function() Snacks.terminal(nil, {
+		shell = vim.uv.os_uname().sysname == "Darwin" and "/opt/homebrew/bin/fish",
+	}) end, desc = "Toggle terminal", mode = { "n", "v", "i" } },
 	{ "<C-/>", "<Cmd>close<CR>", desc = "Hide terminal", mode = "t" },
 
 	-- plugins
