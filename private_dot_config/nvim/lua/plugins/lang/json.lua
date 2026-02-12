@@ -27,8 +27,8 @@ return {
 		optional = true,
 		opts = {
 			formatters_by_ft = {
-				-- json = { "biome-check" },
-				-- jsonc = { "biome-check" },
+				json = { "prettierd" },
+				jsonc = { "prettierd" },
 			},
 		},
 	},
@@ -38,8 +38,8 @@ return {
 		optional = true,
 		opts = {
 			linters_by_ft = {
-				json = { "biomejs" },
-				jsonc = { "biomejs" },
+				json = { "jsonlint" },
+				jsonc = { "jsonlint" },
 			},
 		},
 	},

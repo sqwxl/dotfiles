@@ -43,7 +43,7 @@ return {
 				end,
 				default_settings = {
 					-- rust-analyzer language server configuration
-					["rust-analyzer"] = {
+					["rust_analyzer"] = {
 						cargo = {
 							allFeatures = true,
 							loadOutDirsFromCheck = true,
