@@ -5,13 +5,6 @@ return {
 		event = "VeryLazy",
 	},
 
-	-- Automatically add closing tags for HTML and JSX
-	{
-		"windwp/nvim-ts-autotag",
-		event = "LazyFile",
-		opts = { aliases = { htmldjango = "html" } },
-	},
-
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",

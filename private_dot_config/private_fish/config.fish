@@ -23,6 +23,8 @@ abbr weather 'curl -s "wttr.in/45.32,-72.42?nFQ"'
 
 abbr npmg "npm --global --prefix=$HOME/.npm-global"
 
+abbr czclaude "nvim ~/.claude/CLAUDE.md"
+
 if command -q chezmoi
     alias cz chezmoi
     abbr czedit "cz edit --apply "
