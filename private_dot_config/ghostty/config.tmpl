@@ -23,8 +23,8 @@ macos-option-as-alt = true
 {{ if eq .chezmoi.os "darwin" -}}
 keybind = shift+enter=text:\n
 {{- end }}
-keybind = shift+page_up=scroll_page_up
-keybind = shift+page_down=scroll_page_down
+keybind = shift+page_up=scroll_page_fraction:-0.5
+keybind = shift+page_down=scroll_page_down:0.5
 # c-tab is bound at the OS level for now...
 # keybind = unconsumed:ctrl+tab=unbind
 # keybind = unconsumed:ctrl+shift+tab=unbind
