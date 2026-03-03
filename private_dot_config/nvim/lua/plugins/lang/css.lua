@@ -1,3 +1,5 @@
+vim.lsp.enable("cssls")
+
 return {
 	{
 		"stevearc/conform.nvim",

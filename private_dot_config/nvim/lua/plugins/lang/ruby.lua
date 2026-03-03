@@ -1,4 +1,5 @@
 vim.lsp.config("ruby_lsp", {
+	cmd = { "rv", "run", "ruby", "-e", "load Gem.bin_path('ruby-lsp', 'ruby-lsp')" },
 	init_options = {
 		formatter = "standard",
 		linters = { "standard" },
