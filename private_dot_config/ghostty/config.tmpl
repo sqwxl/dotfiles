@@ -1,3 +1,6 @@
+{{- $fontSize := 13 }}
+{{- if eq .chezmoi.hostname "t14" }}{{ $fontSize = 10 }}{{ end }}
+
 {{ if lookPath "fish" }}command = {{ lookPath "fish"}}{{ end }}
 shell-integration-features = no-cursor
 
@@ -12,7 +15,7 @@ alpha-blending = native
 window-decoration = none
 gtk-titlebar = false
 gtk-titlebar-hide-when-maximized = true
-gtk-titlebar-style = tabs
+# gtk-titlebar-style = tabs
 {{- end }}
 
 window-height = 60
@@ -20,8 +23,9 @@ window-width = 100
 
 font-family = Jetbrains Mono
 font-family = Symbols Nerd Font
-font-size = 13
+font-size = {{ $fontSize }}
 font-feature = -calt, -liga, -dlig # disable ligatures
+adjust-cell-height = {{ mulf $fontSize 0.2 }}
 
 unfocused-split-opacity=0.8
 
