@@ -6,9 +6,13 @@ scrollbar = never
 
 theme = Gruvbox Dark
 {{ if eq .chezmoi.os "darwin" -}}
-alpha-blending = native
 window-colorspace = display-p3
+alpha-blending = native
+{{- else -}}
+gtk-titlebar = true
+gtk-titlebar-style = tabs
 {{- end }}
+
 window-height = 60
 window-width = 100
 
