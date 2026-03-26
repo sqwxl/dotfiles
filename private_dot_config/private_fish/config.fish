@@ -31,7 +31,7 @@ if command -q chezmoi
     abbr czsway "cz edit --apply ~/.config/sway/config"
     abbr czvim "cz edit --apply ~/.config/nvim/lua"
     abbr czfish "cz edit --apply ~/.config/fish/config.fish"
-    abbr czterm "cz edit --apply ~/.config/foot/foot.ini"
+    abbr czterm "cz edit --apply ~/.config/ghostty/config"
 end
 
 if test "$TERM" = foot -o "$TERM" = foot-extra
