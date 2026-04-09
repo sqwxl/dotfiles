@@ -67,7 +67,7 @@ abbr gco 'git checkout'
 abbr gcop 'git checkout --patch'
 abbr w 'git switch'
 abbr gsw 'git switch'
-abbr gswc 'git switch -c'
+abbr gsm 'git switch main'
 abbr g- 'git switch -'
 
 abbr gl 'git log --decorate --pretty=oneline --abbrev-commit'
