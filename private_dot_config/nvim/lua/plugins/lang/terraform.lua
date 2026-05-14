@@ -1,6 +1,3 @@
-vim.lsp.config("terraformls", {})
-vim.lsp.enable("terraformls")
-
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

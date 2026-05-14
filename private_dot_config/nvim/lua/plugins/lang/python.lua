@@ -1,33 +1,3 @@
-vim.lsp.config("basedpyright", {
-	settings = {
-		basedpyright = {
-			disableOrganizeImports = true, -- Using Ruff
-			analysis = {
-				typeCheckingMode = "basic",
-				autoImportCompletions = true,
-				diagnosticSeverityOverrides = {
-					reportAny = "none",
-					reportUnknownVariableType = "none",
-					reportUnknownMemberType = "none",
-					reportUnknownArgumentType = "none",
-					reportUnusedExpression = "none",
-					reportUnusedCallResult = "none",
-				},
-			},
-		},
-	},
-})
-vim.lsp.enable("basedpyright")
-
-vim.lsp.config("ruff", {
-	init_options = {
-		settings = {
-			lineLength = 160,
-		},
-	},
-})
-vim.lsp.enable("ruff")
-
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

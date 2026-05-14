@@ -1,6 +1,3 @@
-vim.lsp.config("bashls", {})
-vim.lsp.enable("bashls")
-
 return {
 	{
 		"stevearc/conform.nvim",

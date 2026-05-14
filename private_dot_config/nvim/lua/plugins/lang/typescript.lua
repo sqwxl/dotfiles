@@ -1,19 +1,5 @@
 local fts = { "javascript", "javascriptreact", "typescript", "typescriptreact", "typescript.tsx" }
 
-vim.lsp.config("ts_ls", {
-	init_options = {
-		-- plugins = {
-		-- 	{
-		-- 		name = "@vue/typescript-plugin",
-		-- 		location = vim.fs.joinpath(vim.g.npm_global_modules, "@vue/typescript-plugin"),
-		-- 		languages = { "javascript", "typescript", "vue" },
-		-- 	},
-		-- },
-	},
-	filetypes = fts,
-})
-vim.lsp.enable("ts_ls")
-
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
