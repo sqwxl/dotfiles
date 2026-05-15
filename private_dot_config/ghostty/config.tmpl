@@ -1,3 +1,4 @@
+# https://ghostty.org/docs/config
 {{ if lookPath "fish" }}command = {{ lookPath "fish"}}{{ end }}
 shell-integration-features = no-cursor
 
@@ -43,6 +44,7 @@ quit-after-last-window-closed = true
 
 macos-option-as-alt = true
 
+# https://ghostty.org/docs/config/keybind
 {{ if eq .chezmoi.os "darwin" -}}
 keybind = shift+enter=text:\n
 {{- end }}
@@ -57,6 +59,8 @@ keybind = shift+alt+c=goto_split:up
 keybind = shift+alt+t=goto_split:down
 keybind = shift+alt+h=goto_split:left
 keybind = shift+alt+n=goto_split:right
+keybind = ctrl+page_up=previous_tab
+keybind = ctrl+page_down=next_tab
 
 mouse-hide-while-typing = true
 copy-on-select = clipboard
