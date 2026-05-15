@@ -6,9 +6,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+  PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 
 # go
@@ -54,5 +53,8 @@ alias luamake=/home/nilueps/tmp/lua-language-server/3rd/luamake/luamake
 FNM_PATH="/var/home/sqwxl/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+fi
+
+if command -v fnm >/dev/null 2>&1; then
+  eval "$(fnm env)"
 fi
