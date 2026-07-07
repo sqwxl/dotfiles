@@ -1,7 +1,6 @@
 # https://ghostty.org/docs/config
 {{ if lookPath "fish" }}command = {{ lookPath "fish"}}{{ end }}
-shell-integration-features = no-cursor
-shell-integration-features = ssh-terminfo
+shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 
 scrollback-limit = 1000000000
 scrollbar = never
