@@ -31,8 +31,7 @@ font-family = Symbols Nerd Font
 font-size = {{ $fontSize }}
 font-feature = -calt, -liga, -dlig # disable ligatures
 
-background-opacity = 0.8
-unfocused-split-opacity=0.6
+unfocused-split-opacity=0.75
 
 desktop-notifications = false
 app-notifications = no-clipboard-copy
@@ -53,9 +52,21 @@ keybind = ctrl+enter=unbind
 keybind = shift+page_up=scroll_page_fractional:-0.5
 keybind = shift+page_down=scroll_page_fractional:0.5
 keybind = shift+ctrl+0=reset_font_size
-keybind = shift+ctrl+w>t=new_tab
-keybind = shift+ctrl+w>v=new_split:right
-keybind = shift+ctrl+w>s=new_split:down
+
+keybind = shift+ctrl+w=activate_key_table_once:win
+keybind = win/t=new_tab
+keybind = win/v=new_split:right
+keybind = win/s=new_split:down
+keybind = win/r=activate_key_table:resize
+
+keybind = resize/c=resize_split:up,20
+keybind = resize/t=resize_split:down,20
+keybind = resize/h=resize_split:left,20
+keybind = resize/n=resize_split:right,20
+keybind = resize/==equalize_splits
+keybind = resize/escape=deactivate_key_table
+keybind = resize/catch_all=ignore
+
 keybind = shift+alt+c=goto_split:up
 keybind = shift+alt+t=goto_split:down
 keybind = shift+alt+h=goto_split:left
