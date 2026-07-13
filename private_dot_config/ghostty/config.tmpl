@@ -2,7 +2,7 @@
 {{ if lookPath "fish" }}command = {{ lookPath "fish"}}{{ end }}
 shell-integration-features = no-cursor,ssh-env,ssh-terminfo
 
-scrollback-limit = 1000000000
+scrollback-limit = 100000000 # 100MB
 scrollbar = never
 
 theme = Gruvbox Dark
