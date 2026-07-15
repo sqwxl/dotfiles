@@ -1,5 +1,11 @@
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "codelldb" } },
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		optional = true,
 		opts = { ensure_installed = { "rust", "ron" } },
@@ -27,7 +33,6 @@ return {
 		"mrcjkb/rustaceanvim",
 		version = "^6",
 		lazy = false,
-		ft = { "rust" },
 		opts = {
 			server = {
 				on_attach = function(_, bufnr)
@@ -83,7 +88,7 @@ return {
 			},
 		},
 		config = function(_, opts)
-			vim.g.rustacean = vim.tbl_deep_extend("keep", vim.g.rustaceanvim or {}, opts or {})
+			vim.g.rustaceanvim = vim.tbl_deep_extend("force", vim.g.rustaceanvim or {}, opts or {})
 		end,
 	},
 

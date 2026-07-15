@@ -17,7 +17,7 @@ return {
 			kind_icons = Sqwxl.config.icons.kinds,
 		},
 
-		fuzzy = { implementation = "prefer_rust" },
+		fuzzy = { implementation = "prefer_rust_with_warning" },
 
 		completion = {
 			menu = {
@@ -74,37 +74,4 @@ return {
 			},
 		},
 	},
-	---@param opts blink.cmp.Config | { sources: { compat: string[] } }
-	config = function(_, opts)
-		-- check if we need to override symbol kinds
-		for _, provider in pairs(opts.sources.providers or {}) do
-			---@cast provider blink.cmp.SourceProviderConfig|{kind?:string}
-			if provider.kind then
-				local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-				local kind_idx = #CompletionItemKind + 1
-
-				CompletionItemKind[kind_idx] = provider.kind
-				---@diagnostic disable-next-line: no-unknown
-				CompletionItemKind[provider.kind] = kind_idx
-
-				---@type fun(ctx: blink.cmp.Context, items: blink.cmp.CompletionItem[]): blink.cmp.CompletionItem[]
-				local transform_items = provider.transform_items
-				---@param ctx blink.cmp.Context
-				---@param items blink.cmp.CompletionItem[]
-				provider.transform_items = function(ctx, items)
-					items = transform_items and transform_items(ctx, items) or items
-					for _, item in ipairs(items) do
-						item.kind = kind_idx or item.kind
-						item.kind_icon = Sqwxl.config.icons.kinds[item.kind_name] or item.kind_icon or nil
-					end
-					return items
-				end
-
-				-- Unset custom prop to pass blink.cmp validation
-				provider.kind = nil
-			end
-		end
-
-		require("blink.cmp").setup(opts)
-	end,
 }

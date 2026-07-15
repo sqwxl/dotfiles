@@ -158,11 +158,8 @@ local keys = {
 	{ "gI", function() Snacks.picker.lsp_implementations() end, desc = "Go to implementation" },
 	{ "gy", function() Snacks.picker.lsp_type_definitions() end, desc = "Go to type definition" },
 	{ "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature help" },
-	{ "<C-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help" },
 	{ "<Leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = {"n","v"} },
 	{ "<Leader>cA", function() vim.lsp.buf.code_action({ apply = true, context = { only = {"source"}, diagnostics = {} } }) end, desc = "Source action" },
-	{ "<Leader>cc", vim.lsp.codelens.run, desc = "Run code lens", mode = {"n", "v"} },
-	{ "<Leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & display codelens" },
 	{ "<Leader>r", vim.lsp.buf.rename, desc = "Rename symbol" },
 	{
 		"<Leader>R",
