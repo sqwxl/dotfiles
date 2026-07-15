@@ -1,5 +1,11 @@
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "prettierd", "biome", "stylelint" } },
+	},
+
+	{
 		"stevearc/conform.nvim",
 		optional = true,
 		opts = {

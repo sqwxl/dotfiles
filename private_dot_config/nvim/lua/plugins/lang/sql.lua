@@ -7,6 +7,12 @@ vim.g.loaded_sql_completion = true
 
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "sql-formatter", "sqlfluff" } },
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		optional = true,
 		opts = { ensure_installed = { "sql" } },

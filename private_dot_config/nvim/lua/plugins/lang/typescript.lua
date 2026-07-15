@@ -2,17 +2,17 @@ local fts = { "javascript", "javascriptreact", "typescript", "typescriptreact", 
 
 return {
 	{
-		"nvim-treesitter/nvim-treesitter",
-		optional = true,
-		opts = { ensure_installed = { "typescript", "javascript", "tsx", "jsx" } },
-	},
-
-	{
 		"mason-org/mason.nvim",
 		optional = true,
 		opts = {
-			ensure_installed = { "js-debug-adapter" },
+			ensure_installed = { "eslint_d", "prettierd", "js-debug-adapter" },
 		},
+	},
+
+	{
+		"nvim-treesitter/nvim-treesitter",
+		optional = true,
+		opts = { ensure_installed = { "typescript", "javascript", "tsx", "jsx" } },
 	},
 
 	{

@@ -6,6 +6,12 @@ end)
 
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "prettier", "markdownlint-cli2" } },
+	},
+
+	{
 		"stevearc/conform.nvim",
 		optional = true,
 		opts = {

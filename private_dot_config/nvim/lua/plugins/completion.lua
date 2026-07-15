@@ -37,8 +37,7 @@ return {
 			},
 		},
 
-		-- experimental signature help support
-		-- signature = { enabled = true },
+		signature = { enabled = true },
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer", "lazydev" },

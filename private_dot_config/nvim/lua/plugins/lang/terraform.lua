@@ -1,5 +1,13 @@
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = {
+			ensure_installed = { "tflint" },
+		},
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = { ensure_installed = { "terraform", "hcl" } },
 	},

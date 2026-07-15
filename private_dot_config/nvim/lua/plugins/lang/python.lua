@@ -1,4 +1,11 @@
 return {
+
+	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "ruff", "debugpy" } },
+	},
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		optional = true,

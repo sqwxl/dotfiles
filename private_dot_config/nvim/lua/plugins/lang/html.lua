@@ -16,6 +16,14 @@
 
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = {
+			ensure_installed = { "djlint", "htmlhint", "prettierd" },
+		},
+	},
+
+	{
 		"stevearc/conform.nvim",
 		optional = true,
 		opts = {

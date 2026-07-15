@@ -1,5 +1,11 @@
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = { ensure_installed = { "prettierd", "jsonlint" } },
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		optional = true,
 		opts = { ensure_installed = { "json5" } },

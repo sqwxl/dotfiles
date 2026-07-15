@@ -9,6 +9,14 @@ vim.filetype.add({
 
 return {
 	{
+		"mason-org/mason.nvim",
+		optional = true,
+		opts = {
+			ensure_installed = { "hadolint" },
+		},
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter",
 		optional = true,
 		opts = { ensure_installed = { "dockerfile" } },

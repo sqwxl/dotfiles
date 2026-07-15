@@ -29,9 +29,6 @@ return {
 				on_apply = true,
 				on_watch = false,
 			},
-			telescope = {
-				select = { "<CR>" },
-			},
 		},
 		keys = {
 			{

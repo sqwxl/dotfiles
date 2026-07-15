@@ -47,6 +47,32 @@ vim.lsp.config("basedpyright", {
 	},
 })
 
+vim.lsp.config("gopls", {
+	settings = {
+		gopls = {
+			gofumpt = true,
+			staticcheck = true,
+			usePlaceholders = true,
+			completeUnimported = true,
+			analyses = {
+				nilness = true,
+				unusedparams = true,
+				unusedwrite = true,
+				useany = true,
+			},
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
+			codelenses = { generate = true, test = true, tidy = true, upgrade_dependency = true },
+		},
+	},
+})
+
 vim.lsp.config("harper_ls", {
 	settings = {
 		["harper-ls"] = {
@@ -163,7 +189,7 @@ vim.lsp.enable({
 	"docker_compose_language_service",
 	"dockerls",
 	"fish_lsp",
-	"fsautocomplete",
+	"gopls",
 	"jsonls",
 	"lua_ls",
 	"ruby_lsp",

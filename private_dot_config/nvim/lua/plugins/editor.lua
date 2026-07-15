@@ -619,7 +619,7 @@ return {
 		end,
 	},
 
-	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git", enabled = false },
+	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git" },
 
 	{
 		"lukas-reineke/indent-blankline.nvim",

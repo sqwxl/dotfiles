@@ -23,7 +23,6 @@ return {
 		end,
 		notify_on_error = true,
 		formatters_by_ft = {
-			go = { "gofmt" },
 			just = { "just" },
 			xml = { "xmlformat" },
 		},
