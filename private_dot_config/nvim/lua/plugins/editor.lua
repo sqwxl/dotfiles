@@ -22,7 +22,7 @@ return {
 		lazy = false,
 		---@type snacks.Config
 		opts = {
-			indent = { enabled = false },
+			indent = { enabled = true },
 			bigfile = { enabled = true },
 			dashboard = {
 				enabled = true,
@@ -619,10 +619,11 @@ return {
 		end,
 	},
 
-	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git" },
+	{ url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim.git", enabled = false },
 
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		enabled = false,
 		dependencies = "tpope/vim-sleuth", -- set shiftwidth and tabstop automatically.
 		event = "LazyFile",
 		main = "ibl",
