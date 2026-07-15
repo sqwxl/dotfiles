@@ -666,8 +666,8 @@ return {
 	},
 
 	{
-		"norcalli/nvim-colorizer.lua", -- highlight color strings
-		event = "VeryLazy",
+		"catgoose/nvim-colorizer.lua", -- highlight color strings
+		event = "BufReadPre",
 		---@module "colorizer"
 		opts = { "html", "jinja", "eruby", "htmldjango", "markdown", "css", "scss", "sass" },
 		keys = { { "<Leader>uH", "<Cmd>ColorizerToggle<CR>", desc = "Toggle color highlighting" } },

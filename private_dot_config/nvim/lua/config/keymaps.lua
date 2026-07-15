@@ -71,6 +71,7 @@ local keys = {
 	{ "]b", "<Cmd>bnext<CR>", desc = "Next buffer" },
 	{ "gn", "<Cmd>bnext<CR>", desc = "Next buffer" },
 	{ "<Leader>bD", "<Cmd>bd<CR>", desc = "Delete buffer" },
+	{ "<Leader>bi", function() Snacks.bufdelete.invisible() end, desc = "Delete invisible buffers" },
 	{ "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", desc = "Redraw / Clear hlsearch / Diff Update" },
 
 	-- move to windows
