@@ -1,6 +1,6 @@
 {
   "lastChangelogVersion": "0.80.7",
-  "theme": "dark",
+  "theme": "gruvbox-dark",
   "defaultProvider": "deepseek",
   "defaultModel": "deepseek-v4-pro"
 }
