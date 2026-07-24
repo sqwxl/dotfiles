@@ -1,11 +1,15 @@
 {{- $email := promptStringOnce . "email" "Email address" -}}
 {{- $baseSourceDir := ".local/share/chezmoi" -}}
 
-{{- if (and (and (eq .chezmoi.os "linux") .chezmoi.osRelease.ostreeVersion) (not (hasPrefix "/var" .chezmoi.homeDir))) -}}
-    sourceDir = {{ joinPath "/var" .chezmoi.homeDir $baseSourceDir | quote }}
-{{- else -}}
-    sourceDir = {{ joinPath .chezmoi.homeDir $baseSourceDir | quote }}
-{{- end }}
+{{- $sourceDir := joinPath .chezmoi.homeDir $baseSourceDir -}}
+
+{{- if eq .chezmoi.os "linux" -}}
+    {{- $ostree := index .chezmoi.osRelease "ostreeVersion" | default "" -}}
+    {{- if and $ostree (not (hasPrefix "/var" .chezmoi.homeDir)) -}}
+        {{- $sourceDir = joinPath "/var" .chezmoi.homeDir $baseSourceDir -}}
+    {{- end -}}
+{{- end -}}
+sourceDir = {{ $sourceDir | quote }}
 
 [git]
 autoCommit = true
