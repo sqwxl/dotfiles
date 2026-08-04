@@ -33,6 +33,7 @@ if command -q chezmoi
     abbr czfish "cz edit --apply ~/.config/fish/config.fish"
     abbr czterm "cz edit --apply ~/.config/ghostty/config"
 end
+abbr czclaude "n ~/.claude/CLAUDE.md"
 
 if test "$TERM" = foot -o "$TERM" = foot-extra
     abbr ssh "TERM=linux command ssh"
@@ -83,11 +84,10 @@ if status is-interactive
     command -q zoxide; and zoxide init fish | source
     command -q rv; and rv shell init fish | source; and rv shell completions fish | source
     alias zz "cd -"
+    __auto_source_venv
 end
 
 if test -e "$HOME/.docker/bin"
     fish_add_path $HOME/.docker/bin
     command -q docker; and docker completion fish >$HOME/.config/fish/completions/docker.fish
 end
-
-source "$__fish_config_dir/functions/__auto_source_venv.fish"
