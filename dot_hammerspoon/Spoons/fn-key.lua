@@ -1,4 +1,5 @@
--- Map F13 to the macOS fn / Globe modifier.
+-- Map F13 to the macOS fn / Globe modifier, and put Swish's direction keys on
+-- h/c/t/n.
 --
 -- ZMK cannot emit Apple's real fn: it lives on the Apple vendor HID page, which
 -- ZMK's report descriptor does not declare (zmkfirmware/zmk#1938). &kp GLOBE
@@ -20,17 +21,37 @@ local types = hs.eventtap.event.types
 local FN_MASK = hs.eventtap.event.rawFlagMasks.secondaryFn
 local FN_KEYCODE = hs.keycodes.map.f13
 
-M.debug = true
+M.debug = false
 M.held = false
 
 -- Swish's arrow hotkeys are a fixed enum (arrows/hjkl/ijkl/wasd/dvorak), so
 -- arbitrary letters cannot be configured there. Leave Swish on "hjkl" and
--- rewrite the keycodes here instead. h is already left, so it is not listed.
-local DIRECTIONS = {
-	[hs.keycodes.map.c] = hs.keycodes.map.k, -- up
-	[hs.keycodes.map.t] = hs.keycodes.map.j, -- down
-	[hs.keycodes.map.n] = hs.keycodes.map.l, -- right
-}
+-- rewrite keycodes here instead.
+--
+-- Targets are hardcoded because Swish matches raw virtual keycodes, which are
+-- QWERTY positions regardless of the active layout. Sources go through
+-- hs.keycodes.map so they follow the layout: on the Kinesis the host is US and
+-- ZMK supplies Dvorak, on the built-in the host layout is Dvorak itself, and
+-- the physical key differs between the two.
+local SWISH = { left = 4, down = 38, up = 40, right = 37 }
+local BINDINGS = { h = "left", c = "up", t = "down", n = "right" }
+
+local directions = {}
+
+local function rebuildDirections()
+	directions = {}
+
+	for character, direction in pairs(BINDINGS) do
+		local keycode = hs.keycodes.map[character]
+
+		if keycode then
+			directions[keycode] = SWISH[direction]
+		end
+	end
+end
+
+rebuildDirections()
+hs.keycodes.inputSourceChanged(rebuildDirections)
 
 -- Rebuild the current modifier state with fn forced on or off, so a real
 -- Cmd or Shift held across the F13 press survives the synthetic event.
@@ -68,8 +89,12 @@ M.tap = hs.eventtap.new({ types.keyDown, types.keyUp, types.flagsChanged }, func
 
 	if M.held then
 		addFn(e)
+	end
 
-		local direction = DIRECTIONS[e:getKeyCode()]
+	-- Keyed off the flag rather than M.held, so the built-in keyboard's real fn
+	-- gets the same remap as the forged one.
+	if e:getFlags().fn then
+		local direction = directions[e:getKeyCode()]
 
 		if direction then
 			if M.debug then
@@ -77,8 +102,6 @@ M.tap = hs.eventtap.new({ types.keyDown, types.keyUp, types.flagsChanged }, func
 			end
 
 			e:setKeyCode(direction)
-		elseif M.debug then
-			print(("fn-key: %d -> %s"):format(e:getKeyCode(), hs.inspect(e:getFlags())))
 		end
 	end
 
