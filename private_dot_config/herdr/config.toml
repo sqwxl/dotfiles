@@ -1,0 +1,30 @@
+[terminal]
+default_shell = "fish"
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+
+[ui]
+agent_panel_sort = "spaces"
+show_agent_labels_on_pane_borders = false
+
+[keys]
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+t"
+focus_pane_up = "prefix+c"
+focus_pane_right = "prefix+n"
+
+navigate_pane_left = "h"
+navigate_pane_down = "t"
+navigate_pane_up = "c"
+navigate_pane_right = "n"
+
+# displaced by the movement keys above
+new_tab = "prefix+shift+t"
+rename_tab = "prefix+shift+c"
+next_tab = "prefix+>"
+previous_tab = "prefix+<"
