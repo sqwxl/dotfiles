@@ -13,16 +13,15 @@ agent_panel_sort = "spaces"
 show_agent_labels_on_pane_borders = false
 
 [keys]
-# ctrl+b collided with emacs backward-char. ctrl+; sidesteps the ctrl+letter
-# space entirely; it needs the kitty keyboard protocol, which ghostty provides.
-prefix = "ctrl+semicolon"
+# Needs the kitty keyboard protocol, which ghostty provides.
+prefix = "ctrl+comma"
 
 focus_pane_left = "prefix+h"
 focus_pane_down = "prefix+t"
 focus_pane_up = "prefix+c"
 focus_pane_right = "prefix+n"
 
-last_pane = "prefix+semicolon"
+last_pane = "prefix+comma"
 
 navigate_workspace_up = "k"
 navigate_workspace_down = "j"
