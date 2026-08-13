@@ -147,10 +147,13 @@ vim.lsp.config("ruff", {
 })
 
 vim.lsp.config("ts_ls", {
-	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "typescript.tsx" },
+	-- Drops upstream's legacy `typescript.tsx`; nvim detects .tsx as `typescriptreact`.
+	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 })
 
 vim.lsp.config("yamlls", {
+	-- Drops upstream's `yaml.helm-values`; nothing here detects it.
+	filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
 	-- Have to add this for yamlls to understand that we support line folding
 	capabilities = {
 		textDocument = {

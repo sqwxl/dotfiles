@@ -21,6 +21,10 @@ return {
 
 		completion = {
 			menu = {
+				-- In prose, buffer words match on nearly every keystroke. Manual `<C-space>` only.
+				auto_show = function()
+					return not Sqwxl.config.is_prose()
+				end,
 				max_height = 30,
 				draw = {
 					treesitter = { "lsp" },
@@ -30,7 +34,9 @@ return {
 				auto_show = true,
 			},
 			ghost_text = {
-				enabled = true,
+				enabled = function()
+					return not Sqwxl.config.is_prose()
+				end,
 			},
 			accept = {
 				auto_brackets = { enabled = true },
@@ -49,6 +55,10 @@ return {
 				},
 
 				buffer = {
+					-- Short prefixes in prose match too many words to be worth ranking.
+					min_keyword_length = function()
+						return Sqwxl.config.is_prose() and 5 or 0
+					end,
 					opts = {
 						get_bufnrs = function()
 							return vim.tbl_filter(function(bufnr)

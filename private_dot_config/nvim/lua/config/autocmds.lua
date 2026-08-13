@@ -90,7 +90,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Wrap and check for spell in text filetypes",
 	group = augroup("wrap_spell"),
-	pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+	pattern = Sqwxl.config.prose_filetypes,
 	callback = function()
 		-- skip special buffers
 		if vim.bo.buftype ~= "" then

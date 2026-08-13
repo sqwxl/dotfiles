@@ -1,4 +1,4 @@
-local fts = { "javascript", "javascriptreact", "typescript", "typescriptreact", "typescript.tsx" }
+local fts = { "javascript", "javascriptreact", "typescript", "typescriptreact" }
 
 return {
 	{

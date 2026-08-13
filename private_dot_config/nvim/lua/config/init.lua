@@ -5,6 +5,13 @@ local M = {}
 
 Sqwxl.config = M
 
+M.prose_filetypes = { "gitcommit", "markdown", "plaintex", "text", "typst" }
+
+---@param ft? string defaults to the current buffer's filetype
+function M.is_prose(ft)
+	return vim.tbl_contains(M.prose_filetypes, ft or vim.bo.filetype)
+end
+
 M.icons = {
 	misc = {
 		dots = "󰇘",

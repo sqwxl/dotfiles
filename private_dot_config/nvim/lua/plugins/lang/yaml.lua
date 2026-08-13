@@ -1,3 +1,13 @@
+vim.filetype.add({
+	filename = {
+		[".gitlab-ci.yml"] = "yaml.gitlab",
+		[".gitlab-ci.yaml"] = "yaml.gitlab",
+	},
+	pattern = {
+		[".*/%.gitlab/.*%.ya?ml"] = "yaml.gitlab",
+	},
+})
+
 return {
 	{
 		"mason-org/mason.nvim",
@@ -16,6 +26,9 @@ return {
 		opts = {
 			formatters_by_ft = {
 				yaml = { "yamlfix" },
+				-- conform matches the full dotted filetype, so these need their own entries
+				["yaml.docker-compose"] = { "yamlfix" },
+				["yaml.gitlab"] = { "yamlfix" },
 			},
 		},
 	},
