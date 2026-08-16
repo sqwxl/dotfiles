@@ -259,6 +259,16 @@ return {
 			vim.list_extend(opts.event_handlers, {
 				{ event = events.FILE_MOVED, handler = on_move },
 				{ event = events.FILE_RENAMED, handler = on_move },
+				{ event = events.BEFORE_GIT_STATUS, handler = function(args)
+					-- skip ignored files: --ignored=traditional makes git enumerate every
+					-- ignored artifact (target/, dist/, node_modules/) -- ~160k entries here
+					for i, arg in ipairs(args.status_args) do
+						if vim.startswith(arg, "--ignored=") then
+							args.status_args[i] = "--ignored=no"
+							break
+						end
+					end
+				end },
 			})
 			require("neo-tree").setup(opts)
 			vim.api.nvim_create_autocmd("TermClose", {
