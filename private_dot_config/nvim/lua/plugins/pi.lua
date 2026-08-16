@@ -15,7 +15,7 @@ return {
 		end
 
 		local PANEL_FT = "pi-panel"
-		local WIDTH = 0.5
+		local WIDTH = 0.30 -- mirrors claudecode.nvim split_width_percentage default
 
 		-- Live channel for a terminal buffer (dead terminals drop out of getchannellist)
 		local function panel_channel(buf)
