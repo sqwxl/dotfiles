@@ -52,25 +52,27 @@ return {
 				focus_panel(existing)
 				return
 			end
-			vim.cmd("botright vsplit | terminal " .. cmd)
+			vim.cmd("botright vsplit")
+			vim.cmd("enew")
 			local buf = vim.api.nvim_get_current_buf()
 			vim.b[buf].pi_panel = cwd -- marker; no synthetic name (would leak into pi-ide's <editor> block)
-			vim.bo[buf].filetype = PANEL_FT
 
-			-- keep the panel pinned to the bottom even when unfocused (output otherwise freezes).
-			-- TextChangedT fires on terminal output; TextChanged only fires when the buffer is active.
-			-- pcall makes it a no-op while focused, where native terminal auto-scroll applies.
-			vim.api.nvim_create_autocmd("TextChangedT", {
-				buffer = buf,
-				callback = function(args)
-					local win = vim.fn.bufwinid(args.buf)
-					if win == -1 then
-						return
-					end
-					pcall(vim.api.nvim_win_set_cursor, win, { vim.api.nvim_buf_line_count(args.buf), 0 })
-				end,
+			-- Pin to the bottom even when unfocused: scroll on every output chunk via
+			-- termopen's job callbacks (fire regardless of focus; autocmd events do not).
+			-- set_cursor works on an unfocused terminal (verified: cursor 1 -> 501); pcall
+			-- makes it a no-op while focused, where native terminal auto-scroll applies.
+			local function scroll_bottom()
+				local win = vim.fn.bufwinid(buf)
+				if win == -1 then return end
+				pcall(vim.api.nvim_win_set_cursor, win, { vim.api.nvim_buf_line_count(buf), 0 })
+			end
+			vim.fn.termopen(cmd, {
+				cwd = cwd,
+				on_stdout = function() scroll_bottom() end,
+				on_stderr = function() scroll_bottom() end,
 			})
 
+			vim.bo[buf].filetype = PANEL_FT
 			vim.api.nvim_win_set_width(0, math.floor(vim.o.columns * WIDTH))
 			vim.cmd("startinsert")
 		end
