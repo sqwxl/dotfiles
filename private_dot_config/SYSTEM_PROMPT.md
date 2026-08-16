@@ -94,3 +94,10 @@ unambiguous. This governs user-facing text and docs, not chat style.
 - Name files kebab-case.
 - Always use brackets with conditionals: `if (cond) { result; }` not
   `if (cond) result;`.
+
+## Dotfiles
+
+Many of my configuration files are tracked by chezmoi.
+Before making edits to a configuration file, check if it chezmoi-managed.
+If it is, edit the source not the target.
+Be aware that chezmoi is set to autoCommit and autoPush on write commands, so take care never to commit sensitive information.
