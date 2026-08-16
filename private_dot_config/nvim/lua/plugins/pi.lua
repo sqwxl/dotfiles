@@ -73,6 +73,20 @@ return {
 			})
 
 			vim.bo[buf].filetype = PANEL_FT
+
+			-- single Esc passes through to pi's TUI (abort); double Esc exits terminal mode.
+			-- Overrides the global t-mode <Esc> mapping (keymaps.lua) for this buffer.
+			local esc_timer = (vim.uv or vim.loop).new_timer()
+			vim.keymap.set("t", "<Esc>", function()
+				if esc_timer:is_active() then
+					esc_timer:stop()
+					vim.cmd("stopinsert")
+				else
+					esc_timer:start(200, 0, function() end)
+					return "<esc>"
+				end
+			end, { buffer = buf, expr = true, desc = "Double Esc exits terminal mode" })
+
 			vim.api.nvim_win_set_width(0, math.floor(vim.o.columns * WIDTH))
 			vim.cmd("startinsert")
 		end
