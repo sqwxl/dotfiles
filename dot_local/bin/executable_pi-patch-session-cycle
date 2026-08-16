@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Make pi's C-p (model cycle) session-only: it must not write defaultModel
+# to ~/.pi/agent/settings.json. Explicit /model selection still persists.
+# pi rewrites its dist on update — re-run this after every `pi update`.
+set -euo pipefail
+
+FILE="${1:-}"
+if [[ -z "$FILE" ]]; then
+	for root in "$(npm root -g 2>/dev/null || true)" "$HOME/Projects/.npm-global/lib/node_modules"; do
+		candidate="$root/@earendil-works/pi-coding-agent/dist/core/agent-session.js"
+		if [[ -f "$candidate" ]]; then
+			FILE="$candidate"
+			break
+		fi
+	done
+fi
+
+if [[ -z "$FILE" || ! -f "$FILE" ]]; then
+	echo "agent-session.js not found" >&2
+	echo "pass the path as \$1" >&2
+	exit 1
+fi
+
+if grep -q "pi-session-cycle" "$FILE"; then
+	echo "already patched: $FILE"
+	exit 0
+fi
+
+perl -0pi -e '
+  s/appendModelChange\(next\.model\.provider, next\.model\.id\);\n        this\.settingsManager\.setDefaultModelAndProvider\(next\.model\.provider, next\.model\.id\);/appendModelChange(next.model.provider, next.model.id);\n        \/\/ pi-session-cycle: session-only model cycle (C-p must not change defaultModel)/;
+  s/appendModelChange\(nextModel\.provider, nextModel\.id\);\n        this\.settingsManager\.setDefaultModelAndProvider\(nextModel\.provider, nextModel\.id\);/appendModelChange(nextModel.provider, nextModel.id);\n        \/\/ pi-session-cycle: session-only model cycle (C-p must not change defaultModel)/;
+' "$FILE"
+
+node --check "$FILE"
+echo "patched: $FILE"
