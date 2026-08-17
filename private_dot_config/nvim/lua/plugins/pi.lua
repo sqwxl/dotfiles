@@ -57,32 +57,31 @@ return {
 			local buf = vim.api.nvim_get_current_buf()
 			vim.b[buf].pi_panel = cwd -- marker; no synthetic name (would leak into pi-ide's <editor> block)
 
-			-- Pin to the bottom even when unfocused: scroll on every output chunk via
-			-- termopen's job callbacks (fire regardless of focus; autocmd events do not).
-			-- set_cursor works on an unfocused terminal (verified: cursor 1 -> 501); pcall
-			-- makes it a no-op while focused, where native terminal auto-scroll applies.
-			-- Pin only while the buffer tail is visible. nvim has no native terminal
-			-- scrollback -- the buffer IS the scrollback -- so an unconditional pin fights
-			-- the user's own scrolling: every TUI redraw or stream chunk yanks the view
-			-- back down while pi runs. WinScrolled fires for any window scroll, focused or
-			-- not, so it tracks the user's scrolling; pinning resumes at the tail again.
 			local pinned = true
 			vim.api.nvim_create_autocmd("WinScrolled", {
 				callback = function(args)
 					local win = tonumber(args.match)
-					if win == nil or vim.api.nvim_win_get_buf(win) ~= buf then return end
+					if win == nil or vim.api.nvim_win_get_buf(win) ~= buf then
+						return
+					end
 					pinned = vim.fn.line("w$", win) >= vim.api.nvim_buf_line_count(buf)
 				end,
 			})
 			local function scroll_bottom()
 				local win = vim.fn.bufwinid(buf)
-				if win == -1 or not pinned then return end
+				if win == -1 or not pinned then
+					return
+				end
 				pcall(vim.api.nvim_win_set_cursor, win, { vim.api.nvim_buf_line_count(buf), 0 })
 			end
 			vim.fn.termopen(cmd, {
 				cwd = cwd,
-				on_stdout = function() scroll_bottom() end,
-				on_stderr = function() scroll_bottom() end,
+				on_stdout = function()
+					scroll_bottom()
+				end,
+				on_stderr = function()
+					scroll_bottom()
+				end,
 			})
 
 			vim.bo[buf].filetype = PANEL_FT
