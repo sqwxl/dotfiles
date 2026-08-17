@@ -78,6 +78,7 @@ local keys = {
 	{ "<S-Tab>", "<C-w>W", desc = "Go to window above/left", mode = { "n", "v" } },
 	{ "<Tab>", "<C-w>w", desc = "Go to window below/right", mode = { "n", "v" } },
 	{ "<C-i>", "<Tab>", mode = { "n", "v" } }, -- CTRL-I can be mapped separately from <Tab>, on the condition that both keys are mapped, otherwise the mapping applies to both.
+<<<<<<< Updated upstream
 	{ "<A-h>", "<C-w>h", desc = "Move left" },
 	{ "<A-h>", "<C-Bslash><C-N><C-w>h", desc = "Move left", mode = { "t", "i", "v" } },
 	{ "<A-n>", "<C-w>l", desc = "Move right" },
@@ -86,6 +87,25 @@ local keys = {
 	{ "<A-c>", "<C-Bslash><C-N><C-w>k", desc = "Move up", mode = { "t", "i", "v" } },
 	{ "<A-t>", "<C-w>j", desc = "Move down" },
 	{ "<A-t>", "<C-Bslash><C-N><C-w>j", desc = "Move down", mode = { "t", "i", "v" } },
+||||||| Stash base
+	{ "<A-h>", "<C-w>h", desc = "Move left" },
+	{ "<A-h>", "<C-Bslash><C-N><C-w>h", desc = "Move left", mode = { "t", "i" } },
+	{ "<A-n>", "<C-w>l", desc = "Move right" },
+	{ "<A-n>", "<C-Bslash><C-N><C-w>l", desc = "Move right", mode = { "t", "i" } },
+	{ "<A-c>", "<C-w>k", desc = "Move up" },
+	{ "<A-c>", "<C-Bslash><C-N><C-w>k", desc = "Move up", mode = { "t", "i" } },
+	{ "<A-t>", "<C-w>j", desc = "Move down" },
+	{ "<A-t>", "<C-Bslash><C-N><C-w>j", desc = "Move down", mode = { "t", "i" } },
+=======
+	{ "<A-h>", "<C-w>h", desc = "Move left", mode = { "n", "v" } },
+	{ "<A-h>", "<C-Bslash><C-N><C-w>h", desc = "Move left", mode = { "t", "i" } },
+	{ "<A-n>", "<C-w>l", desc = "Move right", mode = { "n", "v" } },
+	{ "<A-n>", "<C-Bslash><C-N><C-w>l", desc = "Move right", mode = { "t", "i" } },
+	{ "<A-c>", "<C-w>k", desc = "Move up", mode = { "n", "v" } },
+	{ "<A-c>", "<C-Bslash><C-N><C-w>k", desc = "Move up", mode = { "t", "i" } },
+	{ "<A-t>", "<C-w>j", desc = "Move down", mode = { "n", "v" } },
+	{ "<A-t>", "<C-Bslash><C-N><C-w>j", desc = "Move down", mode = { "t", "i" } },
+>>>>>>> Stashed changes
 
 	-- tabs
 	{ "<Leader><Tab>", "<Cmd>tabnew<CR>", desc = "New tab" },

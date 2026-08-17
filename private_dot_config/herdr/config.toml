@@ -8,6 +8,15 @@ enabled = false
 name = "gruvbox"
 auto_switch = false
 
+# gruvbox ships surface_dim == panel_bg (#282828), so the focused space/agent row
+# fill is invisible; bg2 makes it show (it also colors the sidebar dividers).
+# subtext0 (#d5c4a1) sat one step from text (#ebdbb2), leaving bold as the only
+# cue on unfocused rows - fg4 vs fg0 widens that gap.
+[theme.custom]
+surface_dim = "#504945"
+subtext0 = "#a89984"
+text = "#fbf1c7"
+
 [ui]
 agent_panel_sort = "spaces"
 show_agent_labels_on_pane_borders = false
@@ -36,6 +45,10 @@ new_tab = "prefix+shift+t"
 rename_tab = "prefix+shift+c"
 next_tab = "prefix+>"
 previous_tab = "prefix+<"
+
+# the parser has no pageup/pagedown, so arrows stand in for them
+previous_agent = "prefix+up"
+next_agent = "prefix+down"
 
 toggle_sidebar = "prefix+e" # default is prefix+b
 edit_scrollback = ""        # unused

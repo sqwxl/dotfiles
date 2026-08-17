@@ -3,6 +3,7 @@ local LazyUtil = require("lazy.core.util")
 ---@class util: LazyUtilCore
 ---@field config SqwxlConfig
 ---@field plugin util.plugin
+---@field reading util.reading
 ---@field treesitter util.treesitter
 local M = {}
 

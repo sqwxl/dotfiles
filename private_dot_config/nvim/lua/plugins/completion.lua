@@ -23,7 +23,7 @@ return {
 			menu = {
 				-- In prose, buffer words match on nearly every keystroke. Manual `<C-space>` only.
 				auto_show = function()
-					return not Sqwxl.config.is_prose()
+					return not (vim.b.reading or Sqwxl.config.is_prose())
 				end,
 				max_height = 30,
 				draw = {
@@ -35,7 +35,7 @@ return {
 			},
 			ghost_text = {
 				enabled = function()
-					return not Sqwxl.config.is_prose()
+					return not (vim.b.reading or Sqwxl.config.is_prose())
 				end,
 			},
 			accept = {

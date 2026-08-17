@@ -112,6 +112,11 @@ return {
 					end
 				end,
 			}):map("<Leader>ut")
+			Snacks.toggle({
+				name = "Reading",
+				get = Sqwxl.reading.enabled,
+				set = Sqwxl.reading.set,
+			}):map("<Leader>uR")
 			Snacks.toggle.zen():map("<Leader>uz")
 			Snacks.toggle.zoom():map("<Leader>wm"):map("<Leader>uZ")
 			Snacks.toggle({
