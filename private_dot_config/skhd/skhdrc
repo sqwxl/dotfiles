@@ -1,0 +1,6 @@
+ alt + ctrl - t : $HOME/Scripts/ghostty-new-window
+
+# cmd - pageup : yabay -m space --focus prev
+# cmd - pagedown : yabay -m space --focus next
+# shift + cmd - pageup : yabai -m window --space prev
+# shift + cmd - pagedown : yabai -m window --space next

@@ -43,8 +43,8 @@ navigate_pane_right = "n"
 # displaced by the movement keys above
 new_tab = "prefix+shift+t"
 rename_tab = "prefix+shift+c"
-next_tab = "prefix+>"
-previous_tab = "prefix+<"
+next_tab = "prefix+tab"
+previous_tab = "prefix+shift+tab"
 
 # the parser has no pageup/pagedown, so arrows stand in for them
 previous_agent = "prefix+up"
