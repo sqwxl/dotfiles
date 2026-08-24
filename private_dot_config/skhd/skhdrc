@@ -4,3 +4,8 @@
 # cmd - pagedown : yabay -m space --focus next
 # shift + cmd - pageup : yabai -m window --space prev
 # shift + cmd - pagedown : yabai -m window --space next
+
+cmd - pageup   : skhd -k "ctrl - left"
+cmd - pagedown : skhd -k "ctrl - right"
+cmd + shift - pageup   : skhd -k "ctrl + shift - left"
+cmd + shift - pagedown : skhd -k "ctrl + shift - right"
