@@ -21,6 +21,13 @@ local types = hs.eventtap.event.types
 local FN_MASK = hs.eventtap.event.rawFlagMasks.secondaryFn
 local FN_KEYCODE = hs.keycodes.map.f13
 
+-- Real fn's virtual keycode. A flagsChanged carries the keycode of the
+-- modifier that changed; without it downstream state machines see 0 ("a").
+local FN_MODIFIER_KEYCODE = 0x3F
+
+-- Nobody holds fn this long, so a hold still open after it is a lost keyUp.
+local HOLD_TIMEOUT = 5
+
 M.debug = false
 M.held = false
 
@@ -55,14 +62,44 @@ hs.keycodes.inputSourceChanged(rebuildDirections)
 
 -- Rebuild the current modifier state with fn forced on or off, so a real
 -- Cmd or Shift held across the F13 press survives the synthetic event.
-local function postFnTransition(down)
-	local raw = hs.eventtap.checkKeyboardModifiers(true)._raw or 0
+--
+-- Derived from the F13 event by copy() rather than built with newEvent(), so it
+-- inherits that event's source, keyboard type and device-dependent modifier
+-- bits. A newEvent() has no source at all, which is a plausible reason a
+-- downstream state machine would mistrack it.
+local function postFnTransition(down, source)
+	local raw = source and source:rawFlags() or (hs.eventtap.checkKeyboardModifiers(true)._raw or 0)
 	raw = down and (raw | FN_MASK) or (raw & ~FN_MASK)
 
-	hs.eventtap.event.newEvent():setType(types.flagsChanged):rawFlags(raw):post()
+	local event = source and source:copy() or hs.eventtap.event.newEvent()
+
+	event:setType(types.flagsChanged):rawFlags(raw):setKeyCode(FN_MODIFIER_KEYCODE):post()
 
 	if M.debug then
-		print(("fn-key: flagsChanged fn=%s raw=0x%X"):format(tostring(down), raw))
+		print(("fn-key: post fn=%s raw=0x%X copied=%s"):format(tostring(down), raw, tostring(source ~= nil)))
+	end
+end
+
+local function release()
+	if M.held then
+		M.held = false
+		postFnTransition(false)
+	end
+end
+
+-- A keyUp lost to secure input, a focus steal, or a tap disabled by timeout
+-- otherwise leaves fn stuck on every keystroke until the key is tapped again.
+--
+-- ponytail: fixed timeout rather than tracking the physical key; there is no
+-- API to read F13's state. Raise HOLD_TIMEOUT if a real hold ever trips it.
+local function armDeadman(down)
+	if M.deadman then
+		M.deadman:stop()
+		M.deadman = nil
+	end
+
+	if down then
+		M.deadman = hs.timer.doAfter(HOLD_TIMEOUT, release)
 	end
 end
 
@@ -81,10 +118,21 @@ M.tap = hs.eventtap.new({ types.keyDown, types.keyUp, types.flagsChanged }, func
 		-- ZMK repeats keyDown while held; only transition on real edges.
 		if down ~= M.held then
 			M.held = down
-			postFnTransition(down)
+			postFnTransition(down, e)
+			armDeadman(down)
 		end
 
 		return true, {}
+	end
+
+	if eventType == types.flagsChanged and M.debug then
+		print(
+			("fn-key: saw flagsChanged raw=0x%X keycode=%d held=%s"):format(
+				e:rawFlags(),
+				e:getKeyCode(),
+				tostring(M.held)
+			)
+		)
 	end
 
 	if M.held then
@@ -113,10 +161,7 @@ M.tap:start()
 -- A keyUp lost to sleep or lock leaves fn stuck on every keystroke.
 M.watcher = hs.caffeinate.watcher.new(function(event)
 	if event == hs.caffeinate.watcher.screensDidLock or event == hs.caffeinate.watcher.systemWillSleep then
-		if M.held then
-			M.held = false
-			postFnTransition(false)
-		end
+		release()
 	end
 end)
 
