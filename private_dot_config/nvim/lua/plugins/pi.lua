@@ -1,7 +1,10 @@
 return {
-	"ldelossa/pi-ide.nvim",
+	"sqwxl/pi-ide.nvim",
+	branch = "feat/diff-review-option",
 	config = function()
-		require("pi-ide").setup() -- auto-starts the MCP server; pi connects via lockfile+cwd
+		-- diff_review_enabled = false: pi applies write/edit proposals directly,
+		-- no diff tab. See https://github.com/ldelossa/pi-ide.nvim/pull/...
+		require("pi-ide").setup({ diff_review_enabled = false }) -- auto-starts the MCP server; pi connects via lockfile+cwd	require("pi-ide").setup() -- auto-starts the MCP server; pi connects via lockfile+cwd
 
 		-- Config-side override (survives pi-ide.nvim updates): never report terminal
 		-- buffers (the pi panel itself) as the "current file"; hold the last real buffer.
