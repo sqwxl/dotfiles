@@ -55,6 +55,7 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 
 - Plan before implementing. Read relevant files, explain findings, present the plan, and wait for approval before writing code.
 - Always start with a short plan before editing: what files will change and why.
+- When revising a plan; always wait for confirmation before jumping into implementation
 - Ask before large refactors or new dependencies.
 - After changes, run relevant tests if available.
 - Explain what changed in plain language.
