@@ -2,3 +2,5 @@
 
 cmd - pageup   : skhd -k "ctrl - left"
 cmd - pagedown : skhd -k "ctrl - right"
+
+alt + ctrl - p : open -a "1Password"
