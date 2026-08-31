@@ -57,7 +57,6 @@ end
 
 if command -q bat
     alias cat bat
-    abbr --position anywhere -- --help "--help | bat --plain --language help"
     set -gx MANPAGER "sh -c 'col -bx | bat --plain --language man'"
     set -gx BAT_THEME gruvbox-dark
 end
