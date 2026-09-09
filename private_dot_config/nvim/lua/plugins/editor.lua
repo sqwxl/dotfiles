@@ -5,7 +5,9 @@ return {
 		---@module "gruvbox"
 		---@type GruvboxConfig
 		opts = {
-			transparent_mode = false,
+			-- Let ghostty's background through, so nvim tracks its light/dark theme
+			-- switch instead of painting gruvbox's own bg over it.
+			transparent_mode = true,
 			overrides = {
 				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
 				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
