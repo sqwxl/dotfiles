@@ -6,13 +6,21 @@ default_shell = "fish"
 enabled = false
 
 [theme]
-# The "terminal" theme maps dim text to ANSI 7 and dim fills to ANSI 8. Both are
-# light colors, so they only read as text over a dark background. Against Light
-# Owl's #fbfbfb they land at 1.82:1 and 2.56:1, well under the 4.5:1 that text
-# needs. So inherit only in dark mode and use a real light theme otherwise.
+# Herdr's "terminal" theme maps dim text to ANSI 7, which is a light color in
+# every light terminal theme, so it cannot carry text on a light background.
+# Hence a purpose-built light theme rather than inheriting ghostty's palette.
 auto_switch = true
-dark_name = "terminal"
+dark_name = "gruvbox"
 light_name = "one-light"
+
+# [theme.custom] is one flat table, not one per mode, so anything here has to
+# hold up against both one-light (#fafafa) and gruvbox (#282828).
+[theme.custom]
+# Unfocused sidebar and tab labels. one-light ships #a0a1a7, only 2.47:1 on its
+# own background; no light theme herdr ships clears 3:1. This mid-grey is the
+# best simultaneous fit: 3.68:1 on light, 3.84:1 on dark. Costs dark mode some
+# contrast (gruvbox's own #a89984 is 5.30:1) to get light mode over 3:1.
+subtext0 = "#828282"
 
 [ui]
 agent_panel_sort = "spaces"
