@@ -1,6 +1,7 @@
 fish_add_path --prepend --move $HOME/.npm-global/bin
 fish_add_path --prepend --move $HOME/.cargo/bin
 fish_add_path --prepend --move $HOME/.local/bin
+fish_add_path $HOME/.docker/bin
 
 alias n nvim
 set -gx EDITOR (which nvim)
