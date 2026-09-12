@@ -88,3 +88,5 @@ if test -e "$HOME/.docker/bin"
     fish_add_path $HOME/.docker/bin
     command -q docker; and docker completion fish >$HOME/.config/fish/completions/docker.fish
 end
+
+ulimit -n 4096

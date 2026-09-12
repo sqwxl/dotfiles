@@ -478,7 +478,7 @@ return {
 		},
 		event = "LazyFile",
 		opts = {
-			attach_mode = "window",
+			attach_mode = "global",
 			backends = { "lsp", "treesitter", "markdown", "man" },
 			layout = {
 				resize_to_content = false,
