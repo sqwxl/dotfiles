@@ -13,7 +13,6 @@ local keys = {
 	{ "<Esc>", function() vim.cmd("noh") if vim.snippet then vim.snippet.stop() end return "<Esc>" end, expr = true, desc = "Escape and Clear hlsearch", mode = { "i", "n", "s" } },
 	{ "<C-c>", "<Esc>", mode = { "i", "n", "s" }, remap = true },
 	{ "<Esc>", "<C-Bslash><C-n>", mode = "t" },
-	{ "<CR>", ":", silent = false, desc = "Command line" },
 	{ "<Leader>N", "<Cmd>enew<CR>", desc = "New file" },
 	{ "<C-s>", "<Cmd>w<CR><Esc>", desc = "Save file", mode = { "i", "x", "n", "s" } },
 
