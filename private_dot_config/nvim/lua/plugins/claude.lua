@@ -5,6 +5,8 @@ return {
 		terminal_cmd = vim.env.HOME .. "/.local/bin/claude",
 		diff_opts = {
 			keep_terminal_focus = false,
+			open_in_new_tab = true,
+			hide_terminal_in_new_tab = false,
 		},
 	},
 	keys = {

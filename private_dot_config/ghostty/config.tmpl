@@ -26,7 +26,11 @@ window-height = 30
 {{- $fontSize := 13 }}
 {{- if eq .chezmoi.hostname "t14" }}{{ $fontSize = 10 }}{{ end }}
 
+{{ if eq .chezmoi.os "darwin" -}}
+font-family = Maple Mono
+{{- else -}}
 font-family = Jetbrains Mono
+{{- end }}
 font-family = Symbols Nerd Font
 font-size = {{ $fontSize }}
 font-feature = -calt, -liga, -dlig # disable ligatures

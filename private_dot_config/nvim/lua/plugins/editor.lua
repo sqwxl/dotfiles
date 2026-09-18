@@ -9,6 +9,7 @@ return {
 			-- switch instead of painting gruvbox's own bg over it.
 			transparent_mode = true,
 			overrides = {
+				Visual = { link = "PmenuSbar" },
 				WindowPickerStatusLine = { link = "GruvboxBlueBold" },
 				WindowPickerStatusLineNC = { link = "GruvboxAqua" },
 				WindowPickerWinBar = { link = "GruvboxBlueBold" },
