@@ -8,7 +8,7 @@ return {
 			diff_split_width_percentage = 0.25,
 		},
 		diff_opts = {
-			keep_terminal_focus = false,
+			keep_terminal_focus = true,
 			open_in_new_tab = true,
 			hide_terminal_in_new_tab = false,
 		},
