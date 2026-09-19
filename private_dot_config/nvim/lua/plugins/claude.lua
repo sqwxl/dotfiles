@@ -9,6 +9,38 @@ return {
 			hide_terminal_in_new_tab = false,
 		},
 	},
+	init = function()
+		-- Land on the first hunk instead of line 1.
+		vim.api.nvim_create_autocmd("User", {
+			pattern = "ClaudeCodeDiffOpened",
+			group = vim.api.nvim_create_augroup("ClaudeDiffJump", { clear = true }),
+			callback = function(args)
+				local win = args.data and args.data.diff_window
+				if not (win and vim.api.nvim_win_is_valid(win)) then
+					return
+				end
+
+				vim.schedule(function()
+					if not vim.api.nvim_win_is_valid(win) then
+						return
+					end
+
+					-- `auto_insert` starts insert mode for the terminal sharing
+					-- this tab; a diff is read first, so land in normal mode.
+					vim.cmd("stopinsert")
+
+					vim.api.nvim_win_call(win, function()
+						vim.cmd("normal! gg")
+						-- `]c` from inside the first hunk would skip to the second.
+						if vim.fn.diff_hlID(1, 1) <= 0 then
+							vim.cmd("normal! ]c")
+						end
+						vim.cmd("normal! zt")
+					end)
+				end)
+			end,
+		})
+	end,
 	keys = {
 		{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
 		{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },

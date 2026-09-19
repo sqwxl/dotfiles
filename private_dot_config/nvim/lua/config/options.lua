@@ -57,8 +57,8 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.wrap = false
 opt.linebreak = true -- Wrap lines at convenient points
-opt.scrolloff = 10
-opt.sidescrolloff = 8
+opt.scrolloff = 4
+opt.sidescrolloff = 4
 
 -- Integrations
 opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard -- only set clipboard if not in ssh, to make sure the OSC 52
