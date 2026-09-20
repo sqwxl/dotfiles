@@ -35,11 +35,11 @@ return {
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
 		build = function()
 			require("lazy").load({ plugins = { "markdown-preview.nvim" } })
 			vim.fn["mkdp#util#install"]()
 		end,
-		ft = { "markdown" },
 		opts = function()
 			local cmd
 			-- native
@@ -62,6 +62,7 @@ return {
 				cmd
 			))
 
+			vim.g.mkdp_auto_close = 0
 			vim.g.mkdp_browserfunc = "OpenMarkdownPreview"
 		end,
 		config = function()
