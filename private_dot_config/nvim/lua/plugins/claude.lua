@@ -10,7 +10,7 @@ return {
 		diff_opts = {
 			keep_terminal_focus = true,
 			open_in_new_tab = true,
-			hide_terminal_in_new_tab = false,
+			hide_terminal_in_new_tab = true,
 		},
 	},
 	init = function()
