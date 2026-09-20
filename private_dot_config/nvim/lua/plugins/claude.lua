@@ -5,7 +5,7 @@ return {
 		terminal_cmd = vim.env.HOME .. "/.local/bin/claude",
 		terminal = {
 			split_width_percentage = 0.4,
-			diff_split_width_percentage = 0.25,
+			-- diff_split_width_percentage = 0.25,
 		},
 		diff_opts = {
 			keep_terminal_focus = true,
