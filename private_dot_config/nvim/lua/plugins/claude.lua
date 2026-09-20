@@ -29,10 +29,6 @@ return {
 						return
 					end
 
-					-- `auto_insert` starts insert mode for the terminal sharing
-					-- this tab; a diff is read first, so land in normal mode.
-					vim.cmd("stopinsert")
-
 					vim.api.nvim_win_call(win, function()
 						vim.cmd("normal! gg")
 						-- `]c` from inside the first hunk would skip to the second.
