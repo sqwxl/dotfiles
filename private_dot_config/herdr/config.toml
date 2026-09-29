@@ -6,15 +6,9 @@ default_shell = "fish"
 enabled = false
 
 [theme]
-# Herdr's "terminal" theme maps dim text to ANSI 7, which is a light color in
-# every light terminal theme, so it cannot carry text on a light background.
-# Hence a purpose-built light theme rather than inheriting ghostty's palette.
-auto_switch = true
+auto_switch = false
 dark_name = "gruvbox"
-light_name = "one-light"
 
-# [theme.custom] is one flat table, not one per mode, so anything here has to
-# hold up against both one-light (#fafafa) and gruvbox (#282828).
 [theme.custom]
 # Unfocused sidebar and tab labels. one-light ships #a0a1a7, only 2.47:1 on its
 # own background; no light theme herdr ships clears 3:1. This mid-grey is the
