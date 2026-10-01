@@ -167,4 +167,24 @@ end)
 
 M.watcher:start()
 
+-- macOS disables event taps for reasons the tap cannot observe (timeout, user
+-- input, secure input). Hammerspoon's eventtap module is supposed to re-enable
+-- itself but does not, so the forged fn quietly stops arriving and Swish's hjkl
+-- bindings stay dead until the config is reloaded. Do it from here instead.
+local wasEnabled
+
+M.watchdog = hs.timer.doEvery(2, function()
+	local enabled = M.tap:isEnabled()
+
+	if enabled ~= wasEnabled then
+		wasEnabled = enabled
+		print("fn-key: tap enabled=" .. tostring(enabled))
+	end
+
+	if not enabled then
+		release()
+		M.tap:start()
+	end
+end)
+
 return M
