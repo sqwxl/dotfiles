@@ -6,8 +6,10 @@ default_shell = "fish"
 enabled = false
 
 [theme]
+# auto_switch off, so this is the active theme. dark_name only applies when
+# auto_switch is true.
+name = "gruvbox"
 auto_switch = false
-dark_name = "gruvbox"
 
 [theme.custom]
 # Unfocused sidebar and tab labels. one-light ships #a0a1a7, only 2.47:1 on its
