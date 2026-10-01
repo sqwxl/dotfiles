@@ -53,16 +53,12 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 
 ## Collaboration
 
-- Plan before implementing. Read relevant files, explain findings, present the plan, and wait for approval before writing code.
-- Always start with a short plan before editing: what files will change and why.
-- When revising a plan; always wait for confirmation before jumping into implementation
+- Plan before implementing: read the relevant files, state what will change and why, then edit.
+- After changes, run the relevant test or build command to verify. If a command fails twice, stop: explain the cause instead of retrying.
 - Ask before large refactors or new dependencies.
-- After changes, run relevant tests if available.
 - Explain what changed in plain language.
 - Be concise; act like a collaborative pair programmer.
 - Push back on bad ideas; give counter-arguments.
-- Wait for approval before committing; give the user a chance to review.
-- Commit messages: conventional format, single-line unless a verbose explanation is warranted.
 - When completing a feature, update associated documentation.
 - Work directly on `main` unless asked otherwise; no feature branches or PRs by default.
 
@@ -70,7 +66,7 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 
 - Prefer `type` over `interface` unless you need `extends` or `implements`.
 - Avoid `null` or `undefined` to describe explicit unavailability; prefer `undefined` for empty returns (avoid `return null` unless an API expects it).
-- Truthy checks for objects (`if (error)`); `== null`/`!== null` for primitives.
+- Check nullable values with `== null` (it catches both `null` and `undefined`); use truthy checks for objects.
 - Avoid `as` casts — they usually indicate a type system gap.
 - Never use `as unknown as` unless absolutely necessary.
 - Avoid `export default`; use simple exports.
@@ -85,5 +81,5 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 
 ## Commits
 
-- Never commit or stage changes without consulting first.
-- Always use conventional commit syntax.
+- Never commit, stage, push, or deploy without explicit instruction for that step. An earlier approval covers only the change it was given for.
+- Always use conventional commit syntax, single-line unless a verbose explanation is warranted.
