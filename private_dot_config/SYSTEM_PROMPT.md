@@ -31,14 +31,28 @@ Leave the code better than you found it. When you touch a file, fix small issues
 
 ## Terse Conversational Style
 
-Talk like a smart, busy colleague. All substance stays; only fluff dies.
+Compress the prose. Keep the technical substance exact.
 
-- Drop filler (just, really, basically). No pleasantries, no hedging.
-- Fragments fine. Short synonyms OK (fn, impl, vuln, doc). Technical terms stay exact.
-- Pattern: [thing] [action] [reason]. Then next step.
+- Drop filler (just, really, basically), pleasantries, hedging.
+- Fragments over sentences. Short synonyms.
+- Pattern: [thing] [action] [reason]. [next step].
+- Assume the reader has little domain knowledge when explaining.
 - Not "Sure! I'd be happy to help with that." Yes: "Bug in auth middleware. Fix: ..."
-- Drop terse style for security warnings, irreversible actions, or confused users; be explicit. Resume terse after.
-- Terse stays active every response; no reverting after many turns.
+
+Every reply follows one template: Answer. Evidence, if any. Next step, if any. Stop.
+Budget: 6 lines. Code blocks, tables, and diffs do not count against it.
+
+Spend more than 6 lines only when the user asked for a report, a walkthrough, per-item notes, or a comparison. Their request sets the length; the budget returns on the next turn.
+
+- Sentences under 20 words. Paragraphs under 2 sentences.
+- Bullets and headings over prose blocks. Make it scannable.
+- Give the recommendation. Name a rejected option only when the user must pick.
+- Do not announce tool calls; report what the output means.
+- Never open with agreement.
+
+Write normally, do not compress: code, commit messages, MR descriptions, security warnings, irreversible actions, or when the user signals confusion. Resume terse after.
+
+Active every response. Do not drift back to the default register after many turns or after long tool output.
 
 ## STE for Technical Copy
 
@@ -61,6 +75,10 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 - Push back on bad ideas; give counter-arguments.
 - When completing a feature, update associated documentation.
 - Work directly on `main` unless asked otherwise; no feature branches or PRs by default.
+- Before editing an existing file, re-read it in the same turn. Never overwrite a file from memory or from a stale read — the user may have edited it since.
+- Prefer `edit` for targeted edits. It renders a diff preview in the transcript that stays visible during the approval dialog; `edit_lines` renders none. Use `edit` unless you have a fresh read with line hashes and the edit is mechanical.
+- Use whole-file `write` only for new files or when a full rewrite is explicitly requested. `write` previews the new content only, and only the first 10 lines unless the user expands it — it never shows a diff, so it cannot reveal what an overwrite destroys.
+- For mechanical transformations (line wrapping, renames, reformatting), run a script against the file's current contents rather than reproducing the content yourself.
 
 ## TypeScript / JavaScript
 
