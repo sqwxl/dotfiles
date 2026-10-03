@@ -44,17 +44,43 @@ local SWISH = { left = 4, down = 38, up = 40, right = 37 }
 local BINDINGS = { h = "left", c = "up", t = "down", n = "right" }
 
 local directions = {}
+local directionsLayout
+
+local function freshMap()
+	-- hs.keycodes.map is a snapshot that only hs.keycodes' own
+	-- NSTextInputContextKeyboardSelectionDidChangeNotification observer
+	-- refreshes, and that notification does not always fire. Read the layout
+	-- directly so a missed notification cannot leave stale keycodes behind.
+	local ok, map = pcall(hs.keycodes._cachemap)
+
+	if ok and map then
+		return map
+	end
+
+	return hs.keycodes.map
+end
 
 local function rebuildDirections()
+	local layout = hs.keycodes.currentLayout() or ""
+
+	if layout == directionsLayout then
+		return
+	end
+
+	directionsLayout = layout
 	directions = {}
 
+	local map = freshMap()
+
 	for character, direction in pairs(BINDINGS) do
-		local keycode = hs.keycodes.map[character]
+		local keycode = map[character]
 
 		if keycode then
 			directions[keycode] = SWISH[direction]
 		end
 	end
+
+	print(("fn-key: layout %s, directions %s"):format(layout, hs.inspect(directions)))
 end
 
 rebuildDirections()
@@ -167,13 +193,15 @@ end)
 
 M.watcher:start()
 
--- macOS disables event taps for reasons the tap cannot observe (timeout, user
--- input, secure input). Hammerspoon's eventtap module is supposed to re-enable
--- itself but does not, so the forged fn quietly stops arriving and Swish's hjkl
--- bindings stay dead until the config is reloaded. Do it from here instead.
+-- Two failures leave the binding dead until the config is reloaded: macOS
+-- disabling the tap, which hs.eventtap does not always recover from on its own,
+-- and a layout change whose notification never arrived, leaving stale keycodes
+-- in `directions`. Both are cheap to check, so re-check both.
 local wasEnabled
 
 M.watchdog = hs.timer.doEvery(2, function()
+	rebuildDirections()
+
 	local enabled = M.tap:isEnabled()
 
 	if enabled ~= wasEnabled then
