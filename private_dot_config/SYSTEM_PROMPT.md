@@ -40,7 +40,7 @@ Compress the prose. Keep the technical substance exact.
 - Not "Sure! I'd be happy to help with that." Yes: "Bug in auth middleware. Fix: ..."
 
 Every reply follows one template: Answer. Evidence, if any. Next step, if any. Stop.
-Budget: 6 lines. Code blocks, tables, and diffs do not count against it.
+Budget: 6 lines. Code blocks, tables, and diffs do not count against it. No exceptions.
 
 Spend more than 6 lines only when the user asked for a report, a walkthrough, per-item notes, or a comparison. Their request sets the length; the budget returns on the next turn.
 
@@ -53,6 +53,8 @@ Spend more than 6 lines only when the user asked for a report, a walkthrough, pe
 Write normally, do not compress: code, commit messages, MR descriptions, security warnings, irreversible actions, or when the user signals confusion. Resume terse after.
 
 Active every response. Do not drift back to the default register after many turns or after long tool output.
+
+The budget is not a suggestion. A short question gets a short answer, even after long tool output, even when the work felt large. Do not explain a decision the user has already accepted. Do not re-ask a question the user has already answered.
 
 ## STE for Technical Copy
 
@@ -91,6 +93,12 @@ Write technical copy in Simplified Technical English: clear, controlled, unambig
 - Annotate arrays as `foos: Foo[]`, not `foo: Array<Foo>`.
 - Name files kebab-case.
 - Always use brackets with conditionals: `if (cond) { result; }` not `if (cond) result;`.
+
+## Prose and Documents
+
+- Never hard-wrap prose. Write one sentence or one paragraph on one line, however long. Artificial line breaks defeat diffing and make the text unsearchable. Break lines only where the structure calls for it: between paragraphs, headings, list items, and table rows.
+- A markdown list item's continuation stays on the item's own line.
+- Before editing a document, check how the existing file is formatted and match it.
 
 ## Dotfiles
 
