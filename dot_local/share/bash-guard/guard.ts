@@ -11,7 +11,11 @@ type AstNode = {
 	readonly operator?: string;
 	readonly target?: AstNode;
 	readonly body?: { readonly text: string };
+	readonly script?: AstNode;
+	readonly commands?: readonly AstNode[];
 };
+
+type Check = (node: AstNode, raw: string) => string | undefined;
 
 const SCRATCH = /^\/(?:dev|tmp|private\/tmp|var\/folders)(?:\/|$)/;
 const DYNAMIC = /[$`]/;
@@ -24,6 +28,9 @@ const WRAPPERS = new Set(["sudo", "doas", "env", "nice", "nohup", "timeout", "co
 const INTERPRETER = /^(?:python\d*(?:\.\d+)*|pypy\d*|node(?:js)?|ruby|perl|php|bun|deno)$/;
 const CODE_FLAGS = new Set(["-c", "-e", "-E", "-p", "-r", "--eval", "--print"]);
 const GIT_APPLY_READ_ONLY = new Set(["--check", "--stat", "--numstat", "--summary"]);
+const PATTERN_KILLERS = new Set(["pkill", "killall"]);
+const PID_LOOKUPS = new Set(["pgrep", "pidof", "ps", "lsof"]);
+const LISTENER_ONLY = /^(?:-s)?TCP:LISTEN$/;
 
 const WRAPPER_VALUE_FLAGS: Record<string, ReadonlySet<string>> = {
 	sudo: new Set(["-u", "-g", "-p", "-C", "-h", "-r", "-t", "-U", "-D", "-R", "--user", "--group", "--prompt", "--close-from", "--host", "--role", "--type", "--other-user", "--command-timeout"]),
@@ -70,25 +77,30 @@ function basename(path: string): string {
 
 /** True when the command writes or rewrites a file through bash. */
 export function findBashFileEdit(command: string): string | undefined {
-	return findInScript(command, 0);
+	return findInScript(command, 0, checkFileEdit);
 }
 
-function findInScript(source: string, depth: number): string | undefined {
+/** True when the command kills processes picked by a pattern or a broad lookup rather than by explicit PID. */
+export function findMassKill(command: string): string | undefined {
+	return findInScript(command, 0, checkMassKill);
+}
+
+function findInScript(source: string, depth: number, check: Check): string | undefined {
 	if (depth > 6) {
 		return undefined;
 	}
 	try {
 		const root: unknown = parse(source);
-		return walk(root, source, depth);
+		return walk(root, source, depth, check);
 	} catch {
 		return undefined;
 	}
 }
 
-function walk(node: unknown, raw: string, depth: number): string | undefined {
+function walk(node: unknown, raw: string, depth: number, check: Check): string | undefined {
 	if (Array.isArray(node)) {
 		for (const child of node) {
-			const found = walk(child, raw, depth);
+			const found = walk(child, raw, depth, check);
 			if (found) {
 				return found;
 			}
@@ -99,17 +111,24 @@ function walk(node: unknown, raw: string, depth: number): string | undefined {
 		return undefined;
 	}
 	if (node.type === "Word") {
-		return node.parts ? walk(node.parts, raw, depth) : undefined;
+		return node.parts ? walk(node.parts, raw, depth, check) : undefined;
+	}
+
+	const own = check(node, raw);
+	if (own) {
+		return own;
 	}
 	if (node.type === "Command") {
-		const found = checkCommand(node, raw, depth);
-		if (found) {
-			return found;
+		const code = nestedScript(node);
+		const nested = code === undefined ? undefined : findInScript(code, depth + 1, check);
+		if (nested) {
+			return nested;
 		}
 	}
+
 	for (const child of Object.values(node)) {
 		if (isRecord(child)) {
-			const found = walk(child, raw, depth);
+			const found = walk(child, raw, depth, check);
 			if (found) {
 				return found;
 			}
@@ -118,14 +137,102 @@ function walk(node: unknown, raw: string, depth: number): string | undefined {
 	return undefined;
 }
 
-function checkCommand(command: AstNode, raw: string, depth: number): string | undefined {
+function commandWords(command: AstNode): AstNode[] {
 	const words: AstNode[] = command.name ? [command.name] : [];
 	for (const arg of [...(command.prefix ?? []), ...(command.suffix ?? [])]) {
 		if (arg.type === "Word") {
 			words.push(arg);
 		}
 	}
-	const resolved = resolveWrapped(words);
+	return words;
+}
+
+function nestedScript(command: AstNode): string | undefined {
+	const resolved = resolveWrapped(commandWords(command));
+	if (!resolved) {
+		return undefined;
+	}
+	const { base, args } = resolved;
+
+	if (base === "eval") {
+		const code = nodeValue(args[0]);
+		return code !== undefined && !DYNAMIC.test(code) ? code : undefined;
+	}
+	if (SHELLS.has(base)) {
+		return codeArgument(args) ?? (hasPositional(args) ? undefined : heredocBody(command));
+	}
+	return undefined;
+}
+
+function checkMassKill(node: AstNode): string | undefined {
+	if (node.type === "Pipeline") {
+		return checkKillPipeline(node);
+	}
+	if (node.type !== "Command") {
+		return undefined;
+	}
+	const resolved = resolveWrapped(commandWords(node));
+	if (!resolved) {
+		return undefined;
+	}
+	const { base, args } = resolved;
+
+	if (PATTERN_KILLERS.has(base)) {
+		return `'${base}' kills every process that matches a pattern`;
+	}
+	if (base !== "kill") {
+		return undefined;
+	}
+
+	const targets = killTargets(args);
+	if (targets.some((target) => nodeValue(target) === "-1")) {
+		return "'kill -1' signals every process you own";
+	}
+	const lookup = targets.map((target) => walk(target, "", 0, broadPidLookup)).find((found) => found !== undefined);
+	return lookup ? `'kill $(${lookup} ...)' kills every process the lookup matches` : undefined;
+}
+
+function checkKillPipeline(pipeline: AstNode): string | undefined {
+	const commands = pipeline.commands ?? [];
+	const killer = commands.findIndex((command) => resolveWrapped(commandWords(command))?.base === "kill");
+	if (killer < 1) {
+		return undefined;
+	}
+	const lookup = commands.slice(0, killer).map((command) => walk(command, "", 0, broadPidLookup)).find((found) => found !== undefined);
+	return lookup ? `'${lookup} | xargs kill' kills every process the lookup matches` : undefined;
+}
+
+function broadPidLookup(node: AstNode): string | undefined {
+	if (node.type !== "Command") {
+		return undefined;
+	}
+	const resolved = resolveWrapped(commandWords(node));
+	if (!resolved || !PID_LOOKUPS.has(resolved.base)) {
+		return undefined;
+	}
+	const listenerOnly = resolved.base === "lsof" && resolved.args.some((arg) => LISTENER_ONLY.test(nodeValue(arg) ?? ""));
+	return listenerOnly ? undefined : resolved.base;
+}
+
+function killTargets(args: AstNode[]): AstNode[] {
+	const first = nodeValue(args[0]);
+	let index = 0;
+	if (first === "-s" || first === "-n") {
+		index = 2;
+	} else if (first?.startsWith("-") && first !== "--") {
+		index = 1;
+	}
+	if (nodeValue(args[index]) === "--") {
+		index++;
+	}
+	return args.slice(index);
+}
+
+function checkFileEdit(command: AstNode, raw: string): string | undefined {
+	if (command.type !== "Command") {
+		return undefined;
+	}
+	const resolved = resolveWrapped(commandWords(command));
 	if (!resolved) {
 		return undefined;
 	}
@@ -157,15 +264,6 @@ function checkCommand(command: AstNode, raw: string, depth: number): string | un
 	}
 	if (codeInput && WRITE_MARKERS.some((marker) => marker.test(raw))) {
 		return `a '${base}' program writes files`;
-	}
-
-	if (base === "eval") {
-		const code = nodeValue(args[0]);
-		return code !== undefined && !DYNAMIC.test(code) ? findInScript(code, depth + 1) : undefined;
-	}
-	if (SHELLS.has(base)) {
-		const code = codeArgument(args) ?? (hasPositional(args) ? undefined : heredocBody(command));
-		return code === undefined ? undefined : findInScript(code, depth + 1);
 	}
 	return undefined;
 }

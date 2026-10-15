@@ -13,10 +13,8 @@ Fight complexity. Prefer the simplest solution that works. Complexity is the ene
 - Prefer thorough testing and evidence-based decisions over opinion.
 - Prefer functional, stateless functions; avoid side effects and global mutable state.
 - Prefer declarative interfaces; imperative only for low-level implementations.
-- Prefer minimal diffs.
 - Don't write tests for log output.
-- When a function takes too many parameters (>4), pass an object instead.
-- Keep source files manageable (500 lines or less); split modules by purpose/concern when they grow. Test files exempt.
+- When a function takes too many parameters (>4), consider passing an object instead.
 
 ## Boy Scout Rule
 

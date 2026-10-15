@@ -1,6 +1,6 @@
 local secrets = require("Spoons/secrets")
 
-local lastFocusState = nil
+local FOCUS_STATE_KEY = "dndLastFocusState"
 
 function updateSlackStatus(focusState)
 	local url = "https://slack.com/api/users.profile.set"
@@ -73,8 +73,9 @@ function checkFocusMode()
 		end
 	end
 
-	if lastFocusState ~= focusState then
-		lastFocusState = focusState
+	-- Persisted so a config reload doesn't count as a change and clear the status
+	if hs.settings.get(FOCUS_STATE_KEY) ~= focusState then
+		hs.settings.set(FOCUS_STATE_KEY, focusState)
 		print("🔔 Focus mode changed:", focusState and "ON" or "OFF")
 		updateSlackStatus(focusState)
 	end
