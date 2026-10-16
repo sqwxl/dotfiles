@@ -30,7 +30,7 @@
     "borderMuted": "bg2",
     "success": "green",
     "error": "red",
-    "warning": "yellow",
+    "warning": "orange",
     "muted": "gray",
     "dim": "bg4",
     "text": "fg1",
